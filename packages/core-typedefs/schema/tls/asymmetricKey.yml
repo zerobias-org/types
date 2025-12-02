@@ -1,0 +1,21 @@
+type: string
+enum:
+  - rsa
+  - rsa_pss
+  - dsa
+  - ec
+  - x25519
+  - x448
+  - ed25519
+  - ed448
+  - dh
+x-enum-descriptions:
+  - RSA
+  - RSA-PSS
+  - DSA
+  - EC
+  - X25519
+  - X448
+  - ED25519
+  - ED448
+  - DH

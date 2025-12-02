@@ -1,0 +1,16 @@
+type: object
+properties:
+  accessToken:
+    type: string
+    format: password
+  tenantId:
+    type: string
+    format: uuid
+    description: The tenant Id containing this application.
+  subscriptionId:
+    type: string
+    format: uuid
+    description: The subscription Id which uniquely identifies a Microsoft Azure subscription.
+required:
+  - accessToken
+  - tenantId

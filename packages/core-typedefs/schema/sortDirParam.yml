@@ -1,0 +1,7 @@
+name: sortDir
+in: query
+description: Array of directions to sort by. Must correspond with `sortBy`
+schema:
+  type: array
+  items:
+    $ref: './sortDirection.yml'

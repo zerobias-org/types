@@ -1,0 +1,16 @@
+type: object
+description: >-
+  Connection profile for Azure Storage services. 
+  accountOrConnectionString must be provided and is either a storage account or a connection string.
+  If a storage account is provided then an access key must be provided too.
+required:
+  - accountOrConnectionString
+properties:
+  accountOrConnectionString:
+    type: string
+    format: password
+    description: An Azure Storage account or a Connection String.
+  accessKey:
+    type: string
+    format: password
+    description: Access Key associated with the Azure Storage Account, leave unset if using a connection string.

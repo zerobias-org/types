@@ -1,0 +1,189 @@
+openapi: 3.0.3
+info:
+  version: 1.0.0
+  description: API to test Spectral validator functionality
+  title: '@zerobias-org/test-coretype-format'
+paths:
+  /examples:
+    get:
+      tags:
+        - example
+      summary: Example
+      operationId: getExamples
+      parameters:
+        - name: foo
+          in: query
+          schema:
+            type: string
+            format: foobar
+      responses:
+        "200":
+          description: Successful response
+          headers:
+            bad:
+              schema:
+                type: string
+                format: notaformat
+            badarray:
+              schema:
+                type: array
+                items: 
+                  type: string
+                  format: notaformat
+          content:
+            application/json:
+              schema:
+                description: List of examples
+                type: array
+                items:
+                  type: string
+                  format: timestamp
+  /files:
+    post:
+      tags:
+        - file
+      summary: >-
+        Uploads a file.
+      operationId: uploadFile
+      x-method-name: upload
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+                - file
+                - mimeType
+              properties:
+                file:
+                  type: string
+                  format: binary
+                mimeType:
+                  type: string
+                  format: mimeType
+components:
+  headers:
+    badHeader:
+      schema:
+        type: string
+        format: badHeaderFormat
+    badHeaderArray:
+      schema:
+        type: array
+        items:
+          type: string
+          format: badHeaderArrayFormat
+  parameters:
+    badParam:
+      name: badParam
+      in: path
+      description: This is a bad parameter
+      required: true
+      schema:
+        type: string
+        format: youwish
+    badParamArray:
+      name: badParam
+      in: path
+      description: This is a bad parameter
+      required: true
+      schema:
+        type: array
+        items:
+          type: string
+          format: youwish
+  responses:
+    BadResponse1:
+      description: This is a bad response
+      headers:
+        foo:
+          schema:
+            type: string
+            format: not
+        fooArray:
+          schema:
+            type: array
+            items:
+              type: string
+              format: not
+      content:
+        '*/*':
+          schema:
+            type: string
+            format: bad
+    BadResponse2:
+      description: This is a bad response
+      content:
+        '*/*':
+          schema:
+            type: array
+            items:
+              type: string
+              format: bad
+    BadResponse3:
+      description: This is a bad response
+      content:
+        '*/*':
+          schema:
+            type: object
+            properties:
+              timestamp:
+                type: string
+                format: timestamp
+    BadResponse4:
+      description: This is a bad response
+      content:
+        '*/*':
+          schema:
+            type: object
+            allOf:
+              - $ref: '#/components/schemas/Foo'
+              - type: string
+                format: timestamp
+    BadResponse5:
+      description: This is a bad response
+      content:
+        '*/*':
+          schema:
+            type: object
+            allOf:
+              - $ref: '#/components/schemas/Foo'
+              - type: array
+                items: 
+                  type: string
+                  format: timestamp
+    BadResponse6:
+      description: This is a bad response
+      content:
+        '*/*':
+          schema:
+            type: object
+            allOf:
+              - $ref: '#/components/schemas/Foo'
+              - type: object
+                properties:
+                  timestamp:
+                    type: string
+                    format: timestamp
+  schemas:
+    Foo:
+      type: object
+      properties:
+        name:
+          type: string
+        timestamp:
+          type: string
+          format: timestamp
+        size:
+          type: integer
+          format: int64
+    Bar:
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/Foo"
+        - type: object
+          properties:
+            timestamp:
+              type: string
+              format: timestamp

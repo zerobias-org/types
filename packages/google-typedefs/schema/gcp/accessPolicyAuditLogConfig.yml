@@ -1,0 +1,12 @@
+type: object
+description: >-
+  Provides the configuration for logging a type of permissions.
+properties:
+  logType:
+    $ref: './accessPolicyAuditLogConfigType.yml'
+  exemptedMembers:
+    type: array
+    description: >-
+      Specifies the identities that do not cause logging for this type of permission.
+    items:
+      type: string

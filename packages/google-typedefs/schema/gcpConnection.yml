@@ -1,0 +1,41 @@
+type: object
+allOf:
+  - $ref: './../node_modules/@zerobias-org/types-core/schema/oauthTokenProfile.yml'
+  - $ref: './../node_modules/@zerobias-org/types-core/schema/oauthTokenState.yml'
+  - type: object
+    x-oauth-providers:
+      - google.oauth
+    x-ui-required:
+      - clientEmail
+      - privateKey
+    x-ui-hidden:
+      - accessToken
+      - tokenType
+      - refreshToken
+      - expiresIn
+      - scope
+    description: >-
+      Connection Profile used to connect to Google Cloud Platform.
+      See https://cloud.google.com/docs/authentication/production#create_service_account.
+      If not using the `oauth` connection flow, one must provide both `clientEmail` and `privateKey` properties.
+    properties: 
+      url:
+        description: >-
+          The url of the Google Cloud Platform service.
+          See https://cloud.google.com/docs/authentication/production#auth-cloud-implicit-nodejs.
+        type: string
+        format: uri
+        example: https://www.googleapis.com
+      clientEmail:
+        description: >- 
+          The email of the client account. Provide this paramater when oauth is not used.
+        type: string
+        format: email
+        example: example@gmail.com
+      privateKey:
+        description: >- 
+          The private key of the client that is base64 encoded.
+          Provide this paramater when oauth is not used.
+        type: string
+        format: password
+        example: LS0tLS1CRUdJTiBS U0EgUFJJVkFURSBLRVktLS0tLQpNSUlCT2dJQkFBSkJBS2ozNEdreEZoRDkwdmNOTFlMSW5GRVg2UHB5MXRQZjlDbnpqNHA0V0dlS0xzMVB0OFF1CktVcFJLZkZMZlJZQzlBSUtqYkpUV2l0K0NxdmpXWXp2UXdFQ0F3RUFBUUpBSUpMaXhCeTJxcEZvUzREU21vRW0KbzNxR3kwdDZ6MDlBSUp0SCs1T2VSVjFiZStONGNEWUpLZmZHekRhODh2UUVOWmlSbTBHUnE2YStIUEdRTWQyawpUUUloQUtNU3Z6SUJubmk3b3QvT1NpZTJUbUpMWTRTd1RRQWV2WHlzRTJSYkZEWWRBaUVCQ1VFYVJRbk1uYnA3CjlteERYRGY2QVUwY04vUlBCamI5cVNIRGNXWkhHelVDSUcyRXM1OXo4dWdHckRZK3B4TFFud2ZvdGFkeGQrVXkKdi9PdzVUMHE1Z0lKQWlFQXlTNFJhSTlZRzhFV3gvMncwVDY3WlVWQXc4ZU9NQjZCSVVnMFhjdSszb2tDSUJPcwovNU9pUGdvVGRTeTdiY0Y5SUdwU0U4WmdHS3pnWVFWWmVOOTdZRTAwCi0tLS0tRU5EIFJTQSBQUklWQVRFIEtFWS0tLS0t

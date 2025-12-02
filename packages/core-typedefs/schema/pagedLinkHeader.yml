@@ -1,0 +1,11 @@
+description: >-
+  Links for paging results. The following types of links may be provided:
+    - `first`: a link to the first page of results
+    - `prev`: a link to retrieve the previous page of results
+    - `next`: a link to retrieve the next page of results
+    - `last`: a link to retrieve the last page of results
+  Not all of these links will be provided by every API response, so consumers should not assume they will be present.
+schema:
+  type: array
+  items:
+    type: string

@@ -1,0 +1,970 @@
+[
+  {
+    "name": "ipAddress",
+    "formats": [
+      "ip",
+      "ipv4",
+      "ipv6"
+    ],
+    "jsonType": "string",
+    "description": "An IPv4 or IPv6 Address",
+    "examples": [
+      "127.0.0.1",
+      "192.168.42.1",
+      "::1",
+      "fe80::e2d5:5eff:fe26:d69f"
+    ]
+  },
+  {
+    "name": "oid",
+    "jsonType": "string",
+    "description": "An infinitely divisible numbering scheme",
+    "examples": [
+      "1.2.3",
+      "100.1",
+      "88"
+    ]
+  },
+  {
+    "name": "phoneNumber",
+    "formats": [
+      "phone"
+    ],
+    "jsonType": "string",
+    "htmlInput": "tel",
+    "description": "A valid phone number",
+    "examples": [
+      "+46707123456",
+      "+40747676781",
+      "+12673103464"
+    ]
+  },
+  {
+    "name": "uuid",
+    "jsonType": "string",
+    "description": "A valid UUID",
+    "pattern": "^[0-9a-fA-F]{8}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{12}$",
+    "examples": [
+      "b7168568-af49-11ea-8b0b-47ecc4197a7f",
+      "9125a8dc-52ee-365b-a5aa-81b0b3681cf6",
+      "537c77d9-f318-4bbb-9468-1db4fee720df",
+      "fdda765f-fc57-5604-a269-52a7df8164ec"
+    ]
+  },
+  {
+    "name": "mimeType",
+    "jsonType": "string",
+    "description": "A valid MIME type",
+    "examples": [
+      "application/activemessage",
+      "application/json",
+      "application/pdf",
+      "video/mp4",
+      "text/vnd.gml"
+    ]
+  },
+  {
+    "name": "url",
+    "formats": [
+      "uri"
+    ],
+    "htmlInput": "url",
+    "jsonType": "string",
+    "description": "A valid URL",
+    "examples": [
+      "https://user:pass@sub.example.com:8080/p/a/t/h?query=string#hash",
+      "https://www.google.com",
+      "http://localhost:8080"
+    ]
+  },
+  {
+    "name": "email",
+    "jsonType": "string",
+    "description": "A valid email",
+    "pattern": "^(([^<>()\\[\\]\\.,;:\\s@\"]+(\\.[^<>()\\[\\]\\.,;:\\s@\"]+)*)|(\".+\"))@(([0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3})|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$",
+    "htmlInput": "email",
+    "examples": [
+      "john.doe01@gmail.com",
+      "kaitlyn@email.com",
+      "KateWales@email.eu",
+      "localhost@127.0.0.1"
+    ]
+  },
+  {
+    "name": "envType",
+    "jsonType": "string",
+    "isEnum": true,
+    "description": "An Environment type",
+    "examples": [
+      "prod",
+      "stage",
+      "uat",
+      "qa",
+      "dev",
+      "ci",
+      "lab"
+    ],
+    "path": "../schema/envType.yml"
+  },
+  {
+    "name": "geoCountryInfo",
+    "jsonType": "object",
+    "description": "An iso3166 Country",
+    "examples": [
+      {
+        "name": "Denmark",
+        "alpha2": "DK",
+        "alpha3": "DNK",
+        "code": "208",
+        "region": "Europe",
+        "regionCode": "150",
+        "subRegion": "Northern Europe",
+        "subRegionCode": "154",
+        "subdivisions": {
+          "DK-81": "Nordjylland",
+          "DK-82": "Midtjylland",
+          "DK-83": "Syddanmark",
+          "DK-84": "Hovedstaden",
+          "DK-85": "Sjaelland"
+        }
+      },
+      {
+        "name": "Australia",
+        "alpha2": "AU",
+        "alpha3": "AUS",
+        "code": "036",
+        "region": "Oceania",
+        "regionCode": "009",
+        "subRegion": "Australia and New Zealand",
+        "subRegionCode": "053",
+        "subdivisions": {
+          "AU-ACT": "Australian Capital Territory",
+          "AU-NSW": "New South Wales",
+          "AU-NT": "Northern Territory",
+          "AU-QLD": "Queensland",
+          "AU-SA": "South Australia",
+          "AU-TAS": "Tasmania",
+          "AU-VIC": "Victoria",
+          "AU-WA": "Western Australia"
+        }
+      }
+    ],
+    "path": "../schema/geo/geoCountryInfo.yml"
+  },
+  {
+    "name": "geoCountry",
+    "jsonType": "string",
+    "isEnum": true,
+    "extendedInfoType": "geoCountryInfo",
+    "description": "A country code",
+    "examples": [
+      "FR",
+      "DE"
+    ],
+    "path": "../schema/geo/geoCountry.yml"
+  },
+  {
+    "name": "geoPoint",
+    "jsonType": "object",
+    "description": "A GPS location",
+    "examples": [
+      {
+        "latitude": 40.7127281,
+        "longitude": -74.0060152
+      }
+    ],
+    "path": "../schema/geo/geoPoint.yml"
+  },
+  {
+    "name": "geoSubdivision",
+    "jsonType": "string",
+    "isEnum": true,
+    "description": "An ISO-3166-2 subdivision",
+    "examples": [
+      "US-TX",
+      "US-CA",
+      "DE-BE"
+    ],
+    "path": "../schema/geo/geoSubdivision.yml"
+  },
+  {
+    "name": "cloudProvider",
+    "jsonType": "string",
+    "isEnum": true,
+    "description": "A Cloud Provider",
+    "examples": [
+      "aws",
+      "azure",
+      "gcp"
+    ],
+    "path": "../schema/cloud/cloudProvider.yml"
+  },
+  {
+    "name": "cloudMarket",
+    "jsonType": "string",
+    "isEnum": true,
+    "extendedInfoType": "cloudMarketInfo",
+    "description": "A Cloud Market Code",
+    "examples": [
+      "aws_eu",
+      "azure_ca"
+    ],
+    "path": "../schema/cloud/cloudMarket.yml"
+  },
+  {
+    "name": "cloudMarketInfo",
+    "jsonType": "object",
+    "description": "A Cloud market",
+    "examples": [
+      {
+        "id": "aws_eu",
+        "cloudProvider": "aws",
+        "name": "Europe",
+        "sovereignty": "Data stored at rest in Europe",
+        "compliance": "International, regional, and industry-specific"
+      }
+    ],
+    "path": "../schema/cloud/cloudMarketInfo.yml"
+  },
+  {
+    "name": "cloudRegion",
+    "jsonType": "string",
+    "isEnum": true,
+    "extendedInfoType": "cloudRegionInfo",
+    "description": "A Cloud Region Code",
+    "examples": [
+      "azure_switzerlandwest",
+      "aws_eu_west_1"
+    ],
+    "path": "../schema/cloud/cloudRegion.yml"
+  },
+  {
+    "name": "cloudAvailabilityZone",
+    "jsonType": "string",
+    "isEnum": true,
+    "description": "A Cloud Availaility Zone Code",
+    "examples": [
+      "gcp_europe_west1_b",
+      "aws_use1_az1"
+    ],
+    "path": "../schema/cloud/cloudAvailabilityZone.yml"
+  },
+  {
+    "name": "cloudRegionInfo",
+    "jsonType": "object",
+    "description": "A Cloud Region",
+    "examples": [
+      {
+        "cloudMarketId": "azure_ch",
+        "code": "azure_switzerlandwest",
+        "name": "Azure Switzerland West",
+        "location": "Geneva",
+        "provider": "azure"
+      }
+    ],
+    "path": "../schema/cloud/cloudRegionInfo.yml"
+  },
+  {
+    "name": "hostname",
+    "jsonType": "string",
+    "description": "A hostname",
+    "pattern": "(?=^.{1,253}$)(^(((?!-)[a-zA-Z0-9-]{1,63}(?<!-))|((?!-)[a-zA-Z0-9-]{1,63}(?<!-)\\.)+[a-zA-Z]{2,63})\\.?$)",
+    "examples": [
+      "github.com",
+      "en.wikipedia.org"
+    ]
+  },
+  {
+    "name": "cidr",
+    "jsonType": "string",
+    "description": "Classless inter-domain routing (CIDR) formatted IP address",
+    "examples": [
+      "10.244.0.0/16",
+      "fe80::d833:6eff:fea5:1be7/64"
+    ]
+  },
+  {
+    "name": "semver",
+    "jsonType": "string",
+    "description": "A Semantic Version string",
+    "examples": [
+      "1.2.0-SNAPSHOT",
+      "1.11.0",
+      "1.0.0-alpha",
+      "1.0.0-alpha.1"
+    ]
+  },
+  {
+    "name": "language",
+    "jsonType": "string",
+    "isEnum": true,
+    "extendedInfoType": "languageInfo",
+    "extendedInfoValues": "languages",
+    "description": "An ISO-639-1 Language Code",
+    "examples": [
+      "et",
+      "en",
+      "de",
+      "lo",
+      "lt"
+    ],
+    "path": "../schema/language/language.yml"
+  },
+  {
+    "name": "locale",
+    "jsonType": "string",
+    "isEnum": true,
+    "description": "A locale language tag",
+    "examples": [
+      "ar_AE",
+      "en_US",
+      "en_CA"
+    ],
+    "path": "../schema/language/locale.yml"
+  },
+  {
+    "name": "languageInfo",
+    "jsonType": "object",
+    "description": "An ISO-639-3 Language Info",
+    "examples": [
+      {
+        "name": "English",
+        "alpha2": "en",
+        "alpha3": "eng",
+        "locales": {
+          "en_AU": "English (Australia)",
+          "en_CA": "English (Canada)",
+          "en_GB": "English (United Kingdom)",
+          "en_IE": "English (Ireland)",
+          "en_IN": "English (India)",
+          "en_MT": "English (Malta)",
+          "en_NZ": "English (New Zealand)",
+          "en_PH": "English (Philippines)",
+          "en_SG": "English (Singapore)",
+          "en_US": "English (United States)",
+          "en_ZM": "English (Zambia)"
+        }
+      },
+      {
+        "name": "Albanian",
+        "alpha2": "sq",
+        "alpha3": "sqi",
+        "locales": [
+          "AL"
+        ]
+      },
+      {
+        "name": "Somali",
+        "alpha2": "so",
+        "alpha3": "som"
+      }
+    ],
+    "path": "../schema/language/languageInfo.yml"
+  },
+  {
+    "name": "duration",
+    "jsonType": "string",
+    "description": "An ISO 8601 duration format. The input can either be an ISO 8601 formatted string or [number][time-unit] format. Default [time-unit], if not provided, is ms.",
+    "examples": [
+      "P3Y6M4DT12H30M5S",
+      "P4Y",
+      "P1M",
+      "PT1M",
+      "12h",
+      "1M",
+      "1m",
+      "60000"
+    ]
+  },
+  {
+    "name": "asymmetricKey",
+    "jsonType": "string",
+    "isEnum": true,
+    "description": "An asymmetric key algorithm",
+    "examples": [
+      "rsa",
+      "dsa"
+    ],
+    "path": "../schema/tls/asymmetricKey.yml"
+  },
+  {
+    "name": "asymmetricKeyInfo",
+    "jsonType": "object",
+    "description": "An asymmetric key info, including an algorithm, number of bits, and possibly the keys themselves",
+    "examples": [
+      {
+        "algorithm": "rsa",
+        "bits": 2048
+      },
+      {
+        "algorithm": "dsa",
+        "bits": 2048
+      }
+    ],
+    "path": "../schema/tls/asymmetricKeyInfo.yml"
+  },
+  {
+    "name": "cipherSuite",
+    "jsonType": "string",
+    "isEnum": true,
+    "extendedInfoType": "cipherSuiteInfo",
+    "description": "An IANA cipher suite description",
+    "examples": [
+      "tls_rsa_psk_with_aria_128_gcm_sha256",
+      "tls_rsa_psk_with_aria_256_gcm_sha384"
+    ],
+    "path": "../schema/tls/cipherSuite.yml"
+  },
+  {
+    "name": "cipherSuiteInfo",
+    "jsonType": "object",
+    "description": "An IANA cipher suite with its hex value",
+    "examples": [
+      {
+        "value": "0xC0,0x6E",
+        "description": "tls_rsa_psk_with_aria_128_gcm_sha256"
+      },
+      {
+        "value": "0xC0,0x6F",
+        "description": "tls_rsa_psk_with_aria_256_gcm_sha384"
+      }
+    ],
+    "path": "../schema/tls/cipherSuiteInfo.yml"
+  },
+  {
+    "name": "signatureAlgorithm",
+    "jsonType": "string",
+    "isEnum": true,
+    "description": "A TLS signature algorithm",
+    "examples": [
+      "sha256_with_rsa_encryption",
+      "sha512_with_rsa_encryption"
+    ],
+    "path": "../schema/tls/signatureAlgorithm.yml"
+  },
+  {
+    "name": "x509Certificate",
+    "jsonType": "object",
+    "description": "A x509 certificate",
+    "examples": [
+      {
+        "serialNumber": "0557C80B282683A17B0A114493296B79",
+        "subject": {
+          "c": "US",
+          "st": "California",
+          "l": "San Francisco",
+          "o": "GitHub, Inc.",
+          "cn": "github.com"
+        },
+        "subjectAltName": "DNS:github.com, DNS:www.github.com",
+        "publicKey": {
+          "algorithm": "rsa",
+          "bits": 2048
+        },
+        "signatureAlgorithm": "sha256_with_rsa_encryption",
+        "validFrom": "May  5 00:00:00 2020 GMT",
+        "validTo": "May 10 12:00:00 2022 GMT",
+        "infoAccess": {
+          "OCSP - URI": [
+            "http://ocsp.digicert.com"
+          ],
+          "CA Issuers - URI": [
+            "http://cacerts.digicert.com/DigiCertSHA2HighAssuranceServerCA.crt"
+          ]
+        },
+        "issuerCertificate": {
+          "serialNumber": "04E1E7A4DC5CF2F36DC02B42B85D159F",
+          "subject": {
+            "c": "US",
+            "o": "DigiCert Inc",
+            "ou": "www.digicert.com",
+            "cn": "DigiCert SHA2 High Assurance Server CA"
+          },
+          "publicKey": {
+            "algorithm": "rsa",
+            "bits": 2048
+          },
+          "signatureAlgorithm": "sha256_with_rsa_encryption",
+          "validFrom": "Oct 22 12:00:00 2013 GMT",
+          "validTo": "Oct 22 12:00:00 2028 GMT",
+          "infoAccess": {
+            "OCSP - URI": [
+              "http://ocsp.digicert.com"
+            ]
+          },
+          "issuerCertificate": {
+            "serialNumber": "02AC5C266A0B409B8F0B79F2AE462577",
+            "subject": {
+              "c": "US",
+              "o": "DigiCert Inc",
+              "ou": "www.digicert.com",
+              "cn": "DigiCert High Assurance EV Root CA"
+            },
+            "publicKey": {
+              "algorithm": "rsa",
+              "bits": 2048
+            },
+            "signatureAlgorithm": "sha256_with_rsa_encryption",
+            "validFrom": "Nov 10 00:00:00 2006 GMT",
+            "validTo": "Nov 10 00:00:00 2031 GMT"
+          }
+        }
+      },
+      {
+        "serialNumber": "031274E6A2472C7A4E31C89D0A95EEEB30BC",
+        "subject": {
+          "cn": "devsupply.com"
+        },
+        "subjectAltName": "DNS:devsupply.com",
+        "publicKeyAlgorithm": "rsa",
+        "publicKeyBits": 2048,
+        "signatureAlgorithm": "sha256_with_rsa_encryption",
+        "validFrom": "Aug 21 13:23:40 2020 GMT",
+        "validTo": "Nov 19 13:23:40 2020 GMT",
+        "infoAccess": {
+          "OCSP - URI": [
+            "http://ocsp.int-x3.letsencrypt.org"
+          ],
+          "CA Issuers - URI": [
+            "http://cert.int-x3.letsencrypt.org/"
+          ]
+        },
+        "issuerCertificate": {
+          "serialNumber": "0A0141420000015385736A0B85ECA708",
+          "subject": {
+            "c": "US",
+            "o": "Let's Encrypt",
+            "cn": "Let's Encrypt Authority X3"
+          },
+          "publicKeyAlgorithm": "rsa",
+          "publicKeyBits": 2048,
+          "signatureAlgorithm": "sha256_with_rsa_encryption",
+          "validFrom": "Mar 17 16:40:46 2016 GMT",
+          "validTo": "Mar 17 16:40:46 2021 GMT",
+          "infoAccess": {
+            "OCSP - URI": [
+              "http://isrg.trustid.ocsp.identrust.com"
+            ],
+            "CA Issuers - URI": [
+              "http://apps.identrust.com/roots/dstrootcax3.p7c"
+            ]
+          },
+          "issuerCertificate": {
+            "serialNumber": "44AFB080D6A327BA893039862EF8406B",
+            "subject": {
+              "o": "Digital Signature Trust Co.",
+              "cn": "DST Root CA X3"
+            },
+            "publicKeyAlgorithm": "rsa",
+            "publicKeyBits": 2048,
+            "signatureAlgorithm": "sha256_with_rsa_encryption",
+            "validFrom": "Sep 30 21:12:19 2000 GMT",
+            "validTo": "Sep 30 14:01:15 2021 GMT"
+          }
+        }
+      }
+    ],
+    "path": "../schema/tls/x509Certificate.yml"
+  },
+  {
+    "name": "x509Subject",
+    "jsonType": "object",
+    "description": "A x509 subject",
+    "examples": [
+      {
+        "c": "US",
+        "st": "California",
+        "l": "San Francisco",
+        "o": "GitHub, Inc.",
+        "cn": "github.com"
+      },
+      {
+        "c": "US",
+        "o": "DigiCert Inc",
+        "ou": "www.digicert.com",
+        "cn": "DigiCert SHA2 High Assurance Server CA"
+      }
+    ],
+    "path": "../schema/tls/x509Subject.yml"
+  },
+  {
+    "name": "tlsProtocol",
+    "jsonType": "string",
+    "isEnum": true,
+    "description": "A SSL/TLS protocol version",
+    "examples": [
+      "tls1_2",
+      "sslv3"
+    ],
+    "path": "../schema/tls/tlsProtocol.yml"
+  },
+  {
+    "name": "changeEvent",
+    "jsonType": "object",
+    "description": "A generic Change Event",
+    "examples": [
+      {
+        "op": "create",
+        "timestamp": "2021-01-13T09:31:08-07:00",
+        "before:": {
+          "id": "0996809a-2087-4bfe-9d52-a884e7106977",
+          "name": "Foo",
+          "description": "Bar"
+        },
+        "after:": {
+          "id": "0996809a-2087-4bfe-9d52-a884e7106977",
+          "name": "Foo Updated",
+          "description": "Bar"
+        }
+      }
+    ],
+    "path": "../schema/changeEvent.yml"
+  },
+  {
+    "name": "date",
+    "jsonType": "string",
+    "description": "An RFC3339/ISO8601 full-date string. Note that this format is defined by OpenAPI itself and exists here to shim into language bindings.",
+    "htmlInput": "date",
+    "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$",
+    "examples": [
+      "1955-11-12",
+      "1985-10-26",
+      "1885-09-02",
+      "2015-10-21"
+    ]
+  },
+  {
+    "name": "date-time",
+    "formats": [
+      "time",
+      "timestamp"
+    ],
+    "jsonType": "string",
+    "htmlInput": "datetime-local",
+    "description": "An RFC3339/ISO8601 date-time string. Note that this format is defined by OpenAPI itself and exists here to shim into language bindings.",
+    "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\\.[0-9]+)?Z$",
+    "examples": [
+      "1955-11-12T22:04:00.000Z",
+      "1985-10-25T08:18:00.000Z",
+      "1885-10-26T00:28:00.000Z"
+    ]
+  },
+  {
+    "name": "byte",
+    "formats": [
+      "b64",
+      "base64"
+    ],
+    "jsonType": "string",
+    "description": "Base64-encoded binary data",
+    "examples": [
+      "Zm9vYmFyCg==",
+      "SGVsbG8sIHdvcmxkCg=="
+    ]
+  },
+  {
+    "name": "nmtoken",
+    "jsonType": "string",
+    "description": "An NMTOKEN, similar to the one defined in the XML DTD standard. This is a case-insensitive value, so only lower-case alpha characters are allowed by the pattern to ease use.",
+    "pattern": "^[a-z0-9:_\\.\\-]+$",
+    "examples": [
+      "github",
+      "devsupply",
+      "my_org"
+    ]
+  },
+  {
+    "name": "macAddress",
+    "formats": [
+      "mac",
+      "macaddr"
+    ],
+    "jsonType": "string",
+    "description": "A hardware MAC address",
+    "pattern": "^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$",
+    "examples": [
+      "1e:78:58:67:8d:87",
+      "D6-58-5E-E0-62-50"
+    ]
+  },
+  {
+    "name": "integer",
+    "jsonType": "number",
+    "htmlInput": "number",
+    "description": "An integer number",
+    "examples": [
+      -221210,
+      92828282888123,
+      142020229
+    ]
+  },
+  {
+    "name": "int32",
+    "jsonType": "number",
+    "htmlInput": "number",
+    "description": "A 32-bit signed integer",
+    "examples": [
+      -27171,
+      2147483656,
+      9183013
+    ]
+  },
+  {
+    "name": "int64",
+    "jsonType": "number",
+    "htmlInput": "number",
+    "description": "A 64-bit signed integer",
+    "examples": [
+      -922337203685477,
+      277868768768767,
+      912091
+    ]
+  },
+  {
+    "name": "double",
+    "jsonType": "number",
+    "htmlInput": "number",
+    "description": "A floating-point number with double precision",
+    "examples": [
+      7.83684987683688,
+      5.81216732323433E8,
+      10.111
+    ]
+  },
+  {
+    "name": "float",
+    "jsonType": "number",
+    "htmlInput": "number",
+    "description": "A floating-point number",
+    "examples": [
+      0.03125,
+      0.12,
+      111223.3231
+    ]
+  },
+  {
+    "name": "number",
+    "jsonType": "number",
+    "htmlInput": "number",
+    "description": "A number value",
+    "examples": [
+      142020229,
+      42
+    ]
+  },
+  {
+    "name": "password",
+    "jsonType": "string",
+    "htmlInput": "password",
+    "description": "A string value representing a password",
+    "examples": [
+      "pwd123",
+      "myp@sswordisgr8"
+    ]
+  },
+  {
+    "name": "string",
+    "jsonType": "string",
+    "description": "A string value",
+    "examples": [
+      "anything",
+      "can go here"
+    ]
+  },
+  {
+    "name": "boolean",
+    "jsonType": "boolean",
+    "description": "A boolean value",
+    "examples": [
+      true,
+      false
+    ]
+  },
+  {
+    "name": "timeZoneInfo",
+    "jsonType": "object",
+    "description": "A time zone",
+    "examples": [
+      {
+        "name": "America/Chicago",
+        "comments": "Central (most areas)",
+        "utcOffset": "-06:00",
+        "utcDstOffset": "-05:00",
+        "type": "canonical",
+        "countryCodes": [
+          "US"
+        ]
+      },
+      {
+        "name": "GB",
+        "utcOffset": "+00:00",
+        "utcDstOffset": "+01:00",
+        "type": "link",
+        "link": "Europe/London",
+        "countryCodes": [
+          "GB"
+        ]
+      }
+    ],
+    "path": "../schema/timeZone/timeZoneInfo.yml"
+  },
+  {
+    "name": "timeZoneType",
+    "jsonType": "string",
+    "isEnum": true,
+    "description": "A time zone type",
+    "examples": [
+      "canonical",
+      "link"
+    ],
+    "path": "../schema/timeZone/timeZoneType.yml"
+  },
+  {
+    "name": "timeZone",
+    "jsonType": "string",
+    "isEnum": true,
+    "extendedInfoType": "timeZoneInfo",
+    "description": "A time zone name",
+    "examples": [
+      "America/New_York",
+      "Europe/Vienna"
+    ],
+    "path": "../schema/timeZone/timeZone.yml"
+  },
+  {
+    "name": "versionRange",
+    "jsonType": "string",
+    "description": "A string which specifies semver version ranges, compatible with the NPM semver range specifier.",
+    "examples": [
+      "1.0.x",
+      "^1.2.3",
+      "~3.4",
+      "1.0.0 - 2.2.1",
+      "<22 || >24"
+    ]
+  },
+  {
+    "name": "httpMethod",
+    "jsonType": "string",
+    "isEnum": true,
+    "description": "An HTTP Method as defined by RFC-7231 and RFC-5789",
+    "examples": [
+      "GET",
+      "POST",
+      "PUT"
+    ],
+    "path": "../schema/httpMethod.yml"
+  },
+  {
+    "name": "openApiMethod",
+    "jsonType": "string",
+    "isEnum": true,
+    "description": "An http operation supported by OpenAPI",
+    "examples": [
+      "get",
+      "post",
+      "put"
+    ],
+    "path": "../schema/openApiMethod.yml"
+  },
+  {
+    "name": "changeOperation",
+    "jsonType": "string",
+    "isEnum": true,
+    "description": "A change operation",
+    "examples": [
+      "create",
+      "update",
+      "delete"
+    ],
+    "path": "../schema/changeOperation.yml"
+  },
+  {
+    "name": "netmask",
+    "jsonType": "string",
+    "description": "A netmask",
+    "pattern": "^(((255\\.){3}(255|254|252|248|240|224|192|128|0+))|((255\\.){2}(255|254|252|248|240|224|192|128|0+)\\.0)|((255\\.)(255|254|252|248|240|224|192|128|0+)(\\.0+){2})|((255|254|252|248|240|224|192|128|0+)(\\.0+){3}))$",
+    "examples": [
+      "255.255.255.0",
+      "255.0.0.0"
+    ]
+  },
+  {
+    "name": "sortDirection",
+    "jsonType": "string",
+    "isEnum": true,
+    "description": "A Sort Direction",
+    "examples": [
+      "asc",
+      "desc"
+    ],
+    "path": "../schema/sortDirection.yml"
+  },
+  {
+    "name": "severity",
+    "jsonType": "string",
+    "isEnum": true,
+    "description": "Severity/magnitude of a risk, incident, bug, or vulnerability",
+    "examples": [
+      "Critical",
+      "Medium",
+      "High",
+      "Low"
+    ],
+    "path": "../schema/severity.yml"
+  },
+  {
+    "name": "cvssVector",
+    "jsonType": "string",
+    "description": "The Common Vulnerability Scoring System (CVSS) provides a way to capture the principal characteristics of a vulnerability and produce a numerical score reflecting its severity",
+    "pattern": "^CVSS:(3\\.0|3\\.1)\\/AV:[NALP]\\/AC:[LH]\\/PR:[NLH]\\/UI:[NR]\\/S:[UC]\\/C:[NLH]\\/I:[NLH]\\/A:[NLH](\\/E:[UPFH])?(\\/RL:[OTWU])?(\\/RC:[URC])?(\\/CR:[LMH])?(\\/IR:[LMH])?(\\/AR:[LMH])?(\\/MAV:[NALP])?(\\/MAC:[HL])?(\\/MPR:[NLH])?(\\/MUI:[NR])?(\\/MS:[UC])?(\\/MC:[NLH])?(\\/MI:[NHL])?(\\/MA:[NLH])?$",
+    "examples":[
+      "CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+      "CVSS:3.1/AV:A/AC:H/PR:L/UI:N/S:U/C:H/I:H/A:H",
+      "CVSS:3.0/AV:A/AC:H/PR:L/UI:R/S:C/C:L/I:L/A:N/E:U/RL:T/RC:R/CR:L/IR:L/AR:L/MAV:P/MPR:L/MS:U/MI:L",
+      "CVSS:3.0/AV:A/AC:H/PR:L/UI:R/S:C/C:L/I:L/A:N/E:U/RC:R/CR:H/IR:M/AR:L/MPR:N/MS:U/MI:N/MA:H",
+      "CVSS:3.1/AV:L/AC:H/PR:H/UI:R/S:C/C:L/I:L/A:L/E:P/RL:T/RC:R/IR:M/MAV:N/MUI:N/MS:U/MI:H"
+    ]
+  },
+  {
+    "name": "dayOfWeek",
+    "jsonType": "string",
+    "isEnum": true,
+    "description": "A day of the week",
+    "examples": [
+      "monday",
+      "tuesday"
+    ],
+    "path": "../schema/dayOfWeek.yml"
+  },
+  {
+    "name": "month",
+    "jsonType": "string",
+    "isEnum": true,
+    "description": "A month",
+    "examples": [
+      "january",
+      "december"
+    ],
+    "path": "../schema/month.yml"
+  },
+  {
+    "name": "cronExpression",
+    "jsonType": "object",
+    "description": "A model for a Cron Expression",
+    "examples": [
+      {
+        "minute": 42,
+        "hour": "*",
+        "dayOfMonth": "15",
+        "dayOfWeek": ["monday", "tuesday"],
+        "month": "december"
+      },
+      {
+        "minute": 0,
+        "hour": 0
+      }
+    ],
+    "path": "../schema/cron/cronExpression.yml"
+  }
+]

@@ -1,0 +1,5 @@
+name: pageToken
+in: query
+description: The token to retrieve the next page via cursor paging
+schema:
+  type: string

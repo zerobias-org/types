@@ -1,0 +1,4 @@
+description: Error indicating the request is unable to authenticate
+type: object
+allOf:
+  - $ref: './errorModelBase.yml'

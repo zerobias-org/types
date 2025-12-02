@@ -1,0 +1,4 @@
+description: Error indicating some sort of conflict
+type: object
+allOf:
+  - $ref: './errorModelBase.yml'

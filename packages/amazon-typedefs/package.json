@@ -1,0 +1,38 @@
+{
+  "name": "@zerobias-org/types-amazon",
+  "version": "1.0.0",
+  "description": "OpenAPI type definitions for Amazon services",
+  "type": "module",
+  "scripts": {
+    "clean": "rm -f models.yml",
+    "generate:badge": "npx badge $(yq -oy e .name package.json) $(npm run -s get-version) :red @flat > version.svg",
+    "generate:api": "./bin/gen_api.sh",
+    "generate:inflate": "npx @redocly/cli bundle models.yml --output temp.yml && mv temp.yml models.yml",
+    "sync:meta": "VERSION=$(npm run -s get-version) NAME=$(yq -oy e .name package.json) DESC=$(yq -oy e .description package.json) yq e -i '.info.version=strenv(VERSION) | .info.title=strenv(NAME) | .info.description=strenv(DESC)' api.yml",
+    "generate": "npm run generate:api && npm run generate:inflate",
+    "build": "npm run generate",
+    "transpile": "echo 'No transpile needed for typedefs'",
+    "prepublishOnly": "npm run build",
+    "version": "npm run sync:meta && npm run generate:badge && git add api.yml version.svg",
+    "get-version": "yq -oy e .version package.json",
+    "lint": "npm run lint:api",
+    "lint:api": "npx spectral lint ./schema/**/*.yml -v"
+  },
+  "author": "team@zerobias.com",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:zerobias-org/types.git",
+    "directory": "packages/amazon-typedefs"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
+  "files": [
+    "data",
+    "schema",
+    "models.yml",
+    "*.md",
+    "bom.json"
+  ]
+}

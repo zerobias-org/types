@@ -1,0 +1,32 @@
+type: object
+description: Base class for error models
+required:
+  - key
+  - template
+  - timestamp
+  - statusCode
+properties:
+  key:
+    type: string
+    description: >-
+      A unique message key for this error. This is used both for discrimination and i18n
+  template:
+    description: >-
+      The error message. This may contain substitutions of the form `{key}` where `key` maps to a key in the `args` list.
+    type: string
+    example: The {thing} is down
+  timestamp:
+    type: string
+    format: date-time
+    description: Timestamp when this error was generated
+  statusCode:
+    description: >-
+      An HTTP status code to use for this error when transmitting it over HTTP
+    type: integer
+    format: int32
+    default: 500
+    minimum: 100
+    maximum: 599
+  stack:
+    description: The stack trace, if available, for this error.
+    type: string

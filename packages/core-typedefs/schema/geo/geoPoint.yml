@@ -1,0 +1,12 @@
+type: object
+description: Model describing the location with latitude and longitude.
+required:
+  - latitude
+  - longitude
+properties:
+  latitude:
+    type: number
+    format: double
+  longitude:
+    type: number
+    format: double

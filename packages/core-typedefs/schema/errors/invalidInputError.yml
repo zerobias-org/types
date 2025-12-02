@@ -1,0 +1,20 @@
+description: Error indicating the given input was invalid
+type: object
+allOf:
+  - $ref: './errorModelBase.yml'
+  - type: object
+    required:
+      - type
+      - value
+    properties:
+      type:
+        type: string
+        description: The type of object the value is invalid for
+      value:
+        type: string
+        description: The invalid value provided
+      examples:
+        description: Examples of correct values
+        type: array
+        items:
+          type: string

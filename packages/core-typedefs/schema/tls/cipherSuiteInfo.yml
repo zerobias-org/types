@@ -1,0 +1,12 @@
+type: object
+required:
+  - value
+  - description
+properties:
+  value:
+    description: IANA cipher suite hex value
+    type: string
+  description:
+    oneOf:
+      - type: string
+      - $ref: './cipherSuite.yml'

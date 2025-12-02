@@ -1,0 +1,20 @@
+type: object
+description: >-
+  An AWS Access Policy. More details [here](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#access_policies-json)
+required:
+  - statements
+properties:
+  version:
+    type: string
+    description: >-
+      The version of the policy language.
+  id:
+    type: string
+    description: >-
+      An optional identifier for the policy.
+  statements:
+    type: array
+    description: >-
+      A list of policy statements.
+    items:
+      $ref : './accessPolicyStatement.yml'

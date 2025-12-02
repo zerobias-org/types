@@ -1,0 +1,11 @@
+type: string
+description: >-
+  The partition in which the resource is located. A partition is a group of AWS Regions. Each AWS account is scoped to one partition.
+enum:
+  - aws
+  - aws_cn
+  - aws_us_gov
+x-enum-descriptions:
+  - AWS Regions
+  - AWS China Regions
+  - AWS GovCloud (US) Regions

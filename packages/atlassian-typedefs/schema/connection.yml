@@ -1,0 +1,36 @@
+type: object
+description: >-
+  Connection profile for Atlassian Cloud platform services.
+allOf:
+  - $ref: './../node_modules/@zerobias-org/types-core/schema/oauthTokenProfile.yml'
+  - $ref: './../node_modules/@zerobias-org/types-core/schema/oauthTokenState.yml'
+  - type: object
+    x-oauth-providers:
+      - atlassian.oauth
+    x-ui-required:
+      - uri
+      - email
+      - apiToken
+    x-ui-hidden:
+      - accessToken
+      - tokenType
+      - refreshToken
+      - expiresIn
+      - scope
+      - url
+    properties:
+      uri:
+        type: string
+        format: url
+        description: Atlassian organization domain
+        example: https://example.atlassian.net
+      email:
+        type: string
+        description: Email address of the Atlassian Account
+        format: email
+        example: example@gmail.com
+      apiToken:
+        type: string
+        description: API token, generated from the Atlassian Account
+        example: f5af9f51-07e6-4332-8f1a-c0c11c1e3728
+        format: password

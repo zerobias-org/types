@@ -1,0 +1,28 @@
+type: string
+description: Month of the year
+enum:
+  - january
+  - february
+  - march
+  - april
+  - may
+  - june
+  - july
+  - august
+  - september
+  - october
+  - november
+  - december
+x-enum-description:
+  - January
+  - February
+  - March
+  - April
+  - May
+  - June
+  - July
+  - August
+  - September
+  - October
+  - November
+  - December

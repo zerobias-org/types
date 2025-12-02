@@ -1,0 +1,17 @@
+description: Error indicating more objects were requested than could be returned
+type: object
+allOf:
+  - $ref: './errorModelBase.yml'
+  - type: object
+    required:
+      - requested
+      - returned
+    properties:
+      requested:
+        type: number
+        format: int64
+        description: The number of items which were requested
+      returned:
+        type: number
+        format: int64
+        description: The number of items which were returned

@@ -1,0 +1,11 @@
+description: Error indicating some sort of conflict
+type: object
+allOf:
+  - $ref: './errorModelBase.yml'
+  - type: object
+    required:
+      - msg
+    properties:
+      msg:
+        type: string
+        description: The conflict error message

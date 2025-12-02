@@ -1,0 +1,1615 @@
+[
+  {
+    "name": "Afar",
+    "alpha2": "aa",
+    "alpha3": "aar"
+  },
+  {
+    "name": "Abkhazian",
+    "alpha2": "ab",
+    "alpha3": "abk"
+  },
+  {
+    "name": "Avestan",
+    "alpha2": "ae",
+    "alpha3": "ave"
+  },
+  {
+    "name": "Afrikaans",
+    "alpha2": "af",
+    "alpha3": "afr",
+    "locales": {
+      "af_NA": "Afrikaans (Namibia)",
+      "af_ZA": "Afrikaans (South Africa)"
+    }
+  },
+  {
+    "name": "Akan",
+    "alpha2": "ak",
+    "alpha3": "aka",
+    "locales": {
+      "ak_GH": "Akan (Ghana)"
+    }
+  },
+  {
+    "name": "Amharic",
+    "alpha2": "am",
+    "alpha3": "amh",
+    "locales": {
+      "am_ET": "Amharic (Ethiopia)"
+    }
+  },
+  {
+    "name": "Aragonese",
+    "alpha2": "an",
+    "alpha3": "arg"
+  },
+  {
+    "name": "Arabic",
+    "alpha2": "ar",
+    "alpha3": "ara",
+    "locales": {
+      "ar_001": "Arabic (world)",
+      "ar_AE": "Arabic (United Arab Emirates)",
+      "ar_BH": "Arabic (Bahrain)",
+      "ar_DJ": "Arabic (Djibouti)",
+      "ar_DZ": "Arabic (Algeria)",
+      "ar_EG": "Arabic (Egypt)",
+      "ar_EH": "Arabic (Western Sahara)",
+      "ar_ER": "Arabic (Eritrea)",
+      "ar_IL": "Arabic (Israel)",
+      "ar_IQ": "Arabic (Iraq)",
+      "ar_JO": "Arabic (Jordan)",
+      "ar_KM": "Arabic (Comoros)",
+      "ar_KW": "Arabic (Kuwait)",
+      "ar_LB": "Arabic (Lebanon)",
+      "ar_LY": "Arabic (Libya)",
+      "ar_MA": "Arabic (Morocco)",
+      "ar_MR": "Arabic (Mauritania)",
+      "ar_OM": "Arabic (Oman)",
+      "ar_PS": "Arabic (Palestinian Territories)",
+      "ar_QA": "Arabic (Qatar)",
+      "ar_SA": "Arabic (Saudi Arabia)",
+      "ar_SD": "Arabic (Sudan)",
+      "ar_SO": "Arabic (Somalia)",
+      "ar_SS": "Arabic (South Sudan)",
+      "ar_SY": "Arabic (Syria)",
+      "ar_TD": "Arabic (Chad)",
+      "ar_TN": "Arabic (Tunisia)",
+      "ar_YE": "Arabic (Yemen)"
+    }
+  },
+  {
+    "name": "Assamese",
+    "alpha2": "as",
+    "alpha3": "asm",
+    "locales": {
+      "as_IN": "Assamese (India)"
+    }
+  },
+  {
+    "name": "Avaric",
+    "alpha2": "av",
+    "alpha3": "ava"
+  },
+  {
+    "name": "Aymara",
+    "alpha2": "ay",
+    "alpha3": "aym"
+  },
+  {
+    "name": "Azerbaijani",
+    "alpha2": "az",
+    "alpha3": "aze",
+    "locales": {
+      "az_AZ": "Azerbaijani (Azerbaijan)"
+    }
+  },
+  {
+    "name": "Bashkir",
+    "alpha2": "ba",
+    "alpha3": "bak"
+  },
+  {
+    "name": "Belarusian",
+    "alpha2": "be",
+    "alpha3": "bel",
+    "locales": {
+      "be_BY": "Belarusian (Belarus)"
+    }
+  },
+  {
+    "name": "Bulgarian",
+    "alpha2": "bg",
+    "alpha3": "bul",
+    "locales": {
+      "bg_BG": "Bulgarian (Bulgaria)"
+    }
+  },
+  {
+    "name": "Bislama",
+    "alpha2": "bi",
+    "alpha3": "bis"
+  },
+  {
+    "name": "Bambara",
+    "alpha2": "bm",
+    "alpha3": "bam",
+    "locales": {
+      "bm_ML": "Bambara (Mali)"
+    }
+  },
+  {
+    "name": "Bengali",
+    "alpha2": "bn",
+    "alpha3": "ben",
+    "locales": {
+      "bn_BD": "Bangla (Bangladesh)",
+      "bn_IN": "Bangla (India)"
+    }
+  },
+  {
+    "name": "Tibetan",
+    "alpha2": "bo",
+    "alpha3": "bod",
+    "locales": {
+      "bo_CN": "Tibetan (China)",
+      "bo_IN": "Tibetan (India)"
+    }
+  },
+  {
+    "name": "Breton",
+    "alpha2": "br",
+    "alpha3": "bre",
+    "locales": {
+      "br_FR": "Breton (France)"
+    }
+  },
+  {
+    "name": "Bosnian",
+    "alpha2": "bs",
+    "alpha3": "bos",
+    "locales": {
+      "bs_BA": "Bosnian (Bosnia & Herzegovina)"
+    }
+  },
+  {
+    "name": "Catalan, Valencian",
+    "alpha2": "ca",
+    "alpha3": "cat",
+    "locales": {
+      "ca_AD": "Catalan (Andorra)",
+      "ca_ES": "Catalan (Spain)",
+      "ca_ES_VALENCIA": "Catalan (Spain, Valencian)",
+      "ca_FR": "Catalan (France)",
+      "ca_IT": "Catalan (Italy)"
+    }
+  },
+  {
+    "name": "Chechen",
+    "alpha2": "ce",
+    "alpha3": "che",
+    "locales": {
+      "ce_RU": "Chechen (Russia)"
+    }
+  },
+  {
+    "name": "Chamorro",
+    "alpha2": "ch",
+    "alpha3": "cha"
+  },
+  {
+    "name": "Corsican",
+    "alpha2": "co",
+    "alpha3": "cos"
+  },
+  {
+    "name": "Cree",
+    "alpha2": "cr",
+    "alpha3": "cre"
+  },
+  {
+    "name": "Czech",
+    "alpha2": "cs",
+    "alpha3": "ces",
+    "locales": {
+      "cs_CZ": "Czech (Czechia)"
+    }
+  },
+  {
+    "name": "Church Slavic, Church Slavonic, Old Bulgarian, Old Church Slavonic, Old Slavonic",
+    "alpha2": "cu",
+    "alpha3": "chu"
+  },
+  {
+    "name": "Chuvash",
+    "alpha2": "cv",
+    "alpha3": "chv"
+  },
+  {
+    "name": "Welsh",
+    "alpha2": "cy",
+    "alpha3": "cym",
+    "locales": {
+      "cy_GB": "Welsh (United Kingdom)"
+    }
+  },
+  {
+    "name": "Danish",
+    "alpha2": "da",
+    "alpha3": "dan",
+    "locales": {
+      "da_DK": "Danish (Denmark)",
+      "da_GL": "Danish (Greenland)"
+    }
+  },
+  {
+    "name": "German",
+    "alpha2": "de",
+    "alpha3": "deu",
+    "locales": {
+      "de_AT": "German (Austria)",
+      "de_BE": "German (Belgium)",
+      "de_CH": "German (Switzerland)",
+      "de_DE": "German (Germany)",
+      "de_IT": "German (Italy)",
+      "de_LI": "German (Liechtenstein)",
+      "de_LU": "German (Luxembourg)"
+    }
+  },
+  {
+    "name": "Dhivehi, Divehi, Maldivian",
+    "alpha2": "dv",
+    "alpha3": "div"
+  },
+  {
+    "name": "Dzongkha",
+    "alpha2": "dz",
+    "alpha3": "dzo",
+    "locales": {
+      "dz_BT": "Dzongkha (Bhutan)"
+    }
+  },
+  {
+    "name": "Ewe",
+    "alpha2": "ee",
+    "alpha3": "ewe",
+    "locales": {
+      "ee_GH": "Ewe (Ghana)",
+      "ee_TG": "Ewe (Togo)"
+    }
+  },
+  {
+    "name": "Modern Greek (1453-)",
+    "alpha2": "el",
+    "alpha3": "ell",
+    "locales": {
+      "el_CY": "Greek (Cyprus)",
+      "el_GR": "Greek (Greece)"
+    }
+  },
+  {
+    "name": "English",
+    "alpha2": "en",
+    "alpha3": "eng",
+    "locales": {
+      "en_001": "English (world)",
+      "en_150": "English (Europe)",
+      "en_AE": "English (United Arab Emirates)",
+      "en_AG": "English (Antigua & Barbuda)",
+      "en_AI": "English (Anguilla)",
+      "en_AS": "English (American Samoa)",
+      "en_AT": "English (Austria)",
+      "en_AU": "English (Australia)",
+      "en_BB": "English (Barbados)",
+      "en_BE": "English (Belgium)",
+      "en_BI": "English (Burundi)",
+      "en_BM": "English (Bermuda)",
+      "en_BS": "English (Bahamas)",
+      "en_BW": "English (Botswana)",
+      "en_BZ": "English (Belize)",
+      "en_CA": "English (Canada)",
+      "en_CC": "English (Cocos (Keeling) Islands)",
+      "en_CH": "English (Switzerland)",
+      "en_CK": "English (Cook Islands)",
+      "en_CM": "English (Cameroon)",
+      "en_CX": "English (Christmas Island)",
+      "en_CY": "English (Cyprus)",
+      "en_DE": "English (Germany)",
+      "en_DG": "English (Diego Garcia)",
+      "en_DK": "English (Denmark)",
+      "en_DM": "English (Dominica)",
+      "en_ER": "English (Eritrea)",
+      "en_FI": "English (Finland)",
+      "en_FJ": "English (Fiji)",
+      "en_FK": "English (Falkland Islands)",
+      "en_FM": "English (Micronesia)",
+      "en_GB": "English (United Kingdom)",
+      "en_GD": "English (Grenada)",
+      "en_GG": "English (Guernsey)",
+      "en_GH": "English (Ghana)",
+      "en_GI": "English (Gibraltar)",
+      "en_GM": "English (Gambia)",
+      "en_GU": "English (Guam)",
+      "en_GY": "English (Guyana)",
+      "en_HK": "English (Hong Kong SAR China)",
+      "en_IE": "English (Ireland)",
+      "en_IL": "English (Israel)",
+      "en_IM": "English (Isle of Man)",
+      "en_IN": "English (India)",
+      "en_IO": "English (British Indian Ocean Territory)",
+      "en_JE": "English (Jersey)",
+      "en_JM": "English (Jamaica)",
+      "en_KE": "English (Kenya)",
+      "en_KI": "English (Kiribati)",
+      "en_KN": "English (St. Kitts & Nevis)",
+      "en_KY": "English (Cayman Islands)",
+      "en_LC": "English (St. Lucia)",
+      "en_LR": "English (Liberia)",
+      "en_LS": "English (Lesotho)",
+      "en_MG": "English (Madagascar)",
+      "en_MH": "English (Marshall Islands)",
+      "en_MO": "English (Macao SAR China)",
+      "en_MP": "English (Northern Mariana Islands)",
+      "en_MS": "English (Montserrat)",
+      "en_MT": "English (Malta)",
+      "en_MU": "English (Mauritius)",
+      "en_MW": "English (Malawi)",
+      "en_MY": "English (Malaysia)",
+      "en_NA": "English (Namibia)",
+      "en_NF": "English (Norfolk Island)",
+      "en_NG": "English (Nigeria)",
+      "en_NL": "English (Netherlands)",
+      "en_NR": "English (Nauru)",
+      "en_NU": "English (Niue)",
+      "en_NZ": "English (New Zealand)",
+      "en_PG": "English (Papua New Guinea)",
+      "en_PH": "English (Philippines)",
+      "en_PK": "English (Pakistan)",
+      "en_PN": "English (Pitcairn Islands)",
+      "en_PR": "English (Puerto Rico)",
+      "en_PW": "English (Palau)",
+      "en_RW": "English (Rwanda)",
+      "en_SB": "English (Solomon Islands)",
+      "en_SC": "English (Seychelles)",
+      "en_SD": "English (Sudan)",
+      "en_SE": "English (Sweden)",
+      "en_SG": "English (Singapore)",
+      "en_SH": "English (St. Helena)",
+      "en_SI": "English (Slovenia)",
+      "en_SL": "English (Sierra Leone)",
+      "en_SS": "English (South Sudan)",
+      "en_SX": "English (Sint Maarten)",
+      "en_SZ": "English (Eswatini)",
+      "en_TC": "English (Turks & Caicos Islands)",
+      "en_TK": "English (Tokelau)",
+      "en_TO": "English (Tonga)",
+      "en_TT": "English (Trinidad & Tobago)",
+      "en_TV": "English (Tuvalu)",
+      "en_TZ": "English (Tanzania)",
+      "en_UG": "English (Uganda)",
+      "en_UM": "English (U.S. Outlying Islands)",
+      "en_US": "English (United States)",
+      "en_US_POSIX": "English (United States, Computer)",
+      "en_VC": "English (St. Vincent & Grenadines)",
+      "en_VG": "English (British Virgin Islands)",
+      "en_VI": "English (U.S. Virgin Islands)",
+      "en_VU": "English (Vanuatu)",
+      "en_WS": "English (Samoa)",
+      "en_ZA": "English (South Africa)",
+      "en_ZM": "English (Zambia)",
+      "en_ZW": "English (Zimbabwe)"
+    }
+  },
+  {
+    "name": "Esperanto",
+    "alpha2": "eo",
+    "alpha3": "epo",
+    "locales": {
+      "eo_001": "Esperanto (world)"
+    }
+  },
+  {
+    "name": "Castilian, Spanish",
+    "alpha2": "es",
+    "alpha3": "spa",
+    "locales": {
+      "es_419": "Spanish (Latin America)",
+      "es_AR": "Spanish (Argentina)",
+      "es_BO": "Spanish (Bolivia)",
+      "es_BR": "Spanish (Brazil)",
+      "es_BZ": "Spanish (Belize)",
+      "es_CL": "Spanish (Chile)",
+      "es_CO": "Spanish (Colombia)",
+      "es_CR": "Spanish (Costa Rica)",
+      "es_CU": "Spanish (Cuba)",
+      "es_DO": "Spanish (Dominican Republic)",
+      "es_EA": "Spanish (Ceuta & Melilla)",
+      "es_EC": "Spanish (Ecuador)",
+      "es_ES": "Spanish (Spain)",
+      "es_GQ": "Spanish (Equatorial Guinea)",
+      "es_GT": "Spanish (Guatemala)",
+      "es_HN": "Spanish (Honduras)",
+      "es_IC": "Spanish (Canary Islands)",
+      "es_MX": "Spanish (Mexico)",
+      "es_NI": "Spanish (Nicaragua)",
+      "es_PA": "Spanish (Panama)",
+      "es_PE": "Spanish (Peru)",
+      "es_PH": "Spanish (Philippines)",
+      "es_PR": "Spanish (Puerto Rico)",
+      "es_PY": "Spanish (Paraguay)",
+      "es_SV": "Spanish (El Salvador)",
+      "es_US": "Spanish (United States)",
+      "es_UY": "Spanish (Uruguay)",
+      "es_VE": "Spanish (Venezuela)"
+    }
+  },
+  {
+    "name": "Estonian",
+    "alpha2": "et",
+    "alpha3": "est",
+    "locales": {
+      "et_EE": "Estonian (Estonia)"
+    }
+  },
+  {
+    "name": "Basque",
+    "alpha2": "eu",
+    "alpha3": "eus",
+    "locales": {
+      "eu_ES": "Basque (Spain)"
+    }
+  },
+  {
+    "name": "Persian",
+    "alpha2": "fa",
+    "alpha3": "fas",
+    "locales": {
+      "fa_AF": "Persian (Afghanistan)",
+      "fa_IR": "Persian (Iran)"
+    }
+  },
+  {
+    "name": "Fulah",
+    "alpha2": "ff",
+    "alpha3": "ful",
+    "locales": {
+      "ff_GN": "Fulah (Guinea)",
+      "ff_SN": "Fulah (Senegal)"
+    }
+  },
+  {
+    "name": "Finnish",
+    "alpha2": "fi",
+    "alpha3": "fin",
+    "locales": {
+      "fi_FI": "Finnish (Finland)"
+    }
+  },
+  {
+    "name": "Fijian",
+    "alpha2": "fj",
+    "alpha3": "fij"
+  },
+  {
+    "name": "Faroese",
+    "alpha2": "fo",
+    "alpha3": "fao",
+    "locales": {
+      "fo_DK": "Faroese (Denmark)",
+      "fo_FO": "Faroese (Faroe Islands)"
+    }
+  },
+  {
+    "name": "French",
+    "alpha2": "fr",
+    "alpha3": "fra",
+    "locales": {
+      "fr_BE": "French (Belgium)",
+      "fr_BF": "French (Burkina Faso)",
+      "fr_BI": "French (Burundi)",
+      "fr_BJ": "French (Benin)",
+      "fr_BL": "French (St. Barthélemy)",
+      "fr_CA": "French (Canada)",
+      "fr_CD": "French (Congo - Kinshasa)",
+      "fr_CF": "French (Central African Republic)",
+      "fr_CG": "French (Congo - Brazzaville)",
+      "fr_CH": "French (Switzerland)",
+      "fr_CI": "French (Côte d’Ivoire)",
+      "fr_CM": "French (Cameroon)",
+      "fr_DJ": "French (Djibouti)",
+      "fr_DZ": "French (Algeria)",
+      "fr_FR": "French (France)",
+      "fr_GA": "French (Gabon)",
+      "fr_GF": "French (French Guiana)",
+      "fr_GN": "French (Guinea)",
+      "fr_GP": "French (Guadeloupe)",
+      "fr_GQ": "French (Equatorial Guinea)",
+      "fr_HT": "French (Haiti)",
+      "fr_KM": "French (Comoros)",
+      "fr_LU": "French (Luxembourg)",
+      "fr_MA": "French (Morocco)",
+      "fr_MC": "French (Monaco)",
+      "fr_MF": "French (St. Martin)",
+      "fr_MG": "French (Madagascar)",
+      "fr_ML": "French (Mali)",
+      "fr_MQ": "French (Martinique)",
+      "fr_MR": "French (Mauritania)",
+      "fr_MU": "French (Mauritius)",
+      "fr_NC": "French (New Caledonia)",
+      "fr_NE": "French (Niger)",
+      "fr_PF": "French (French Polynesia)",
+      "fr_PM": "French (St. Pierre & Miquelon)",
+      "fr_RE": "French (Réunion)",
+      "fr_RW": "French (Rwanda)",
+      "fr_SC": "French (Seychelles)",
+      "fr_SN": "French (Senegal)",
+      "fr_SY": "French (Syria)",
+      "fr_TD": "French (Chad)",
+      "fr_TG": "French (Togo)",
+      "fr_TN": "French (Tunisia)",
+      "fr_VU": "French (Vanuatu)",
+      "fr_WF": "French (Wallis & Futuna)",
+      "fr_YT": "French (Mayotte)"
+    }
+  },
+  {
+    "name": "Western Frisian",
+    "alpha2": "fy",
+    "alpha3": "fry",
+    "locales": {
+      "fy_NL": "Western Frisian (Netherlands)"
+    }
+  },
+  {
+    "name": "Irish",
+    "alpha2": "ga",
+    "alpha3": "gle",
+    "locales": {
+      "ga_GB": "Irish (United Kingdom)",
+      "ga_IE": "Irish (Ireland)"
+    }
+  },
+  {
+    "name": "Gaelic, Scottish Gaelic",
+    "alpha2": "gd",
+    "alpha3": "gla",
+    "locales": {
+      "gd_GB": "Scottish Gaelic (United Kingdom)"
+    }
+  },
+  {
+    "name": "Galician",
+    "alpha2": "gl",
+    "alpha3": "glg",
+    "locales": {
+      "gl_ES": "Galician (Spain)"
+    }
+  },
+  {
+    "name": "Guarani",
+    "alpha2": "gn",
+    "alpha3": "grn"
+  },
+  {
+    "name": "Gujarati",
+    "alpha2": "gu",
+    "alpha3": "guj",
+    "locales": {
+      "gu_IN": "Gujarati (India)"
+    }
+  },
+  {
+    "name": "Manx",
+    "alpha2": "gv",
+    "alpha3": "glv",
+    "locales": {
+      "gv_IM": "Manx (Isle of Man)"
+    }
+  },
+  {
+    "name": "Hausa",
+    "alpha2": "ha",
+    "alpha3": "hau",
+    "locales": {
+      "ha_GH": "Hausa (Ghana)",
+      "ha_NE": "Hausa (Niger)",
+      "ha_NG": "Hausa (Nigeria)"
+    }
+  },
+  {
+    "name": "Hebrew",
+    "alpha2": "he",
+    "alpha3": "heb",
+    "locales": {
+      "he_IL": "Hebrew (Israel)"
+    }
+  },
+  {
+    "name": "Hindi",
+    "alpha2": "hi",
+    "alpha3": "hin",
+    "locales": {
+      "hi_IN": "Hindi (India)"
+    }
+  },
+  {
+    "name": "Hiri Motu",
+    "alpha2": "ho",
+    "alpha3": "hmo"
+  },
+  {
+    "name": "Croatian",
+    "alpha2": "hr",
+    "alpha3": "hrv",
+    "locales": {
+      "hr_BA": "Croatian (Bosnia & Herzegovina)",
+      "hr_HR": "Croatian (Croatia)"
+    }
+  },
+  {
+    "name": "Haitian, Haitian Creole",
+    "alpha2": "ht",
+    "alpha3": "hat"
+  },
+  {
+    "name": "Hungarian",
+    "alpha2": "hu",
+    "alpha3": "hun",
+    "locales": {
+      "hu_HU": "Hungarian (Hungary)"
+    }
+  },
+  {
+    "name": "Armenian",
+    "alpha2": "hy",
+    "alpha3": "hye",
+    "locales": {
+      "hy_AM": "Armenian (Armenia)"
+    }
+  },
+  {
+    "name": "Herero",
+    "alpha2": "hz",
+    "alpha3": "her"
+  },
+  {
+    "name": "Interlingua (International Auxiliary Language Association)",
+    "alpha2": "ia",
+    "alpha3": "ina",
+    "locales": {
+      "ia_001": "Interlingua (world)"
+    }
+  },
+  {
+    "name": "Indonesian",
+    "alpha2": "id",
+    "alpha3": "ind",
+    "locales": {
+      "id_ID": "Indonesian (Indonesia)"
+    }
+  },
+  {
+    "name": "Interlingue, Occidental",
+    "alpha2": "ie",
+    "alpha3": "ile"
+  },
+  {
+    "name": "Igbo",
+    "alpha2": "ig",
+    "alpha3": "ibo",
+    "locales": {
+      "ig_NG": "Igbo (Nigeria)"
+    }
+  },
+  {
+    "name": "Nuosu, Sichuan Yi",
+    "alpha2": "ii",
+    "alpha3": "iii",
+    "locales": {
+      "ii_CN": "Sichuan Yi (China)"
+    }
+  },
+  {
+    "name": "Inupiaq",
+    "alpha2": "ik",
+    "alpha3": "ipk"
+  },
+  {
+    "name": "Ido",
+    "alpha2": "io",
+    "alpha3": "ido"
+  },
+  {
+    "name": "Icelandic",
+    "alpha2": "is",
+    "alpha3": "isl",
+    "locales": {
+      "is_IS": "Icelandic (Iceland)"
+    }
+  },
+  {
+    "name": "Italian",
+    "alpha2": "it",
+    "alpha3": "ita",
+    "locales": {
+      "it_CH": "Italian (Switzerland)",
+      "it_IT": "Italian (Italy)",
+      "it_SM": "Italian (San Marino)",
+      "it_VA": "Italian (Vatican City)"
+    }
+  },
+  {
+    "name": "Inuktitut",
+    "alpha2": "iu",
+    "alpha3": "iku"
+  },
+  {
+    "name": "Japanese",
+    "alpha2": "ja",
+    "alpha3": "jpn",
+    "locales": {
+      "ja_JP": "Japanese (Japan)"
+    }
+  },
+  {
+    "name": "Javanese",
+    "alpha2": "jv",
+    "alpha3": "jav",
+    "locales": {
+      "jv_ID": "Javanese (Indonesia)"
+    }
+  },
+  {
+    "name": "Georgian",
+    "alpha2": "ka",
+    "alpha3": "kat",
+    "locales": {
+      "ka_GE": "Georgian (Georgia)"
+    }
+  },
+  {
+    "name": "Kongo",
+    "alpha2": "kg",
+    "alpha3": "kon"
+  },
+  {
+    "name": "Gikuyu, Kikuyu",
+    "alpha2": "ki",
+    "alpha3": "kik",
+    "locales": {
+      "ki_KE": "Kikuyu (Kenya)"
+    }
+  },
+  {
+    "name": "Kuanyama, Kwanyama",
+    "alpha2": "kj",
+    "alpha3": "kua"
+  },
+  {
+    "name": "Kazakh",
+    "alpha2": "kk",
+    "alpha3": "kaz",
+    "locales": {
+      "kk_KZ": "Kazakh (Kazakhstan)"
+    }
+  },
+  {
+    "name": "Greenlandic, Kalaallisut",
+    "alpha2": "kl",
+    "alpha3": "kal",
+    "locales": {
+      "kl_GL": "Kalaallisut (Greenland)"
+    }
+  },
+  {
+    "name": "Central Khmer, Khmer",
+    "alpha2": "km",
+    "alpha3": "khm",
+    "locales": {
+      "km_KH": "Khmer (Cambodia)"
+    }
+  },
+  {
+    "name": "Kannada",
+    "alpha2": "kn",
+    "alpha3": "kan",
+    "locales": {
+      "kn_IN": "Kannada (India)"
+    }
+  },
+  {
+    "name": "Korean",
+    "alpha2": "ko",
+    "alpha3": "kor",
+    "locales": {
+      "ko_KP": "Korean (North Korea)",
+      "ko_KR": "Korean (South Korea)"
+    }
+  },
+  {
+    "name": "Kanuri",
+    "alpha2": "kr",
+    "alpha3": "kau"
+  },
+  {
+    "name": "Kashmiri",
+    "alpha2": "ks",
+    "alpha3": "kas",
+    "locales": {
+      "ks_IN": "Kashmiri (India)"
+    }
+  },
+  {
+    "name": "Kurdish",
+    "alpha2": "ku",
+    "alpha3": "kur",
+    "locales": {
+      "ku_TR": "Kurdish (Turkey)"
+    }
+  },
+  {
+    "name": "Komi",
+    "alpha2": "kv",
+    "alpha3": "kom"
+  },
+  {
+    "name": "Cornish",
+    "alpha2": "kw",
+    "alpha3": "cor",
+    "locales": {
+      "kw_GB": "Cornish (United Kingdom)"
+    }
+  },
+  {
+    "name": "Kirghiz, Kyrgyz",
+    "alpha2": "ky",
+    "alpha3": "kir",
+    "locales": {
+      "ky_KG": "Kyrgyz (Kyrgyzstan)"
+    }
+  },
+  {
+    "name": "Latin",
+    "alpha2": "la",
+    "alpha3": "lat"
+  },
+  {
+    "name": "Letzeburgesch, Luxembourgish",
+    "alpha2": "lb",
+    "alpha3": "ltz",
+    "locales": {
+      "lb_LU": "Luxembourgish (Luxembourg)"
+    }
+  },
+  {
+    "name": "Ganda",
+    "alpha2": "lg",
+    "alpha3": "lug",
+    "locales": {
+      "lg_UG": "Ganda (Uganda)"
+    }
+  },
+  {
+    "name": "Limburgan, Limburger, Limburgish",
+    "alpha2": "li",
+    "alpha3": "lim"
+  },
+  {
+    "name": "Lingala",
+    "alpha2": "ln",
+    "alpha3": "lin",
+    "locales": {
+      "ln_AO": "Lingala (Angola)",
+      "ln_CD": "Lingala (Congo - Kinshasa)",
+      "ln_CF": "Lingala (Central African Republic)",
+      "ln_CG": "Lingala (Congo - Brazzaville)"
+    }
+  },
+  {
+    "name": "Lao",
+    "alpha2": "lo",
+    "alpha3": "lao",
+    "locales": {
+      "lo_LA": "Lao (Laos)"
+    }
+  },
+  {
+    "name": "Lithuanian",
+    "alpha2": "lt",
+    "alpha3": "lit",
+    "locales": {
+      "lt_LT": "Lithuanian (Lithuania)"
+    }
+  },
+  {
+    "name": "Luba-Katanga",
+    "alpha2": "lu",
+    "alpha3": "lub",
+    "locales": {
+      "lu_CD": "Luba-Katanga (Congo - Kinshasa)"
+    }
+  },
+  {
+    "name": "Latvian",
+    "alpha2": "lv",
+    "alpha3": "lav",
+    "locales": {
+      "lv_LV": "Latvian (Latvia)"
+    }
+  },
+  {
+    "name": "Malagasy",
+    "alpha2": "mg",
+    "alpha3": "mlg",
+    "locales": {
+      "mg_MG": "Malagasy (Madagascar)"
+    }
+  },
+  {
+    "name": "Marshallese",
+    "alpha2": "mh",
+    "alpha3": "mah"
+  },
+  {
+    "name": "Maori",
+    "alpha2": "mi",
+    "alpha3": "mri",
+    "locales": {
+      "mi_NZ": "Maori (New Zealand)"
+    }
+  },
+  {
+    "name": "Macedonian",
+    "alpha2": "mk",
+    "alpha3": "mkd",
+    "locales": {
+      "mk_MK": "Macedonian (North Macedonia)"
+    }
+  },
+  {
+    "name": "Malayalam",
+    "alpha2": "ml",
+    "alpha3": "mal",
+    "locales": {
+      "ml_IN": "Malayalam (India)"
+    }
+  },
+  {
+    "name": "Mongolian",
+    "alpha2": "mn",
+    "alpha3": "mon",
+    "locales": {
+      "mn_MN": "Mongolian (Mongolia)"
+    }
+  },
+  {
+    "name": "Marathi",
+    "alpha2": "mr",
+    "alpha3": "mar",
+    "locales": {
+      "mr_IN": "Marathi (India)"
+    }
+  },
+  {
+    "name": "Malay (macrolanguage)",
+    "alpha2": "ms",
+    "alpha3": "msa",
+    "locales": {
+      "ms_BN": "Malay (Brunei)",
+      "ms_ID": "Malay (Indonesia)",
+      "ms_MY": "Malay (Malaysia)",
+      "ms_SG": "Malay (Singapore)"
+    }
+  },
+  {
+    "name": "Maltese",
+    "alpha2": "mt",
+    "alpha3": "mlt",
+    "locales": {
+      "mt_MT": "Maltese (Malta)"
+    }
+  },
+  {
+    "name": "Burmese",
+    "alpha2": "my",
+    "alpha3": "mya",
+    "locales": {
+      "my_MM": "Burmese (Myanmar (Burma))"
+    }
+  },
+  {
+    "name": "Nauru",
+    "alpha2": "na",
+    "alpha3": "nau"
+  },
+  {
+    "name": "Norwegian Bokmål",
+    "alpha2": "nb",
+    "alpha3": "nob",
+    "locales": {
+      "nb_NO": "Norwegian Bokmål (Norway)",
+      "nb_SJ": "Norwegian Bokmål (Svalbard & Jan Mayen)"
+    }
+  },
+  {
+    "name": "North Ndebele",
+    "alpha2": "nd",
+    "alpha3": "nde",
+    "locales": {
+      "nd_ZW": "North Ndebele (Zimbabwe)"
+    }
+  },
+  {
+    "name": "Nepali (macrolanguage)",
+    "alpha2": "ne",
+    "alpha3": "nep",
+    "locales": {
+      "ne_IN": "Nepali (India)",
+      "ne_NP": "Nepali (Nepal)"
+    }
+  },
+  {
+    "name": "Ndonga",
+    "alpha2": "ng",
+    "alpha3": "ndo"
+  },
+  {
+    "name": "Dutch, Flemish",
+    "alpha2": "nl",
+    "alpha3": "nld",
+    "locales": {
+      "nl_AW": "Dutch (Aruba)",
+      "nl_BE": "Dutch (Belgium)",
+      "nl_BQ": "Dutch (Caribbean Netherlands)",
+      "nl_CW": "Dutch (Curaçao)",
+      "nl_NL": "Dutch (Netherlands)",
+      "nl_SR": "Dutch (Suriname)",
+      "nl_SX": "Dutch (Sint Maarten)"
+    }
+  },
+  {
+    "name": "Norwegian Nynorsk",
+    "alpha2": "nn",
+    "alpha3": "nno",
+    "locales": {
+      "nn_NO": "Norwegian Nynorsk (Norway)"
+    }
+  },
+  {
+    "name": "Norwegian",
+    "alpha2": "no",
+    "alpha3": "nor",
+    "locales": {
+      "no_NO": "Norwegian (Norway)",
+      "no_NO_NY": "Norwegian (Norway, Nynorsk)"
+    }
+  },
+  {
+    "name": "South Ndebele",
+    "alpha2": "nr",
+    "alpha3": "nbl"
+  },
+  {
+    "name": "Navaho, Navajo",
+    "alpha2": "nv",
+    "alpha3": "nav"
+  },
+  {
+    "name": "Chewa, Chichewa, Nyanja",
+    "alpha2": "ny",
+    "alpha3": "nya"
+  },
+  {
+    "name": "Occitan (post 1500)",
+    "alpha2": "oc",
+    "alpha3": "oci"
+  },
+  {
+    "name": "Ojibwa",
+    "alpha2": "oj",
+    "alpha3": "oji"
+  },
+  {
+    "name": "Oromo",
+    "alpha2": "om",
+    "alpha3": "orm",
+    "locales": {
+      "om_ET": "Oromo (Ethiopia)",
+      "om_KE": "Oromo (Kenya)"
+    }
+  },
+  {
+    "name": "Oriya (macrolanguage)",
+    "alpha2": "or",
+    "alpha3": "ori",
+    "locales": {
+      "or_IN": "Odia (India)"
+    }
+  },
+  {
+    "name": "Ossetian, Ossetic",
+    "alpha2": "os",
+    "alpha3": "oss",
+    "locales": {
+      "os_GE": "Ossetic (Georgia)",
+      "os_RU": "Ossetic (Russia)"
+    }
+  },
+  {
+    "name": "Panjabi, Punjabi",
+    "alpha2": "pa",
+    "alpha3": "pan",
+    "locales": {
+      "pa_IN": "Punjabi (India)",
+      "pa_PK": "Punjabi (Pakistan)"
+    }
+  },
+  {
+    "name": "Pali",
+    "alpha2": "pi",
+    "alpha3": "pli"
+  },
+  {
+    "name": "Polish",
+    "alpha2": "pl",
+    "alpha3": "pol",
+    "locales": {
+      "pl_PL": "Polish (Poland)"
+    }
+  },
+  {
+    "name": "Pashto, Pushto",
+    "alpha2": "ps",
+    "alpha3": "pus",
+    "locales": {
+      "ps_AF": "Pashto (Afghanistan)",
+      "ps_PK": "Pashto (Pakistan)"
+    }
+  },
+  {
+    "name": "Portuguese",
+    "alpha2": "pt",
+    "alpha3": "por",
+    "locales": {
+      "pt_AO": "Portuguese (Angola)",
+      "pt_BR": "Portuguese (Brazil)",
+      "pt_CH": "Portuguese (Switzerland)",
+      "pt_CV": "Portuguese (Cape Verde)",
+      "pt_GQ": "Portuguese (Equatorial Guinea)",
+      "pt_GW": "Portuguese (Guinea-Bissau)",
+      "pt_LU": "Portuguese (Luxembourg)",
+      "pt_MO": "Portuguese (Macao SAR China)",
+      "pt_MZ": "Portuguese (Mozambique)",
+      "pt_PT": "Portuguese (Portugal)",
+      "pt_ST": "Portuguese (São Tomé & Príncipe)",
+      "pt_TL": "Portuguese (Timor-Leste)"
+    }
+  },
+  {
+    "name": "Quechua",
+    "alpha2": "qu",
+    "alpha3": "que",
+    "locales": {
+      "qu_BO": "Quechua (Bolivia)",
+      "qu_EC": "Quechua (Ecuador)",
+      "qu_PE": "Quechua (Peru)"
+    }
+  },
+  {
+    "name": "Romansh",
+    "alpha2": "rm",
+    "alpha3": "roh",
+    "locales": {
+      "rm_CH": "Romansh (Switzerland)"
+    }
+  },
+  {
+    "name": "Rundi",
+    "alpha2": "rn",
+    "alpha3": "run",
+    "locales": {
+      "rn_BI": "Rundi (Burundi)"
+    }
+  },
+  {
+    "name": "Moldavian, Moldovan, Romanian",
+    "alpha2": "ro",
+    "alpha3": "ron",
+    "locales": {
+      "ro_MD": "Romanian (Moldova)",
+      "ro_RO": "Romanian (Romania)"
+    }
+  },
+  {
+    "name": "Russian",
+    "alpha2": "ru",
+    "alpha3": "rus",
+    "locales": {
+      "ru_BY": "Russian (Belarus)",
+      "ru_KG": "Russian (Kyrgyzstan)",
+      "ru_KZ": "Russian (Kazakhstan)",
+      "ru_MD": "Russian (Moldova)",
+      "ru_RU": "Russian (Russia)",
+      "ru_UA": "Russian (Ukraine)"
+    }
+  },
+  {
+    "name": "Kinyarwanda",
+    "alpha2": "rw",
+    "alpha3": "kin",
+    "locales": {
+      "rw_RW": "Kinyarwanda (Rwanda)"
+    }
+  },
+  {
+    "name": "Sanskrit",
+    "alpha2": "sa",
+    "alpha3": "san",
+    "locales": {
+      "sa_IN": "Sanskrit (India)"
+    }
+  },
+  {
+    "name": "Sardinian",
+    "alpha2": "sc",
+    "alpha3": "srd"
+  },
+  {
+    "name": "Sindhi",
+    "alpha2": "sd",
+    "alpha3": "snd",
+    "locales": {
+      "sd_IN": "Sindhi (India)",
+      "sd_PK": "Sindhi (Pakistan)"
+    }
+  },
+  {
+    "name": "Northern Sami",
+    "alpha2": "se",
+    "alpha3": "sme",
+    "locales": {
+      "se_FI": "Northern Sami (Finland)",
+      "se_NO": "Northern Sami (Norway)",
+      "se_SE": "Northern Sami (Sweden)"
+    }
+  },
+  {
+    "name": "Sango",
+    "alpha2": "sg",
+    "alpha3": "sag",
+    "locales": {
+      "sg_CF": "Sango (Central African Republic)"
+    }
+  },
+  {
+    "name": "Serbo-Croatian",
+    "alpha2": "sh",
+    "alpha3": "hbs"
+  },
+  {
+    "name": "Sinhala, Sinhalese",
+    "alpha2": "si",
+    "alpha3": "sin",
+    "locales": {
+      "si_LK": "Sinhala (Sri Lanka)"
+    }
+  },
+  {
+    "name": "Slovak",
+    "alpha2": "sk",
+    "alpha3": "slk",
+    "locales": {
+      "sk_SK": "Slovak (Slovakia)"
+    }
+  },
+  {
+    "name": "Slovenian",
+    "alpha2": "sl",
+    "alpha3": "slv",
+    "locales": {
+      "sl_SI": "Slovenian (Slovenia)"
+    }
+  },
+  {
+    "name": "Samoan",
+    "alpha2": "sm",
+    "alpha3": "smo"
+  },
+  {
+    "name": "Shona",
+    "alpha2": "sn",
+    "alpha3": "sna",
+    "locales": {
+      "sn_ZW": "Shona (Zimbabwe)"
+    }
+  },
+  {
+    "name": "Somali",
+    "alpha2": "so",
+    "alpha3": "som",
+    "locales": {
+      "so_DJ": "Somali (Djibouti)",
+      "so_ET": "Somali (Ethiopia)",
+      "so_KE": "Somali (Kenya)",
+      "so_SO": "Somali (Somalia)"
+    }
+  },
+  {
+    "name": "Albanian",
+    "alpha2": "sq",
+    "alpha3": "sqi",
+    "locales": {
+      "sq_AL": "Albanian (Albania)",
+      "sq_MK": "Albanian (North Macedonia)",
+      "sq_XK": "Albanian (Kosovo)"
+    }
+  },
+  {
+    "name": "Serbian",
+    "alpha2": "sr",
+    "alpha3": "srp",
+    "locales": {
+      "sr_BA": "Serbian (Bosnia & Herzegovina)",
+      "sr_CS": "Serbian (Serbia and Montenegro)",
+      "sr_ME": "Serbian (Montenegro)",
+      "sr_RS": "Serbian (Serbia)"
+    }
+  },
+  {
+    "name": "Swati",
+    "alpha2": "ss",
+    "alpha3": "ssw"
+  },
+  {
+    "name": "Southern Sotho",
+    "alpha2": "st",
+    "alpha3": "sot"
+  },
+  {
+    "name": "Sundanese",
+    "alpha2": "su",
+    "alpha3": "sun",
+    "locales": {
+      "su_ID": "Sundanese (Indonesia)"
+    }
+  },
+  {
+    "name": "Swedish",
+    "alpha2": "sv",
+    "alpha3": "swe",
+    "locales": {
+      "sv_AX": "Swedish (Åland Islands)",
+      "sv_FI": "Swedish (Finland)",
+      "sv_SE": "Swedish (Sweden)"
+    }
+  },
+  {
+    "name": "Swahili (macrolanguage)",
+    "alpha2": "sw",
+    "alpha3": "swa",
+    "locales": {
+      "sw_CD": "Swahili (Congo - Kinshasa)",
+      "sw_KE": "Swahili (Kenya)",
+      "sw_TZ": "Swahili (Tanzania)",
+      "sw_UG": "Swahili (Uganda)"
+    }
+  },
+  {
+    "name": "Tamil",
+    "alpha2": "ta",
+    "alpha3": "tam",
+    "locales": {
+      "ta_IN": "Tamil (India)",
+      "ta_LK": "Tamil (Sri Lanka)",
+      "ta_MY": "Tamil (Malaysia)",
+      "ta_SG": "Tamil (Singapore)"
+    }
+  },
+  {
+    "name": "Telugu",
+    "alpha2": "te",
+    "alpha3": "tel",
+    "locales": {
+      "te_IN": "Telugu (India)"
+    }
+  },
+  {
+    "name": "Tajik",
+    "alpha2": "tg",
+    "alpha3": "tgk",
+    "locales": {
+      "tg_TJ": "Tajik (Tajikistan)"
+    }
+  },
+  {
+    "name": "Thai",
+    "alpha2": "th",
+    "alpha3": "tha",
+    "locales": {
+      "th_TH": "Thai (Thailand)"
+    }
+  },
+  {
+    "name": "Tigrinya",
+    "alpha2": "ti",
+    "alpha3": "tir",
+    "locales": {
+      "ti_ER": "Tigrinya (Eritrea)",
+      "ti_ET": "Tigrinya (Ethiopia)"
+    }
+  },
+  {
+    "name": "Turkmen",
+    "alpha2": "tk",
+    "alpha3": "tuk",
+    "locales": {
+      "tk_TM": "Turkmen (Turkmenistan)"
+    }
+  },
+  {
+    "name": "Tagalog",
+    "alpha2": "tl",
+    "alpha3": "tgl"
+  },
+  {
+    "name": "Tswana",
+    "alpha2": "tn",
+    "alpha3": "tsn"
+  },
+  {
+    "name": "Tonga (Tonga Islands)",
+    "alpha2": "to",
+    "alpha3": "ton",
+    "locales": {
+      "to_TO": "Tongan (Tonga)"
+    }
+  },
+  {
+    "name": "Turkish",
+    "alpha2": "tr",
+    "alpha3": "tur",
+    "locales": {
+      "tr_CY": "Turkish (Cyprus)",
+      "tr_TR": "Turkish (Turkey)"
+    }
+  },
+  {
+    "name": "Tsonga",
+    "alpha2": "ts",
+    "alpha3": "tso"
+  },
+  {
+    "name": "Tatar",
+    "alpha2": "tt",
+    "alpha3": "tat",
+    "locales": {
+      "tt_RU": "Tatar (Russia)"
+    }
+  },
+  {
+    "name": "Twi",
+    "alpha2": "tw",
+    "alpha3": "twi"
+  },
+  {
+    "name": "Tahitian",
+    "alpha2": "ty",
+    "alpha3": "tah"
+  },
+  {
+    "name": "Uighur, Uyghur",
+    "alpha2": "ug",
+    "alpha3": "uig",
+    "locales": {
+      "ug_CN": "Uyghur (China)"
+    }
+  },
+  {
+    "name": "Ukrainian",
+    "alpha2": "uk",
+    "alpha3": "ukr",
+    "locales": {
+      "uk_UA": "Ukrainian (Ukraine)"
+    }
+  },
+  {
+    "name": "Urdu",
+    "alpha2": "ur",
+    "alpha3": "urd",
+    "locales": {
+      "ur_IN": "Urdu (India)",
+      "ur_PK": "Urdu (Pakistan)"
+    }
+  },
+  {
+    "name": "Uzbek",
+    "alpha2": "uz",
+    "alpha3": "uzb",
+    "locales": {
+      "uz_AF": "Uzbek (Afghanistan)",
+      "uz_UZ": "Uzbek (Uzbekistan)"
+    }
+  },
+  {
+    "name": "Venda",
+    "alpha2": "ve",
+    "alpha3": "ven"
+  },
+  {
+    "name": "Vietnamese",
+    "alpha2": "vi",
+    "alpha3": "vie",
+    "locales": {
+      "vi_VN": "Vietnamese (Vietnam)"
+    }
+  },
+  {
+    "name": "Volapük",
+    "alpha2": "vo",
+    "alpha3": "vol"
+  },
+  {
+    "name": "Walloon",
+    "alpha2": "wa",
+    "alpha3": "wln"
+  },
+  {
+    "name": "Wolof",
+    "alpha2": "wo",
+    "alpha3": "wol",
+    "locales": {
+      "wo_SN": "Wolof (Senegal)"
+    }
+  },
+  {
+    "name": "Xhosa",
+    "alpha2": "xh",
+    "alpha3": "xho",
+    "locales": {
+      "xh_ZA": "Xhosa (South Africa)"
+    }
+  },
+  {
+    "name": "Yiddish",
+    "alpha2": "yi",
+    "alpha3": "yid",
+    "locales": {
+      "yi_001": "Yiddish (world)"
+    }
+  },
+  {
+    "name": "Yoruba",
+    "alpha2": "yo",
+    "alpha3": "yor",
+    "locales": {
+      "yo_BJ": "Yoruba (Benin)",
+      "yo_NG": "Yoruba (Nigeria)"
+    }
+  },
+  {
+    "name": "Chuang, Zhuang",
+    "alpha2": "za",
+    "alpha3": "zha"
+  },
+  {
+    "name": "Chinese",
+    "alpha2": "zh",
+    "alpha3": "zho",
+    "locales": {
+      "zh_CN": "Chinese (China)",
+      "zh_HK": "Chinese (Hong Kong SAR China)",
+      "zh_MO": "Chinese (Macao SAR China)",
+      "zh_SG": "Chinese (Singapore)",
+      "zh_TW": "Chinese (Taiwan)"
+    }
+  },
+  {
+    "name": "Zulu",
+    "alpha2": "zu",
+    "alpha3": "zul",
+    "locales": {
+      "zu_ZA": "Zulu (South Africa)"
+    }
+  }
+]

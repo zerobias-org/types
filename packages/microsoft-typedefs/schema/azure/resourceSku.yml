@@ -1,0 +1,20 @@
+type: object
+description: The SKU of the resource.
+properties:
+  capacity:
+    type: integer
+    description: The SKU capacity.
+  family:
+    type: string
+    description: The SKU family.
+  model:
+    type: string
+    description: The SKU model.
+  name:
+    type: string
+    description: The SKU name.
+  size:
+    type: string
+    description: The SKU size.
+  tier:
+    $ref: './resourceSkuTier.yml'

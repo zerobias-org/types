@@ -1,0 +1,24 @@
+type: object
+description: Model describing the region where a cloud site operates.
+required:
+  - code
+  - cloudMarketId
+  - name
+  - location
+  - provider
+properties:
+  code:
+    $ref: './cloudRegion.yml'
+    description: Globally unique and referencable ID for this region.
+  cloudMarketId:
+    $ref: './cloudMarket.yml'
+    description: ID referencing the CloudMarket this Region operates in.
+  name:
+    type: string
+    description: Human-friendly name for this Region
+  location:
+    type: string
+    description: A more specific location for this region's datacenter (i.e. - the city it exists in)
+  provider:
+    $ref: './cloudProvider.yml'
+    description: The cloud provider (i.e. - azure, aws, gcp)

@@ -1,0 +1,11 @@
+description: Generic error when an object is in a state which is not valid
+type: object
+allOf:
+  - $ref: './errorModelBase.yml'
+  - type: object
+    required:
+      - msg
+    properties:
+      msg:
+        type: string
+        description: The error message

@@ -1,0 +1,141 @@
+[
+  {
+    "name": "azureVmSize",
+    "jsonType": "string",
+    "isEnum": true,
+    "description": "An Azure Virtual Machine Size",
+    "examples": [
+      "standard_a0",
+      "standard_d16s_v3"
+    ],
+    "path": "../schema/azure/vmSize.yml"
+  },
+  {
+    "name": "azureResourceProvider",
+    "jsonType": "string",
+    "isEnum": true,
+    "description": "An Azure Resource Provider",
+    "examples": [
+      "microsoft_compute",
+      "microsoft_container_service"
+    ],
+    "path": "../schema/azure/resourceProvider.yml"
+  },
+  {
+    "name": "azureResource",
+    "jsonType": "object",
+    "description": "An Azure Resource",
+    "examples": [
+      {
+        "id": "/subscriptions/1cd209a3-f9ea-49fb-a6b4-24e273946e60/resourceGroups/resourceGroupName/providers/Microsoft.ContainerService/managedClusters/managedClusterName",
+        "name": "managedClusterName",
+        "type": "Microsoft.ContainerService/managedClusters"
+      }
+    ],
+    "path": "../schema/azure/resource.yml"
+  },
+  {
+    "name": "azureResourceInfo",
+    "jsonType": "object",
+    "description": "An Azure Resource Info",
+    "examples": [
+      {
+        "id": "/subscriptions/1cd209a3-f9ea-49fb-a6b4-24e273946e60/resourceGroups/resourceGroupName/providers/Microsoft.ContainerService/managedClusters/managedClusterName",
+        "name": "managedClusterName",
+        "type": "Microsoft.ContainerService/managedClusters",
+        "location": "centralus",
+        "identity": {
+          "principalId": "279b63ce-3879-47a3-a6ac-8e1c02b4b964",
+          "tenantId": "519bc1ab-8405-4c8b-96f4-73e5ba90098a",
+          "type": "system_assigned"
+        },
+        "tags": {
+          "type": "ci"
+        }
+      }
+    ],
+    "path": "../schema/azure/resourceInfo.yml"
+  },
+  {
+    "name": "azureResourceIdentity",
+    "jsonType": "object",
+    "description": "An identity assied to an Azure Resource",
+    "examples": [
+      {
+        "principalId": "279b63ce-3879-47a3-a6ac-8e1c02b4b964",
+        "tenantId": "519bc1ab-8405-4c8b-96f4-73e5ba90098a",
+        "type": "system_assigned"
+      }
+    ],
+    "path": "../schema/azure/resourceIdentity.yml"
+  },
+  {
+    "name": "azureResourcePlan",
+    "jsonType": "object",
+    "description": "A Plan assigned to an Azure Resource",
+    "examples": [
+    ],
+    "path": "../schema/azure/resourcePlan.yml"
+  },
+  {
+    "name": "azureResourceSku",
+    "jsonType": "object",
+    "description": "A SKU assigned to an Azure Resource",
+    "examples": [
+    ],
+    "path": "../schema/azure/resourceSku.yml"
+  },
+  {
+    "name": "azureResourceIdentityType",
+    "jsonType": "string",
+    "isEnum": true,
+    "description": "An Azure resource Identity type",
+    "examples": [
+      "system_assigned",
+      "none"
+    ],
+    "path": "../schema/azure/resourceIdentityType.yml"
+  },
+  {
+    "name": "azureResourceSkuTier",
+    "jsonType": "string",
+    "isEnum": true,
+    "description": "An Azure resource SKU tier",
+    "examples": [
+      "free",
+      "basic",
+      "standard"
+    ],
+    "path": "../schema/azure/resourceSkuTier.yml"
+  },
+  {
+    "name": "azureResourceType",
+    "jsonType": "string",
+    "description": "An Azure Resource Type",
+    "examples": [
+      "Microsoft.ContainerService/managedClusters",
+      "Microsoft.KeyVault/vaults"
+    ]
+  },
+  {
+    "name": "azureCloudRegion",
+    "jsonType": "string",
+    "isEnum": true,
+    "description": "An Azure Cloud Region Code",
+    "examples": [
+      "azure_southeastasia",
+      "azure_eastus2"
+    ],
+    "path": "../schema/azure/region.yml"
+  },
+  {
+    "name": "azureAdditionalLocations",
+    "jsonType": "string",
+    "isEnum": true,
+    "description": "Non cloud-region additional locations",
+    "examples": [
+      "any"
+    ],
+    "path": "../schema/azure/additionalLocations.yml"
+  }
+]

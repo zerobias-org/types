@@ -1,0 +1,23 @@
+type: object
+properties:
+  cn:
+    type: string
+    description: Common name
+  o:
+    type: string
+    description: Business name / Organization
+  ou:
+    type: string
+    description: Department name / Organizational unit
+  l:
+    type: string
+    description: Town / City
+  st:
+    type: string
+    description: Province, Region, County or State
+  c:
+    $ref: '../geo/geoCountry.yml'
+  mail:
+    type: string
+    format: email
+    description: Email address

@@ -1,0 +1,1142 @@
+[
+  {
+    "code": "aws_use1_atl1_az1",
+    "vendor": "aws",
+    "vendorCode": "use1-atl1-az1"
+  },
+  {
+    "code": "aws_use1_az1",
+    "vendor": "aws",
+    "vendorCode": "use1-az1"
+  },
+  {
+    "code": "aws_use1_az2",
+    "vendor": "aws",
+    "vendorCode": "use1-az2"
+  },
+  {
+    "code": "aws_use1_az3",
+    "vendor": "aws",
+    "vendorCode": "use1-az3"
+  },
+  {
+    "code": "aws_use1_az4",
+    "vendor": "aws",
+    "vendorCode": "use1-az4"
+  },
+  {
+    "code": "aws_use1_az5",
+    "vendor": "aws",
+    "vendorCode": "use1-az5"
+  },
+  {
+    "code": "aws_use1_az6",
+    "vendor": "aws",
+    "vendorCode": "use1-az6"
+  },
+  {
+    "code": "aws_use1_bos1_az1",
+    "vendor": "aws",
+    "vendorCode": "use1-bos1-az1"
+  },
+  {
+    "code": "aws_use1_chi1_az1",
+    "vendor": "aws",
+    "vendorCode": "use1-chi1-az1"
+  },
+  {
+    "code": "aws_use1_dfw1_az1",
+    "vendor": "aws",
+    "vendorCode": "use1-dfw1-az1"
+  },
+  {
+    "code": "aws_use1_iah1_az1",
+    "vendor": "aws",
+    "vendorCode": "use1-iah1-az1"
+  },
+  {
+    "code": "aws_use1_mci1_az1",
+    "vendor": "aws",
+    "vendorCode": "use1-mci1-az1"
+  },
+  {
+    "code": "aws_use1_mia1_az1",
+    "vendor": "aws",
+    "vendorCode": "use1-mia1-az1"
+  },
+  {
+    "code": "aws_use1_msp1_az1",
+    "vendor": "aws",
+    "vendorCode": "use1-msp1-az1"
+  },
+  {
+    "code": "aws_use1_nyc1_az1",
+    "vendor": "aws",
+    "vendorCode": "use1-nyc1-az1"
+  },
+  {
+    "code": "aws_use1_phl1_az1",
+    "vendor": "aws",
+    "vendorCode": "use1-phl1-az1"
+  },
+  {
+    "code": "aws_use1_wl1_atl_wlz1",
+    "vendor": "aws",
+    "vendorCode": "use1-wl1-atl-wlz1"
+  },
+  {
+    "code": "aws_use1_wl1_bos_wlz1",
+    "vendor": "aws",
+    "vendorCode": "use1-wl1-bos-wlz1"
+  },
+  {
+    "code": "aws_use1_wl1_chi_wlz1",
+    "vendor": "aws",
+    "vendorCode": "use1-wl1-chi-wlz1"
+  },
+  {
+    "code": "aws_use1_wl1_clt_wlz1",
+    "vendor": "aws",
+    "vendorCode": "use1-wl1-clt-wlz1"
+  },
+  {
+    "code": "aws_use1_wl1_dfw_wlz1",
+    "vendor": "aws",
+    "vendorCode": "use1-wl1-dfw-wlz1"
+  },
+  {
+    "code": "aws_use1_wl1_dtw_wlz1",
+    "vendor": "aws",
+    "vendorCode": "use1-wl1-dtw-wlz1"
+  },
+  {
+    "code": "aws_use1_wl1_iah_wlz1",
+    "vendor": "aws",
+    "vendorCode": "use1-wl1-iah-wlz1"
+  },
+  {
+    "code": "aws_use1_wl1_mia_wlz1",
+    "vendor": "aws",
+    "vendorCode": "use1-wl1-mia-wlz1"
+  },
+  {
+    "code": "aws_use1_wl1_msp_wlz1",
+    "vendor": "aws",
+    "vendorCode": "use1-wl1-msp-wlz1"
+  },
+  {
+    "code": "aws_use1_wl1_nyc_wlz1",
+    "vendor": "aws",
+    "vendorCode": "use1-wl1-nyc-wlz1"
+  },
+  {
+    "code": "aws_use1_wl1_was_wlz1",
+    "vendor": "aws",
+    "vendorCode": "use1-wl1-was-wlz1"
+  },
+  {
+    "code": "azure_amsterdam",
+    "vendor": "azure",
+    "vendorCode": "Amsterdam"
+  },
+  {
+    "code": "azure_ashburn",
+    "vendor": "azure",
+    "vendorCode": "Ashburn"
+  },
+  {
+    "code": "azure_athens",
+    "vendor": "azure",
+    "vendorCode": "Athens"
+  },
+  {
+    "code": "azure_atlanta",
+    "vendor": "azure",
+    "vendorCode": "Atlanta"
+  },
+  {
+    "code": "azure_auckland",
+    "vendor": "azure",
+    "vendorCode": "Auckland"
+  },
+  {
+    "code": "azure_barcelona",
+    "vendor": "azure",
+    "vendorCode": "Barcelona"
+  },
+  {
+    "code": "azure_berlin",
+    "vendor": "azure",
+    "vendorCode": "Berlin"
+  },
+  {
+    "code": "azure_bogota",
+    "vendor": "azure",
+    "vendorCode": "Bogota"
+  },
+  {
+    "code": "azure_boston",
+    "vendor": "azure",
+    "vendorCode": "Boston"
+  },
+  {
+    "code": "azure_brisbane",
+    "vendor": "azure",
+    "vendorCode": "Brisbane"
+  },
+  {
+    "code": "azure_brussels",
+    "vendor": "azure",
+    "vendorCode": "Brussels"
+  },
+  {
+    "code": "azure_bucharest",
+    "vendor": "azure",
+    "vendorCode": "Bucharest"
+  },
+  {
+    "code": "azure_budapest",
+    "vendor": "azure",
+    "vendorCode": "Budapest"
+  },
+  {
+    "code": "azure_buenos_aires",
+    "vendor": "azure",
+    "vendorCode": "Buenos Aires"
+  },
+  {
+    "code": "azure_cape_town",
+    "vendor": "azure",
+    "vendorCode": "Cape Town"
+  },
+  {
+    "code": "azure_chennai",
+    "vendor": "azure",
+    "vendorCode": "Chennai"
+  },
+  {
+    "code": "azure_chicago",
+    "vendor": "azure",
+    "vendorCode": "Chicago"
+  },
+  {
+    "code": "azure_copenhagen",
+    "vendor": "azure",
+    "vendorCode": "Copenhagen"
+  },
+  {
+    "code": "azure_dallas",
+    "vendor": "azure",
+    "vendorCode": "Dallas"
+  },
+  {
+    "code": "azure_denver",
+    "vendor": "azure",
+    "vendorCode": "Denver"
+  },
+  {
+    "code": "azure_detroit",
+    "vendor": "azure",
+    "vendorCode": "Detroit"
+  },
+  {
+    "code": "azure_dubai",
+    "vendor": "azure",
+    "vendorCode": "Dubai"
+  },
+  {
+    "code": "azure_dublin",
+    "vendor": "azure",
+    "vendorCode": "Dublin"
+  },
+  {
+    "code": "azure_dusseldorf",
+    "vendor": "azure",
+    "vendorCode": "Dusseldorf"
+  },
+  {
+    "code": "azure_frankfurt",
+    "vendor": "azure",
+    "vendorCode": "Frankfurt"
+  },
+  {
+    "code": "azure_geneva",
+    "vendor": "azure",
+    "vendorCode": "Geneva"
+  },
+  {
+    "code": "azure_helsinki",
+    "vendor": "azure",
+    "vendorCode": "Helsinki"
+  },
+  {
+    "code": "azure_ho_chi_minh_city",
+    "vendor": "azure",
+    "vendorCode": "Ho Chi Minh City"
+  },
+  {
+    "code": "azure_hong_kong",
+    "vendor": "azure",
+    "vendorCode": "Hong Kong"
+  },
+  {
+    "code": "azure_honolulu",
+    "vendor": "azure",
+    "vendorCode": "Honolulu"
+  },
+  {
+    "code": "azure_houston",
+    "vendor": "azure",
+    "vendorCode": "Houston"
+  },
+  {
+    "code": "azure_hyderabad",
+    "vendor": "azure",
+    "vendorCode": "Hyderabad"
+  },
+  {
+    "code": "azure_istanbul",
+    "vendor": "azure",
+    "vendorCode": "Istanbul"
+  },
+  {
+    "code": "azure_jacksonville",
+    "vendor": "azure",
+    "vendorCode": "Jacksonville"
+  },
+  {
+    "code": "azure_jakarta",
+    "vendor": "azure",
+    "vendorCode": "Jakarta"
+  },
+  {
+    "code": "azure_johannesburg",
+    "vendor": "azure",
+    "vendorCode": "Johannesburg"
+  },
+  {
+    "code": "azure_kuala_lumpur",
+    "vendor": "azure",
+    "vendorCode": "Kuala Lumpur"
+  },
+  {
+    "code": "azure_lagos",
+    "vendor": "azure",
+    "vendorCode": "Lagos"
+  },
+  {
+    "code": "azure_las_vegas",
+    "vendor": "azure",
+    "vendorCode": "Las Vegas"
+  },
+  {
+    "code": "azure_lisbon",
+    "vendor": "azure",
+    "vendorCode": "Lisbon"
+  },
+  {
+    "code": "azure_london",
+    "vendor": "azure",
+    "vendorCode": "London"
+  },
+  {
+    "code": "azure_los_angeles",
+    "vendor": "azure",
+    "vendorCode": "Los Angeles"
+  },
+  {
+    "code": "azure_luanda",
+    "vendor": "azure",
+    "vendorCode": "Luanda"
+  },
+  {
+    "code": "azure_madrid",
+    "vendor": "azure",
+    "vendorCode": "Madrid"
+  },
+  {
+    "code": "azure_manchester",
+    "vendor": "azure",
+    "vendorCode": "Manchester"
+  },
+  {
+    "code": "azure_manila",
+    "vendor": "azure",
+    "vendorCode": "Manila"
+  },
+  {
+    "code": "azure_marseille",
+    "vendor": "azure",
+    "vendorCode": "Marseille"
+  },
+  {
+    "code": "azure_melbourne",
+    "vendor": "azure",
+    "vendorCode": "Melbourne"
+  },
+  {
+    "code": "azure_memphis",
+    "vendor": "azure",
+    "vendorCode": "Memphis"
+  },
+  {
+    "code": "azure_mexico",
+    "vendor": "azure",
+    "vendorCode": "Mexico"
+  },
+  {
+    "code": "azure_miami",
+    "vendor": "azure",
+    "vendorCode": "Miami"
+  },
+  {
+    "code": "azure_milan",
+    "vendor": "azure",
+    "vendorCode": "Milan"
+  },
+  {
+    "code": "azure_minneapolis",
+    "vendor": "azure",
+    "vendorCode": "Minneapolis"
+  },
+  {
+    "code": "azure_montreal",
+    "vendor": "azure",
+    "vendorCode": "Montreal"
+  },
+  {
+    "code": "azure_mumbai",
+    "vendor": "azure",
+    "vendorCode": "Mumbai"
+  },
+  {
+    "code": "azure_munich",
+    "vendor": "azure",
+    "vendorCode": "Munich"
+  },
+  {
+    "code": "azure_nairobi",
+    "vendor": "azure",
+    "vendorCode": "Nairobi"
+  },
+  {
+    "code": "azure_nashville",
+    "vendor": "azure",
+    "vendorCode": "Nashville"
+  },
+  {
+    "code": "azure_new_delhi",
+    "vendor": "azure",
+    "vendorCode": "New Delhi"
+  },
+  {
+    "code": "azure_new_york",
+    "vendor": "azure",
+    "vendorCode": "New York"
+  },
+  {
+    "code": "azure_newark",
+    "vendor": "azure",
+    "vendorCode": "Newark"
+  },
+  {
+    "code": "azure_osaka",
+    "vendor": "azure",
+    "vendorCode": "Osaka"
+  },
+  {
+    "code": "azure_oslo",
+    "vendor": "azure",
+    "vendorCode": "Oslo"
+  },
+  {
+    "code": "azure_palo_alto",
+    "vendor": "azure",
+    "vendorCode": "Palo Alto"
+  },
+  {
+    "code": "azure_paris",
+    "vendor": "azure",
+    "vendorCode": "Paris"
+  },
+  {
+    "code": "azure_pathum_thani",
+    "vendor": "azure",
+    "vendorCode": "Pathum Thani"
+  },
+  {
+    "code": "azure_perth",
+    "vendor": "azure",
+    "vendorCode": "Perth"
+  },
+  {
+    "code": "azure_philadelphia",
+    "vendor": "azure",
+    "vendorCode": "Philadelphia"
+  },
+  {
+    "code": "azure_phoenix",
+    "vendor": "azure",
+    "vendorCode": "Phoenix"
+  },
+  {
+    "code": "azure_portland",
+    "vendor": "azure",
+    "vendorCode": "Portland"
+  },
+  {
+    "code": "azure_prague",
+    "vendor": "azure",
+    "vendorCode": "Prague"
+  },
+  {
+    "code": "azure_pune",
+    "vendor": "azure",
+    "vendorCode": "Pune"
+  },
+  {
+    "code": "azure_quincy",
+    "vendor": "azure",
+    "vendorCode": "Quincy"
+  },
+  {
+    "code": "azure_rennesoy",
+    "vendor": "azure",
+    "vendorCode": "Rennesoy"
+  },
+  {
+    "code": "azure_reston",
+    "vendor": "azure",
+    "vendorCode": "Reston"
+  },
+  {
+    "code": "azure_rio_de_janeiro",
+    "vendor": "azure",
+    "vendorCode": "Rio de Janeiro"
+  },
+  {
+    "code": "azure_rome",
+    "vendor": "azure",
+    "vendorCode": "Rome"
+  },
+  {
+    "code": "azure_salt_lake_city",
+    "vendor": "azure",
+    "vendorCode": "Salt Lake City"
+  },
+  {
+    "code": "azure_san_antonio",
+    "vendor": "azure",
+    "vendorCode": "San Antonio"
+  },
+  {
+    "code": "azure_san_diego",
+    "vendor": "azure",
+    "vendorCode": "San Diego"
+  },
+  {
+    "code": "azure_san_jose",
+    "vendor": "azure",
+    "vendorCode": "San Jose"
+  },
+  {
+    "code": "azure_santa_clara",
+    "vendor": "azure",
+    "vendorCode": "Santa Clara"
+  },
+  {
+    "code": "azure_santiago",
+    "vendor": "azure",
+    "vendorCode": "Santiago"
+  },
+  {
+    "code": "azure_sao_paulo",
+    "vendor": "azure",
+    "vendorCode": "Sao Paulo"
+  },
+  {
+    "code": "azure_seattle",
+    "vendor": "azure",
+    "vendorCode": "Seattle"
+  },
+  {
+    "code": "azure_seoul",
+    "vendor": "azure",
+    "vendorCode": "Seoul"
+  },
+  {
+    "code": "azure_singapore",
+    "vendor": "azure",
+    "vendorCode": "Singapore"
+  },
+  {
+    "code": "azure_sofia",
+    "vendor": "azure",
+    "vendorCode": "Sofia"
+  },
+  {
+    "code": "azure_stockholm",
+    "vendor": "azure",
+    "vendorCode": "Stockholm"
+  },
+  {
+    "code": "azure_sydney",
+    "vendor": "azure",
+    "vendorCode": "Sydney"
+  },
+  {
+    "code": "azure_taipei",
+    "vendor": "azure",
+    "vendorCode": "Taipei"
+  },
+  {
+    "code": "azure_tallahassee",
+    "vendor": "azure",
+    "vendorCode": "Tallahassee"
+  },
+  {
+    "code": "azure_tel_aviv",
+    "vendor": "azure",
+    "vendorCode": "Tel Aviv"
+  },
+  {
+    "code": "azure_teterboro",
+    "vendor": "azure",
+    "vendorCode": "Teterboro"
+  },
+  {
+    "code": "azure_tokyo",
+    "vendor": "azure",
+    "vendorCode": "Tokyo"
+  },
+  {
+    "code": "azure_toronto",
+    "vendor": "azure",
+    "vendorCode": "Toronto"
+  },
+  {
+    "code": "azure_vancouver",
+    "vendor": "azure",
+    "vendorCode": "Vancouver"
+  },
+  {
+    "code": "azure_vienna",
+    "vendor": "azure",
+    "vendorCode": "Vienna"
+  },
+  {
+    "code": "azure_warsaw",
+    "vendor": "azure",
+    "vendorCode": "Warsaw"
+  },
+  {
+    "code": "azure_zagreb",
+    "vendor": "azure",
+    "vendorCode": "Zagreb"
+  },
+  {
+    "code": "azure_zurich",
+    "vendor": "azure",
+    "vendorCode": "Zurich"
+  },
+  {
+    "code": "gcp_asia_east1_a",
+    "vendor": "gcp",
+    "vendorCode": "asia-east1-a"
+  },
+  {
+    "code": "gcp_asia_east1_b",
+    "vendor": "gcp",
+    "vendorCode": "asia-east1-b"
+  },
+  {
+    "code": "gcp_asia_east1_c",
+    "vendor": "gcp",
+    "vendorCode": "asia-east1-c"
+  },
+  {
+    "code": "gcp_asia_east2_a",
+    "vendor": "gcp",
+    "vendorCode": "asia-east2-a"
+  },
+  {
+    "code": "gcp_asia_east2_b",
+    "vendor": "gcp",
+    "vendorCode": "asia-east2-b"
+  },
+  {
+    "code": "gcp_asia_east2_c",
+    "vendor": "gcp",
+    "vendorCode": "asia-east2-c"
+  },
+  {
+    "code": "gcp_asia_northeast1_a",
+    "vendor": "gcp",
+    "vendorCode": "asia-northeast1-a"
+  },
+  {
+    "code": "gcp_asia_northeast1_b",
+    "vendor": "gcp",
+    "vendorCode": "asia-northeast1-b"
+  },
+  {
+    "code": "gcp_asia_northeast1_c",
+    "vendor": "gcp",
+    "vendorCode": "asia-northeast1-c"
+  },
+  {
+    "code": "gcp_asia_northeast2_a",
+    "vendor": "gcp",
+    "vendorCode": "asia-northeast2-a"
+  },
+  {
+    "code": "gcp_asia_northeast2_b",
+    "vendor": "gcp",
+    "vendorCode": "asia-northeast2-b"
+  },
+  {
+    "code": "gcp_asia_northeast2_c",
+    "vendor": "gcp",
+    "vendorCode": "asia-northeast2-c"
+  },
+  {
+    "code": "gcp_asia_northeast3_a",
+    "vendor": "gcp",
+    "vendorCode": "asia-northeast3-a"
+  },
+  {
+    "code": "gcp_asia_northeast3_b",
+    "vendor": "gcp",
+    "vendorCode": "asia-northeast3-b"
+  },
+  {
+    "code": "gcp_asia_northeast3_c",
+    "vendor": "gcp",
+    "vendorCode": "asia-northeast3-c"
+  },
+  {
+    "code": "gcp_asia_south1_a",
+    "vendor": "gcp",
+    "vendorCode": "asia-south1-a"
+  },
+  {
+    "code": "gcp_asia_south1_b",
+    "vendor": "gcp",
+    "vendorCode": "asia-south1-b"
+  },
+  {
+    "code": "gcp_asia_south1_c",
+    "vendor": "gcp",
+    "vendorCode": "asia-south1-c"
+  },
+  {
+    "code": "gcp_asia_south2_a",
+    "vendor": "gcp",
+    "vendorCode": "asia-south2-a"
+  },
+  {
+    "code": "gcp_asia_south2_b",
+    "vendor": "gcp",
+    "vendorCode": "asia-south2-b"
+  },
+  {
+    "code": "gcp_asia_south2_c",
+    "vendor": "gcp",
+    "vendorCode": "asia-south2-c"
+  },
+  {
+    "code": "gcp_asia_southeast1_a",
+    "vendor": "gcp",
+    "vendorCode": "asia-southeast1-a"
+  },
+  {
+    "code": "gcp_asia_southeast1_b",
+    "vendor": "gcp",
+    "vendorCode": "asia-southeast1-b"
+  },
+  {
+    "code": "gcp_asia_southeast1_c",
+    "vendor": "gcp",
+    "vendorCode": "asia-southeast1-c"
+  },
+  {
+    "code": "gcp_asia_southeast2_a",
+    "vendor": "gcp",
+    "vendorCode": "asia-southeast2-a"
+  },
+  {
+    "code": "gcp_asia_southeast2_b",
+    "vendor": "gcp",
+    "vendorCode": "asia-southeast2-b"
+  },
+  {
+    "code": "gcp_asia_southeast2_c",
+    "vendor": "gcp",
+    "vendorCode": "asia-southeast2-c"
+  },
+  {
+    "code": "gcp_australia_southeast1_a",
+    "vendor": "gcp",
+    "vendorCode": "australia-southeast1-a"
+  },
+  {
+    "code": "gcp_australia_southeast1_b",
+    "vendor": "gcp",
+    "vendorCode": "australia-southeast1-b"
+  },
+  {
+    "code": "gcp_australia_southeast1_c",
+    "vendor": "gcp",
+    "vendorCode": "australia-southeast1-c"
+  },
+  {
+    "code": "gcp_australia_southeast2_a",
+    "vendor": "gcp",
+    "vendorCode": "australia-southeast2-a"
+  },
+  {
+    "code": "gcp_australia_southeast2_b",
+    "vendor": "gcp",
+    "vendorCode": "australia-southeast2-b"
+  },
+  {
+    "code": "gcp_australia_southeast2_c",
+    "vendor": "gcp",
+    "vendorCode": "australia-southeast2-c"
+  },
+  {
+    "code": "gcp_europe_central2_a",
+    "vendor": "gcp",
+    "vendorCode": "europe-central2-a"
+  },
+  {
+    "code": "gcp_europe_central2_b",
+    "vendor": "gcp",
+    "vendorCode": "europe-central2-b"
+  },
+  {
+    "code": "gcp_europe_central2_c",
+    "vendor": "gcp",
+    "vendorCode": "europe-central2-c"
+  },
+  {
+    "code": "gcp_europe_north1_a",
+    "vendor": "gcp",
+    "vendorCode": "europe-north1-a"
+  },
+  {
+    "code": "gcp_europe_north1_b",
+    "vendor": "gcp",
+    "vendorCode": "europe-north1-b"
+  },
+  {
+    "code": "gcp_europe_north1_c",
+    "vendor": "gcp",
+    "vendorCode": "europe-north1-c"
+  },
+  {
+    "code": "gcp_europe_southwest1_a",
+    "vendor": "gcp",
+    "vendorCode": "europe-southwest1-a"
+  },
+  {
+    "code": "gcp_europe_southwest1_b",
+    "vendor": "gcp",
+    "vendorCode": "europe-southwest1-b"
+  },
+  {
+    "code": "gcp_europe_southwest1_c",
+    "vendor": "gcp",
+    "vendorCode": "europe-southwest1-c"
+  },
+  {
+    "code": "gcp_europe_west1_b",
+    "vendor": "gcp",
+    "vendorCode": "europe-west1-b"
+  },
+  {
+    "code": "gcp_europe_west1_c",
+    "vendor": "gcp",
+    "vendorCode": "europe-west1-c"
+  },
+  {
+    "code": "gcp_europe_west1_d",
+    "vendor": "gcp",
+    "vendorCode": "europe-west1-d"
+  },
+  {
+    "code": "gcp_europe_west2_a",
+    "vendor": "gcp",
+    "vendorCode": "europe-west2-a"
+  },
+  {
+    "code": "gcp_europe_west2_b",
+    "vendor": "gcp",
+    "vendorCode": "europe-west2-b"
+  },
+  {
+    "code": "gcp_europe_west2_c",
+    "vendor": "gcp",
+    "vendorCode": "europe-west2-c"
+  },
+  {
+    "code": "gcp_europe_west3_a",
+    "vendor": "gcp",
+    "vendorCode": "europe-west3-a"
+  },
+  {
+    "code": "gcp_europe_west3_b",
+    "vendor": "gcp",
+    "vendorCode": "europe-west3-b"
+  },
+  {
+    "code": "gcp_europe_west3_c",
+    "vendor": "gcp",
+    "vendorCode": "europe-west3-c"
+  },
+  {
+    "code": "gcp_europe_west4_a",
+    "vendor": "gcp",
+    "vendorCode": "europe-west4-a"
+  },
+  {
+    "code": "gcp_europe_west4_b",
+    "vendor": "gcp",
+    "vendorCode": "europe-west4-b"
+  },
+  {
+    "code": "gcp_europe_west4_c",
+    "vendor": "gcp",
+    "vendorCode": "europe-west4-c"
+  },
+  {
+    "code": "gcp_europe_west6_a",
+    "vendor": "gcp",
+    "vendorCode": "europe-west6-a"
+  },
+  {
+    "code": "gcp_europe_west6_b",
+    "vendor": "gcp",
+    "vendorCode": "europe-west6-b"
+  },
+  {
+    "code": "gcp_europe_west6_c",
+    "vendor": "gcp",
+    "vendorCode": "europe-west6-c"
+  },
+  {
+    "code": "gcp_europe_west8_a",
+    "vendor": "gcp",
+    "vendorCode": "europe-west8-a"
+  },
+  {
+    "code": "gcp_europe_west8_b",
+    "vendor": "gcp",
+    "vendorCode": "europe-west8-b"
+  },
+  {
+    "code": "gcp_europe_west8_c",
+    "vendor": "gcp",
+    "vendorCode": "europe-west8-c"
+  },
+  {
+    "code": "gcp_europe_west9_a",
+    "vendor": "gcp",
+    "vendorCode": "europe-west9-a"
+  },
+  {
+    "code": "gcp_europe_west9_b",
+    "vendor": "gcp",
+    "vendorCode": "europe-west9-b"
+  },
+  {
+    "code": "gcp_europe_west9_c",
+    "vendor": "gcp",
+    "vendorCode": "europe-west9-c"
+  },
+  {
+    "code": "gcp_northamerica_northeast1_a",
+    "vendor": "gcp",
+    "vendorCode": "northamerica-northeast1-a"
+  },
+  {
+    "code": "gcp_northamerica_northeast1_b",
+    "vendor": "gcp",
+    "vendorCode": "northamerica-northeast1-b"
+  },
+  {
+    "code": "gcp_northamerica_northeast1_c",
+    "vendor": "gcp",
+    "vendorCode": "northamerica-northeast1-c"
+  },
+  {
+    "code": "gcp_northamerica_northeast2_a",
+    "vendor": "gcp",
+    "vendorCode": "northamerica-northeast2-a"
+  },
+  {
+    "code": "gcp_northamerica_northeast2_b",
+    "vendor": "gcp",
+    "vendorCode": "northamerica-northeast2-b"
+  },
+  {
+    "code": "gcp_northamerica_northeast2_c",
+    "vendor": "gcp",
+    "vendorCode": "northamerica-northeast2-c"
+  },
+  {
+    "code": "gcp_southamerica_east1_a",
+    "vendor": "gcp",
+    "vendorCode": "southamerica-east1-a"
+  },
+  {
+    "code": "gcp_southamerica_east1_b",
+    "vendor": "gcp",
+    "vendorCode": "southamerica-east1-b"
+  },
+  {
+    "code": "gcp_southamerica_east1_c",
+    "vendor": "gcp",
+    "vendorCode": "southamerica-east1-c"
+  },
+  {
+    "code": "gcp_southamerica_west1_a",
+    "vendor": "gcp",
+    "vendorCode": "southamerica-west1-a"
+  },
+  {
+    "code": "gcp_southamerica_west1_b",
+    "vendor": "gcp",
+    "vendorCode": "southamerica-west1-b"
+  },
+  {
+    "code": "gcp_southamerica_west1_c",
+    "vendor": "gcp",
+    "vendorCode": "southamerica-west1-c"
+  },
+  {
+    "code": "gcp_us_central1_a",
+    "vendor": "gcp",
+    "vendorCode": "us-central1-a"
+  },
+  {
+    "code": "gcp_us_central1_b",
+    "vendor": "gcp",
+    "vendorCode": "us-central1-b"
+  },
+  {
+    "code": "gcp_us_central1_c",
+    "vendor": "gcp",
+    "vendorCode": "us-central1-c"
+  },
+  {
+    "code": "gcp_us_central1_f",
+    "vendor": "gcp",
+    "vendorCode": "us-central1-f"
+  },
+  {
+    "code": "gcp_us_east1_b",
+    "vendor": "gcp",
+    "vendorCode": "us-east1-b"
+  },
+  {
+    "code": "gcp_us_east1_c",
+    "vendor": "gcp",
+    "vendorCode": "us-east1-c"
+  },
+  {
+    "code": "gcp_us_east1_d",
+    "vendor": "gcp",
+    "vendorCode": "us-east1-d"
+  },
+  {
+    "code": "gcp_us_east4_a",
+    "vendor": "gcp",
+    "vendorCode": "us-east4-a"
+  },
+  {
+    "code": "gcp_us_east4_b",
+    "vendor": "gcp",
+    "vendorCode": "us-east4-b"
+  },
+  {
+    "code": "gcp_us_east4_c",
+    "vendor": "gcp",
+    "vendorCode": "us-east4-c"
+  },
+  {
+    "code": "gcp_us_east5_a",
+    "vendor": "gcp",
+    "vendorCode": "us-east5-a"
+  },
+  {
+    "code": "gcp_us_east5_b",
+    "vendor": "gcp",
+    "vendorCode": "us-east5-b"
+  },
+  {
+    "code": "gcp_us_east5_c",
+    "vendor": "gcp",
+    "vendorCode": "us-east5-c"
+  },
+  {
+    "code": "gcp_us_west1_a",
+    "vendor": "gcp",
+    "vendorCode": "us-west1-a"
+  },
+  {
+    "code": "gcp_us_west1_b",
+    "vendor": "gcp",
+    "vendorCode": "us-west1-b"
+  },
+  {
+    "code": "gcp_us_west1_c",
+    "vendor": "gcp",
+    "vendorCode": "us-west1-c"
+  },
+  {
+    "code": "gcp_us_west2_a",
+    "vendor": "gcp",
+    "vendorCode": "us-west2-a"
+  },
+  {
+    "code": "gcp_us_west2_b",
+    "vendor": "gcp",
+    "vendorCode": "us-west2-b"
+  },
+  {
+    "code": "gcp_us_west2_c",
+    "vendor": "gcp",
+    "vendorCode": "us-west2-c"
+  },
+  {
+    "code": "gcp_us_west3_a",
+    "vendor": "gcp",
+    "vendorCode": "us-west3-a"
+  },
+  {
+    "code": "gcp_us_west3_b",
+    "vendor": "gcp",
+    "vendorCode": "us-west3-b"
+  },
+  {
+    "code": "gcp_us_west3_c",
+    "vendor": "gcp",
+    "vendorCode": "us-west3-c"
+  },
+  {
+    "code": "gcp_us_west4_a",
+    "vendor": "gcp",
+    "vendorCode": "us-west4-a"
+  },
+  {
+    "code": "gcp_us_west4_b",
+    "vendor": "gcp",
+    "vendorCode": "us-west4-b"
+  },
+  {
+    "code": "gcp_us_west4_c",
+    "vendor": "gcp",
+    "vendorCode": "us-west4-c"
+  }
+]

@@ -1,0 +1,861 @@
+type: string
+enum:
+  - af_NA
+  - af_ZA
+  - ak_GH
+  - am_ET
+  - ar_001
+  - ar_AE
+  - ar_BH
+  - ar_DJ
+  - ar_DZ
+  - ar_EG
+  - ar_EH
+  - ar_ER
+  - ar_IL
+  - ar_IQ
+  - ar_JO
+  - ar_KM
+  - ar_KW
+  - ar_LB
+  - ar_LY
+  - ar_MA
+  - ar_MR
+  - ar_OM
+  - ar_PS
+  - ar_QA
+  - ar_SA
+  - ar_SD
+  - ar_SO
+  - ar_SS
+  - ar_SY
+  - ar_TD
+  - ar_TN
+  - ar_YE
+  - as_IN
+  - az_AZ
+  - be_BY
+  - bg_BG
+  - bm_ML
+  - bn_BD
+  - bn_IN
+  - bo_CN
+  - bo_IN
+  - br_FR
+  - bs_BA
+  - ca_AD
+  - ca_ES
+  - ca_ES_VALENCIA
+  - ca_FR
+  - ca_IT
+  - ce_RU
+  - cs_CZ
+  - cy_GB
+  - da_DK
+  - da_GL
+  - de_AT
+  - de_BE
+  - de_CH
+  - de_DE
+  - de_IT
+  - de_LI
+  - de_LU
+  - dz_BT
+  - ee_GH
+  - ee_TG
+  - el_CY
+  - el_GR
+  - en_001
+  - en_150
+  - en_AE
+  - en_AG
+  - en_AI
+  - en_AS
+  - en_AT
+  - en_AU
+  - en_BB
+  - en_BE
+  - en_BI
+  - en_BM
+  - en_BS
+  - en_BW
+  - en_BZ
+  - en_CA
+  - en_CC
+  - en_CH
+  - en_CK
+  - en_CM
+  - en_CX
+  - en_CY
+  - en_DE
+  - en_DG
+  - en_DK
+  - en_DM
+  - en_ER
+  - en_FI
+  - en_FJ
+  - en_FK
+  - en_FM
+  - en_GB
+  - en_GD
+  - en_GG
+  - en_GH
+  - en_GI
+  - en_GM
+  - en_GU
+  - en_GY
+  - en_HK
+  - en_IE
+  - en_IL
+  - en_IM
+  - en_IN
+  - en_IO
+  - en_JE
+  - en_JM
+  - en_KE
+  - en_KI
+  - en_KN
+  - en_KY
+  - en_LC
+  - en_LR
+  - en_LS
+  - en_MG
+  - en_MH
+  - en_MO
+  - en_MP
+  - en_MS
+  - en_MT
+  - en_MU
+  - en_MW
+  - en_MY
+  - en_NA
+  - en_NF
+  - en_NG
+  - en_NL
+  - en_NR
+  - en_NU
+  - en_NZ
+  - en_PG
+  - en_PH
+  - en_PK
+  - en_PN
+  - en_PR
+  - en_PW
+  - en_RW
+  - en_SB
+  - en_SC
+  - en_SD
+  - en_SE
+  - en_SG
+  - en_SH
+  - en_SI
+  - en_SL
+  - en_SS
+  - en_SX
+  - en_SZ
+  - en_TC
+  - en_TK
+  - en_TO
+  - en_TT
+  - en_TV
+  - en_TZ
+  - en_UG
+  - en_UM
+  - en_US
+  - en_US_POSIX
+  - en_VC
+  - en_VG
+  - en_VI
+  - en_VU
+  - en_WS
+  - en_ZA
+  - en_ZM
+  - en_ZW
+  - eo_001
+  - es_419
+  - es_AR
+  - es_BO
+  - es_BR
+  - es_BZ
+  - es_CL
+  - es_CO
+  - es_CR
+  - es_CU
+  - es_DO
+  - es_EA
+  - es_EC
+  - es_ES
+  - es_GQ
+  - es_GT
+  - es_HN
+  - es_IC
+  - es_MX
+  - es_NI
+  - es_PA
+  - es_PE
+  - es_PH
+  - es_PR
+  - es_PY
+  - es_SV
+  - es_US
+  - es_UY
+  - es_VE
+  - et_EE
+  - eu_ES
+  - fa_AF
+  - fa_IR
+  - ff_GN
+  - ff_SN
+  - fi_FI
+  - fo_DK
+  - fo_FO
+  - fr_BE
+  - fr_BF
+  - fr_BI
+  - fr_BJ
+  - fr_BL
+  - fr_CA
+  - fr_CD
+  - fr_CF
+  - fr_CG
+  - fr_CH
+  - fr_CI
+  - fr_CM
+  - fr_DJ
+  - fr_DZ
+  - fr_FR
+  - fr_GA
+  - fr_GF
+  - fr_GN
+  - fr_GP
+  - fr_GQ
+  - fr_HT
+  - fr_KM
+  - fr_LU
+  - fr_MA
+  - fr_MC
+  - fr_MF
+  - fr_MG
+  - fr_ML
+  - fr_MQ
+  - fr_MR
+  - fr_MU
+  - fr_NC
+  - fr_NE
+  - fr_PF
+  - fr_PM
+  - fr_RE
+  - fr_RW
+  - fr_SC
+  - fr_SN
+  - fr_SY
+  - fr_TD
+  - fr_TG
+  - fr_TN
+  - fr_VU
+  - fr_WF
+  - fr_YT
+  - fy_NL
+  - ga_GB
+  - ga_IE
+  - gd_GB
+  - gl_ES
+  - gu_IN
+  - gv_IM
+  - ha_GH
+  - ha_NE
+  - ha_NG
+  - he_IL
+  - hi_IN
+  - hr_BA
+  - hr_HR
+  - hu_HU
+  - hy_AM
+  - ia_001
+  - id_ID
+  - ig_NG
+  - ii_CN
+  - is_IS
+  - it_CH
+  - it_IT
+  - it_SM
+  - it_VA
+  - ja_JP
+  - jv_ID
+  - ka_GE
+  - ki_KE
+  - kk_KZ
+  - kl_GL
+  - km_KH
+  - kn_IN
+  - ko_KP
+  - ko_KR
+  - ks_IN
+  - ku_TR
+  - kw_GB
+  - ky_KG
+  - lb_LU
+  - lg_UG
+  - ln_AO
+  - ln_CD
+  - ln_CF
+  - ln_CG
+  - lo_LA
+  - lt_LT
+  - lu_CD
+  - lv_LV
+  - mg_MG
+  - mi_NZ
+  - mk_MK
+  - ml_IN
+  - mn_MN
+  - mr_IN
+  - ms_BN
+  - ms_ID
+  - ms_MY
+  - ms_SG
+  - mt_MT
+  - my_MM
+  - nb_NO
+  - nb_SJ
+  - nd_ZW
+  - ne_IN
+  - ne_NP
+  - nl_AW
+  - nl_BE
+  - nl_BQ
+  - nl_CW
+  - nl_NL
+  - nl_SR
+  - nl_SX
+  - nn_NO
+  - no_NO
+  - no_NO_NY
+  - om_ET
+  - om_KE
+  - or_IN
+  - os_GE
+  - os_RU
+  - pa_IN
+  - pa_PK
+  - pl_PL
+  - ps_AF
+  - ps_PK
+  - pt_AO
+  - pt_BR
+  - pt_CH
+  - pt_CV
+  - pt_GQ
+  - pt_GW
+  - pt_LU
+  - pt_MO
+  - pt_MZ
+  - pt_PT
+  - pt_ST
+  - pt_TL
+  - qu_BO
+  - qu_EC
+  - qu_PE
+  - rm_CH
+  - rn_BI
+  - ro_MD
+  - ro_RO
+  - ru_BY
+  - ru_KG
+  - ru_KZ
+  - ru_MD
+  - ru_RU
+  - ru_UA
+  - rw_RW
+  - sa_IN
+  - sd_IN
+  - sd_PK
+  - se_FI
+  - se_NO
+  - se_SE
+  - sg_CF
+  - si_LK
+  - sk_SK
+  - sl_SI
+  - sn_ZW
+  - so_DJ
+  - so_ET
+  - so_KE
+  - so_SO
+  - sq_AL
+  - sq_MK
+  - sq_XK
+  - sr_BA
+  - sr_CS
+  - sr_ME
+  - sr_RS
+  - su_ID
+  - sv_AX
+  - sv_FI
+  - sv_SE
+  - sw_CD
+  - sw_KE
+  - sw_TZ
+  - sw_UG
+  - ta_IN
+  - ta_LK
+  - ta_MY
+  - ta_SG
+  - te_IN
+  - tg_TJ
+  - th_TH
+  - ti_ER
+  - ti_ET
+  - tk_TM
+  - to_TO
+  - tr_CY
+  - tr_TR
+  - tt_RU
+  - ug_CN
+  - uk_UA
+  - ur_IN
+  - ur_PK
+  - uz_AF
+  - uz_UZ
+  - vi_VN
+  - wo_SN
+  - xh_ZA
+  - yi_001
+  - yo_BJ
+  - yo_NG
+  - zh_CN
+  - zh_HK
+  - zh_MO
+  - zh_SG
+  - zh_TW
+  - zu_ZA
+x-enum-descriptions:
+  - Afrikaans (Namibia)
+  - Afrikaans (South Africa)
+  - Akan (Ghana)
+  - Amharic (Ethiopia)
+  - Arabic (world)
+  - Arabic (United Arab Emirates)
+  - Arabic (Bahrain)
+  - Arabic (Djibouti)
+  - Arabic (Algeria)
+  - Arabic (Egypt)
+  - Arabic (Western Sahara)
+  - Arabic (Eritrea)
+  - Arabic (Israel)
+  - Arabic (Iraq)
+  - Arabic (Jordan)
+  - Arabic (Comoros)
+  - Arabic (Kuwait)
+  - Arabic (Lebanon)
+  - Arabic (Libya)
+  - Arabic (Morocco)
+  - Arabic (Mauritania)
+  - Arabic (Oman)
+  - Arabic (Palestinian Territories)
+  - Arabic (Qatar)
+  - Arabic (Saudi Arabia)
+  - Arabic (Sudan)
+  - Arabic (Somalia)
+  - Arabic (South Sudan)
+  - Arabic (Syria)
+  - Arabic (Chad)
+  - Arabic (Tunisia)
+  - Arabic (Yemen)
+  - Assamese (India)
+  - Azerbaijani (Azerbaijan)
+  - Belarusian (Belarus)
+  - Bulgarian (Bulgaria)
+  - Bambara (Mali)
+  - Bangla (Bangladesh)
+  - Bangla (India)
+  - Tibetan (China)
+  - Tibetan (India)
+  - Breton (France)
+  - Bosnian (Bosnia & Herzegovina)
+  - Catalan (Andorra)
+  - Catalan (Spain)
+  - Catalan (Spain, Valencian)
+  - Catalan (France)
+  - Catalan (Italy)
+  - Chechen (Russia)
+  - Czech (Czechia)
+  - Welsh (United Kingdom)
+  - Danish (Denmark)
+  - Danish (Greenland)
+  - German (Austria)
+  - German (Belgium)
+  - German (Switzerland)
+  - German (Germany)
+  - German (Italy)
+  - German (Liechtenstein)
+  - German (Luxembourg)
+  - Dzongkha (Bhutan)
+  - Ewe (Ghana)
+  - Ewe (Togo)
+  - Greek (Cyprus)
+  - Greek (Greece)
+  - English (world)
+  - English (Europe)
+  - English (United Arab Emirates)
+  - English (Antigua & Barbuda)
+  - English (Anguilla)
+  - English (American Samoa)
+  - English (Austria)
+  - English (Australia)
+  - English (Barbados)
+  - English (Belgium)
+  - English (Burundi)
+  - English (Bermuda)
+  - English (Bahamas)
+  - English (Botswana)
+  - English (Belize)
+  - English (Canada)
+  - English (Cocos (Keeling) Islands)
+  - English (Switzerland)
+  - English (Cook Islands)
+  - English (Cameroon)
+  - English (Christmas Island)
+  - English (Cyprus)
+  - English (Germany)
+  - English (Diego Garcia)
+  - English (Denmark)
+  - English (Dominica)
+  - English (Eritrea)
+  - English (Finland)
+  - English (Fiji)
+  - English (Falkland Islands)
+  - English (Micronesia)
+  - English (United Kingdom)
+  - English (Grenada)
+  - English (Guernsey)
+  - English (Ghana)
+  - English (Gibraltar)
+  - English (Gambia)
+  - English (Guam)
+  - English (Guyana)
+  - English (Hong Kong SAR China)
+  - English (Ireland)
+  - English (Israel)
+  - English (Isle of Man)
+  - English (India)
+  - English (British Indian Ocean Territory)
+  - English (Jersey)
+  - English (Jamaica)
+  - English (Kenya)
+  - English (Kiribati)
+  - English (St. Kitts & Nevis)
+  - English (Cayman Islands)
+  - English (St. Lucia)
+  - English (Liberia)
+  - English (Lesotho)
+  - English (Madagascar)
+  - English (Marshall Islands)
+  - English (Macao SAR China)
+  - English (Northern Mariana Islands)
+  - English (Montserrat)
+  - English (Malta)
+  - English (Mauritius)
+  - English (Malawi)
+  - English (Malaysia)
+  - English (Namibia)
+  - English (Norfolk Island)
+  - English (Nigeria)
+  - English (Netherlands)
+  - English (Nauru)
+  - English (Niue)
+  - English (New Zealand)
+  - English (Papua New Guinea)
+  - English (Philippines)
+  - English (Pakistan)
+  - English (Pitcairn Islands)
+  - English (Puerto Rico)
+  - English (Palau)
+  - English (Rwanda)
+  - English (Solomon Islands)
+  - English (Seychelles)
+  - English (Sudan)
+  - English (Sweden)
+  - English (Singapore)
+  - English (St. Helena)
+  - English (Slovenia)
+  - English (Sierra Leone)
+  - English (South Sudan)
+  - English (Sint Maarten)
+  - English (Eswatini)
+  - English (Turks & Caicos Islands)
+  - English (Tokelau)
+  - English (Tonga)
+  - English (Trinidad & Tobago)
+  - English (Tuvalu)
+  - English (Tanzania)
+  - English (Uganda)
+  - English (U.S. Outlying Islands)
+  - English (United States)
+  - English (United States, Computer)
+  - English (St. Vincent & Grenadines)
+  - English (British Virgin Islands)
+  - English (U.S. Virgin Islands)
+  - English (Vanuatu)
+  - English (Samoa)
+  - English (South Africa)
+  - English (Zambia)
+  - English (Zimbabwe)
+  - Esperanto (world)
+  - Spanish (Latin America)
+  - Spanish (Argentina)
+  - Spanish (Bolivia)
+  - Spanish (Brazil)
+  - Spanish (Belize)
+  - Spanish (Chile)
+  - Spanish (Colombia)
+  - Spanish (Costa Rica)
+  - Spanish (Cuba)
+  - Spanish (Dominican Republic)
+  - Spanish (Ceuta & Melilla)
+  - Spanish (Ecuador)
+  - Spanish (Spain)
+  - Spanish (Equatorial Guinea)
+  - Spanish (Guatemala)
+  - Spanish (Honduras)
+  - Spanish (Canary Islands)
+  - Spanish (Mexico)
+  - Spanish (Nicaragua)
+  - Spanish (Panama)
+  - Spanish (Peru)
+  - Spanish (Philippines)
+  - Spanish (Puerto Rico)
+  - Spanish (Paraguay)
+  - Spanish (El Salvador)
+  - Spanish (United States)
+  - Spanish (Uruguay)
+  - Spanish (Venezuela)
+  - Estonian (Estonia)
+  - Basque (Spain)
+  - Persian (Afghanistan)
+  - Persian (Iran)
+  - Fulah (Guinea)
+  - Fulah (Senegal)
+  - Finnish (Finland)
+  - Faroese (Denmark)
+  - Faroese (Faroe Islands)
+  - French (Belgium)
+  - French (Burkina Faso)
+  - French (Burundi)
+  - French (Benin)
+  - French (St. Barthélemy)
+  - French (Canada)
+  - French (Congo - Kinshasa)
+  - French (Central African Republic)
+  - French (Congo - Brazzaville)
+  - French (Switzerland)
+  - French (Côte d’Ivoire)
+  - French (Cameroon)
+  - French (Djibouti)
+  - French (Algeria)
+  - French (France)
+  - French (Gabon)
+  - French (French Guiana)
+  - French (Guinea)
+  - French (Guadeloupe)
+  - French (Equatorial Guinea)
+  - French (Haiti)
+  - French (Comoros)
+  - French (Luxembourg)
+  - French (Morocco)
+  - French (Monaco)
+  - French (St. Martin)
+  - French (Madagascar)
+  - French (Mali)
+  - French (Martinique)
+  - French (Mauritania)
+  - French (Mauritius)
+  - French (New Caledonia)
+  - French (Niger)
+  - French (French Polynesia)
+  - French (St. Pierre & Miquelon)
+  - French (Réunion)
+  - French (Rwanda)
+  - French (Seychelles)
+  - French (Senegal)
+  - French (Syria)
+  - French (Chad)
+  - French (Togo)
+  - French (Tunisia)
+  - French (Vanuatu)
+  - French (Wallis & Futuna)
+  - French (Mayotte)
+  - Western Frisian (Netherlands)
+  - Irish (United Kingdom)
+  - Irish (Ireland)
+  - Scottish Gaelic (United Kingdom)
+  - Galician (Spain)
+  - Gujarati (India)
+  - Manx (Isle of Man)
+  - Hausa (Ghana)
+  - Hausa (Niger)
+  - Hausa (Nigeria)
+  - Hebrew (Israel)
+  - Hindi (India)
+  - Croatian (Bosnia & Herzegovina)
+  - Croatian (Croatia)
+  - Hungarian (Hungary)
+  - Armenian (Armenia)
+  - Interlingua (world)
+  - Indonesian (Indonesia)
+  - Igbo (Nigeria)
+  - Sichuan Yi (China)
+  - Icelandic (Iceland)
+  - Italian (Switzerland)
+  - Italian (Italy)
+  - Italian (San Marino)
+  - Italian (Vatican City)
+  - Japanese (Japan)
+  - Javanese (Indonesia)
+  - Georgian (Georgia)
+  - Kikuyu (Kenya)
+  - Kazakh (Kazakhstan)
+  - Kalaallisut (Greenland)
+  - Khmer (Cambodia)
+  - Kannada (India)
+  - Korean (North Korea)
+  - Korean (South Korea)
+  - Kashmiri (India)
+  - Kurdish (Turkey)
+  - Cornish (United Kingdom)
+  - Kyrgyz (Kyrgyzstan)
+  - Luxembourgish (Luxembourg)
+  - Ganda (Uganda)
+  - Lingala (Angola)
+  - Lingala (Congo - Kinshasa)
+  - Lingala (Central African Republic)
+  - Lingala (Congo - Brazzaville)
+  - Lao (Laos)
+  - Lithuanian (Lithuania)
+  - Luba-Katanga (Congo - Kinshasa)
+  - Latvian (Latvia)
+  - Malagasy (Madagascar)
+  - Maori (New Zealand)
+  - Macedonian (North Macedonia)
+  - Malayalam (India)
+  - Mongolian (Mongolia)
+  - Marathi (India)
+  - Malay (Brunei)
+  - Malay (Indonesia)
+  - Malay (Malaysia)
+  - Malay (Singapore)
+  - Maltese (Malta)
+  - Burmese (Myanmar (Burma))
+  - Norwegian Bokmål (Norway)
+  - Norwegian Bokmål (Svalbard & Jan Mayen)
+  - North Ndebele (Zimbabwe)
+  - Nepali (India)
+  - Nepali (Nepal)
+  - Dutch (Aruba)
+  - Dutch (Belgium)
+  - Dutch (Caribbean Netherlands)
+  - Dutch (Curaçao)
+  - Dutch (Netherlands)
+  - Dutch (Suriname)
+  - Dutch (Sint Maarten)
+  - Norwegian Nynorsk (Norway)
+  - Norwegian (Norway)
+  - Norwegian (Norway, Nynorsk)
+  - Oromo (Ethiopia)
+  - Oromo (Kenya)
+  - Odia (India)
+  - Ossetic (Georgia)
+  - Ossetic (Russia)
+  - Punjabi (India)
+  - Punjabi (Pakistan)
+  - Polish (Poland)
+  - Pashto (Afghanistan)
+  - Pashto (Pakistan)
+  - Portuguese (Angola)
+  - Portuguese (Brazil)
+  - Portuguese (Switzerland)
+  - Portuguese (Cape Verde)
+  - Portuguese (Equatorial Guinea)
+  - Portuguese (Guinea-Bissau)
+  - Portuguese (Luxembourg)
+  - Portuguese (Macao SAR China)
+  - Portuguese (Mozambique)
+  - Portuguese (Portugal)
+  - Portuguese (São Tomé & Príncipe)
+  - Portuguese (Timor-Leste)
+  - Quechua (Bolivia)
+  - Quechua (Ecuador)
+  - Quechua (Peru)
+  - Romansh (Switzerland)
+  - Rundi (Burundi)
+  - Romanian (Moldova)
+  - Romanian (Romania)
+  - Russian (Belarus)
+  - Russian (Kyrgyzstan)
+  - Russian (Kazakhstan)
+  - Russian (Moldova)
+  - Russian (Russia)
+  - Russian (Ukraine)
+  - Kinyarwanda (Rwanda)
+  - Sanskrit (India)
+  - Sindhi (India)
+  - Sindhi (Pakistan)
+  - Northern Sami (Finland)
+  - Northern Sami (Norway)
+  - Northern Sami (Sweden)
+  - Sango (Central African Republic)
+  - Sinhala (Sri Lanka)
+  - Slovak (Slovakia)
+  - Slovenian (Slovenia)
+  - Shona (Zimbabwe)
+  - Somali (Djibouti)
+  - Somali (Ethiopia)
+  - Somali (Kenya)
+  - Somali (Somalia)
+  - Albanian (Albania)
+  - Albanian (North Macedonia)
+  - Albanian (Kosovo)
+  - Serbian (Bosnia & Herzegovina)
+  - Serbian (Serbia and Montenegro)
+  - Serbian (Montenegro)
+  - Serbian (Serbia)
+  - Sundanese (Indonesia)
+  - Swedish (Åland Islands)
+  - Swedish (Finland)
+  - Swedish (Sweden)
+  - Swahili (Congo - Kinshasa)
+  - Swahili (Kenya)
+  - Swahili (Tanzania)
+  - Swahili (Uganda)
+  - Tamil (India)
+  - Tamil (Sri Lanka)
+  - Tamil (Malaysia)
+  - Tamil (Singapore)
+  - Telugu (India)
+  - Tajik (Tajikistan)
+  - Thai (Thailand)
+  - Tigrinya (Eritrea)
+  - Tigrinya (Ethiopia)
+  - Turkmen (Turkmenistan)
+  - Tongan (Tonga)
+  - Turkish (Cyprus)
+  - Turkish (Turkey)
+  - Tatar (Russia)
+  - Uyghur (China)
+  - Ukrainian (Ukraine)
+  - Urdu (India)
+  - Urdu (Pakistan)
+  - Uzbek (Afghanistan)
+  - Uzbek (Uzbekistan)
+  - Vietnamese (Vietnam)
+  - Wolof (Senegal)
+  - Xhosa (South Africa)
+  - Yiddish (world)
+  - Yoruba (Benin)
+  - Yoruba (Nigeria)
+  - Chinese (China)
+  - Chinese (Hong Kong SAR China)
+  - Chinese (Macao SAR China)
+  - Chinese (Singapore)
+  - Chinese (Taiwan)
+  - Zulu (South Africa)

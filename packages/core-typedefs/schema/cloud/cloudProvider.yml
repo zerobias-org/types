@@ -1,0 +1,9 @@
+type: string
+enum:
+  - aws
+  - azure
+  - gcp
+x-enum-descriptions:
+  - Amazon AWS
+  - Microsoft Azure
+  - Google Cloud Platform

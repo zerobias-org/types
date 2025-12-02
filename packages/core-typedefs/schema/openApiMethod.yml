@@ -1,0 +1,21 @@
+type: string
+description: >- 
+  The set of http operations supported by OpenAPI. ( https://spec.openapis.org/oas/v3.1.0#fixed-fields-6 ).
+enum:
+  - get
+  - head
+  - post
+  - put
+  - delete
+  - options
+  - trace
+  - patch
+x-enum-descriptions:
+  - A definition of a GET operation on a given path.
+  - A definition of a HEAD operation on a given path.
+  - A definition of a POST operation on a given path.
+  - A definition of a PUT operation on a given path.
+  - A definition of a DELETE operation on a given path.
+  - A definition of a OPTIONS operation on a given path.
+  - A definition of a TRACE operation on a given path.
+  - A definition of a PATCH operation on a given path.

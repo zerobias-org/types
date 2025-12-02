@@ -1,0 +1,14 @@
+openapi: 3.0.2
+info:
+  version: 4.9.2
+  description: A collection of OpenApi core type snippets
+  title: '@zerobias-org/types-core'
+paths:
+  /foo:
+    get:
+      tags:
+        - foo
+      operationId: getFoo
+      responses:
+        '204':
+          description: Foo

@@ -1,0 +1,57 @@
+type: object
+description: Model describing the ISO-3166 country.
+required:
+  - name
+  - code
+  - alpha2
+  - alpha3
+properties:
+  name:
+    type: string
+    description: Country name.
+  code:
+    type: string
+    description: Country code.
+    pattern: '^\d{3}$'
+  alpha2:
+    description: Two-letter country code defined in ISO 3166-1
+    $ref: './geoCountry.yml'
+  alpha3:
+    type: string
+    description: Three-letter country code defined in ISO 3166-1
+    pattern: '^[A-Za-z]{3}$'
+  region:
+    description: Region from which this country belongs
+    type: string
+  regionCode:
+    description: The code of the region from which this country belongs
+    type: string
+    pattern: '^\d{3}$'
+  subRegion:
+    description: Sub-region from which this country belongs
+    type: string
+  subRegionCode:
+    description: The code of the sub-region from which this country belongs
+    type: string
+    pattern: '^\d{3}$'
+  intermediateRegion:
+    description: Intermediate-region from which this country belongs
+    type: string
+  intermediateRegionCode:
+    description: The code of the intermediate-region from which this country belongs
+    type: string
+    pattern: '^\d{3}$'
+  subdivisions:
+    description: A dictionary of subdivision codes to description
+    type: object
+    additionalProperties:
+      type: string
+    example:
+      AU-ACT: Australian Capital Territory
+      AU-NSW: New South Wales
+      AU-NT: Northern Territory
+      AU-QLD: Queensland
+      AU-SA: South Australia
+      AU-TAS: Tasmania
+      AU-VIC: Victoria
+      AU-WA: Western Australia

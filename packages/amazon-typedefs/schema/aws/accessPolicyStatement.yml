@@ -1,0 +1,64 @@
+type: object
+required:
+  - effect
+properties:
+  sid:
+    type: string
+    description: >-
+      An optional statement ID to differentiate between statements.
+  effect:
+    $ref: './accessPolicyStatementEffect.yml'
+  principal:
+    type: object
+    description: >-
+      If you create a resource-based policy, you must indicate the account, user, role, or federated user to which you would like to allow or deny access. If you are creating an IAM permissions policy to attach to a user or role, you cannot include this element. The principal is implied as that user or role.
+    additionalProperties:
+      type: array
+      items:
+        type: string
+  notPrincipal:
+    type: object
+    description: >-
+      An exception to a list of principals.
+    additionalProperties:
+      type: array
+      items:
+        type: string
+  actions:
+    type: array
+    description: >-
+      A list of actions that the policy allows or denies.
+    items:
+      type: string
+  notActions:
+    type: array
+    description: >-
+      An advanced policy element that explicitly matches everything except the specified list of actions.
+    items:
+      type: string
+  resources:
+    type: array
+    description: >-
+      If you create an IAM permissions policy, you must specify a list of resources to which the actions apply. If you create a resource-based policy, this element is optional. If you do not include this element, then the resource to which the action applies is the resource to which the policy is attached.
+    items:
+      type: string
+      anyOf:
+        - type: string
+          format: arn
+        - $ref: './accessPolicyStatementResource.yml'
+  notResources:
+    type: array
+    description: >-
+      An advanced policy element that explicitly matches every resource except those specified.
+    items:
+      type: string
+      anyOf:
+        - type: string
+          format: arn
+        - $ref: './accessPolicyStatementResource.yml'
+  conditions:
+    type: array
+    description: >-
+      The circumstances under which the policy grants permission.
+    items:
+      $ref: './accessPolicyStatementCondition.yml'

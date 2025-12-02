@@ -1,0 +1,8 @@
+type: string
+description: >- 
+  Describes the concrete type for this event.
+  This may be used alongside openapi `discriminator` to get a union type.
+enum:
+  - change
+  - base
+  - cron 

@@ -1,0 +1,28 @@
+type: object
+description: Connection profile for connecting to Azure services.
+properties:
+  clientId:
+    type: string
+    format: uuid
+    description: The active directory application client Id.
+    example: 123e4567-e89b-12d3-a456-426614174000
+  clientSecret:
+    type: string
+    description: The application secret for the service principal.
+    format: password
+    example: IwOGYzYTlmM2YxOTQ5MGE3YmNmMDFkNTVk
+  tenantId:
+    type: string
+    format: uuid
+    description: The tenant Id containing this application.
+    example: 123e4567-e89b-12d3-a456-426614174000
+  subscriptionId:
+    type: string
+    format: uuid
+    description: The subscription Id which uniquely identifies a Microsoft Azure subscription.
+    example: 123e4567-e89b-12d3-a456-426614174000
+required:
+  - clientId
+  - clientSecret
+  - tenantId
+  - subscriptionId

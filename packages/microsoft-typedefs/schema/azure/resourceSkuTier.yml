@@ -1,0 +1,9 @@
+type: string
+description: The SKU tier.
+enum:
+  - free
+  - basic
+  - standard
+  - dynamic
+  - high_density
+  - storage_optimized

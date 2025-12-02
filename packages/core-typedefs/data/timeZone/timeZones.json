@@ -1,0 +1,5554 @@
+[
+  {
+    "name": "Africa/Abidjan",
+    "utcOffset": "+00:00",
+    "utcDstOffset": "+00:00",
+    "type": "canonical",
+    "countryCodes": [
+      "ci",
+      "bf",
+      "gh",
+      "gm",
+      "gn",
+      "ml",
+      "mr",
+      "sh",
+      "sl",
+      "sn",
+      "tg"
+    ]
+  },
+  {
+    "name": "Africa/Accra",
+    "utcOffset": "+00:00",
+    "utcDstOffset": "+00:00",
+    "type": "link",
+    "link": "Africa/Abidjan",
+    "countryCodes": [
+      "gh"
+    ]
+  },
+  {
+    "name": "Africa/Addis_Ababa",
+    "utcOffset": "+03:00",
+    "utcDstOffset": "+03:00",
+    "type": "link",
+    "link": "Africa/Nairobi",
+    "countryCodes": [
+      "et"
+    ]
+  },
+  {
+    "name": "Africa/Algiers",
+    "utcOffset": "+01:00",
+    "utcDstOffset": "+01:00",
+    "type": "canonical",
+    "countryCodes": [
+      "dz"
+    ]
+  },
+  {
+    "name": "Africa/Asmara",
+    "utcOffset": "+03:00",
+    "utcDstOffset": "+03:00",
+    "type": "link",
+    "link": "Africa/Nairobi",
+    "countryCodes": [
+      "er"
+    ]
+  },
+  {
+    "name": "Africa/Asmera",
+    "utcOffset": "+03:00",
+    "utcDstOffset": "+03:00",
+    "type": "link",
+    "link": "Africa/Nairobi",
+    "countryCodes": [
+      "er"
+    ]
+  },
+  {
+    "name": "Africa/Bamako",
+    "utcOffset": "+00:00",
+    "utcDstOffset": "+00:00",
+    "type": "link",
+    "link": "Africa/Abidjan",
+    "countryCodes": [
+      "ml"
+    ]
+  },
+  {
+    "name": "Africa/Bangui",
+    "utcOffset": "+01:00",
+    "utcDstOffset": "+01:00",
+    "type": "link",
+    "link": "Africa/Lagos",
+    "countryCodes": [
+      "cf"
+    ]
+  },
+  {
+    "name": "Africa/Banjul",
+    "utcOffset": "+00:00",
+    "utcDstOffset": "+00:00",
+    "type": "link",
+    "link": "Africa/Abidjan",
+    "countryCodes": [
+      "gm"
+    ]
+  },
+  {
+    "name": "Africa/Bissau",
+    "utcOffset": "+00:00",
+    "utcDstOffset": "+00:00",
+    "type": "canonical",
+    "countryCodes": [
+      "gw"
+    ]
+  },
+  {
+    "name": "Africa/Blantyre",
+    "utcOffset": "+02:00",
+    "utcDstOffset": "+02:00",
+    "type": "link",
+    "link": "Africa/Maputo",
+    "countryCodes": [
+      "mw"
+    ]
+  },
+  {
+    "name": "Africa/Brazzaville",
+    "utcOffset": "+01:00",
+    "utcDstOffset": "+01:00",
+    "type": "link",
+    "link": "Africa/Lagos",
+    "countryCodes": [
+      "cg"
+    ]
+  },
+  {
+    "name": "Africa/Bujumbura",
+    "utcOffset": "+02:00",
+    "utcDstOffset": "+02:00",
+    "type": "link",
+    "link": "Africa/Maputo",
+    "countryCodes": [
+      "bi"
+    ]
+  },
+  {
+    "name": "Africa/Cairo",
+    "utcOffset": "+02:00",
+    "utcDstOffset": "+02:00",
+    "type": "canonical",
+    "countryCodes": [
+      "eg"
+    ]
+  },
+  {
+    "name": "Africa/Casablanca",
+    "utcOffset": "+01:00",
+    "utcDstOffset": "+00:00",
+    "type": "canonical",
+    "countryCodes": [
+      "ma"
+    ]
+  },
+  {
+    "name": "Africa/Ceuta",
+    "comments": "Ceuta, Melilla",
+    "utcOffset": "+01:00",
+    "utcDstOffset": "+02:00",
+    "type": "canonical",
+    "countryCodes": [
+      "es"
+    ]
+  },
+  {
+    "name": "Africa/Conakry",
+    "utcOffset": "+00:00",
+    "utcDstOffset": "+00:00",
+    "type": "link",
+    "link": "Africa/Abidjan",
+    "countryCodes": [
+      "gn"
+    ]
+  },
+  {
+    "name": "Africa/Dakar",
+    "utcOffset": "+00:00",
+    "utcDstOffset": "+00:00",
+    "type": "link",
+    "link": "Africa/Abidjan",
+    "countryCodes": [
+      "sn"
+    ]
+  },
+  {
+    "name": "Africa/Dar_es_Salaam",
+    "utcOffset": "+03:00",
+    "utcDstOffset": "+03:00",
+    "type": "link",
+    "link": "Africa/Nairobi",
+    "countryCodes": [
+      "tz"
+    ]
+  },
+  {
+    "name": "Africa/Djibouti",
+    "utcOffset": "+03:00",
+    "utcDstOffset": "+03:00",
+    "type": "link",
+    "link": "Africa/Nairobi",
+    "countryCodes": [
+      "dj"
+    ]
+  },
+  {
+    "name": "Africa/Douala",
+    "utcOffset": "+01:00",
+    "utcDstOffset": "+01:00",
+    "type": "link",
+    "link": "Africa/Lagos",
+    "countryCodes": [
+      "cm"
+    ]
+  },
+  {
+    "name": "Africa/El_Aaiun",
+    "utcOffset": "+01:00",
+    "utcDstOffset": "+00:00",
+    "type": "canonical",
+    "countryCodes": [
+      "eh"
+    ]
+  },
+  {
+    "name": "Africa/Freetown",
+    "utcOffset": "+00:00",
+    "utcDstOffset": "+00:00",
+    "type": "link",
+    "link": "Africa/Abidjan",
+    "countryCodes": [
+      "sl"
+    ]
+  },
+  {
+    "name": "Africa/Gaborone",
+    "utcOffset": "+02:00",
+    "utcDstOffset": "+02:00",
+    "type": "link",
+    "link": "Africa/Maputo",
+    "countryCodes": [
+      "bw"
+    ]
+  },
+  {
+    "name": "Africa/Harare",
+    "utcOffset": "+02:00",
+    "utcDstOffset": "+02:00",
+    "type": "link",
+    "link": "Africa/Maputo",
+    "countryCodes": [
+      "zw"
+    ]
+  },
+  {
+    "name": "Africa/Johannesburg",
+    "utcOffset": "+02:00",
+    "utcDstOffset": "+02:00",
+    "type": "canonical",
+    "countryCodes": [
+      "za",
+      "ls",
+      "sz"
+    ]
+  },
+  {
+    "name": "Africa/Juba",
+    "utcOffset": "+02:00",
+    "utcDstOffset": "+02:00",
+    "type": "canonical",
+    "countryCodes": [
+      "ss"
+    ]
+  },
+  {
+    "name": "Africa/Kampala",
+    "utcOffset": "+03:00",
+    "utcDstOffset": "+03:00",
+    "type": "link",
+    "link": "Africa/Nairobi",
+    "countryCodes": [
+      "ug"
+    ]
+  },
+  {
+    "name": "Africa/Khartoum",
+    "utcOffset": "+02:00",
+    "utcDstOffset": "+02:00",
+    "type": "canonical",
+    "countryCodes": [
+      "sd"
+    ]
+  },
+  {
+    "name": "Africa/Kigali",
+    "utcOffset": "+02:00",
+    "utcDstOffset": "+02:00",
+    "type": "link",
+    "link": "Africa/Maputo",
+    "countryCodes": [
+      "rw"
+    ]
+  },
+  {
+    "name": "Africa/Kinshasa",
+    "comments": "Dem. Rep. of Congo (west)",
+    "utcOffset": "+01:00",
+    "utcDstOffset": "+01:00",
+    "type": "link",
+    "link": "Africa/Lagos",
+    "countryCodes": [
+      "cd"
+    ]
+  },
+  {
+    "name": "Africa/Lagos",
+    "comments": "West Africa Time",
+    "utcOffset": "+01:00",
+    "utcDstOffset": "+01:00",
+    "type": "canonical",
+    "countryCodes": [
+      "ng",
+      "ao",
+      "bj",
+      "cd",
+      "cf",
+      "cg",
+      "cm",
+      "ga",
+      "gq",
+      "ne"
+    ]
+  },
+  {
+    "name": "Africa/Libreville",
+    "utcOffset": "+01:00",
+    "utcDstOffset": "+01:00",
+    "type": "link",
+    "link": "Africa/Lagos",
+    "countryCodes": [
+      "ga"
+    ]
+  },
+  {
+    "name": "Africa/Lome",
+    "utcOffset": "+00:00",
+    "utcDstOffset": "+00:00",
+    "type": "link",
+    "link": "Africa/Abidjan",
+    "countryCodes": [
+      "tg"
+    ]
+  },
+  {
+    "name": "Africa/Luanda",
+    "utcOffset": "+01:00",
+    "utcDstOffset": "+01:00",
+    "type": "link",
+    "link": "Africa/Lagos",
+    "countryCodes": [
+      "ao"
+    ]
+  },
+  {
+    "name": "Africa/Lubumbashi",
+    "comments": "Dem. Rep. of Congo (east)",
+    "utcOffset": "+02:00",
+    "utcDstOffset": "+02:00",
+    "type": "link",
+    "link": "Africa/Maputo",
+    "countryCodes": [
+      "cd"
+    ]
+  },
+  {
+    "name": "Africa/Lusaka",
+    "utcOffset": "+02:00",
+    "utcDstOffset": "+02:00",
+    "type": "link",
+    "link": "Africa/Maputo",
+    "countryCodes": [
+      "zm"
+    ]
+  },
+  {
+    "name": "Africa/Malabo",
+    "utcOffset": "+01:00",
+    "utcDstOffset": "+01:00",
+    "type": "link",
+    "link": "Africa/Lagos",
+    "countryCodes": [
+      "gq"
+    ]
+  },
+  {
+    "name": "Africa/Maputo",
+    "comments": "Central Africa Time",
+    "utcOffset": "+02:00",
+    "utcDstOffset": "+02:00",
+    "type": "canonical",
+    "countryCodes": [
+      "mz",
+      "bi",
+      "bw",
+      "cd",
+      "mw",
+      "rw",
+      "zm",
+      "zw"
+    ]
+  },
+  {
+    "name": "Africa/Maseru",
+    "utcOffset": "+02:00",
+    "utcDstOffset": "+02:00",
+    "type": "link",
+    "link": "Africa/Johannesburg",
+    "countryCodes": [
+      "ls"
+    ]
+  },
+  {
+    "name": "Africa/Mbabane",
+    "utcOffset": "+02:00",
+    "utcDstOffset": "+02:00",
+    "type": "link",
+    "link": "Africa/Johannesburg",
+    "countryCodes": [
+      "sz"
+    ]
+  },
+  {
+    "name": "Africa/Mogadishu",
+    "utcOffset": "+03:00",
+    "utcDstOffset": "+03:00",
+    "type": "link",
+    "link": "Africa/Nairobi",
+    "countryCodes": [
+      "so"
+    ]
+  },
+  {
+    "name": "Africa/Monrovia",
+    "utcOffset": "+00:00",
+    "utcDstOffset": "+00:00",
+    "type": "canonical",
+    "countryCodes": [
+      "lr"
+    ]
+  },
+  {
+    "name": "Africa/Nairobi",
+    "utcOffset": "+03:00",
+    "utcDstOffset": "+03:00",
+    "type": "canonical",
+    "countryCodes": [
+      "ke",
+      "dj",
+      "er",
+      "et",
+      "km",
+      "mg",
+      "so",
+      "tz",
+      "ug",
+      "yt"
+    ]
+  },
+  {
+    "name": "Africa/Ndjamena",
+    "utcOffset": "+01:00",
+    "utcDstOffset": "+01:00",
+    "type": "canonical",
+    "countryCodes": [
+      "td"
+    ]
+  },
+  {
+    "name": "Africa/Niamey",
+    "utcOffset": "+01:00",
+    "utcDstOffset": "+01:00",
+    "type": "link",
+    "link": "Africa/Lagos",
+    "countryCodes": [
+      "ne"
+    ]
+  },
+  {
+    "name": "Africa/Nouakchott",
+    "utcOffset": "+00:00",
+    "utcDstOffset": "+00:00",
+    "type": "link",
+    "link": "Africa/Abidjan",
+    "countryCodes": [
+      "mr"
+    ]
+  },
+  {
+    "name": "Africa/Ouagadougou",
+    "utcOffset": "+00:00",
+    "utcDstOffset": "+00:00",
+    "type": "link",
+    "link": "Africa/Abidjan",
+    "countryCodes": [
+      "bf"
+    ]
+  },
+  {
+    "name": "Africa/Porto-Novo",
+    "utcOffset": "+01:00",
+    "utcDstOffset": "+01:00",
+    "type": "link",
+    "link": "Africa/Lagos",
+    "countryCodes": [
+      "bj"
+    ]
+  },
+  {
+    "name": "Africa/Sao_Tome",
+    "utcOffset": "+00:00",
+    "utcDstOffset": "+00:00",
+    "type": "canonical",
+    "countryCodes": [
+      "st"
+    ]
+  },
+  {
+    "name": "Africa/Timbuktu",
+    "utcOffset": "+00:00",
+    "utcDstOffset": "+00:00",
+    "type": "link",
+    "link": "Africa/Abidjan",
+    "countryCodes": [
+      "ml"
+    ]
+  },
+  {
+    "name": "Africa/Tripoli",
+    "utcOffset": "+02:00",
+    "utcDstOffset": "+02:00",
+    "type": "canonical",
+    "countryCodes": [
+      "ly"
+    ]
+  },
+  {
+    "name": "Africa/Tunis",
+    "utcOffset": "+01:00",
+    "utcDstOffset": "+01:00",
+    "type": "canonical",
+    "countryCodes": [
+      "tn"
+    ]
+  },
+  {
+    "name": "Africa/Windhoek",
+    "utcOffset": "+02:00",
+    "utcDstOffset": "+02:00",
+    "type": "canonical",
+    "countryCodes": [
+      "na"
+    ]
+  },
+  {
+    "name": "America/Adak",
+    "comments": "Aleutian Islands",
+    "utcOffset": "-10:00",
+    "utcDstOffset": "-09:00",
+    "type": "canonical",
+    "countryCodes": [
+      "us"
+    ]
+  },
+  {
+    "name": "America/Anchorage",
+    "comments": "Alaska (most areas)",
+    "utcOffset": "-09:00",
+    "utcDstOffset": "-08:00",
+    "type": "canonical",
+    "countryCodes": [
+      "us"
+    ]
+  },
+  {
+    "name": "America/Anguilla",
+    "utcOffset": "-04:00",
+    "utcDstOffset": "-04:00",
+    "type": "link",
+    "link": "America/Puerto_Rico",
+    "countryCodes": [
+      "ai"
+    ]
+  },
+  {
+    "name": "America/Antigua",
+    "utcOffset": "-04:00",
+    "utcDstOffset": "-04:00",
+    "type": "link",
+    "link": "America/Puerto_Rico",
+    "countryCodes": [
+      "ag"
+    ]
+  },
+  {
+    "name": "America/Araguaina",
+    "comments": "Tocantins",
+    "utcOffset": "-03:00",
+    "utcDstOffset": "-03:00",
+    "type": "canonical",
+    "countryCodes": [
+      "br"
+    ]
+  },
+  {
+    "name": "America/Argentina/Buenos_Aires",
+    "comments": "Buenos Aires (BA, CF)",
+    "utcOffset": "-03:00",
+    "utcDstOffset": "-03:00",
+    "type": "canonical",
+    "countryCodes": [
+      "ar"
+    ]
+  },
+  {
+    "name": "America/Argentina/Catamarca",
+    "comments": "Catamarca (CT); Chubut (CH)",
+    "utcOffset": "-03:00",
+    "utcDstOffset": "-03:00",
+    "type": "canonical",
+    "countryCodes": [
+      "ar"
+    ]
+  },
+  {
+    "name": "America/Argentina/ComodRivadavia",
+    "utcOffset": "-03:00",
+    "utcDstOffset": "-03:00",
+    "type": "link",
+    "link": "America/Argentina/Catamarca",
+    "countryCodes": [
+      "ar"
+    ]
+  },
+  {
+    "name": "America/Argentina/Cordoba",
+    "comments": "Argentina (most areas: CB, CC, CN, ER, FM, MN, SE, SF)",
+    "utcOffset": "-03:00",
+    "utcDstOffset": "-03:00",
+    "type": "canonical",
+    "countryCodes": [
+      "ar"
+    ]
+  },
+  {
+    "name": "America/Argentina/Jujuy",
+    "comments": "Jujuy (JY)",
+    "utcOffset": "-03:00",
+    "utcDstOffset": "-03:00",
+    "type": "canonical",
+    "countryCodes": [
+      "ar"
+    ]
+  },
+  {
+    "name": "America/Argentina/La_Rioja",
+    "comments": "La Rioja (LR)",
+    "utcOffset": "-03:00",
+    "utcDstOffset": "-03:00",
+    "type": "canonical",
+    "countryCodes": [
+      "ar"
+    ]
+  },
+  {
+    "name": "America/Argentina/Mendoza",
+    "comments": "Mendoza (MZ)",
+    "utcOffset": "-03:00",
+    "utcDstOffset": "-03:00",
+    "type": "canonical",
+    "countryCodes": [
+      "ar"
+    ]
+  },
+  {
+    "name": "America/Argentina/Rio_Gallegos",
+    "comments": "Santa Cruz (SC)",
+    "utcOffset": "-03:00",
+    "utcDstOffset": "-03:00",
+    "type": "canonical",
+    "countryCodes": [
+      "ar"
+    ]
+  },
+  {
+    "name": "America/Argentina/Salta",
+    "comments": "Salta (SA, LP, NQ, RN)",
+    "utcOffset": "-03:00",
+    "utcDstOffset": "-03:00",
+    "type": "canonical",
+    "countryCodes": [
+      "ar"
+    ]
+  },
+  {
+    "name": "America/Argentina/San_Juan",
+    "comments": "San Juan (SJ)",
+    "utcOffset": "-03:00",
+    "utcDstOffset": "-03:00",
+    "type": "canonical",
+    "countryCodes": [
+      "ar"
+    ]
+  },
+  {
+    "name": "America/Argentina/San_Luis",
+    "comments": "San Luis (SL)",
+    "utcOffset": "-03:00",
+    "utcDstOffset": "-03:00",
+    "type": "canonical",
+    "countryCodes": [
+      "ar"
+    ]
+  },
+  {
+    "name": "America/Argentina/Tucuman",
+    "comments": "Tucumán (TM)",
+    "utcOffset": "-03:00",
+    "utcDstOffset": "-03:00",
+    "type": "canonical",
+    "countryCodes": [
+      "ar"
+    ]
+  },
+  {
+    "name": "America/Argentina/Ushuaia",
+    "comments": "Tierra del Fuego (TF)",
+    "utcOffset": "-03:00",
+    "utcDstOffset": "-03:00",
+    "type": "canonical",
+    "countryCodes": [
+      "ar"
+    ]
+  },
+  {
+    "name": "America/Aruba",
+    "utcOffset": "-04:00",
+    "utcDstOffset": "-04:00",
+    "type": "link",
+    "link": "America/Puerto_Rico",
+    "countryCodes": [
+      "aw"
+    ]
+  },
+  {
+    "name": "America/Asuncion",
+    "utcOffset": "-04:00",
+    "utcDstOffset": "-03:00",
+    "type": "canonical",
+    "countryCodes": [
+      "py"
+    ]
+  },
+  {
+    "name": "America/Atikokan",
+    "comments": "EST - ON (Atikokan); NU (Coral H)",
+    "utcOffset": "-05:00",
+    "utcDstOffset": "-05:00",
+    "type": "link",
+    "link": "America/Panama",
+    "countryCodes": [
+      "ca"
+    ]
+  },
+  {
+    "name": "America/Atka",
+    "utcOffset": "-10:00",
+    "utcDstOffset": "-09:00",
+    "type": "link",
+    "link": "America/Adak",
+    "countryCodes": [
+      "us"
+    ]
+  },
+  {
+    "name": "America/Bahia",
+    "comments": "Bahia",
+    "utcOffset": "-03:00",
+    "utcDstOffset": "-03:00",
+    "type": "canonical",
+    "countryCodes": [
+      "br"
+    ]
+  },
+  {
+    "name": "America/Bahia_Banderas",
+    "comments": "Central Time - Bahía de Banderas",
+    "utcOffset": "-06:00",
+    "utcDstOffset": "-05:00",
+    "type": "canonical",
+    "countryCodes": [
+      "mx"
+    ]
+  },
+  {
+    "name": "America/Barbados",
+    "utcOffset": "-04:00",
+    "utcDstOffset": "-04:00",
+    "type": "canonical",
+    "countryCodes": [
+      "bb"
+    ]
+  },
+  {
+    "name": "America/Belem",
+    "comments": "Pará (east); Amapá",
+    "utcOffset": "-03:00",
+    "utcDstOffset": "-03:00",
+    "type": "canonical",
+    "countryCodes": [
+      "br"
+    ]
+  },
+  {
+    "name": "America/Belize",
+    "utcOffset": "-06:00",
+    "utcDstOffset": "-06:00",
+    "type": "canonical",
+    "countryCodes": [
+      "bz"
+    ]
+  },
+  {
+    "name": "America/Blanc-Sablon",
+    "comments": "AST - QC (Lower North Shore)",
+    "utcOffset": "-04:00",
+    "utcDstOffset": "-04:00",
+    "type": "link",
+    "link": "America/Puerto_Rico",
+    "countryCodes": [
+      "ca"
+    ]
+  },
+  {
+    "name": "America/Boa_Vista",
+    "comments": "Roraima",
+    "utcOffset": "-04:00",
+    "utcDstOffset": "-04:00",
+    "type": "canonical",
+    "countryCodes": [
+      "br"
+    ]
+  },
+  {
+    "name": "America/Bogota",
+    "utcOffset": "-05:00",
+    "utcDstOffset": "-05:00",
+    "type": "canonical",
+    "countryCodes": [
+      "co"
+    ]
+  },
+  {
+    "name": "America/Boise",
+    "comments": "Mountain - ID (south); OR (east)",
+    "utcOffset": "-07:00",
+    "utcDstOffset": "-06:00",
+    "type": "canonical",
+    "countryCodes": [
+      "us"
+    ]
+  },
+  {
+    "name": "America/Buenos_Aires",
+    "utcOffset": "-03:00",
+    "utcDstOffset": "-03:00",
+    "type": "link",
+    "link": "America/Argentina/Buenos_Aires",
+    "countryCodes": [
+      "ar"
+    ]
+  },
+  {
+    "name": "America/Cambridge_Bay",
+    "comments": "Mountain - NU (west)",
+    "utcOffset": "-07:00",
+    "utcDstOffset": "-06:00",
+    "type": "canonical",
+    "countryCodes": [
+      "ca"
+    ]
+  },
+  {
+    "name": "America/Campo_Grande",
+    "comments": "Mato Grosso do Sul",
+    "utcOffset": "-04:00",
+    "utcDstOffset": "-04:00",
+    "type": "canonical",
+    "countryCodes": [
+      "br"
+    ]
+  },
+  {
+    "name": "America/Cancun",
+    "comments": "Eastern Standard Time - Quintana Roo",
+    "utcOffset": "-05:00",
+    "utcDstOffset": "-05:00",
+    "type": "canonical",
+    "countryCodes": [
+      "mx"
+    ]
+  },
+  {
+    "name": "America/Caracas",
+    "utcOffset": "-04:00",
+    "utcDstOffset": "-04:00",
+    "type": "canonical",
+    "countryCodes": [
+      "ve"
+    ]
+  },
+  {
+    "name": "America/Catamarca",
+    "utcOffset": "-03:00",
+    "utcDstOffset": "-03:00",
+    "type": "link",
+    "link": "America/Argentina/Catamarca",
+    "countryCodes": [
+      "ar"
+    ]
+  },
+  {
+    "name": "America/Cayenne",
+    "utcOffset": "-03:00",
+    "utcDstOffset": "-03:00",
+    "type": "canonical",
+    "countryCodes": [
+      "gf"
+    ]
+  },
+  {
+    "name": "America/Cayman",
+    "utcOffset": "-05:00",
+    "utcDstOffset": "-05:00",
+    "type": "link",
+    "link": "America/Panama",
+    "countryCodes": [
+      "ky"
+    ]
+  },
+  {
+    "name": "America/Chicago",
+    "comments": "Central (most areas)",
+    "utcOffset": "-06:00",
+    "utcDstOffset": "-05:00",
+    "type": "canonical",
+    "countryCodes": [
+      "us"
+    ]
+  },
+  {
+    "name": "America/Chihuahua",
+    "comments": "Mountain Time - Chihuahua (most areas)",
+    "utcOffset": "-07:00",
+    "utcDstOffset": "-06:00",
+    "type": "canonical",
+    "countryCodes": [
+      "mx"
+    ]
+  },
+  {
+    "name": "America/Coral_Harbour",
+    "utcOffset": "-05:00",
+    "utcDstOffset": "-05:00",
+    "type": "link",
+    "link": "America/Panama",
+    "countryCodes": [
+      "ca"
+    ]
+  },
+  {
+    "name": "America/Cordoba",
+    "utcOffset": "-03:00",
+    "utcDstOffset": "-03:00",
+    "type": "link",
+    "link": "America/Argentina/Cordoba",
+    "countryCodes": [
+      "ar"
+    ]
+  },
+  {
+    "name": "America/Costa_Rica",
+    "utcOffset": "-06:00",
+    "utcDstOffset": "-06:00",
+    "type": "canonical",
+    "countryCodes": [
+      "cr"
+    ]
+  },
+  {
+    "name": "America/Creston",
+    "comments": "MST - BC (Creston)",
+    "utcOffset": "-07:00",
+    "utcDstOffset": "-07:00",
+    "type": "link",
+    "link": "America/Phoenix",
+    "countryCodes": [
+      "ca"
+    ]
+  },
+  {
+    "name": "America/Cuiaba",
+    "comments": "Mato Grosso",
+    "utcOffset": "-04:00",
+    "utcDstOffset": "-04:00",
+    "type": "canonical",
+    "countryCodes": [
+      "br"
+    ]
+  },
+  {
+    "name": "America/Curacao",
+    "utcOffset": "-04:00",
+    "utcDstOffset": "-04:00",
+    "type": "link",
+    "link": "America/Puerto_Rico",
+    "countryCodes": [
+      "cw"
+    ]
+  },
+  {
+    "name": "America/Danmarkshavn",
+    "comments": "National Park (east coast)",
+    "utcOffset": "+00:00",
+    "utcDstOffset": "+00:00",
+    "type": "canonical",
+    "countryCodes": [
+      "gl"
+    ]
+  },
+  {
+    "name": "America/Dawson",
+    "comments": "MST - Yukon (west)",
+    "utcOffset": "-07:00",
+    "utcDstOffset": "-07:00",
+    "type": "canonical",
+    "countryCodes": [
+      "ca"
+    ]
+  },
+  {
+    "name": "America/Dawson_Creek",
+    "comments": "MST - BC (Dawson Cr, Ft St John)",
+    "utcOffset": "-07:00",
+    "utcDstOffset": "-07:00",
+    "type": "canonical",
+    "countryCodes": [
+      "ca"
+    ]
+  },
+  {
+    "name": "America/Denver",
+    "comments": "Mountain (most areas)",
+    "utcOffset": "-07:00",
+    "utcDstOffset": "-06:00",
+    "type": "canonical",
+    "countryCodes": [
+      "us"
+    ]
+  },
+  {
+    "name": "America/Detroit",
+    "comments": "Eastern - MI (most areas)",
+    "utcOffset": "-05:00",
+    "utcDstOffset": "-04:00",
+    "type": "canonical",
+    "countryCodes": [
+      "us"
+    ]
+  },
+  {
+    "name": "America/Dominica",
+    "utcOffset": "-04:00",
+    "utcDstOffset": "-04:00",
+    "type": "link",
+    "link": "America/Puerto_Rico",
+    "countryCodes": [
+      "dm"
+    ]
+  },
+  {
+    "name": "America/Edmonton",
+    "comments": "Mountain - AB; BC (E); SK (W)",
+    "utcOffset": "-07:00",
+    "utcDstOffset": "-06:00",
+    "type": "canonical",
+    "countryCodes": [
+      "ca"
+    ]
+  },
+  {
+    "name": "America/Eirunepe",
+    "comments": "Amazonas (west)",
+    "utcOffset": "-05:00",
+    "utcDstOffset": "-05:00",
+    "type": "canonical",
+    "countryCodes": [
+      "br"
+    ]
+  },
+  {
+    "name": "America/El_Salvador",
+    "utcOffset": "-06:00",
+    "utcDstOffset": "-06:00",
+    "type": "canonical",
+    "countryCodes": [
+      "sv"
+    ]
+  },
+  {
+    "name": "America/Ensenada",
+    "utcOffset": "-08:00",
+    "utcDstOffset": "-07:00",
+    "type": "link",
+    "link": "America/Tijuana",
+    "countryCodes": [
+      "mx"
+    ]
+  },
+  {
+    "name": "America/Fort_Nelson",
+    "comments": "MST - BC (Ft Nelson)",
+    "utcOffset": "-07:00",
+    "utcDstOffset": "-07:00",
+    "type": "canonical",
+    "countryCodes": [
+      "ca"
+    ]
+  },
+  {
+    "name": "America/Fort_Wayne",
+    "utcOffset": "-05:00",
+    "utcDstOffset": "-04:00",
+    "type": "link",
+    "link": "America/Indiana/Indianapolis",
+    "countryCodes": [
+      "us"
+    ]
+  },
+  {
+    "name": "America/Fortaleza",
+    "comments": "Brazil (northeast: MA, PI, CE, RN, PB)",
+    "utcOffset": "-03:00",
+    "utcDstOffset": "-03:00",
+    "type": "canonical",
+    "countryCodes": [
+      "br"
+    ]
+  },
+  {
+    "name": "America/Glace_Bay",
+    "comments": "Atlantic - NS (Cape Breton)",
+    "utcOffset": "-04:00",
+    "utcDstOffset": "-03:00",
+    "type": "canonical",
+    "countryCodes": [
+      "ca"
+    ]
+  },
+  {
+    "name": "America/Godthab",
+    "utcOffset": "-03:00",
+    "utcDstOffset": "-02:00",
+    "type": "link",
+    "link": "America/Nuuk",
+    "countryCodes": [
+      "gl"
+    ]
+  },
+  {
+    "name": "America/Goose_Bay",
+    "comments": "Atlantic - Labrador (most areas)",
+    "utcOffset": "-04:00",
+    "utcDstOffset": "-03:00",
+    "type": "canonical",
+    "countryCodes": [
+      "ca"
+    ]
+  },
+  {
+    "name": "America/Grand_Turk",
+    "utcOffset": "-05:00",
+    "utcDstOffset": "-04:00",
+    "type": "canonical",
+    "countryCodes": [
+      "tc"
+    ]
+  },
+  {
+    "name": "America/Grenada",
+    "utcOffset": "-04:00",
+    "utcDstOffset": "-04:00",
+    "type": "link",
+    "link": "America/Puerto_Rico",
+    "countryCodes": [
+      "gd"
+    ]
+  },
+  {
+    "name": "America/Guadeloupe",
+    "utcOffset": "-04:00",
+    "utcDstOffset": "-04:00",
+    "type": "link",
+    "link": "America/Puerto_Rico",
+    "countryCodes": [
+      "gp"
+    ]
+  },
+  {
+    "name": "America/Guatemala",
+    "utcOffset": "-06:00",
+    "utcDstOffset": "-06:00",
+    "type": "canonical",
+    "countryCodes": [
+      "gt"
+    ]
+  },
+  {
+    "name": "America/Guayaquil",
+    "comments": "Ecuador (mainland)",
+    "utcOffset": "-05:00",
+    "utcDstOffset": "-05:00",
+    "type": "canonical",
+    "countryCodes": [
+      "ec"
+    ]
+  },
+  {
+    "name": "America/Guyana",
+    "utcOffset": "-04:00",
+    "utcDstOffset": "-04:00",
+    "type": "canonical",
+    "countryCodes": [
+      "gy"
+    ]
+  },
+  {
+    "name": "America/Halifax",
+    "comments": "Atlantic - NS (most areas); PE",
+    "utcOffset": "-04:00",
+    "utcDstOffset": "-03:00",
+    "type": "canonical",
+    "countryCodes": [
+      "ca"
+    ]
+  },
+  {
+    "name": "America/Havana",
+    "utcOffset": "-05:00",
+    "utcDstOffset": "-04:00",
+    "type": "canonical",
+    "countryCodes": [
+      "cu"
+    ]
+  },
+  {
+    "name": "America/Hermosillo",
+    "comments": "Mountain Standard Time - Sonora",
+    "utcOffset": "-07:00",
+    "utcDstOffset": "-07:00",
+    "type": "canonical",
+    "countryCodes": [
+      "mx"
+    ]
+  },
+  {
+    "name": "America/Indiana/Indianapolis",
+    "comments": "Eastern - IN (most areas)",
+    "utcOffset": "-05:00",
+    "utcDstOffset": "-04:00",
+    "type": "canonical",
+    "countryCodes": [
+      "us"
+    ]
+  },
+  {
+    "name": "America/Indiana/Knox",
+    "comments": "Central - IN (Starke)",
+    "utcOffset": "-06:00",
+    "utcDstOffset": "-05:00",
+    "type": "canonical",
+    "countryCodes": [
+      "us"
+    ]
+  },
+  {
+    "name": "America/Indiana/Marengo",
+    "comments": "Eastern - IN (Crawford)",
+    "utcOffset": "-05:00",
+    "utcDstOffset": "-04:00",
+    "type": "canonical",
+    "countryCodes": [
+      "us"
+    ]
+  },
+  {
+    "name": "America/Indiana/Petersburg",
+    "comments": "Eastern - IN (Pike)",
+    "utcOffset": "-05:00",
+    "utcDstOffset": "-04:00",
+    "type": "canonical",
+    "countryCodes": [
+      "us"
+    ]
+  },
+  {
+    "name": "America/Indiana/Tell_City",
+    "comments": "Central - IN (Perry)",
+    "utcOffset": "-06:00",
+    "utcDstOffset": "-05:00",
+    "type": "canonical",
+    "countryCodes": [
+      "us"
+    ]
+  },
+  {
+    "name": "America/Indiana/Vevay",
+    "comments": "Eastern - IN (Switzerland)",
+    "utcOffset": "-05:00",
+    "utcDstOffset": "-04:00",
+    "type": "canonical",
+    "countryCodes": [
+      "us"
+    ]
+  },
+  {
+    "name": "America/Indiana/Vincennes",
+    "comments": "Eastern - IN (Da, Du, K, Mn)",
+    "utcOffset": "-05:00",
+    "utcDstOffset": "-04:00",
+    "type": "canonical",
+    "countryCodes": [
+      "us"
+    ]
+  },
+  {
+    "name": "America/Indiana/Winamac",
+    "comments": "Eastern - IN (Pulaski)",
+    "utcOffset": "-05:00",
+    "utcDstOffset": "-04:00",
+    "type": "canonical",
+    "countryCodes": [
+      "us"
+    ]
+  },
+  {
+    "name": "America/Indianapolis",
+    "utcOffset": "-05:00",
+    "utcDstOffset": "-04:00",
+    "type": "link",
+    "link": "America/Indiana/Indianapolis",
+    "countryCodes": [
+      "us"
+    ]
+  },
+  {
+    "name": "America/Inuvik",
+    "comments": "Mountain - NT (west)",
+    "utcOffset": "-07:00",
+    "utcDstOffset": "-06:00",
+    "type": "canonical",
+    "countryCodes": [
+      "ca"
+    ]
+  },
+  {
+    "name": "America/Iqaluit",
+    "comments": "Eastern - NU (most east areas)",
+    "utcOffset": "-05:00",
+    "utcDstOffset": "-04:00",
+    "type": "canonical",
+    "countryCodes": [
+      "ca"
+    ]
+  },
+  {
+    "name": "America/Jamaica",
+    "utcOffset": "-05:00",
+    "utcDstOffset": "-05:00",
+    "type": "canonical",
+    "countryCodes": [
+      "jm"
+    ]
+  },
+  {
+    "name": "America/Jujuy",
+    "utcOffset": "-03:00",
+    "utcDstOffset": "-03:00",
+    "type": "link",
+    "link": "America/Argentina/Jujuy",
+    "countryCodes": [
+      "ar"
+    ]
+  },
+  {
+    "name": "America/Juneau",
+    "comments": "Alaska - Juneau area",
+    "utcOffset": "-09:00",
+    "utcDstOffset": "-08:00",
+    "type": "canonical",
+    "countryCodes": [
+      "us"
+    ]
+  },
+  {
+    "name": "America/Kentucky/Louisville",
+    "comments": "Eastern - KY (Louisville area)",
+    "utcOffset": "-05:00",
+    "utcDstOffset": "-04:00",
+    "type": "canonical",
+    "countryCodes": [
+      "us"
+    ]
+  },
+  {
+    "name": "America/Kentucky/Monticello",
+    "comments": "Eastern - KY (Wayne)",
+    "utcOffset": "-05:00",
+    "utcDstOffset": "-04:00",
+    "type": "canonical",
+    "countryCodes": [
+      "us"
+    ]
+  },
+  {
+    "name": "America/Knox_IN",
+    "utcOffset": "-06:00",
+    "utcDstOffset": "-05:00",
+    "type": "link",
+    "link": "America/Indiana/Knox",
+    "countryCodes": [
+      "us"
+    ]
+  },
+  {
+    "name": "America/Kralendijk",
+    "utcOffset": "-04:00",
+    "utcDstOffset": "-04:00",
+    "type": "link",
+    "link": "America/Puerto_Rico",
+    "countryCodes": [
+      "bq"
+    ]
+  },
+  {
+    "name": "America/La_Paz",
+    "utcOffset": "-04:00",
+    "utcDstOffset": "-04:00",
+    "type": "canonical",
+    "countryCodes": [
+      "bo"
+    ]
+  },
+  {
+    "name": "America/Lima",
+    "utcOffset": "-05:00",
+    "utcDstOffset": "-05:00",
+    "type": "canonical",
+    "countryCodes": [
+      "pe"
+    ]
+  },
+  {
+    "name": "America/Los_Angeles",
+    "comments": "Pacific",
+    "utcOffset": "-08:00",
+    "utcDstOffset": "-07:00",
+    "type": "canonical",
+    "countryCodes": [
+      "us"
+    ]
+  },
+  {
+    "name": "America/Louisville",
+    "utcOffset": "-05:00",
+    "utcDstOffset": "-04:00",
+    "type": "link",
+    "link": "America/Kentucky/Louisville",
+    "countryCodes": [
+      "us"
+    ]
+  },
+  {
+    "name": "America/Lower_Princes",
+    "utcOffset": "-04:00",
+    "utcDstOffset": "-04:00",
+    "type": "link",
+    "link": "America/Puerto_Rico",
+    "countryCodes": [
+      "sx"
+    ]
+  },
+  {
+    "name": "America/Maceio",
+    "comments": "Alagoas, Sergipe",
+    "utcOffset": "-03:00",
+    "utcDstOffset": "-03:00",
+    "type": "canonical",
+    "countryCodes": [
+      "br"
+    ]
+  },
+  {
+    "name": "America/Managua",
+    "utcOffset": "-06:00",
+    "utcDstOffset": "-06:00",
+    "type": "canonical",
+    "countryCodes": [
+      "ni"
+    ]
+  },
+  {
+    "name": "America/Manaus",
+    "comments": "Amazonas (east)",
+    "utcOffset": "-04:00",
+    "utcDstOffset": "-04:00",
+    "type": "canonical",
+    "countryCodes": [
+      "br"
+    ]
+  },
+  {
+    "name": "America/Marigot",
+    "utcOffset": "-04:00",
+    "utcDstOffset": "-04:00",
+    "type": "link",
+    "link": "America/Puerto_Rico",
+    "countryCodes": [
+      "mf"
+    ]
+  },
+  {
+    "name": "America/Martinique",
+    "utcOffset": "-04:00",
+    "utcDstOffset": "-04:00",
+    "type": "canonical",
+    "countryCodes": [
+      "mq"
+    ]
+  },
+  {
+    "name": "America/Matamoros",
+    "comments": "Central Time US - Coahuila, Nuevo León, Tamaulipas (US border)",
+    "utcOffset": "-06:00",
+    "utcDstOffset": "-05:00",
+    "type": "canonical",
+    "countryCodes": [
+      "mx"
+    ]
+  },
+  {
+    "name": "America/Mazatlan",
+    "comments": "Mountain Time - Baja California Sur, Nayarit, Sinaloa",
+    "utcOffset": "-07:00",
+    "utcDstOffset": "-06:00",
+    "type": "canonical",
+    "countryCodes": [
+      "mx"
+    ]
+  },
+  {
+    "name": "America/Mendoza",
+    "utcOffset": "-03:00",
+    "utcDstOffset": "-03:00",
+    "type": "link",
+    "link": "America/Argentina/Mendoza",
+    "countryCodes": [
+      "ar"
+    ]
+  },
+  {
+    "name": "America/Menominee",
+    "comments": "Central - MI (Wisconsin border)",
+    "utcOffset": "-06:00",
+    "utcDstOffset": "-05:00",
+    "type": "canonical",
+    "countryCodes": [
+      "us"
+    ]
+  },
+  {
+    "name": "America/Merida",
+    "comments": "Central Time - Campeche, Yucatán",
+    "utcOffset": "-06:00",
+    "utcDstOffset": "-05:00",
+    "type": "canonical",
+    "countryCodes": [
+      "mx"
+    ]
+  },
+  {
+    "name": "America/Metlakatla",
+    "comments": "Alaska - Annette Island",
+    "utcOffset": "-09:00",
+    "utcDstOffset": "-08:00",
+    "type": "canonical",
+    "countryCodes": [
+      "us"
+    ]
+  },
+  {
+    "name": "America/Mexico_City",
+    "comments": "Central Time",
+    "utcOffset": "-06:00",
+    "utcDstOffset": "-05:00",
+    "type": "canonical",
+    "countryCodes": [
+      "mx"
+    ]
+  },
+  {
+    "name": "America/Miquelon",
+    "utcOffset": "-03:00",
+    "utcDstOffset": "-02:00",
+    "type": "canonical",
+    "countryCodes": [
+      "pm"
+    ]
+  },
+  {
+    "name": "America/Moncton",
+    "comments": "Atlantic - New Brunswick",
+    "utcOffset": "-04:00",
+    "utcDstOffset": "-03:00",
+    "type": "canonical",
+    "countryCodes": [
+      "ca"
+    ]
+  },
+  {
+    "name": "America/Monterrey",
+    "comments": "Central Time - Durango; Coahuila, Nuevo León, Tamaulipas (most areas)",
+    "utcOffset": "-06:00",
+    "utcDstOffset": "-05:00",
+    "type": "canonical",
+    "countryCodes": [
+      "mx"
+    ]
+  },
+  {
+    "name": "America/Montevideo",
+    "utcOffset": "-03:00",
+    "utcDstOffset": "-03:00",
+    "type": "canonical",
+    "countryCodes": [
+      "uy"
+    ]
+  },
+  {
+    "name": "America/Montreal",
+    "utcOffset": "-05:00",
+    "utcDstOffset": "-04:00",
+    "type": "link",
+    "link": "America/Toronto",
+    "countryCodes": [
+      "ca"
+    ]
+  },
+  {
+    "name": "America/Montserrat",
+    "utcOffset": "-04:00",
+    "utcDstOffset": "-04:00",
+    "type": "link",
+    "link": "America/Puerto_Rico",
+    "countryCodes": [
+      "ms"
+    ]
+  },
+  {
+    "name": "America/Nassau",
+    "utcOffset": "-05:00",
+    "utcDstOffset": "-04:00",
+    "type": "link",
+    "link": "America/Toronto",
+    "countryCodes": [
+      "bs"
+    ]
+  },
+  {
+    "name": "America/New_York",
+    "comments": "Eastern (most areas)",
+    "utcOffset": "-05:00",
+    "utcDstOffset": "-04:00",
+    "type": "canonical",
+    "countryCodes": [
+      "us"
+    ]
+  },
+  {
+    "name": "America/Nipigon",
+    "comments": "Eastern - ON, QC (no DST 1967-73)",
+    "utcOffset": "-05:00",
+    "utcDstOffset": "-04:00",
+    "type": "canonical",
+    "countryCodes": [
+      "ca"
+    ]
+  },
+  {
+    "name": "America/Nome",
+    "comments": "Alaska (west)",
+    "utcOffset": "-09:00",
+    "utcDstOffset": "-08:00",
+    "type": "canonical",
+    "countryCodes": [
+      "us"
+    ]
+  },
+  {
+    "name": "America/Noronha",
+    "comments": "Atlantic islands",
+    "utcOffset": "-02:00",
+    "utcDstOffset": "-02:00",
+    "type": "canonical",
+    "countryCodes": [
+      "br"
+    ]
+  },
+  {
+    "name": "America/North_Dakota/Beulah",
+    "comments": "Central - ND (Mercer)",
+    "utcOffset": "-06:00",
+    "utcDstOffset": "-05:00",
+    "type": "canonical",
+    "countryCodes": [
+      "us"
+    ]
+  },
+  {
+    "name": "America/North_Dakota/Center",
+    "comments": "Central - ND (Oliver)",
+    "utcOffset": "-06:00",
+    "utcDstOffset": "-05:00",
+    "type": "canonical",
+    "countryCodes": [
+      "us"
+    ]
+  },
+  {
+    "name": "America/North_Dakota/New_Salem",
+    "comments": "Central - ND (Morton rural)",
+    "utcOffset": "-06:00",
+    "utcDstOffset": "-05:00",
+    "type": "canonical",
+    "countryCodes": [
+      "us"
+    ]
+  },
+  {
+    "name": "America/Nuuk",
+    "comments": "Greenland (most areas)",
+    "utcOffset": "-03:00",
+    "utcDstOffset": "-02:00",
+    "type": "canonical",
+    "countryCodes": [
+      "gl"
+    ]
+  },
+  {
+    "name": "America/Ojinaga",
+    "comments": "Mountain Time US - Chihuahua (US border)",
+    "utcOffset": "-07:00",
+    "utcDstOffset": "-06:00",
+    "type": "canonical",
+    "countryCodes": [
+      "mx"
+    ]
+  },
+  {
+    "name": "America/Panama",
+    "comments": "EST - Panama, Cayman, ON (Atikokan), NU (Coral H)",
+    "utcOffset": "-05:00",
+    "utcDstOffset": "-05:00",
+    "type": "canonical",
+    "countryCodes": [
+      "pa",
+      "ca",
+      "ky"
+    ]
+  },
+  {
+    "name": "America/Pangnirtung",
+    "comments": "Eastern - NU (Pangnirtung)",
+    "utcOffset": "-05:00",
+    "utcDstOffset": "-04:00",
+    "type": "canonical",
+    "countryCodes": [
+      "ca"
+    ]
+  },
+  {
+    "name": "America/Paramaribo",
+    "utcOffset": "-03:00",
+    "utcDstOffset": "-03:00",
+    "type": "canonical",
+    "countryCodes": [
+      "sr"
+    ]
+  },
+  {
+    "name": "America/Phoenix",
+    "comments": "MST - Arizona (except Navajo), Creston BC",
+    "utcOffset": "-07:00",
+    "utcDstOffset": "-07:00",
+    "type": "canonical",
+    "countryCodes": [
+      "us",
+      "ca"
+    ]
+  },
+  {
+    "name": "America/Port-au-Prince",
+    "utcOffset": "-05:00",
+    "utcDstOffset": "-04:00",
+    "type": "canonical",
+    "countryCodes": [
+      "ht"
+    ]
+  },
+  {
+    "name": "America/Port_of_Spain",
+    "utcOffset": "-04:00",
+    "utcDstOffset": "-04:00",
+    "type": "link",
+    "link": "America/Puerto_Rico",
+    "countryCodes": [
+      "tt"
+    ]
+  },
+  {
+    "name": "America/Porto_Acre",
+    "utcOffset": "-05:00",
+    "utcDstOffset": "-05:00",
+    "type": "link",
+    "link": "America/Rio_Branco",
+    "countryCodes": [
+      "br"
+    ]
+  },
+  {
+    "name": "America/Porto_Velho",
+    "comments": "Rondônia",
+    "utcOffset": "-04:00",
+    "utcDstOffset": "-04:00",
+    "type": "canonical",
+    "countryCodes": [
+      "br"
+    ]
+  },
+  {
+    "name": "America/Puerto_Rico",
+    "comments": "AST",
+    "utcOffset": "-04:00",
+    "utcDstOffset": "-04:00",
+    "type": "canonical",
+    "countryCodes": [
+      "pr",
+      "ag",
+      "ca",
+      "ai",
+      "aw",
+      "bl",
+      "bq",
+      "cw",
+      "dm",
+      "gd",
+      "gp",
+      "kn",
+      "lc",
+      "mf",
+      "ms",
+      "sx",
+      "tt",
+      "vc",
+      "vg",
+      "vi"
+    ]
+  },
+  {
+    "name": "America/Punta_Arenas",
+    "comments": "Region of Magallanes",
+    "utcOffset": "-03:00",
+    "utcDstOffset": "-03:00",
+    "type": "canonical",
+    "countryCodes": [
+      "cl"
+    ]
+  },
+  {
+    "name": "America/Rainy_River",
+    "comments": "Central - ON (Rainy R, Ft Frances)",
+    "utcOffset": "-06:00",
+    "utcDstOffset": "-05:00",
+    "type": "canonical",
+    "countryCodes": [
+      "ca"
+    ]
+  },
+  {
+    "name": "America/Rankin_Inlet",
+    "comments": "Central - NU (central)",
+    "utcOffset": "-06:00",
+    "utcDstOffset": "-05:00",
+    "type": "canonical",
+    "countryCodes": [
+      "ca"
+    ]
+  },
+  {
+    "name": "America/Recife",
+    "comments": "Pernambuco",
+    "utcOffset": "-03:00",
+    "utcDstOffset": "-03:00",
+    "type": "canonical",
+    "countryCodes": [
+      "br"
+    ]
+  },
+  {
+    "name": "America/Regina",
+    "comments": "CST - SK (most areas)",
+    "utcOffset": "-06:00",
+    "utcDstOffset": "-06:00",
+    "type": "canonical",
+    "countryCodes": [
+      "ca"
+    ]
+  },
+  {
+    "name": "America/Resolute",
+    "comments": "Central - NU (Resolute)",
+    "utcOffset": "-06:00",
+    "utcDstOffset": "-05:00",
+    "type": "canonical",
+    "countryCodes": [
+      "ca"
+    ]
+  },
+  {
+    "name": "America/Rio_Branco",
+    "comments": "Acre",
+    "utcOffset": "-05:00",
+    "utcDstOffset": "-05:00",
+    "type": "canonical",
+    "countryCodes": [
+      "br"
+    ]
+  },
+  {
+    "name": "America/Rosario",
+    "utcOffset": "-03:00",
+    "utcDstOffset": "-03:00",
+    "type": "link",
+    "link": "America/Argentina/Cordoba",
+    "countryCodes": [
+      "ar"
+    ]
+  },
+  {
+    "name": "America/Santa_Isabel",
+    "utcOffset": "-08:00",
+    "utcDstOffset": "-07:00",
+    "type": "link",
+    "link": "America/Tijuana",
+    "countryCodes": [
+      "mx"
+    ]
+  },
+  {
+    "name": "America/Santarem",
+    "comments": "Pará (west)",
+    "utcOffset": "-03:00",
+    "utcDstOffset": "-03:00",
+    "type": "canonical",
+    "countryCodes": [
+      "br"
+    ]
+  },
+  {
+    "name": "America/Santiago",
+    "comments": "Chile (most areas)",
+    "utcOffset": "-04:00",
+    "utcDstOffset": "-03:00",
+    "type": "canonical",
+    "countryCodes": [
+      "cl"
+    ]
+  },
+  {
+    "name": "America/Santo_Domingo",
+    "utcOffset": "-04:00",
+    "utcDstOffset": "-04:00",
+    "type": "canonical",
+    "countryCodes": [
+      "do"
+    ]
+  },
+  {
+    "name": "America/Sao_Paulo",
+    "comments": "Brazil (southeast: GO, DF, MG, ES, RJ, SP, PR, SC, RS)",
+    "utcOffset": "-03:00",
+    "utcDstOffset": "-03:00",
+    "type": "canonical",
+    "countryCodes": [
+      "br"
+    ]
+  },
+  {
+    "name": "America/Scoresbysund",
+    "comments": "Scoresbysund/Ittoqqortoormiit",
+    "utcOffset": "-01:00",
+    "utcDstOffset": "+00:00",
+    "type": "canonical",
+    "countryCodes": [
+      "gl"
+    ]
+  },
+  {
+    "name": "America/Shiprock",
+    "utcOffset": "-07:00",
+    "utcDstOffset": "-06:00",
+    "type": "link",
+    "link": "America/Denver",
+    "countryCodes": [
+      "us"
+    ]
+  },
+  {
+    "name": "America/Sitka",
+    "comments": "Alaska - Sitka area",
+    "utcOffset": "-09:00",
+    "utcDstOffset": "-08:00",
+    "type": "canonical",
+    "countryCodes": [
+      "us"
+    ]
+  },
+  {
+    "name": "America/St_Barthelemy",
+    "utcOffset": "-04:00",
+    "utcDstOffset": "-04:00",
+    "type": "link",
+    "link": "America/Puerto_Rico",
+    "countryCodes": [
+      "bl"
+    ]
+  },
+  {
+    "name": "America/St_Johns",
+    "comments": "Newfoundland; Labrador (southeast)",
+    "utcOffset": "-03:30",
+    "utcDstOffset": "-02:30",
+    "type": "canonical",
+    "countryCodes": [
+      "ca"
+    ]
+  },
+  {
+    "name": "America/St_Kitts",
+    "utcOffset": "-04:00",
+    "utcDstOffset": "-04:00",
+    "type": "link",
+    "link": "America/Puerto_Rico",
+    "countryCodes": [
+      "kn"
+    ]
+  },
+  {
+    "name": "America/St_Lucia",
+    "utcOffset": "-04:00",
+    "utcDstOffset": "-04:00",
+    "type": "link",
+    "link": "America/Puerto_Rico",
+    "countryCodes": [
+      "lc"
+    ]
+  },
+  {
+    "name": "America/St_Thomas",
+    "utcOffset": "-04:00",
+    "utcDstOffset": "-04:00",
+    "type": "link",
+    "link": "America/Puerto_Rico",
+    "countryCodes": [
+      "vi"
+    ]
+  },
+  {
+    "name": "America/St_Vincent",
+    "utcOffset": "-04:00",
+    "utcDstOffset": "-04:00",
+    "type": "link",
+    "link": "America/Puerto_Rico",
+    "countryCodes": [
+      "vc"
+    ]
+  },
+  {
+    "name": "America/Swift_Current",
+    "comments": "CST - SK (midwest)",
+    "utcOffset": "-06:00",
+    "utcDstOffset": "-06:00",
+    "type": "canonical",
+    "countryCodes": [
+      "ca"
+    ]
+  },
+  {
+    "name": "America/Tegucigalpa",
+    "utcOffset": "-06:00",
+    "utcDstOffset": "-06:00",
+    "type": "canonical",
+    "countryCodes": [
+      "hn"
+    ]
+  },
+  {
+    "name": "America/Thule",
+    "comments": "Thule/Pituffik",
+    "utcOffset": "-04:00",
+    "utcDstOffset": "-03:00",
+    "type": "canonical",
+    "countryCodes": [
+      "gl"
+    ]
+  },
+  {
+    "name": "America/Thunder_Bay",
+    "comments": "Eastern - ON (Thunder Bay)",
+    "utcOffset": "-05:00",
+    "utcDstOffset": "-04:00",
+    "type": "canonical",
+    "countryCodes": [
+      "ca"
+    ]
+  },
+  {
+    "name": "America/Tijuana",
+    "comments": "Pacific Time US - Baja California",
+    "utcOffset": "-08:00",
+    "utcDstOffset": "-07:00",
+    "type": "canonical",
+    "countryCodes": [
+      "mx"
+    ]
+  },
+  {
+    "name": "America/Toronto",
+    "comments": "Eastern - ON, QC (most areas), Bahamas",
+    "utcOffset": "-05:00",
+    "utcDstOffset": "-04:00",
+    "type": "canonical",
+    "countryCodes": [
+      "ca",
+      "bs"
+    ]
+  },
+  {
+    "name": "America/Tortola",
+    "utcOffset": "-04:00",
+    "utcDstOffset": "-04:00",
+    "type": "link",
+    "link": "America/Puerto_Rico",
+    "countryCodes": [
+      "vg"
+    ]
+  },
+  {
+    "name": "America/Vancouver",
+    "comments": "Pacific - BC (most areas)",
+    "utcOffset": "-08:00",
+    "utcDstOffset": "-07:00",
+    "type": "canonical",
+    "countryCodes": [
+      "ca"
+    ]
+  },
+  {
+    "name": "America/Virgin",
+    "utcOffset": "-04:00",
+    "utcDstOffset": "-04:00",
+    "type": "link",
+    "link": "America/Puerto_Rico",
+    "countryCodes": [
+      "vi"
+    ]
+  },
+  {
+    "name": "America/Whitehorse",
+    "comments": "MST - Yukon (east)",
+    "utcOffset": "-07:00",
+    "utcDstOffset": "-07:00",
+    "type": "canonical",
+    "countryCodes": [
+      "ca"
+    ]
+  },
+  {
+    "name": "America/Winnipeg",
+    "comments": "Central - ON (west); Manitoba",
+    "utcOffset": "-06:00",
+    "utcDstOffset": "-05:00",
+    "type": "canonical",
+    "countryCodes": [
+      "ca"
+    ]
+  },
+  {
+    "name": "America/Yakutat",
+    "comments": "Alaska - Yakutat",
+    "utcOffset": "-09:00",
+    "utcDstOffset": "-08:00",
+    "type": "canonical",
+    "countryCodes": [
+      "us"
+    ]
+  },
+  {
+    "name": "America/Yellowknife",
+    "comments": "Mountain - NT (central)",
+    "utcOffset": "-07:00",
+    "utcDstOffset": "-06:00",
+    "type": "canonical",
+    "countryCodes": [
+      "ca"
+    ]
+  },
+  {
+    "name": "Antarctica/Casey",
+    "comments": "Casey",
+    "utcOffset": "+11:00",
+    "utcDstOffset": "+11:00",
+    "type": "canonical",
+    "countryCodes": [
+      "aq"
+    ]
+  },
+  {
+    "name": "Antarctica/Davis",
+    "comments": "Davis",
+    "utcOffset": "+07:00",
+    "utcDstOffset": "+07:00",
+    "type": "canonical",
+    "countryCodes": [
+      "aq"
+    ]
+  },
+  {
+    "name": "Antarctica/DumontDUrville",
+    "comments": "Dumont-d'Urville",
+    "utcOffset": "+10:00",
+    "utcDstOffset": "+10:00",
+    "type": "link",
+    "link": "Pacific/Port_Moresby",
+    "countryCodes": [
+      "aq"
+    ]
+  },
+  {
+    "name": "Antarctica/Macquarie",
+    "comments": "Macquarie Island",
+    "utcOffset": "+10:00",
+    "utcDstOffset": "+11:00",
+    "type": "canonical",
+    "countryCodes": [
+      "au"
+    ]
+  },
+  {
+    "name": "Antarctica/Mawson",
+    "comments": "Mawson",
+    "utcOffset": "+05:00",
+    "utcDstOffset": "+05:00",
+    "type": "canonical",
+    "countryCodes": [
+      "aq"
+    ]
+  },
+  {
+    "name": "Antarctica/McMurdo",
+    "comments": "New Zealand time - McMurdo, South Pole",
+    "utcOffset": "+12:00",
+    "utcDstOffset": "+13:00",
+    "type": "link",
+    "link": "Pacific/Auckland",
+    "countryCodes": [
+      "aq"
+    ]
+  },
+  {
+    "name": "Antarctica/Palmer",
+    "comments": "Palmer",
+    "utcOffset": "-03:00",
+    "utcDstOffset": "-03:00",
+    "type": "canonical",
+    "countryCodes": [
+      "aq"
+    ]
+  },
+  {
+    "name": "Antarctica/Rothera",
+    "comments": "Rothera",
+    "utcOffset": "-03:00",
+    "utcDstOffset": "-03:00",
+    "type": "canonical",
+    "countryCodes": [
+      "aq"
+    ]
+  },
+  {
+    "name": "Antarctica/South_Pole",
+    "utcOffset": "+12:00",
+    "utcDstOffset": "+13:00",
+    "type": "link",
+    "link": "Pacific/Auckland",
+    "countryCodes": [
+      "aq"
+    ]
+  },
+  {
+    "name": "Antarctica/Syowa",
+    "comments": "Syowa",
+    "utcOffset": "+03:00",
+    "utcDstOffset": "+03:00",
+    "type": "link",
+    "link": "Asia/Riyadh",
+    "countryCodes": [
+      "aq"
+    ]
+  },
+  {
+    "name": "Antarctica/Troll",
+    "comments": "Troll",
+    "utcOffset": "+00:00",
+    "utcDstOffset": "+02:00",
+    "type": "canonical",
+    "countryCodes": [
+      "aq"
+    ]
+  },
+  {
+    "name": "Antarctica/Vostok",
+    "comments": "Vostok",
+    "utcOffset": "+06:00",
+    "utcDstOffset": "+06:00",
+    "type": "canonical",
+    "countryCodes": [
+      "aq"
+    ]
+  },
+  {
+    "name": "Arctic/Longyearbyen",
+    "utcOffset": "+01:00",
+    "utcDstOffset": "+02:00",
+    "type": "link",
+    "link": "Europe/Oslo",
+    "countryCodes": [
+      "sj"
+    ]
+  },
+  {
+    "name": "Asia/Aden",
+    "utcOffset": "+03:00",
+    "utcDstOffset": "+03:00",
+    "type": "link",
+    "link": "Asia/Riyadh",
+    "countryCodes": [
+      "ye"
+    ]
+  },
+  {
+    "name": "Asia/Almaty",
+    "comments": "Kazakhstan (most areas)",
+    "utcOffset": "+06:00",
+    "utcDstOffset": "+06:00",
+    "type": "canonical",
+    "countryCodes": [
+      "kz"
+    ]
+  },
+  {
+    "name": "Asia/Amman",
+    "utcOffset": "+02:00",
+    "utcDstOffset": "+03:00",
+    "type": "canonical",
+    "countryCodes": [
+      "jo"
+    ]
+  },
+  {
+    "name": "Asia/Anadyr",
+    "comments": "MSK+09 - Bering Sea",
+    "utcOffset": "+12:00",
+    "utcDstOffset": "+12:00",
+    "type": "canonical",
+    "countryCodes": [
+      "ru"
+    ]
+  },
+  {
+    "name": "Asia/Aqtau",
+    "comments": "Mangghystaū/Mankistau",
+    "utcOffset": "+05:00",
+    "utcDstOffset": "+05:00",
+    "type": "canonical",
+    "countryCodes": [
+      "kz"
+    ]
+  },
+  {
+    "name": "Asia/Aqtobe",
+    "comments": "Aqtöbe/Aktobe",
+    "utcOffset": "+05:00",
+    "utcDstOffset": "+05:00",
+    "type": "canonical",
+    "countryCodes": [
+      "kz"
+    ]
+  },
+  {
+    "name": "Asia/Ashgabat",
+    "utcOffset": "+05:00",
+    "utcDstOffset": "+05:00",
+    "type": "canonical",
+    "countryCodes": [
+      "tm"
+    ]
+  },
+  {
+    "name": "Asia/Ashkhabad",
+    "utcOffset": "+05:00",
+    "utcDstOffset": "+05:00",
+    "type": "link",
+    "link": "Asia/Ashgabat",
+    "countryCodes": [
+      "tm"
+    ]
+  },
+  {
+    "name": "Asia/Atyrau",
+    "comments": "Atyraū/Atirau/Gur'yev",
+    "utcOffset": "+05:00",
+    "utcDstOffset": "+05:00",
+    "type": "canonical",
+    "countryCodes": [
+      "kz"
+    ]
+  },
+  {
+    "name": "Asia/Baghdad",
+    "utcOffset": "+03:00",
+    "utcDstOffset": "+03:00",
+    "type": "canonical",
+    "countryCodes": [
+      "iq"
+    ]
+  },
+  {
+    "name": "Asia/Bahrain",
+    "utcOffset": "+03:00",
+    "utcDstOffset": "+03:00",
+    "type": "link",
+    "link": "Asia/Qatar",
+    "countryCodes": [
+      "bh"
+    ]
+  },
+  {
+    "name": "Asia/Baku",
+    "utcOffset": "+04:00",
+    "utcDstOffset": "+04:00",
+    "type": "canonical",
+    "countryCodes": [
+      "az"
+    ]
+  },
+  {
+    "name": "Asia/Bangkok",
+    "comments": "Indochina (most areas)",
+    "utcOffset": "+07:00",
+    "utcDstOffset": "+07:00",
+    "type": "canonical",
+    "countryCodes": [
+      "th",
+      "kh",
+      "la",
+      "vn"
+    ]
+  },
+  {
+    "name": "Asia/Barnaul",
+    "comments": "MSK+04 - Altai",
+    "utcOffset": "+07:00",
+    "utcDstOffset": "+07:00",
+    "type": "canonical",
+    "countryCodes": [
+      "ru"
+    ]
+  },
+  {
+    "name": "Asia/Beirut",
+    "utcOffset": "+02:00",
+    "utcDstOffset": "+03:00",
+    "type": "canonical",
+    "countryCodes": [
+      "lb"
+    ]
+  },
+  {
+    "name": "Asia/Bishkek",
+    "utcOffset": "+06:00",
+    "utcDstOffset": "+06:00",
+    "type": "canonical",
+    "countryCodes": [
+      "kg"
+    ]
+  },
+  {
+    "name": "Asia/Brunei",
+    "utcOffset": "+08:00",
+    "utcDstOffset": "+08:00",
+    "type": "canonical",
+    "countryCodes": [
+      "bn"
+    ]
+  },
+  {
+    "name": "Asia/Calcutta",
+    "utcOffset": "+05:30",
+    "utcDstOffset": "+05:30",
+    "type": "link",
+    "link": "Asia/Kolkata",
+    "countryCodes": [
+      "in"
+    ]
+  },
+  {
+    "name": "Asia/Chita",
+    "comments": "MSK+06 - Zabaykalsky",
+    "utcOffset": "+09:00",
+    "utcDstOffset": "+09:00",
+    "type": "canonical",
+    "countryCodes": [
+      "ru"
+    ]
+  },
+  {
+    "name": "Asia/Choibalsan",
+    "comments": "Dornod, Sükhbaatar",
+    "utcOffset": "+08:00",
+    "utcDstOffset": "+08:00",
+    "type": "canonical",
+    "countryCodes": [
+      "mn"
+    ]
+  },
+  {
+    "name": "Asia/Chongqing",
+    "utcOffset": "+08:00",
+    "utcDstOffset": "+08:00",
+    "type": "link",
+    "link": "Asia/Shanghai",
+    "countryCodes": [
+      "cn"
+    ]
+  },
+  {
+    "name": "Asia/Chungking",
+    "utcOffset": "+08:00",
+    "utcDstOffset": "+08:00",
+    "type": "link",
+    "link": "Asia/Shanghai",
+    "countryCodes": [
+      "cn"
+    ]
+  },
+  {
+    "name": "Asia/Colombo",
+    "utcOffset": "+05:30",
+    "utcDstOffset": "+05:30",
+    "type": "canonical",
+    "countryCodes": [
+      "lk"
+    ]
+  },
+  {
+    "name": "Asia/Dacca",
+    "utcOffset": "+06:00",
+    "utcDstOffset": "+06:00",
+    "type": "link",
+    "link": "Asia/Dhaka",
+    "countryCodes": [
+      "bd"
+    ]
+  },
+  {
+    "name": "Asia/Damascus",
+    "utcOffset": "+02:00",
+    "utcDstOffset": "+03:00",
+    "type": "canonical",
+    "countryCodes": [
+      "sy"
+    ]
+  },
+  {
+    "name": "Asia/Dhaka",
+    "utcOffset": "+06:00",
+    "utcDstOffset": "+06:00",
+    "type": "canonical",
+    "countryCodes": [
+      "bd"
+    ]
+  },
+  {
+    "name": "Asia/Dili",
+    "utcOffset": "+09:00",
+    "utcDstOffset": "+09:00",
+    "type": "canonical",
+    "countryCodes": [
+      "tl"
+    ]
+  },
+  {
+    "name": "Asia/Dubai",
+    "utcOffset": "+04:00",
+    "utcDstOffset": "+04:00",
+    "type": "canonical",
+    "countryCodes": [
+      "ae",
+      "om"
+    ]
+  },
+  {
+    "name": "Asia/Dushanbe",
+    "utcOffset": "+05:00",
+    "utcDstOffset": "+05:00",
+    "type": "canonical",
+    "countryCodes": [
+      "tj"
+    ]
+  },
+  {
+    "name": "Asia/Famagusta",
+    "comments": "Northern Cyprus",
+    "utcOffset": "+02:00",
+    "utcDstOffset": "+03:00",
+    "type": "canonical",
+    "countryCodes": [
+      "cy"
+    ]
+  },
+  {
+    "name": "Asia/Gaza",
+    "comments": "Gaza Strip",
+    "utcOffset": "+02:00",
+    "utcDstOffset": "+03:00",
+    "type": "canonical",
+    "countryCodes": [
+      "ps"
+    ]
+  },
+  {
+    "name": "Asia/Harbin",
+    "utcOffset": "+08:00",
+    "utcDstOffset": "+08:00",
+    "type": "link",
+    "link": "Asia/Shanghai",
+    "countryCodes": [
+      "cn"
+    ]
+  },
+  {
+    "name": "Asia/Hebron",
+    "comments": "West Bank",
+    "utcOffset": "+02:00",
+    "utcDstOffset": "+03:00",
+    "type": "canonical",
+    "countryCodes": [
+      "ps"
+    ]
+  },
+  {
+    "name": "Asia/Ho_Chi_Minh",
+    "comments": "Vietnam (south)",
+    "utcOffset": "+07:00",
+    "utcDstOffset": "+07:00",
+    "type": "canonical",
+    "countryCodes": [
+      "vn"
+    ]
+  },
+  {
+    "name": "Asia/Hong_Kong",
+    "utcOffset": "+08:00",
+    "utcDstOffset": "+08:00",
+    "type": "canonical",
+    "countryCodes": [
+      "hk"
+    ]
+  },
+  {
+    "name": "Asia/Hovd",
+    "comments": "Bayan-Ölgii, Govi-Altai, Hovd, Uvs, Zavkhan",
+    "utcOffset": "+07:00",
+    "utcDstOffset": "+07:00",
+    "type": "canonical",
+    "countryCodes": [
+      "mn"
+    ]
+  },
+  {
+    "name": "Asia/Irkutsk",
+    "comments": "MSK+05 - Irkutsk, Buryatia",
+    "utcOffset": "+08:00",
+    "utcDstOffset": "+08:00",
+    "type": "canonical",
+    "countryCodes": [
+      "ru"
+    ]
+  },
+  {
+    "name": "Asia/Istanbul",
+    "utcOffset": "+03:00",
+    "utcDstOffset": "+03:00",
+    "type": "link",
+    "link": "Europe/Istanbul",
+    "countryCodes": [
+      "tr"
+    ]
+  },
+  {
+    "name": "Asia/Jakarta",
+    "comments": "Java, Sumatra",
+    "utcOffset": "+07:00",
+    "utcDstOffset": "+07:00",
+    "type": "canonical",
+    "countryCodes": [
+      "id"
+    ]
+  },
+  {
+    "name": "Asia/Jayapura",
+    "comments": "New Guinea (West Papua / Irian Jaya); Malukus/Moluccas",
+    "utcOffset": "+09:00",
+    "utcDstOffset": "+09:00",
+    "type": "canonical",
+    "countryCodes": [
+      "id"
+    ]
+  },
+  {
+    "name": "Asia/Jerusalem",
+    "utcOffset": "+02:00",
+    "utcDstOffset": "+03:00",
+    "type": "canonical",
+    "countryCodes": [
+      "il"
+    ]
+  },
+  {
+    "name": "Asia/Kabul",
+    "utcOffset": "+04:30",
+    "utcDstOffset": "+04:30",
+    "type": "canonical",
+    "countryCodes": [
+      "af"
+    ]
+  },
+  {
+    "name": "Asia/Kamchatka",
+    "comments": "MSK+09 - Kamchatka",
+    "utcOffset": "+12:00",
+    "utcDstOffset": "+12:00",
+    "type": "canonical",
+    "countryCodes": [
+      "ru"
+    ]
+  },
+  {
+    "name": "Asia/Karachi",
+    "utcOffset": "+05:00",
+    "utcDstOffset": "+05:00",
+    "type": "canonical",
+    "countryCodes": [
+      "pk"
+    ]
+  },
+  {
+    "name": "Asia/Kashgar",
+    "utcOffset": "+06:00",
+    "utcDstOffset": "+06:00",
+    "type": "link",
+    "link": "Asia/Urumqi[note 1]",
+    "countryCodes": [
+      "cn"
+    ]
+  },
+  {
+    "name": "Asia/Kathmandu",
+    "utcOffset": "+05:45",
+    "utcDstOffset": "+05:45",
+    "type": "canonical",
+    "countryCodes": [
+      "np"
+    ]
+  },
+  {
+    "name": "Asia/Katmandu",
+    "utcOffset": "+05:45",
+    "utcDstOffset": "+05:45",
+    "type": "link",
+    "link": "Asia/Kathmandu",
+    "countryCodes": [
+      "np"
+    ]
+  },
+  {
+    "name": "Asia/Khandyga",
+    "comments": "MSK+06 - Tomponsky, Ust-Maysky",
+    "utcOffset": "+09:00",
+    "utcDstOffset": "+09:00",
+    "type": "canonical",
+    "countryCodes": [
+      "ru"
+    ]
+  },
+  {
+    "name": "Asia/Kolkata",
+    "utcOffset": "+05:30",
+    "utcDstOffset": "+05:30",
+    "type": "canonical",
+    "countryCodes": [
+      "in"
+    ]
+  },
+  {
+    "name": "Asia/Krasnoyarsk",
+    "comments": "MSK+04 - Krasnoyarsk area",
+    "utcOffset": "+07:00",
+    "utcDstOffset": "+07:00",
+    "type": "canonical",
+    "countryCodes": [
+      "ru"
+    ]
+  },
+  {
+    "name": "Asia/Kuala_Lumpur",
+    "comments": "Malaysia (peninsula)",
+    "utcOffset": "+08:00",
+    "utcDstOffset": "+08:00",
+    "type": "canonical",
+    "countryCodes": [
+      "my"
+    ]
+  },
+  {
+    "name": "Asia/Kuching",
+    "comments": "Sabah, Sarawak",
+    "utcOffset": "+08:00",
+    "utcDstOffset": "+08:00",
+    "type": "canonical",
+    "countryCodes": [
+      "my"
+    ]
+  },
+  {
+    "name": "Asia/Kuwait",
+    "utcOffset": "+03:00",
+    "utcDstOffset": "+03:00",
+    "type": "link",
+    "link": "Asia/Riyadh",
+    "countryCodes": [
+      "kw"
+    ]
+  },
+  {
+    "name": "Asia/Macao",
+    "utcOffset": "+08:00",
+    "utcDstOffset": "+08:00",
+    "type": "link",
+    "link": "Asia/Macau",
+    "countryCodes": [
+      "mo"
+    ]
+  },
+  {
+    "name": "Asia/Macau",
+    "utcOffset": "+08:00",
+    "utcDstOffset": "+08:00",
+    "type": "canonical",
+    "countryCodes": [
+      "mo"
+    ]
+  },
+  {
+    "name": "Asia/Magadan",
+    "comments": "MSK+08 - Magadan",
+    "utcOffset": "+11:00",
+    "utcDstOffset": "+11:00",
+    "type": "canonical",
+    "countryCodes": [
+      "ru"
+    ]
+  },
+  {
+    "name": "Asia/Makassar",
+    "comments": "Borneo (east, south); Sulawesi/Celebes, Bali, Nusa Tengarra; Timor (west)",
+    "utcOffset": "+08:00",
+    "utcDstOffset": "+08:00",
+    "type": "canonical",
+    "countryCodes": [
+      "id"
+    ]
+  },
+  {
+    "name": "Asia/Manila",
+    "utcOffset": "+08:00",
+    "utcDstOffset": "+08:00",
+    "type": "canonical",
+    "countryCodes": [
+      "ph"
+    ]
+  },
+  {
+    "name": "Asia/Muscat",
+    "utcOffset": "+04:00",
+    "utcDstOffset": "+04:00",
+    "type": "link",
+    "link": "Asia/Dubai",
+    "countryCodes": [
+      "om"
+    ]
+  },
+  {
+    "name": "Asia/Nicosia",
+    "comments": "Cyprus (most areas)",
+    "utcOffset": "+02:00",
+    "utcDstOffset": "+03:00",
+    "type": "canonical",
+    "countryCodes": [
+      "cy"
+    ]
+  },
+  {
+    "name": "Asia/Novokuznetsk",
+    "comments": "MSK+04 - Kemerovo",
+    "utcOffset": "+07:00",
+    "utcDstOffset": "+07:00",
+    "type": "canonical",
+    "countryCodes": [
+      "ru"
+    ]
+  },
+  {
+    "name": "Asia/Novosibirsk",
+    "comments": "MSK+04 - Novosibirsk",
+    "utcOffset": "+07:00",
+    "utcDstOffset": "+07:00",
+    "type": "canonical",
+    "countryCodes": [
+      "ru"
+    ]
+  },
+  {
+    "name": "Asia/Omsk",
+    "comments": "MSK+03 - Omsk",
+    "utcOffset": "+06:00",
+    "utcDstOffset": "+06:00",
+    "type": "canonical",
+    "countryCodes": [
+      "ru"
+    ]
+  },
+  {
+    "name": "Asia/Oral",
+    "comments": "West Kazakhstan",
+    "utcOffset": "+05:00",
+    "utcDstOffset": "+05:00",
+    "type": "canonical",
+    "countryCodes": [
+      "kz"
+    ]
+  },
+  {
+    "name": "Asia/Phnom_Penh",
+    "utcOffset": "+07:00",
+    "utcDstOffset": "+07:00",
+    "type": "link",
+    "link": "Asia/Bangkok",
+    "countryCodes": [
+      "kh"
+    ]
+  },
+  {
+    "name": "Asia/Pontianak",
+    "comments": "Borneo (west, central)",
+    "utcOffset": "+07:00",
+    "utcDstOffset": "+07:00",
+    "type": "canonical",
+    "countryCodes": [
+      "id"
+    ]
+  },
+  {
+    "name": "Asia/Pyongyang",
+    "utcOffset": "+09:00",
+    "utcDstOffset": "+09:00",
+    "type": "canonical",
+    "countryCodes": [
+      "kp"
+    ]
+  },
+  {
+    "name": "Asia/Qatar",
+    "utcOffset": "+03:00",
+    "utcDstOffset": "+03:00",
+    "type": "canonical",
+    "countryCodes": [
+      "qa",
+      "bh"
+    ]
+  },
+  {
+    "name": "Asia/Qostanay",
+    "comments": "Qostanay/Kostanay/Kustanay",
+    "utcOffset": "+06:00",
+    "utcDstOffset": "+06:00",
+    "type": "canonical",
+    "countryCodes": [
+      "kz"
+    ]
+  },
+  {
+    "name": "Asia/Qyzylorda",
+    "comments": "Qyzylorda/Kyzylorda/Kzyl-Orda",
+    "utcOffset": "+05:00",
+    "utcDstOffset": "+05:00",
+    "type": "canonical",
+    "countryCodes": [
+      "kz"
+    ]
+  },
+  {
+    "name": "Asia/Rangoon",
+    "utcOffset": "+06:30",
+    "utcDstOffset": "+06:30",
+    "type": "link",
+    "link": "Asia/Yangon",
+    "countryCodes": [
+      "mm"
+    ]
+  },
+  {
+    "name": "Asia/Riyadh",
+    "comments": "Arabia, Syowa",
+    "utcOffset": "+03:00",
+    "utcDstOffset": "+03:00",
+    "type": "canonical",
+    "countryCodes": [
+      "sa",
+      "aq",
+      "kw",
+      "ye"
+    ]
+  },
+  {
+    "name": "Asia/Saigon",
+    "utcOffset": "+07:00",
+    "utcDstOffset": "+07:00",
+    "type": "link",
+    "link": "Asia/Ho_Chi_Minh",
+    "countryCodes": [
+      "vn"
+    ]
+  },
+  {
+    "name": "Asia/Sakhalin",
+    "comments": "MSK+08 - Sakhalin Island",
+    "utcOffset": "+11:00",
+    "utcDstOffset": "+11:00",
+    "type": "canonical",
+    "countryCodes": [
+      "ru"
+    ]
+  },
+  {
+    "name": "Asia/Samarkand",
+    "comments": "Uzbekistan (west)",
+    "utcOffset": "+05:00",
+    "utcDstOffset": "+05:00",
+    "type": "canonical",
+    "countryCodes": [
+      "uz"
+    ]
+  },
+  {
+    "name": "Asia/Seoul",
+    "utcOffset": "+09:00",
+    "utcDstOffset": "+09:00",
+    "type": "canonical",
+    "countryCodes": [
+      "kr"
+    ]
+  },
+  {
+    "name": "Asia/Shanghai",
+    "comments": "Beijing Time",
+    "utcOffset": "+08:00",
+    "utcDstOffset": "+08:00",
+    "type": "canonical",
+    "countryCodes": [
+      "cn"
+    ]
+  },
+  {
+    "name": "Asia/Singapore",
+    "comments": "Singapore, peninsular Malaysia",
+    "utcOffset": "+08:00",
+    "utcDstOffset": "+08:00",
+    "type": "canonical",
+    "countryCodes": [
+      "sg",
+      "my"
+    ]
+  },
+  {
+    "name": "Asia/Srednekolymsk",
+    "comments": "MSK+08 - Sakha (E); North Kuril Is",
+    "utcOffset": "+11:00",
+    "utcDstOffset": "+11:00",
+    "type": "canonical",
+    "countryCodes": [
+      "ru"
+    ]
+  },
+  {
+    "name": "Asia/Taipei",
+    "utcOffset": "+08:00",
+    "utcDstOffset": "+08:00",
+    "type": "canonical",
+    "countryCodes": [
+      "tw"
+    ]
+  },
+  {
+    "name": "Asia/Tashkent",
+    "comments": "Uzbekistan (east)",
+    "utcOffset": "+05:00",
+    "utcDstOffset": "+05:00",
+    "type": "canonical",
+    "countryCodes": [
+      "uz"
+    ]
+  },
+  {
+    "name": "Asia/Tbilisi",
+    "utcOffset": "+04:00",
+    "utcDstOffset": "+04:00",
+    "type": "canonical",
+    "countryCodes": [
+      "ge"
+    ]
+  },
+  {
+    "name": "Asia/Tehran",
+    "utcOffset": "+03:30",
+    "utcDstOffset": "+04:30",
+    "type": "canonical",
+    "countryCodes": [
+      "ir"
+    ]
+  },
+  {
+    "name": "Asia/Tel_Aviv",
+    "utcOffset": "+02:00",
+    "utcDstOffset": "+03:00",
+    "type": "link",
+    "link": "Asia/Jerusalem",
+    "countryCodes": [
+      "il"
+    ]
+  },
+  {
+    "name": "Asia/Thimbu",
+    "utcOffset": "+06:00",
+    "utcDstOffset": "+06:00",
+    "type": "link",
+    "link": "Asia/Thimphu",
+    "countryCodes": [
+      "bt"
+    ]
+  },
+  {
+    "name": "Asia/Thimphu",
+    "utcOffset": "+06:00",
+    "utcDstOffset": "+06:00",
+    "type": "canonical",
+    "countryCodes": [
+      "bt"
+    ]
+  },
+  {
+    "name": "Asia/Tokyo",
+    "utcOffset": "+09:00",
+    "utcDstOffset": "+09:00",
+    "type": "canonical",
+    "countryCodes": [
+      "jp"
+    ]
+  },
+  {
+    "name": "Asia/Tomsk",
+    "comments": "MSK+04 - Tomsk",
+    "utcOffset": "+07:00",
+    "utcDstOffset": "+07:00",
+    "type": "canonical",
+    "countryCodes": [
+      "ru"
+    ]
+  },
+  {
+    "name": "Asia/Ujung_Pandang",
+    "utcOffset": "+08:00",
+    "utcDstOffset": "+08:00",
+    "type": "link",
+    "link": "Asia/Makassar",
+    "countryCodes": [
+      "id"
+    ]
+  },
+  {
+    "name": "Asia/Ulaanbaatar",
+    "comments": "Mongolia (most areas)",
+    "utcOffset": "+08:00",
+    "utcDstOffset": "+08:00",
+    "type": "canonical",
+    "countryCodes": [
+      "mn"
+    ]
+  },
+  {
+    "name": "Asia/Ulan_Bator",
+    "utcOffset": "+08:00",
+    "utcDstOffset": "+08:00",
+    "type": "link",
+    "link": "Asia/Ulaanbaatar",
+    "countryCodes": [
+      "mn"
+    ]
+  },
+  {
+    "name": "Asia/Urumqi",
+    "comments": "Xinjiang Time",
+    "utcOffset": "+06:00",
+    "utcDstOffset": "+06:00",
+    "type": "canonical",
+    "countryCodes": [
+      "cn"
+    ]
+  },
+  {
+    "name": "Asia/Ust-Nera",
+    "comments": "MSK+07 - Oymyakonsky",
+    "utcOffset": "+10:00",
+    "utcDstOffset": "+10:00",
+    "type": "canonical",
+    "countryCodes": [
+      "ru"
+    ]
+  },
+  {
+    "name": "Asia/Vientiane",
+    "utcOffset": "+07:00",
+    "utcDstOffset": "+07:00",
+    "type": "link",
+    "link": "Asia/Bangkok",
+    "countryCodes": [
+      "la"
+    ]
+  },
+  {
+    "name": "Asia/Vladivostok",
+    "comments": "MSK+07 - Amur River",
+    "utcOffset": "+10:00",
+    "utcDstOffset": "+10:00",
+    "type": "canonical",
+    "countryCodes": [
+      "ru"
+    ]
+  },
+  {
+    "name": "Asia/Yakutsk",
+    "comments": "MSK+06 - Lena River",
+    "utcOffset": "+09:00",
+    "utcDstOffset": "+09:00",
+    "type": "canonical",
+    "countryCodes": [
+      "ru"
+    ]
+  },
+  {
+    "name": "Asia/Yangon",
+    "utcOffset": "+06:30",
+    "utcDstOffset": "+06:30",
+    "type": "canonical",
+    "countryCodes": [
+      "mm"
+    ]
+  },
+  {
+    "name": "Asia/Yekaterinburg",
+    "comments": "MSK+02 - Urals",
+    "utcOffset": "+05:00",
+    "utcDstOffset": "+05:00",
+    "type": "canonical",
+    "countryCodes": [
+      "ru"
+    ]
+  },
+  {
+    "name": "Asia/Yerevan",
+    "utcOffset": "+04:00",
+    "utcDstOffset": "+04:00",
+    "type": "canonical",
+    "countryCodes": [
+      "am"
+    ]
+  },
+  {
+    "name": "Atlantic/Azores",
+    "comments": "Azores",
+    "utcOffset": "-01:00",
+    "utcDstOffset": "+00:00",
+    "type": "canonical",
+    "countryCodes": [
+      "pt"
+    ]
+  },
+  {
+    "name": "Atlantic/Bermuda",
+    "utcOffset": "-04:00",
+    "utcDstOffset": "-03:00",
+    "type": "canonical",
+    "countryCodes": [
+      "bm"
+    ]
+  },
+  {
+    "name": "Atlantic/Canary",
+    "comments": "Canary Islands",
+    "utcOffset": "+00:00",
+    "utcDstOffset": "+01:00",
+    "type": "canonical",
+    "countryCodes": [
+      "es"
+    ]
+  },
+  {
+    "name": "Atlantic/Cape_Verde",
+    "utcOffset": "-01:00",
+    "utcDstOffset": "-01:00",
+    "type": "canonical",
+    "countryCodes": [
+      "cv"
+    ]
+  },
+  {
+    "name": "Atlantic/Faeroe",
+    "utcOffset": "+00:00",
+    "utcDstOffset": "+01:00",
+    "type": "link",
+    "link": "Atlantic/Faroe",
+    "countryCodes": [
+      "fo"
+    ]
+  },
+  {
+    "name": "Atlantic/Faroe",
+    "utcOffset": "+00:00",
+    "utcDstOffset": "+01:00",
+    "type": "canonical",
+    "countryCodes": [
+      "fo"
+    ]
+  },
+  {
+    "name": "Atlantic/Jan_Mayen",
+    "utcOffset": "+01:00",
+    "utcDstOffset": "+02:00",
+    "type": "link",
+    "link": "Europe/Oslo",
+    "countryCodes": [
+      "sj"
+    ]
+  },
+  {
+    "name": "Atlantic/Madeira",
+    "comments": "Madeira Islands",
+    "utcOffset": "+00:00",
+    "utcDstOffset": "+01:00",
+    "type": "canonical",
+    "countryCodes": [
+      "pt"
+    ]
+  },
+  {
+    "name": "Atlantic/Reykjavik",
+    "utcOffset": "+00:00",
+    "utcDstOffset": "+00:00",
+    "type": "canonical",
+    "countryCodes": [
+      "is"
+    ]
+  },
+  {
+    "name": "Atlantic/South_Georgia",
+    "utcOffset": "-02:00",
+    "utcDstOffset": "-02:00",
+    "type": "canonical",
+    "countryCodes": [
+      "gs"
+    ]
+  },
+  {
+    "name": "Atlantic/St_Helena",
+    "utcOffset": "+00:00",
+    "utcDstOffset": "+00:00",
+    "type": "link",
+    "link": "Africa/Abidjan",
+    "countryCodes": [
+      "sh"
+    ]
+  },
+  {
+    "name": "Atlantic/Stanley",
+    "utcOffset": "-03:00",
+    "utcDstOffset": "-03:00",
+    "type": "canonical",
+    "countryCodes": [
+      "fk"
+    ]
+  },
+  {
+    "name": "Australia/ACT",
+    "utcOffset": "+10:00",
+    "utcDstOffset": "+11:00",
+    "type": "link",
+    "link": "Australia/Sydney",
+    "countryCodes": [
+      "au"
+    ]
+  },
+  {
+    "name": "Australia/Adelaide",
+    "comments": "South Australia",
+    "utcOffset": "+09:30",
+    "utcDstOffset": "+10:30",
+    "type": "canonical",
+    "countryCodes": [
+      "au"
+    ]
+  },
+  {
+    "name": "Australia/Brisbane",
+    "comments": "Queensland (most areas)",
+    "utcOffset": "+10:00",
+    "utcDstOffset": "+10:00",
+    "type": "canonical",
+    "countryCodes": [
+      "au"
+    ]
+  },
+  {
+    "name": "Australia/Broken_Hill",
+    "comments": "New South Wales (Yancowinna)",
+    "utcOffset": "+09:30",
+    "utcDstOffset": "+10:30",
+    "type": "canonical",
+    "countryCodes": [
+      "au"
+    ]
+  },
+  {
+    "name": "Australia/Canberra",
+    "utcOffset": "+10:00",
+    "utcDstOffset": "+11:00",
+    "type": "link",
+    "link": "Australia/Sydney",
+    "countryCodes": [
+      "au"
+    ]
+  },
+  {
+    "name": "Australia/Currie",
+    "utcOffset": "+10:00",
+    "utcDstOffset": "+11:00",
+    "type": "link",
+    "link": "Australia/Hobart",
+    "countryCodes": [
+      "au"
+    ]
+  },
+  {
+    "name": "Australia/Darwin",
+    "comments": "Northern Territory",
+    "utcOffset": "+09:30",
+    "utcDstOffset": "+09:30",
+    "type": "canonical",
+    "countryCodes": [
+      "au"
+    ]
+  },
+  {
+    "name": "Australia/Eucla",
+    "comments": "Western Australia (Eucla)",
+    "utcOffset": "+08:45",
+    "utcDstOffset": "+08:45",
+    "type": "canonical",
+    "countryCodes": [
+      "au"
+    ]
+  },
+  {
+    "name": "Australia/Hobart",
+    "comments": "Tasmania",
+    "utcOffset": "+10:00",
+    "utcDstOffset": "+11:00",
+    "type": "canonical",
+    "countryCodes": [
+      "au"
+    ]
+  },
+  {
+    "name": "Australia/LHI",
+    "utcOffset": "+10:30",
+    "utcDstOffset": "+11:00",
+    "type": "link",
+    "link": "Australia/Lord_Howe",
+    "countryCodes": [
+      "au"
+    ]
+  },
+  {
+    "name": "Australia/Lindeman",
+    "comments": "Queensland (Whitsunday Islands)",
+    "utcOffset": "+10:00",
+    "utcDstOffset": "+10:00",
+    "type": "canonical",
+    "countryCodes": [
+      "au"
+    ]
+  },
+  {
+    "name": "Australia/Lord_Howe",
+    "comments": "Lord Howe Island",
+    "utcOffset": "+10:30",
+    "utcDstOffset": "+11:00",
+    "type": "canonical",
+    "countryCodes": [
+      "au"
+    ]
+  },
+  {
+    "name": "Australia/Melbourne",
+    "comments": "Victoria",
+    "utcOffset": "+10:00",
+    "utcDstOffset": "+11:00",
+    "type": "canonical",
+    "countryCodes": [
+      "au"
+    ]
+  },
+  {
+    "name": "Australia/North",
+    "utcOffset": "+09:30",
+    "utcDstOffset": "+09:30",
+    "type": "link",
+    "link": "Australia/Darwin",
+    "countryCodes": [
+      "au"
+    ]
+  },
+  {
+    "name": "Australia/NSW",
+    "utcOffset": "+10:00",
+    "utcDstOffset": "+11:00",
+    "type": "link",
+    "link": "Australia/Sydney",
+    "countryCodes": [
+      "au"
+    ]
+  },
+  {
+    "name": "Australia/Perth",
+    "comments": "Western Australia (most areas)",
+    "utcOffset": "+08:00",
+    "utcDstOffset": "+08:00",
+    "type": "canonical",
+    "countryCodes": [
+      "au"
+    ]
+  },
+  {
+    "name": "Australia/Queensland",
+    "utcOffset": "+10:00",
+    "utcDstOffset": "+10:00",
+    "type": "link",
+    "link": "Australia/Brisbane",
+    "countryCodes": [
+      "au"
+    ]
+  },
+  {
+    "name": "Australia/South",
+    "utcOffset": "+09:30",
+    "utcDstOffset": "+10:30",
+    "type": "link",
+    "link": "Australia/Adelaide",
+    "countryCodes": [
+      "au"
+    ]
+  },
+  {
+    "name": "Australia/Sydney",
+    "comments": "New South Wales (most areas)",
+    "utcOffset": "+10:00",
+    "utcDstOffset": "+11:00",
+    "type": "canonical",
+    "countryCodes": [
+      "au"
+    ]
+  },
+  {
+    "name": "Australia/Tasmania",
+    "utcOffset": "+10:00",
+    "utcDstOffset": "+11:00",
+    "type": "link",
+    "link": "Australia/Hobart",
+    "countryCodes": [
+      "au"
+    ]
+  },
+  {
+    "name": "Australia/Victoria",
+    "utcOffset": "+10:00",
+    "utcDstOffset": "+11:00",
+    "type": "link",
+    "link": "Australia/Melbourne",
+    "countryCodes": [
+      "au"
+    ]
+  },
+  {
+    "name": "Australia/West",
+    "utcOffset": "+08:00",
+    "utcDstOffset": "+08:00",
+    "type": "link",
+    "link": "Australia/Perth",
+    "countryCodes": [
+      "au"
+    ]
+  },
+  {
+    "name": "Australia/Yancowinna",
+    "utcOffset": "+09:30",
+    "utcDstOffset": "+10:30",
+    "type": "link",
+    "link": "Australia/Broken_Hill",
+    "countryCodes": [
+      "au"
+    ]
+  },
+  {
+    "name": "Brazil/Acre",
+    "utcOffset": "-05:00",
+    "utcDstOffset": "-05:00",
+    "type": "link",
+    "link": "America/Rio_Branco",
+    "countryCodes": [
+      "br"
+    ]
+  },
+  {
+    "name": "Brazil/DeNoronha",
+    "utcOffset": "-02:00",
+    "utcDstOffset": "-02:00",
+    "type": "link",
+    "link": "America/Noronha",
+    "countryCodes": [
+      "br"
+    ]
+  },
+  {
+    "name": "Brazil/East",
+    "utcOffset": "-03:00",
+    "utcDstOffset": "-03:00",
+    "type": "link",
+    "link": "America/Sao_Paulo",
+    "countryCodes": [
+      "br"
+    ]
+  },
+  {
+    "name": "Brazil/West",
+    "utcOffset": "-04:00",
+    "utcDstOffset": "-04:00",
+    "type": "link",
+    "link": "America/Manaus",
+    "countryCodes": [
+      "br"
+    ]
+  },
+  {
+    "name": "Canada/Atlantic",
+    "utcOffset": "-04:00",
+    "utcDstOffset": "-03:00",
+    "type": "link",
+    "link": "America/Halifax",
+    "countryCodes": [
+      "ca"
+    ]
+  },
+  {
+    "name": "Canada/Central",
+    "utcOffset": "-06:00",
+    "utcDstOffset": "-05:00",
+    "type": "link",
+    "link": "America/Winnipeg",
+    "countryCodes": [
+      "ca"
+    ]
+  },
+  {
+    "name": "Canada/Eastern",
+    "utcOffset": "-05:00",
+    "utcDstOffset": "-04:00",
+    "type": "link",
+    "link": "America/Toronto",
+    "countryCodes": [
+      "ca"
+    ]
+  },
+  {
+    "name": "Canada/Mountain",
+    "utcOffset": "-07:00",
+    "utcDstOffset": "-06:00",
+    "type": "link",
+    "link": "America/Edmonton",
+    "countryCodes": [
+      "ca"
+    ]
+  },
+  {
+    "name": "Canada/Newfoundland",
+    "utcOffset": "-03:30",
+    "utcDstOffset": "-02:30",
+    "type": "link",
+    "link": "America/St_Johns",
+    "countryCodes": [
+      "ca"
+    ]
+  },
+  {
+    "name": "Canada/Pacific",
+    "utcOffset": "-08:00",
+    "utcDstOffset": "-07:00",
+    "type": "link",
+    "link": "America/Vancouver",
+    "countryCodes": [
+      "ca"
+    ]
+  },
+  {
+    "name": "Canada/Saskatchewan",
+    "utcOffset": "-06:00",
+    "utcDstOffset": "-06:00",
+    "type": "link",
+    "link": "America/Regina",
+    "countryCodes": [
+      "ca"
+    ]
+  },
+  {
+    "name": "Canada/Yukon",
+    "utcOffset": "-07:00",
+    "utcDstOffset": "-07:00",
+    "type": "link",
+    "link": "America/Whitehorse",
+    "countryCodes": [
+      "ca"
+    ]
+  },
+  {
+    "name": "CET",
+    "comments": "Choose a zone that observes CET, such as Europe/Paris.",
+    "utcOffset": "+01:00",
+    "utcDstOffset": "+02:00",
+    "type": "canonical",
+    "countryCodes": []
+  },
+  {
+    "name": "Chile/Continental",
+    "utcOffset": "-04:00",
+    "utcDstOffset": "-03:00",
+    "type": "link",
+    "link": "America/Santiago",
+    "countryCodes": [
+      "cl"
+    ]
+  },
+  {
+    "name": "Chile/EasterIsland",
+    "utcOffset": "-06:00",
+    "utcDstOffset": "-05:00",
+    "type": "link",
+    "link": "Pacific/Easter",
+    "countryCodes": [
+      "cl"
+    ]
+  },
+  {
+    "name": "CST6CDT",
+    "comments": "Choose a zone that observes CST with United States daylight saving time rules, such as America/Chicago.",
+    "utcOffset": "-06:00",
+    "utcDstOffset": "-05:00",
+    "type": "canonical",
+    "countryCodes": []
+  },
+  {
+    "name": "Cuba",
+    "utcOffset": "-05:00",
+    "utcDstOffset": "-04:00",
+    "type": "link",
+    "link": "America/Havana",
+    "countryCodes": [
+      "cu"
+    ]
+  },
+  {
+    "name": "EET",
+    "comments": "Choose a zone that observes EET, such as Europe/Sofia.",
+    "utcOffset": "+02:00",
+    "utcDstOffset": "+03:00",
+    "type": "canonical",
+    "countryCodes": []
+  },
+  {
+    "name": "Egypt",
+    "utcOffset": "+02:00",
+    "utcDstOffset": "+02:00",
+    "type": "link",
+    "link": "Africa/Cairo",
+    "countryCodes": [
+      "eg"
+    ]
+  },
+  {
+    "name": "Eire",
+    "utcOffset": "+01:00",
+    "utcDstOffset": "+00:00",
+    "type": "link",
+    "link": "Europe/Dublin",
+    "countryCodes": [
+      "ie"
+    ]
+  },
+  {
+    "name": "EST",
+    "comments": "Choose a zone that currently observes EST without daylight saving time, such as America/Cancun.",
+    "utcOffset": "-05:00",
+    "utcDstOffset": "-05:00",
+    "type": "canonical",
+    "countryCodes": []
+  },
+  {
+    "name": "EST5EDT",
+    "comments": "Choose a zone that observes EST with United States daylight saving time rules, such as America/New_York.",
+    "utcOffset": "-05:00",
+    "utcDstOffset": "-04:00",
+    "type": "canonical",
+    "countryCodes": []
+  },
+  {
+    "name": "Etc/GMT",
+    "utcOffset": "+00:00",
+    "utcDstOffset": "+00:00",
+    "type": "canonical",
+    "countryCodes": []
+  },
+  {
+    "name": "Etc/Greenwich",
+    "utcOffset": "+00:00",
+    "utcDstOffset": "+00:00",
+    "type": "link",
+    "link": "Etc/GMT",
+    "countryCodes": []
+  },
+  {
+    "name": "Etc/UCT",
+    "utcOffset": "+00:00",
+    "utcDstOffset": "+00:00",
+    "type": "link",
+    "link": "Etc/UTC",
+    "countryCodes": []
+  },
+  {
+    "name": "Etc/Universal",
+    "utcOffset": "+00:00",
+    "utcDstOffset": "+00:00",
+    "type": "link",
+    "link": "Etc/UTC",
+    "countryCodes": []
+  },
+  {
+    "name": "Etc/UTC",
+    "utcOffset": "+00:00",
+    "utcDstOffset": "+00:00",
+    "type": "canonical",
+    "countryCodes": []
+  },
+  {
+    "name": "Etc/Zulu",
+    "utcOffset": "+00:00",
+    "utcDstOffset": "+00:00",
+    "type": "link",
+    "link": "Etc/UTC",
+    "countryCodes": []
+  },
+  {
+    "name": "Europe/Amsterdam",
+    "utcOffset": "+01:00",
+    "utcDstOffset": "+02:00",
+    "type": "canonical",
+    "countryCodes": [
+      "nl"
+    ]
+  },
+  {
+    "name": "Europe/Andorra",
+    "utcOffset": "+01:00",
+    "utcDstOffset": "+02:00",
+    "type": "canonical",
+    "countryCodes": [
+      "ad"
+    ]
+  },
+  {
+    "name": "Europe/Astrakhan",
+    "comments": "MSK+01 - Astrakhan",
+    "utcOffset": "+04:00",
+    "utcDstOffset": "+04:00",
+    "type": "canonical",
+    "countryCodes": [
+      "ru"
+    ]
+  },
+  {
+    "name": "Europe/Athens",
+    "utcOffset": "+02:00",
+    "utcDstOffset": "+03:00",
+    "type": "canonical",
+    "countryCodes": [
+      "gr"
+    ]
+  },
+  {
+    "name": "Europe/Belfast",
+    "utcOffset": "+00:00",
+    "utcDstOffset": "+01:00",
+    "type": "link",
+    "link": "Europe/London",
+    "countryCodes": [
+      "gb"
+    ]
+  },
+  {
+    "name": "Europe/Belgrade",
+    "utcOffset": "+01:00",
+    "utcDstOffset": "+02:00",
+    "type": "canonical",
+    "countryCodes": [
+      "rs",
+      "ba",
+      "hr",
+      "me",
+      "mk",
+      "si"
+    ]
+  },
+  {
+    "name": "Europe/Berlin",
+    "comments": "Germany (most areas)",
+    "utcOffset": "+01:00",
+    "utcDstOffset": "+02:00",
+    "type": "canonical",
+    "countryCodes": [
+      "de"
+    ]
+  },
+  {
+    "name": "Europe/Bratislava",
+    "utcOffset": "+01:00",
+    "utcDstOffset": "+02:00",
+    "type": "link",
+    "link": "Europe/Prague",
+    "countryCodes": [
+      "sk"
+    ]
+  },
+  {
+    "name": "Europe/Brussels",
+    "utcOffset": "+01:00",
+    "utcDstOffset": "+02:00",
+    "type": "canonical",
+    "countryCodes": [
+      "be"
+    ]
+  },
+  {
+    "name": "Europe/Bucharest",
+    "utcOffset": "+02:00",
+    "utcDstOffset": "+03:00",
+    "type": "canonical",
+    "countryCodes": [
+      "ro"
+    ]
+  },
+  {
+    "name": "Europe/Budapest",
+    "utcOffset": "+01:00",
+    "utcDstOffset": "+02:00",
+    "type": "canonical",
+    "countryCodes": [
+      "hu"
+    ]
+  },
+  {
+    "name": "Europe/Busingen",
+    "comments": "Busingen",
+    "utcOffset": "+01:00",
+    "utcDstOffset": "+02:00",
+    "type": "link",
+    "link": "Europe/Zurich",
+    "countryCodes": [
+      "de"
+    ]
+  },
+  {
+    "name": "Europe/Chisinau",
+    "utcOffset": "+02:00",
+    "utcDstOffset": "+03:00",
+    "type": "canonical",
+    "countryCodes": [
+      "md"
+    ]
+  },
+  {
+    "name": "Europe/Copenhagen",
+    "utcOffset": "+01:00",
+    "utcDstOffset": "+02:00",
+    "type": "canonical",
+    "countryCodes": [
+      "dk"
+    ]
+  },
+  {
+    "name": "Europe/Dublin",
+    "utcOffset": "+01:00",
+    "utcDstOffset": "+00:00",
+    "type": "canonical",
+    "countryCodes": [
+      "ie"
+    ]
+  },
+  {
+    "name": "Europe/Gibraltar",
+    "utcOffset": "+01:00",
+    "utcDstOffset": "+02:00",
+    "type": "canonical",
+    "countryCodes": [
+      "gi"
+    ]
+  },
+  {
+    "name": "Europe/Guernsey",
+    "utcOffset": "+00:00",
+    "utcDstOffset": "+01:00",
+    "type": "link",
+    "link": "Europe/London",
+    "countryCodes": [
+      "gg"
+    ]
+  },
+  {
+    "name": "Europe/Helsinki",
+    "utcOffset": "+02:00",
+    "utcDstOffset": "+03:00",
+    "type": "canonical",
+    "countryCodes": [
+      "fi",
+      "ax"
+    ]
+  },
+  {
+    "name": "Europe/Isle_of_Man",
+    "utcOffset": "+00:00",
+    "utcDstOffset": "+01:00",
+    "type": "link",
+    "link": "Europe/London",
+    "countryCodes": [
+      "im"
+    ]
+  },
+  {
+    "name": "Europe/Istanbul",
+    "utcOffset": "+03:00",
+    "utcDstOffset": "+03:00",
+    "type": "canonical",
+    "countryCodes": [
+      "tr"
+    ]
+  },
+  {
+    "name": "Europe/Jersey",
+    "utcOffset": "+00:00",
+    "utcDstOffset": "+01:00",
+    "type": "link",
+    "link": "Europe/London",
+    "countryCodes": [
+      "je"
+    ]
+  },
+  {
+    "name": "Europe/Kaliningrad",
+    "comments": "MSK-01 - Kaliningrad",
+    "utcOffset": "+02:00",
+    "utcDstOffset": "+02:00",
+    "type": "canonical",
+    "countryCodes": [
+      "ru"
+    ]
+  },
+  {
+    "name": "Europe/Kiev",
+    "comments": "Ukraine (most areas)",
+    "utcOffset": "+02:00",
+    "utcDstOffset": "+03:00",
+    "type": "canonical",
+    "countryCodes": [
+      "ua"
+    ]
+  },
+  {
+    "name": "Europe/Kirov",
+    "comments": "MSK+00 - Kirov",
+    "utcOffset": "+03:00",
+    "utcDstOffset": "+03:00",
+    "type": "canonical",
+    "countryCodes": [
+      "ru"
+    ]
+  },
+  {
+    "name": "Europe/Lisbon",
+    "comments": "Portugal (mainland)",
+    "utcOffset": "+00:00",
+    "utcDstOffset": "+01:00",
+    "type": "canonical",
+    "countryCodes": [
+      "pt"
+    ]
+  },
+  {
+    "name": "Europe/Ljubljana",
+    "utcOffset": "+01:00",
+    "utcDstOffset": "+02:00",
+    "type": "link",
+    "link": "Europe/Belgrade",
+    "countryCodes": [
+      "si"
+    ]
+  },
+  {
+    "name": "Europe/London",
+    "utcOffset": "+00:00",
+    "utcDstOffset": "+01:00",
+    "type": "canonical",
+    "countryCodes": [
+      "gb",
+      "gg",
+      "im",
+      "je"
+    ]
+  },
+  {
+    "name": "Europe/Luxembourg",
+    "utcOffset": "+01:00",
+    "utcDstOffset": "+02:00",
+    "type": "canonical",
+    "countryCodes": [
+      "lu"
+    ]
+  },
+  {
+    "name": "Europe/Madrid",
+    "comments": "Spain (mainland)",
+    "utcOffset": "+01:00",
+    "utcDstOffset": "+02:00",
+    "type": "canonical",
+    "countryCodes": [
+      "es"
+    ]
+  },
+  {
+    "name": "Europe/Malta",
+    "utcOffset": "+01:00",
+    "utcDstOffset": "+02:00",
+    "type": "canonical",
+    "countryCodes": [
+      "mt"
+    ]
+  },
+  {
+    "name": "Europe/Mariehamn",
+    "utcOffset": "+02:00",
+    "utcDstOffset": "+03:00",
+    "type": "link",
+    "link": "Europe/Helsinki",
+    "countryCodes": [
+      "ax"
+    ]
+  },
+  {
+    "name": "Europe/Minsk",
+    "utcOffset": "+03:00",
+    "utcDstOffset": "+03:00",
+    "type": "canonical",
+    "countryCodes": [
+      "by"
+    ]
+  },
+  {
+    "name": "Europe/Monaco",
+    "utcOffset": "+01:00",
+    "utcDstOffset": "+02:00",
+    "type": "canonical",
+    "countryCodes": [
+      "mc"
+    ]
+  },
+  {
+    "name": "Europe/Moscow",
+    "comments": "MSK+00 - Moscow area",
+    "utcOffset": "+03:00",
+    "utcDstOffset": "+03:00",
+    "type": "canonical",
+    "countryCodes": [
+      "ru"
+    ]
+  },
+  {
+    "name": "Europe/Nicosia",
+    "utcOffset": "+02:00",
+    "utcDstOffset": "+03:00",
+    "type": "link",
+    "link": "Asia/Nicosia",
+    "countryCodes": [
+      "cy"
+    ]
+  },
+  {
+    "name": "Europe/Oslo",
+    "utcOffset": "+01:00",
+    "utcDstOffset": "+02:00",
+    "type": "canonical",
+    "countryCodes": [
+      "no",
+      "sj"
+    ]
+  },
+  {
+    "name": "Europe/Paris",
+    "utcOffset": "+01:00",
+    "utcDstOffset": "+02:00",
+    "type": "canonical",
+    "countryCodes": [
+      "fr"
+    ]
+  },
+  {
+    "name": "Europe/Podgorica",
+    "utcOffset": "+01:00",
+    "utcDstOffset": "+02:00",
+    "type": "link",
+    "link": "Europe/Belgrade",
+    "countryCodes": [
+      "me"
+    ]
+  },
+  {
+    "name": "Europe/Prague",
+    "utcOffset": "+01:00",
+    "utcDstOffset": "+02:00",
+    "type": "canonical",
+    "countryCodes": [
+      "cz",
+      "sk"
+    ]
+  },
+  {
+    "name": "Europe/Riga",
+    "utcOffset": "+02:00",
+    "utcDstOffset": "+03:00",
+    "type": "canonical",
+    "countryCodes": [
+      "lv"
+    ]
+  },
+  {
+    "name": "Europe/Rome",
+    "utcOffset": "+01:00",
+    "utcDstOffset": "+02:00",
+    "type": "canonical",
+    "countryCodes": [
+      "it",
+      "sm",
+      "va"
+    ]
+  },
+  {
+    "name": "Europe/Samara",
+    "comments": "MSK+01 - Samara, Udmurtia",
+    "utcOffset": "+04:00",
+    "utcDstOffset": "+04:00",
+    "type": "canonical",
+    "countryCodes": [
+      "ru"
+    ]
+  },
+  {
+    "name": "Europe/San_Marino",
+    "utcOffset": "+01:00",
+    "utcDstOffset": "+02:00",
+    "type": "link",
+    "link": "Europe/Rome",
+    "countryCodes": [
+      "sm"
+    ]
+  },
+  {
+    "name": "Europe/Sarajevo",
+    "utcOffset": "+01:00",
+    "utcDstOffset": "+02:00",
+    "type": "link",
+    "link": "Europe/Belgrade",
+    "countryCodes": [
+      "ba"
+    ]
+  },
+  {
+    "name": "Europe/Saratov",
+    "comments": "MSK+01 - Saratov",
+    "utcOffset": "+04:00",
+    "utcDstOffset": "+04:00",
+    "type": "canonical",
+    "countryCodes": [
+      "ru"
+    ]
+  },
+  {
+    "name": "Europe/Simferopol",
+    "comments": "Crimea",
+    "utcOffset": "+03:00",
+    "utcDstOffset": "+03:00",
+    "type": "canonical",
+    "countryCodes": [
+      "ru",
+      "ua"
+    ]
+  },
+  {
+    "name": "Europe/Skopje",
+    "utcOffset": "+01:00",
+    "utcDstOffset": "+02:00",
+    "type": "link",
+    "link": "Europe/Belgrade",
+    "countryCodes": [
+      "mk"
+    ]
+  },
+  {
+    "name": "Europe/Sofia",
+    "utcOffset": "+02:00",
+    "utcDstOffset": "+03:00",
+    "type": "canonical",
+    "countryCodes": [
+      "bg"
+    ]
+  },
+  {
+    "name": "Europe/Stockholm",
+    "utcOffset": "+01:00",
+    "utcDstOffset": "+02:00",
+    "type": "canonical",
+    "countryCodes": [
+      "se"
+    ]
+  },
+  {
+    "name": "Europe/Tallinn",
+    "utcOffset": "+02:00",
+    "utcDstOffset": "+03:00",
+    "type": "canonical",
+    "countryCodes": [
+      "ee"
+    ]
+  },
+  {
+    "name": "Europe/Tirane",
+    "utcOffset": "+01:00",
+    "utcDstOffset": "+02:00",
+    "type": "canonical",
+    "countryCodes": [
+      "al"
+    ]
+  },
+  {
+    "name": "Europe/Tiraspol",
+    "utcOffset": "+02:00",
+    "utcDstOffset": "+03:00",
+    "type": "link",
+    "link": "Europe/Chisinau",
+    "countryCodes": [
+      "md"
+    ]
+  },
+  {
+    "name": "Europe/Ulyanovsk",
+    "comments": "MSK+01 - Ulyanovsk",
+    "utcOffset": "+04:00",
+    "utcDstOffset": "+04:00",
+    "type": "canonical",
+    "countryCodes": [
+      "ru"
+    ]
+  },
+  {
+    "name": "Europe/Uzhgorod",
+    "comments": "Transcarpathia",
+    "utcOffset": "+02:00",
+    "utcDstOffset": "+03:00",
+    "type": "canonical",
+    "countryCodes": [
+      "ua"
+    ]
+  },
+  {
+    "name": "Europe/Vaduz",
+    "utcOffset": "+01:00",
+    "utcDstOffset": "+02:00",
+    "type": "link",
+    "link": "Europe/Zurich",
+    "countryCodes": [
+      "li"
+    ]
+  },
+  {
+    "name": "Europe/Vatican",
+    "utcOffset": "+01:00",
+    "utcDstOffset": "+02:00",
+    "type": "link",
+    "link": "Europe/Rome",
+    "countryCodes": [
+      "va"
+    ]
+  },
+  {
+    "name": "Europe/Vienna",
+    "utcOffset": "+01:00",
+    "utcDstOffset": "+02:00",
+    "type": "canonical",
+    "countryCodes": [
+      "at"
+    ]
+  },
+  {
+    "name": "Europe/Vilnius",
+    "utcOffset": "+02:00",
+    "utcDstOffset": "+03:00",
+    "type": "canonical",
+    "countryCodes": [
+      "lt"
+    ]
+  },
+  {
+    "name": "Europe/Volgograd",
+    "comments": "MSK+00 - Volgograd",
+    "utcOffset": "+03:00",
+    "utcDstOffset": "+03:00",
+    "type": "canonical",
+    "countryCodes": [
+      "ru"
+    ]
+  },
+  {
+    "name": "Europe/Warsaw",
+    "utcOffset": "+01:00",
+    "utcDstOffset": "+02:00",
+    "type": "canonical",
+    "countryCodes": [
+      "pl"
+    ]
+  },
+  {
+    "name": "Europe/Zagreb",
+    "utcOffset": "+01:00",
+    "utcDstOffset": "+02:00",
+    "type": "link",
+    "link": "Europe/Belgrade",
+    "countryCodes": [
+      "hr"
+    ]
+  },
+  {
+    "name": "Europe/Zaporozhye",
+    "comments": "Zaporozhye and east Lugansk",
+    "utcOffset": "+02:00",
+    "utcDstOffset": "+03:00",
+    "type": "canonical",
+    "countryCodes": [
+      "ua"
+    ]
+  },
+  {
+    "name": "Europe/Zurich",
+    "comments": "Swiss time",
+    "utcOffset": "+01:00",
+    "utcDstOffset": "+02:00",
+    "type": "canonical",
+    "countryCodes": [
+      "ch",
+      "de",
+      "li"
+    ]
+  },
+  {
+    "name": "Factory",
+    "utcOffset": "+00:00",
+    "utcDstOffset": "+00:00",
+    "type": "canonical",
+    "countryCodes": []
+  },
+  {
+    "name": "GB",
+    "utcOffset": "+00:00",
+    "utcDstOffset": "+01:00",
+    "type": "link",
+    "link": "Europe/London",
+    "countryCodes": [
+      "gb"
+    ]
+  },
+  {
+    "name": "GB-Eire",
+    "utcOffset": "+00:00",
+    "utcDstOffset": "+01:00",
+    "type": "link",
+    "link": "Europe/London",
+    "countryCodes": [
+      "gb"
+    ]
+  },
+  {
+    "name": "GMT",
+    "utcOffset": "+00:00",
+    "utcDstOffset": "+00:00",
+    "type": "link",
+    "link": "Etc/GMT",
+    "countryCodes": []
+  },
+  {
+    "name": "Greenwich",
+    "utcOffset": "+00:00",
+    "utcDstOffset": "+00:00",
+    "type": "link",
+    "link": "Etc/GMT",
+    "countryCodes": []
+  },
+  {
+    "name": "Hongkong",
+    "utcOffset": "+08:00",
+    "utcDstOffset": "+08:00",
+    "type": "link",
+    "link": "Asia/Hong_Kong",
+    "countryCodes": [
+      "hk"
+    ]
+  },
+  {
+    "name": "HST",
+    "comments": "Choose a zone that currently observes HST without daylight saving time, such as Pacific/Honolulu.",
+    "utcOffset": "-10:00",
+    "utcDstOffset": "-10:00",
+    "type": "canonical",
+    "countryCodes": []
+  },
+  {
+    "name": "Iceland",
+    "utcOffset": "+00:00",
+    "utcDstOffset": "+00:00",
+    "type": "link",
+    "link": "Atlantic/Reykjavik",
+    "countryCodes": [
+      "is"
+    ]
+  },
+  {
+    "name": "Indian/Antananarivo",
+    "utcOffset": "+03:00",
+    "utcDstOffset": "+03:00",
+    "type": "link",
+    "link": "Africa/Nairobi",
+    "countryCodes": [
+      "mg"
+    ]
+  },
+  {
+    "name": "Indian/Chagos",
+    "utcOffset": "+06:00",
+    "utcDstOffset": "+06:00",
+    "type": "canonical",
+    "countryCodes": [
+      "io"
+    ]
+  },
+  {
+    "name": "Indian/Christmas",
+    "utcOffset": "+07:00",
+    "utcDstOffset": "+07:00",
+    "type": "canonical",
+    "countryCodes": [
+      "cx"
+    ]
+  },
+  {
+    "name": "Indian/Cocos",
+    "utcOffset": "+06:30",
+    "utcDstOffset": "+06:30",
+    "type": "canonical",
+    "countryCodes": [
+      "cc"
+    ]
+  },
+  {
+    "name": "Indian/Comoro",
+    "utcOffset": "+03:00",
+    "utcDstOffset": "+03:00",
+    "type": "link",
+    "link": "Africa/Nairobi",
+    "countryCodes": [
+      "km"
+    ]
+  },
+  {
+    "name": "Indian/Kerguelen",
+    "comments": "Kerguelen, St Paul Island, Amsterdam Island",
+    "utcOffset": "+05:00",
+    "utcDstOffset": "+05:00",
+    "type": "canonical",
+    "countryCodes": [
+      "tf"
+    ]
+  },
+  {
+    "name": "Indian/Mahe",
+    "utcOffset": "+04:00",
+    "utcDstOffset": "+04:00",
+    "type": "canonical",
+    "countryCodes": [
+      "sc"
+    ]
+  },
+  {
+    "name": "Indian/Maldives",
+    "utcOffset": "+05:00",
+    "utcDstOffset": "+05:00",
+    "type": "canonical",
+    "countryCodes": [
+      "mv"
+    ]
+  },
+  {
+    "name": "Indian/Mauritius",
+    "utcOffset": "+04:00",
+    "utcDstOffset": "+04:00",
+    "type": "canonical",
+    "countryCodes": [
+      "mu"
+    ]
+  },
+  {
+    "name": "Indian/Mayotte",
+    "utcOffset": "+03:00",
+    "utcDstOffset": "+03:00",
+    "type": "link",
+    "link": "Africa/Nairobi",
+    "countryCodes": [
+      "yt"
+    ]
+  },
+  {
+    "name": "Indian/Reunion",
+    "comments": "Réunion, Crozet, Scattered Islands",
+    "utcOffset": "+04:00",
+    "utcDstOffset": "+04:00",
+    "type": "canonical",
+    "countryCodes": [
+      "re",
+      "tf"
+    ]
+  },
+  {
+    "name": "Iran",
+    "utcOffset": "+03:30",
+    "utcDstOffset": "+04:30",
+    "type": "link",
+    "link": "Asia/Tehran",
+    "countryCodes": [
+      "ir"
+    ]
+  },
+  {
+    "name": "Israel",
+    "utcOffset": "+02:00",
+    "utcDstOffset": "+03:00",
+    "type": "link",
+    "link": "Asia/Jerusalem",
+    "countryCodes": [
+      "il"
+    ]
+  },
+  {
+    "name": "Jamaica",
+    "utcOffset": "-05:00",
+    "utcDstOffset": "-05:00",
+    "type": "link",
+    "link": "America/Jamaica",
+    "countryCodes": [
+      "jm"
+    ]
+  },
+  {
+    "name": "Japan",
+    "utcOffset": "+09:00",
+    "utcDstOffset": "+09:00",
+    "type": "link",
+    "link": "Asia/Tokyo",
+    "countryCodes": [
+      "jp"
+    ]
+  },
+  {
+    "name": "Kwajalein",
+    "utcOffset": "+12:00",
+    "utcDstOffset": "+12:00",
+    "type": "link",
+    "link": "Pacific/Kwajalein",
+    "countryCodes": [
+      "mh"
+    ]
+  },
+  {
+    "name": "Libya",
+    "utcOffset": "+02:00",
+    "utcDstOffset": "+02:00",
+    "type": "link",
+    "link": "Africa/Tripoli",
+    "countryCodes": [
+      "ly"
+    ]
+  },
+  {
+    "name": "MET",
+    "comments": "Choose a zone that observes MET (sames as CET), such as Europe/Paris.",
+    "utcOffset": "+01:00",
+    "utcDstOffset": "+02:00",
+    "type": "canonical",
+    "countryCodes": []
+  },
+  {
+    "name": "Mexico/BajaNorte",
+    "utcOffset": "-08:00",
+    "utcDstOffset": "-07:00",
+    "type": "link",
+    "link": "America/Tijuana",
+    "countryCodes": [
+      "mx"
+    ]
+  },
+  {
+    "name": "Mexico/BajaSur",
+    "utcOffset": "-07:00",
+    "utcDstOffset": "-06:00",
+    "type": "link",
+    "link": "America/Mazatlan",
+    "countryCodes": [
+      "mx"
+    ]
+  },
+  {
+    "name": "Mexico/General",
+    "utcOffset": "-06:00",
+    "utcDstOffset": "-05:00",
+    "type": "link",
+    "link": "America/Mexico_City",
+    "countryCodes": [
+      "mx"
+    ]
+  },
+  {
+    "name": "MST",
+    "comments": "Choose a zone that currently observes MST without daylight saving time, such as America/Phoenix.",
+    "utcOffset": "-07:00",
+    "utcDstOffset": "-07:00",
+    "type": "canonical",
+    "countryCodes": []
+  },
+  {
+    "name": "MST7MDT",
+    "comments": "Choose a zone that observes MST with United States daylight saving time rules, such as America/Denver.",
+    "utcOffset": "-07:00",
+    "utcDstOffset": "-06:00",
+    "type": "canonical",
+    "countryCodes": []
+  },
+  {
+    "name": "Navajo",
+    "utcOffset": "-07:00",
+    "utcDstOffset": "-06:00",
+    "type": "link",
+    "link": "America/Denver",
+    "countryCodes": [
+      "us"
+    ]
+  },
+  {
+    "name": "NZ",
+    "utcOffset": "+12:00",
+    "utcDstOffset": "+13:00",
+    "type": "link",
+    "link": "Pacific/Auckland",
+    "countryCodes": [
+      "nz"
+    ]
+  },
+  {
+    "name": "NZ-CHAT",
+    "utcOffset": "+12:45",
+    "utcDstOffset": "+13:45",
+    "type": "link",
+    "link": "Pacific/Chatham",
+    "countryCodes": [
+      "nz"
+    ]
+  },
+  {
+    "name": "Pacific/Apia",
+    "utcOffset": "+13:00",
+    "utcDstOffset": "+13:00",
+    "type": "canonical",
+    "countryCodes": [
+      "ws"
+    ]
+  },
+  {
+    "name": "Pacific/Auckland",
+    "comments": "New Zealand time",
+    "utcOffset": "+12:00",
+    "utcDstOffset": "+13:00",
+    "type": "canonical",
+    "countryCodes": [
+      "nz",
+      "aq"
+    ]
+  },
+  {
+    "name": "Pacific/Bougainville",
+    "comments": "Bougainville",
+    "utcOffset": "+11:00",
+    "utcDstOffset": "+11:00",
+    "type": "canonical",
+    "countryCodes": [
+      "pg"
+    ]
+  },
+  {
+    "name": "Pacific/Chatham",
+    "comments": "Chatham Islands",
+    "utcOffset": "+12:45",
+    "utcDstOffset": "+13:45",
+    "type": "canonical",
+    "countryCodes": [
+      "nz"
+    ]
+  },
+  {
+    "name": "Pacific/Chuuk",
+    "comments": "Chuuk/Truk, Yap",
+    "utcOffset": "+10:00",
+    "utcDstOffset": "+10:00",
+    "type": "canonical",
+    "countryCodes": [
+      "fm"
+    ]
+  },
+  {
+    "name": "Pacific/Easter",
+    "comments": "Easter Island",
+    "utcOffset": "-06:00",
+    "utcDstOffset": "-05:00",
+    "type": "canonical",
+    "countryCodes": [
+      "cl"
+    ]
+  },
+  {
+    "name": "Pacific/Efate",
+    "utcOffset": "+11:00",
+    "utcDstOffset": "+11:00",
+    "type": "canonical",
+    "countryCodes": [
+      "vu"
+    ]
+  },
+  {
+    "name": "Pacific/Enderbury",
+    "utcOffset": "+13:00",
+    "utcDstOffset": "+13:00",
+    "type": "link",
+    "link": "Pacific/Kanton",
+    "countryCodes": [
+      "ki"
+    ]
+  },
+  {
+    "name": "Pacific/Fakaofo",
+    "utcOffset": "+13:00",
+    "utcDstOffset": "+13:00",
+    "type": "canonical",
+    "countryCodes": [
+      "tk"
+    ]
+  },
+  {
+    "name": "Pacific/Fiji",
+    "utcOffset": "+12:00",
+    "utcDstOffset": "+12:00",
+    "type": "canonical",
+    "countryCodes": [
+      "fj"
+    ]
+  },
+  {
+    "name": "Pacific/Funafuti",
+    "utcOffset": "+12:00",
+    "utcDstOffset": "+12:00",
+    "type": "canonical",
+    "countryCodes": [
+      "tv"
+    ]
+  },
+  {
+    "name": "Pacific/Galapagos",
+    "comments": "Galápagos Islands",
+    "utcOffset": "-06:00",
+    "utcDstOffset": "-06:00",
+    "type": "canonical",
+    "countryCodes": [
+      "ec"
+    ]
+  },
+  {
+    "name": "Pacific/Gambier",
+    "comments": "Gambier Islands",
+    "utcOffset": "-09:00",
+    "utcDstOffset": "-09:00",
+    "type": "canonical",
+    "countryCodes": [
+      "pf"
+    ]
+  },
+  {
+    "name": "Pacific/Guadalcanal",
+    "utcOffset": "+11:00",
+    "utcDstOffset": "+11:00",
+    "type": "canonical",
+    "countryCodes": [
+      "sb"
+    ]
+  },
+  {
+    "name": "Pacific/Guam",
+    "utcOffset": "+10:00",
+    "utcDstOffset": "+10:00",
+    "type": "canonical",
+    "countryCodes": [
+      "gu",
+      "mp"
+    ]
+  },
+  {
+    "name": "Pacific/Honolulu",
+    "comments": "Hawaii",
+    "utcOffset": "-10:00",
+    "utcDstOffset": "-10:00",
+    "type": "canonical",
+    "countryCodes": [
+      "us",
+      "um"
+    ]
+  },
+  {
+    "name": "Pacific/Johnston",
+    "utcOffset": "-10:00",
+    "utcDstOffset": "-10:00",
+    "type": "link",
+    "link": "Pacific/Honolulu",
+    "countryCodes": [
+      "um"
+    ]
+  },
+  {
+    "name": "Pacific/Kanton",
+    "comments": "Phoenix Islands",
+    "utcOffset": "+13:00",
+    "utcDstOffset": "+13:00",
+    "type": "canonical",
+    "countryCodes": [
+      "ki"
+    ]
+  },
+  {
+    "name": "Pacific/Kiritimati",
+    "comments": "Line Islands",
+    "utcOffset": "+14:00",
+    "utcDstOffset": "+14:00",
+    "type": "canonical",
+    "countryCodes": [
+      "ki"
+    ]
+  },
+  {
+    "name": "Pacific/Kosrae",
+    "comments": "Kosrae",
+    "utcOffset": "+11:00",
+    "utcDstOffset": "+11:00",
+    "type": "canonical",
+    "countryCodes": [
+      "fm"
+    ]
+  },
+  {
+    "name": "Pacific/Kwajalein",
+    "comments": "Kwajalein",
+    "utcOffset": "+12:00",
+    "utcDstOffset": "+12:00",
+    "type": "canonical",
+    "countryCodes": [
+      "mh"
+    ]
+  },
+  {
+    "name": "Pacific/Majuro",
+    "comments": "Marshall Islands (most areas)",
+    "utcOffset": "+12:00",
+    "utcDstOffset": "+12:00",
+    "type": "canonical",
+    "countryCodes": [
+      "mh"
+    ]
+  },
+  {
+    "name": "Pacific/Marquesas",
+    "comments": "Marquesas Islands",
+    "utcOffset": "-09:30",
+    "utcDstOffset": "-09:30",
+    "type": "canonical",
+    "countryCodes": [
+      "pf"
+    ]
+  },
+  {
+    "name": "Pacific/Midway",
+    "comments": "Midway Islands",
+    "utcOffset": "-11:00",
+    "utcDstOffset": "-11:00",
+    "type": "link",
+    "link": "Pacific/Pago_Pago",
+    "countryCodes": [
+      "um"
+    ]
+  },
+  {
+    "name": "Pacific/Nauru",
+    "utcOffset": "+12:00",
+    "utcDstOffset": "+12:00",
+    "type": "canonical",
+    "countryCodes": [
+      "nr"
+    ]
+  },
+  {
+    "name": "Pacific/Niue",
+    "utcOffset": "-11:00",
+    "utcDstOffset": "-11:00",
+    "type": "canonical",
+    "countryCodes": [
+      "nu"
+    ]
+  },
+  {
+    "name": "Pacific/Norfolk",
+    "utcOffset": "+11:00",
+    "utcDstOffset": "+12:00",
+    "type": "canonical",
+    "countryCodes": [
+      "nf"
+    ]
+  },
+  {
+    "name": "Pacific/Noumea",
+    "utcOffset": "+11:00",
+    "utcDstOffset": "+11:00",
+    "type": "canonical",
+    "countryCodes": [
+      "nc"
+    ]
+  },
+  {
+    "name": "Pacific/Pago_Pago",
+    "comments": "Samoa, Midway",
+    "utcOffset": "-11:00",
+    "utcDstOffset": "-11:00",
+    "type": "canonical",
+    "countryCodes": [
+      "as",
+      "um"
+    ]
+  },
+  {
+    "name": "Pacific/Palau",
+    "utcOffset": "+09:00",
+    "utcDstOffset": "+09:00",
+    "type": "canonical",
+    "countryCodes": [
+      "pw"
+    ]
+  },
+  {
+    "name": "Pacific/Pitcairn",
+    "utcOffset": "-08:00",
+    "utcDstOffset": "-08:00",
+    "type": "canonical",
+    "countryCodes": [
+      "pn"
+    ]
+  },
+  {
+    "name": "Pacific/Pohnpei",
+    "comments": "Pohnpei/Ponape",
+    "utcOffset": "+11:00",
+    "utcDstOffset": "+11:00",
+    "type": "canonical",
+    "countryCodes": [
+      "fm"
+    ]
+  },
+  {
+    "name": "Pacific/Ponape",
+    "utcOffset": "+11:00",
+    "utcDstOffset": "+11:00",
+    "type": "link",
+    "link": "Pacific/Pohnpei",
+    "countryCodes": [
+      "fm"
+    ]
+  },
+  {
+    "name": "Pacific/Port_Moresby",
+    "comments": "Papua New Guinea (most areas), Dumont d'Urville",
+    "utcOffset": "+10:00",
+    "utcDstOffset": "+10:00",
+    "type": "canonical",
+    "countryCodes": [
+      "pg",
+      "aq"
+    ]
+  },
+  {
+    "name": "Pacific/Rarotonga",
+    "utcOffset": "-10:00",
+    "utcDstOffset": "-10:00",
+    "type": "canonical",
+    "countryCodes": [
+      "ck"
+    ]
+  },
+  {
+    "name": "Pacific/Saipan",
+    "utcOffset": "+10:00",
+    "utcDstOffset": "+10:00",
+    "type": "link",
+    "link": "Pacific/Guam",
+    "countryCodes": [
+      "mp"
+    ]
+  },
+  {
+    "name": "Pacific/Samoa",
+    "utcOffset": "-11:00",
+    "utcDstOffset": "-11:00",
+    "type": "link",
+    "link": "Pacific/Pago_Pago",
+    "countryCodes": [
+      "ws"
+    ]
+  },
+  {
+    "name": "Pacific/Tahiti",
+    "comments": "Society Islands",
+    "utcOffset": "-10:00",
+    "utcDstOffset": "-10:00",
+    "type": "canonical",
+    "countryCodes": [
+      "pf"
+    ]
+  },
+  {
+    "name": "Pacific/Tarawa",
+    "comments": "Gilbert Islands",
+    "utcOffset": "+12:00",
+    "utcDstOffset": "+12:00",
+    "type": "canonical",
+    "countryCodes": [
+      "ki"
+    ]
+  },
+  {
+    "name": "Pacific/Tongatapu",
+    "utcOffset": "+13:00",
+    "utcDstOffset": "+13:00",
+    "type": "canonical",
+    "countryCodes": [
+      "to"
+    ]
+  },
+  {
+    "name": "Pacific/Truk",
+    "utcOffset": "+10:00",
+    "utcDstOffset": "+10:00",
+    "type": "link",
+    "link": "Pacific/Chuuk",
+    "countryCodes": [
+      "fm"
+    ]
+  },
+  {
+    "name": "Pacific/Wake",
+    "comments": "Wake Island",
+    "utcOffset": "+12:00",
+    "utcDstOffset": "+12:00",
+    "type": "canonical",
+    "countryCodes": [
+      "um"
+    ]
+  },
+  {
+    "name": "Pacific/Wallis",
+    "utcOffset": "+12:00",
+    "utcDstOffset": "+12:00",
+    "type": "canonical",
+    "countryCodes": [
+      "wf"
+    ]
+  },
+  {
+    "name": "Pacific/Yap",
+    "utcOffset": "+10:00",
+    "utcDstOffset": "+10:00",
+    "type": "link",
+    "link": "Pacific/Chuuk",
+    "countryCodes": [
+      "fm"
+    ]
+  },
+  {
+    "name": "Poland",
+    "utcOffset": "+01:00",
+    "utcDstOffset": "+02:00",
+    "type": "link",
+    "link": "Europe/Warsaw",
+    "countryCodes": [
+      "pl"
+    ]
+  },
+  {
+    "name": "Portugal",
+    "utcOffset": "+00:00",
+    "utcDstOffset": "+01:00",
+    "type": "link",
+    "link": "Europe/Lisbon",
+    "countryCodes": [
+      "pt"
+    ]
+  },
+  {
+    "name": "PRC",
+    "utcOffset": "+08:00",
+    "utcDstOffset": "+08:00",
+    "type": "link",
+    "link": "Asia/Shanghai",
+    "countryCodes": [
+      "cn"
+    ]
+  },
+  {
+    "name": "PST8PDT",
+    "comments": "Choose a zone that observes PST with United States daylight saving time rules, such as America/Los_Angeles.",
+    "utcOffset": "-08:00",
+    "utcDstOffset": "-07:00",
+    "type": "canonical",
+    "countryCodes": []
+  },
+  {
+    "name": "ROC",
+    "utcOffset": "+08:00",
+    "utcDstOffset": "+08:00",
+    "type": "link",
+    "link": "Asia/Taipei",
+    "countryCodes": [
+      "tw"
+    ]
+  },
+  {
+    "name": "ROK",
+    "utcOffset": "+09:00",
+    "utcDstOffset": "+09:00",
+    "type": "link",
+    "link": "Asia/Seoul",
+    "countryCodes": [
+      "kr"
+    ]
+  },
+  {
+    "name": "Singapore",
+    "utcOffset": "+08:00",
+    "utcDstOffset": "+08:00",
+    "type": "link",
+    "link": "Asia/Singapore",
+    "countryCodes": [
+      "sg"
+    ]
+  },
+  {
+    "name": "Turkey",
+    "utcOffset": "+03:00",
+    "utcDstOffset": "+03:00",
+    "type": "link",
+    "link": "Europe/Istanbul",
+    "countryCodes": [
+      "tr"
+    ]
+  },
+  {
+    "name": "UCT",
+    "utcOffset": "+00:00",
+    "utcDstOffset": "+00:00",
+    "type": "link",
+    "link": "Etc/UTC",
+    "countryCodes": []
+  },
+  {
+    "name": "Universal",
+    "utcOffset": "+00:00",
+    "utcDstOffset": "+00:00",
+    "type": "link",
+    "link": "Etc/UTC",
+    "countryCodes": []
+  },
+  {
+    "name": "US/Alaska",
+    "utcOffset": "-09:00",
+    "utcDstOffset": "-08:00",
+    "type": "link",
+    "link": "America/Anchorage",
+    "countryCodes": [
+      "us"
+    ]
+  },
+  {
+    "name": "US/Aleutian",
+    "utcOffset": "-10:00",
+    "utcDstOffset": "-09:00",
+    "type": "link",
+    "link": "America/Adak",
+    "countryCodes": [
+      "us"
+    ]
+  },
+  {
+    "name": "US/Arizona",
+    "utcOffset": "-07:00",
+    "utcDstOffset": "-07:00",
+    "type": "link",
+    "link": "America/Phoenix",
+    "countryCodes": [
+      "us"
+    ]
+  },
+  {
+    "name": "US/Central",
+    "utcOffset": "-06:00",
+    "utcDstOffset": "-05:00",
+    "type": "link",
+    "link": "America/Chicago",
+    "countryCodes": [
+      "us"
+    ]
+  },
+  {
+    "name": "US/East-Indiana",
+    "utcOffset": "-05:00",
+    "utcDstOffset": "-04:00",
+    "type": "link",
+    "link": "America/Indiana/Indianapolis",
+    "countryCodes": [
+      "us"
+    ]
+  },
+  {
+    "name": "US/Eastern",
+    "utcOffset": "-05:00",
+    "utcDstOffset": "-04:00",
+    "type": "link",
+    "link": "America/New_York",
+    "countryCodes": [
+      "us"
+    ]
+  },
+  {
+    "name": "US/Hawaii",
+    "utcOffset": "-10:00",
+    "utcDstOffset": "-10:00",
+    "type": "link",
+    "link": "Pacific/Honolulu",
+    "countryCodes": [
+      "us"
+    ]
+  },
+  {
+    "name": "US/Indiana-Starke",
+    "utcOffset": "-06:00",
+    "utcDstOffset": "-05:00",
+    "type": "link",
+    "link": "America/Indiana/Knox",
+    "countryCodes": [
+      "us"
+    ]
+  },
+  {
+    "name": "US/Michigan",
+    "utcOffset": "-05:00",
+    "utcDstOffset": "-04:00",
+    "type": "link",
+    "link": "America/Detroit",
+    "countryCodes": [
+      "us"
+    ]
+  },
+  {
+    "name": "US/Mountain",
+    "utcOffset": "-07:00",
+    "utcDstOffset": "-06:00",
+    "type": "link",
+    "link": "America/Denver",
+    "countryCodes": [
+      "us"
+    ]
+  },
+  {
+    "name": "US/Pacific",
+    "utcOffset": "-08:00",
+    "utcDstOffset": "-07:00",
+    "type": "link",
+    "link": "America/Los_Angeles",
+    "countryCodes": [
+      "us"
+    ]
+  },
+  {
+    "name": "US/Samoa",
+    "utcOffset": "-11:00",
+    "utcDstOffset": "-11:00",
+    "type": "link",
+    "link": "Pacific/Pago_Pago",
+    "countryCodes": [
+      "ws"
+    ]
+  },
+  {
+    "name": "UTC",
+    "utcOffset": "+00:00",
+    "utcDstOffset": "+00:00",
+    "type": "link",
+    "link": "Etc/UTC",
+    "countryCodes": []
+  },
+  {
+    "name": "W-SU",
+    "utcOffset": "+03:00",
+    "utcDstOffset": "+03:00",
+    "type": "link",
+    "link": "Europe/Moscow",
+    "countryCodes": [
+      "ru"
+    ]
+  },
+  {
+    "name": "WET",
+    "comments": "Choose a zone that observes WET, such as Europe/Lisbon.",
+    "utcOffset": "+00:00",
+    "utcDstOffset": "+01:00",
+    "type": "canonical",
+    "countryCodes": []
+  },
+  {
+    "name": "Zulu",
+    "utcOffset": "+00:00",
+    "utcDstOffset": "+00:00",
+    "type": "link",
+    "link": "Etc/UTC",
+    "countryCodes": []
+  }
+]

@@ -1,0 +1,7 @@
+name: pageNumber
+in: query
+description: The requested page. This value is 1-indexed.
+schema:
+  type: integer
+  format: int32
+  default: 1

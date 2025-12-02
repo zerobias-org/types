@@ -1,0 +1,6 @@
+type: string
+description: >-
+  Whether the policy allows or denies access.
+enum:
+  - allow
+  - deny

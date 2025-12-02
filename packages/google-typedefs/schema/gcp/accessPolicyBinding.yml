@@ -1,0 +1,20 @@
+type: object
+description: >-
+  Associates members with a role.
+properties:
+  role:
+    type: string
+    description: >-
+      Role that is assigned to members.
+    example:
+      - roles/viewer
+      - roles/editor
+      - roles/owner
+  members:
+    type: array
+    description: >-
+      Specifies the identities requesting access for a Cloud Platform resource.
+    items:
+      type: string
+  condition:
+    $ref: './accessPolicyBindingCondition.yml'

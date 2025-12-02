@@ -1,0 +1,67 @@
+{
+  "name": "@zerobias-org/types",
+  "version": "1.0.0",
+  "description": "Repository for defining various types used by ZeroBias and the Hub Module Ecosystem.",
+  "type": "module",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "nx affected -t lint generate transpile",
+    "build:full": "nx run-many -t lint generate transpile",
+    "clean": "nx affected -t clean && nx reset && find . -name tsconfig.tsbuildinfo -delete || echo \"\"",
+    "clean:full": "nx run-many -t clean && nx reset && find . -name tsconfig.tsbuildinfo -delete || echo \"\"",
+    "docs": "nx run-many -t docs",
+    "generate:bom": "nx affected -t generate:bom",
+    "lerna:publish": "lerna publish --conventional-commits",
+    "lerna:publish-from-package": "lerna publish from-package",
+    "lerna:dry-run": "lerna version --no-git-tag-version --no-push --conventional-commits",
+    "lerna:version": "lerna version --no-git-tag-version --no-push --conventional-commits --yes",
+    "lint": "nx affected -t lint",
+    "lint:fix": "nx run-many -t lint:fix",
+    "reset": "npm run clean:full && npm install && npm run build:full",
+    "test": "nx affected -t test",
+    "test:full": "nx run-many -t test",
+    "postinstall": "husky install || true",
+    "prepare": "husky install || true"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:zerobias-org/types.git"
+  },
+  "author": "team@zerobias.com",
+  "license": "ISC",
+  "engines": {
+    "node": ">=22.0.0",
+    "npm": ">=10.0.0"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^19.6.1",
+    "@commitlint/config-conventional": "^19.6.0",
+    "@cyclonedx/bom": "^4.0.3",
+    "@redocly/cli": "2.11.1",
+    "@stoplight/spectral-cli": "^6.15.0",
+    "@types/chai": "^4.3.20",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "^22.10.0",
+    "@types/pluralize": "^0.0.33",
+    "@types/semver": "^7.7.1",
+    "@types/uuid": "^11.0.0",
+    "@types/validator": "^13.15.10",
+    "badge-maker": "^5.0.2",
+    "husky": "^9.1.7",
+    "lerna": "^9.0.3",
+    "nx": "^20.5.0",
+    "@openapitools/openapi-generator-cli": "^2.25.2",
+    "chai": "^6.2.1",
+    "concat-md": "^0.5.1",
+    "eslint": "^9.39.1",
+    "mocha": "^11.7.5",
+    "rimraf": "^6.1.2",
+    "ts-node": "^10.9.2",
+    "typedoc": "^0.28.15",
+    "typedoc-plugin-markdown": "^4.9.0",
+    "typescript": "^5.9.3"
+  }
+}

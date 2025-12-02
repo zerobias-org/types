@@ -1,0 +1,7 @@
+type: string
+description: The identity type.
+enum:
+  - none
+  - system_assigned
+  - system_assigned_user_assigned
+  - user_assigned

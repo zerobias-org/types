@@ -1,0 +1,14 @@
+type: string
+description: Severity/magnitude of a risk, incident, bug, or vulnerability
+enum:
+  - Critical
+  - High
+  - Medium
+  - Low
+  - None
+x-enum-descriptions:
+  - Critical - emergency, alert, critical conditions (0)
+  - High - error, high risk (1)
+  - Medium - warning, medium, moderate risk (2)
+  - Low - notice, informational, low risk (3)
+  - None - Debug (4)

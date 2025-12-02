@@ -1,0 +1,20 @@
+type: object
+description: Wrapper for a response with a paged result set.
+deprecated: true
+properties:
+  count:
+    type: integer
+    format: int64
+    description: Total number of items available in the result set
+  pageCount:
+    type: integer
+    format: int32
+    description: The total number of pages available
+  pageNumber:
+    type: integer
+    format: int32
+    description: The index of the current page (0-indexed)
+  pageSize:
+    type: integer
+    format: int32
+    description: The number of items in each page

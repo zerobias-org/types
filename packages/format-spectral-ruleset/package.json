@@ -1,0 +1,31 @@
+{
+  "name": "@zerobias-org/types-format-spectral-ruleset",
+  "version": "1.0.0",
+  "description": "Spectral ruleset ensuring any type format is using the type name and not alternative formats",
+  "type": "module",
+  "main": "ruleset.json",
+  "scripts": {
+    "test:lint:api": "npx spectral lint testapi.yml -r spectral.yml",
+    "transpile": "echo 'No transpile needed for spectral ruleset'"
+  },
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:zerobias-org/types.git",
+    "directory": "packages/format-spectral-ruleset"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
+  "dependencies": {
+    "@zerobias-org/types-amazon-js": "^1.0.0",
+    "@zerobias-org/types-core-js": "^1.0.0",
+    "@zerobias-org/types-microsoft-js": "^1.0.0"
+  },
+  "files": [
+    "functions/",
+    "ruleset.json",
+    "spectral.yml",
+    "bom.json"
+  ]
+}

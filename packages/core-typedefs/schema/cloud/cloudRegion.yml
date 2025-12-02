@@ -1,0 +1,149 @@
+type: string
+description: >-
+  A collection of Cloud Region Codes
+enum:
+  - aws_af_south_1
+  - aws_ap_east_1
+  - aws_ap_northeast_1
+  - aws_ap_northeast_2
+  - aws_ap_northeast_3
+  - aws_ap_south_1
+  - aws_ap_southeast_1
+  - aws_ap_southeast_2
+  - aws_ap_southeast_3
+  - aws_ca_central_1
+  - aws_cn_north_1
+  - aws_cn_northwest_1
+  - aws_eu_central_1
+  - aws_eu_north_1
+  - aws_eu_south_1
+  - aws_eu_west_1
+  - aws_eu_west_2
+  - aws_eu_west_3
+  - aws_me_south_1
+  - aws_sa_east_1
+  - aws_us_east_1
+  - aws_us_east_2
+  - aws_us_gov_east_1
+  - aws_us_gov_west_1
+  - aws_us_west_1
+  - aws_us_west_2
+  - azure_australiacentral
+  - azure_australiacentral2
+  - azure_australiaeast
+  - azure_australiasoutheast
+  - azure_brazilsouth
+  - azure_canadacentral
+  - azure_canadaeast
+  - azure_centralindia
+  - azure_centralus
+  - azure_chinaeast
+  - azure_chinaeast2
+  - azure_chinanorth
+  - azure_chinanorth2
+  - azure_eastasia
+  - azure_eastus
+  - azure_eastus2
+  - azure_francecentral
+  - azure_francesouth
+  - azure_germanycentral
+  - azure_germanynorth
+  - azure_germanynortheast
+  - azure_germanywestcentral
+  - azure_japaneast
+  - azure_japanwest
+  - azure_koreacentral
+  - azure_koreasouth
+  - azure_northcentralus
+  - azure_northeurope
+  - azure_norwayeast
+  - azure_norwaywest
+  - azure_southafricanorth
+  - azure_southafricawest
+  - azure_southcentralus
+  - azure_southeastasia
+  - azure_southindia
+  - azure_switzerlandnorth
+  - azure_switzerlandwest
+  - azure_uaecentral
+  - azure_uaenorth
+  - azure_uksouth
+  - azure_ukwest
+  - azure_westcentralus
+  - azure_westeurope
+  - azure_westindia
+  - azure_westus
+  - azure_westus2
+x-enum-descriptions:
+  - AWS Africa South 1
+  - AWS Asia Pacific East 1
+  - AWS Asia Pacific Northeast 1
+  - AWS Asia Pacific Northeast 2
+  - AWS Asia Pacific Northeast 3
+  - AWS Asia Pacific South 1
+  - AWS Asia Pacific Southeast 1
+  - AWS Asia Pacific Southeast 2
+  - AWS Asia Pacific Southeast 3
+  - AWS Canada Central 1
+  - AWS China North 1
+  - AWS China Northwest 1
+  - AWS Europe Central 1
+  - AWS Europe North 1
+  - AWS Europe South 1
+  - AWS Europe West 1
+  - AWS Europe West 2
+  - AWS Europe West 3
+  - AWS Middle East South 1
+  - AWS South America East 1
+  - AWS US East 1
+  - AWS US East 2
+  - AWS AWS GovCloud East 1
+  - AWS AWS GovCloud West 1
+  - AWS US West 1
+  - AWS US West 2
+  - Azure Australia Central
+  - Azure Australia Central 2
+  - Azure Australia East
+  - Azure Australia Southeast
+  - Azure Brazil South
+  - Azure Canada Central
+  - Azure Canada East
+  - Azure Central India
+  - Azure Central US
+  - Azure China East
+  - Azure China East 2
+  - Azure China North
+  - Azure China North 2
+  - Azure East Asia
+  - Azure East US
+  - Azure East US 2
+  - Azure France Central
+  - Azure France South
+  - Azure Germany Central
+  - Azure Germany North
+  - Azure Germany Northeast
+  - Azure Germany West Central
+  - Azure Japan East
+  - Azure Japan West
+  - Azure Korea Central
+  - Azure Korean South
+  - Azure North Central US
+  - Azure North Europe
+  - Azure Norway East
+  - Azure Norway West
+  - Azure South Africa North
+  - Azure South Africa West
+  - Azure South Central US
+  - Azure Southeast Asia
+  - Azure South India
+  - Azure Switzerland North
+  - Azure Switzerland West
+  - Azure UAE Central
+  - Azure UAE North
+  - Azure UK South
+  - Azure UK West
+  - Azure West Central US
+  - Azure West Europe
+  - Azure West India
+  - Azure West US
+  - Azure West US 2

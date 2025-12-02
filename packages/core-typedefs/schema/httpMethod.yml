@@ -1,0 +1,12 @@
+type: string
+description: The set of HTTP methods as defined by RFC-7231 and RFC-5789
+enum:
+  - GET
+  - HEAD
+  - POST
+  - PUT
+  - DELETE
+  - CONNECT
+  - OPTIONS
+  - TRACE
+  - PATCH

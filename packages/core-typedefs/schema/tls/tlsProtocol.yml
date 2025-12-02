@@ -1,0 +1,15 @@
+type: string
+enum:
+  - sslv2
+  - sslv3
+  - tls1_0
+  - tls1_1
+  - tls1_2
+  - tls1_3
+x-enum-descriptions:
+  - SSLv2
+  - SSLv3
+  - TLS1.0
+  - TLS1.1
+  - TLS1.2
+  - TLS1.3

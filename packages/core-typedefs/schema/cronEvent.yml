@@ -1,0 +1,16 @@
+type: object
+description: Generic cron event
+required:
+  - cronId
+allOf:
+  - $ref: './event.yml'
+  - type: object
+    properties:
+      cronId:
+        type: string
+        description: An identifier for the cron schedule which issued the event
+      cronType:
+        type: string
+        description: >- 
+          The type of cron event being fired. 
+          This is part of `event.type` used for registering handlers. i.e. cron.trigger, cron.oauth_refresh

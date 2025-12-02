@@ -1,0 +1,205 @@
+[
+  {
+    "id": "aws_af",
+    "cloudProvider": "aws",
+    "name": "Africa",
+    "sovereignty": "Data stored at rest in Africa",
+    "compliance": "International, regional, and industry-specific"
+  },
+  {
+    "id": "aws_ap",
+    "cloudProvider": "aws",
+    "name": "Asia Pacific",
+    "sovereignty": "Data stored at rest in Asia",
+    "compliance": "International, regional, and industry-specific"
+  },
+  {
+    "id": "aws_ca",
+    "cloudProvider": "aws",
+    "name": "Canada",
+    "sovereignty": "Data stored at rest in CA",
+    "compliance": "International, regional, and industry-specific"
+  },
+  {
+    "id": "aws_cn",
+    "cloudProvider": "aws",
+    "name": "China",
+    "sovereignty": "Data stored at rest in China",
+    "compliance": "China-specific"
+  },
+  {
+    "id": "aws_eu",
+    "cloudProvider": "aws",
+    "name": "Europe",
+    "sovereignty": "Data stored at rest in Europe",
+    "compliance": "International, regional, and industry-specific"
+  },
+  {
+    "id": "aws_me",
+    "cloudProvider": "aws",
+    "name": "Middle East",
+    "sovereignty": "Data stored at rest in Middle East",
+    "compliance": "International, regional, and industry-specific"
+  },
+  {
+    "id": "aws_sa",
+    "cloudProvider": "aws",
+    "name": "South America",
+    "sovereignty": "Data stored at rest in South America",
+    "compliance": "International, regional, and industry-specific"
+  },
+  {
+    "id": "aws_us",
+    "cloudProvider": "aws",
+    "name": "United States",
+    "sovereignty": "Data stored at rest in US",
+    "compliance": "International, regional, and industry-specific"
+  },
+  {
+    "id": "aws_us_gov",
+    "cloudProvider": "aws",
+    "name": "GovCloud",
+    "sovereignty": "Data stored at rest in US",
+    "compliance": "Government-specific, DoD-specific compliance"
+  },
+  {
+    "id": "aws_us_gov_secret",
+    "cloudProvider": "aws",
+    "name": "Secret Region",
+    "sovereignty": "Data stored at rest in US",
+    "compliance": "Government-specific, secret compliance"
+  },
+  {
+    "id": "aws_us_gov_top_secret",
+    "cloudProvider": "aws",
+    "name": "Top Secret Region",
+    "sovereignty": "Data stored at rest in US",
+    "compliance": "Government-specific, top secret compliance"
+  },
+  {
+    "id": "azure_us",
+    "cloudProvider": "azure",
+    "name": "United States",
+    "sovereignty": "Data stored at rest in US",
+    "compliance": "International, regional, and industry-specific"
+  },
+  {
+    "id": "azure_us_gov",
+    "cloudProvider": "azure",
+    "name": "United States Government",
+    "sovereignty": "Data stored at rest in US",
+    "compliance": "Government-specific, DoD-specific compliance"
+  },
+  {
+    "id": "azure_ca",
+    "cloudProvider": "azure",
+    "name": "Canada",
+    "sovereignty": "Data stored at rest in Canada",
+    "compliance": "International, regional, and industry-specific"
+  },
+  {
+    "id": "azure_br",
+    "cloudProvider": "azure",
+    "name": "Brazil",
+    "sovereignty": "Data replication to US",
+    "compliance": "International, regional, and industry-specific"
+  },
+  {
+    "id": "azure_eu",
+    "cloudProvider": "azure",
+    "name": "Europe",
+    "sovereignty": "Data stored at rest in Europe",
+    "compliance": "International, regional, and industry-specific"
+  },
+  {
+    "id": "azure_fr",
+    "cloudProvider": "azure",
+    "name": "France",
+    "sovereignty": "Data stored at rest in France",
+    "compliance": "International, regional, and industry-specific"
+  },
+  {
+    "id": "azure_uk",
+    "cloudProvider": "azure",
+    "name": "United Kingdom",
+    "sovereignty": "Data stored at rest in UK",
+    "compliance": "International, regional, and industry-specific"
+  },
+  {
+    "id": "azure_de",
+    "cloudProvider": "azure",
+    "name": "Germany",
+    "sovereignty": "A sovereign offering with dedicated network between Germany datacenters",
+    "compliance": "Designed to meet the strictest EU data protection, under control of German Data Trustee"
+  },
+  {
+    "id": "azure_ch",
+    "cloudProvider": "azure",
+    "name": "Switzerland",
+    "sovereignty": "Data stored at rest in Switzerland",
+    "compliance": "International, regional, and industry-specific"
+  },
+  {
+    "id": "azure_no",
+    "cloudProvider": "azure",
+    "name": "Norway",
+    "sovereignty": "Data stored at rest in Norway",
+    "compliance": "International, regional, and industry-specific"
+  },
+  {
+    "id": "azure_apac",
+    "cloudProvider": "azure",
+    "name": "Asia Pacific",
+    "sovereignty": "Data stored at rest in Asia Pacific Region",
+    "compliance": "International, regional, and industry-specific"
+  },
+  {
+    "id": "azure_au",
+    "cloudProvider": "azure",
+    "name": "Australia",
+    "sovereignty": "Data stored at rest in Australia",
+    "compliance": "International, regional, and industry-specific"
+  },
+  {
+    "id": "azure_cn",
+    "cloudProvider": "azure",
+    "name": "China",
+    "sovereignty": "Data stored at rest in China",
+    "compliance": "China-specific"
+  },
+  {
+    "id": "azure_in",
+    "cloudProvider": "azure",
+    "name": "India",
+    "sovereignty": "Data stored at rest in India",
+    "compliance": "International, regional, and industry-specific"
+  },
+  {
+    "id": "azure_jp",
+    "cloudProvider": "azure",
+    "name": "Japan",
+    "sovereignty": "Data stored at rest in Japan",
+    "compliance": "International, regional, and industry-specific"
+  },
+  {
+    "id": "azure_kr",
+    "cloudProvider": "azure",
+    "name": "Korea",
+    "sovereignty": "Data stored at rest in Korea",
+    "compliance": "International, regional, and industry-specific"
+  },
+  {
+    "id": "azure_af",
+    "cloudProvider": "azure",
+    "name": "Africa",
+    "sovereignty": "Data stored at rest in South Africa",
+    "compliance": "International, regional, and industry-specific"
+  },
+  {
+    "id": "azure_uae",
+    "cloudProvider": "azure",
+    "name": "United Arab Emirates",
+    "sovereignty": "Data stored at rest in UAE",
+    "compliance": "International, regional, and industry-specific"
+  }
+]

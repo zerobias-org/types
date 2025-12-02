@@ -1,0 +1,12 @@
+description: Error indicating that a call limit has been reached.
+type: object
+allOf:
+  - $ref: './errorModelBase.yml'
+  - type: object
+    properties:
+      callCount:
+        type: integer
+        description: The number of calls performed.
+      duration:
+        type: string
+        description: The wait time before more calls can be made.

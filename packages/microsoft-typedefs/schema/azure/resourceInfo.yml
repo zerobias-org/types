@@ -1,0 +1,27 @@
+allOf:
+  - $ref: './resource.yml'
+  - type: object
+    properties:
+      location:
+        type: string
+        anyOf:
+          - $ref: './region.yml'
+          - $ref: './additionalLocations.yml'
+        description: Resource location.
+      tags:
+        type: object
+        description: Resource tags.
+        additionalProperties:
+          type: string
+      identity:
+        $ref: './resourceIdentity.yml'
+      kind:
+        type: string
+        description: The kind of resource.
+      managedBy:
+        type: string
+        description: ID of the resource that manages this resource.
+      plan:
+        $ref: './resourcePlan.yml'
+      sku:
+        $ref: './resourceSku.yml'

@@ -1,0 +1,34 @@
+type: object
+properties:
+  serialNumber:
+    type: string
+    description: Serial number
+  subject:
+    description: Subject
+    $ref: './x509Subject.yml'
+  issuer:
+    description: Issuer
+    $ref: './x509Subject.yml'
+  subjectAltName:
+    description: Subject alternative name
+    type: string
+  publicKey:
+    description: Public key
+    $ref: './asymmetricKeyInfo.yml'
+  signatureAlgorithm:
+    description: Signature algorithm
+    $ref: './signatureAlgorithm.yml'
+  validFrom:
+    description: Validity start date-time
+    type: string
+    format: date-time
+  validTo:
+    description: Validity end date-time
+    type: string
+    format: date-time
+  issuerCertificate:
+    description: Issuer certificate chain
+    $ref: '#'
+  infoAccess:
+    description: Information access URLs
+    type: object

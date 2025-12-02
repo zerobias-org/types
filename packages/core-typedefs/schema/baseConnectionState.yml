@@ -1,0 +1,7 @@
+type: object
+properties:
+  expiresIn:
+    type: number
+    format: int64
+    description: Number of seconds after which the access token becomes invalid
+    example: 3600

@@ -1,0 +1,14 @@
+openapi: 3.0.2
+info:
+  version: 0.5.23
+  description: OpenApi snippets for Atlassian core types
+  title: '@zerobias-org/types-atlassian'
+paths:
+  /foo:
+    get:
+      tags:
+        - foo
+      operationId: getFoo
+      responses:
+        '204':
+          description: Foo

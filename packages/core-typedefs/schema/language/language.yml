@@ -1,0 +1,371 @@
+type: string
+enum:
+  - aa
+  - ab
+  - ae
+  - af
+  - ak
+  - am
+  - an
+  - ar
+  - as
+  - av
+  - ay
+  - az
+  - ba
+  - be
+  - bg
+  - bi
+  - bm
+  - bn
+  - bo
+  - br
+  - bs
+  - ca
+  - ce
+  - ch
+  - co
+  - cr
+  - cs
+  - cu
+  - cv
+  - cy
+  - da
+  - de
+  - dv
+  - dz
+  - ee
+  - el
+  - en
+  - eo
+  - es
+  - et
+  - eu
+  - fa
+  - ff
+  - fi
+  - fj
+  - fo
+  - fr
+  - fy
+  - ga
+  - gd
+  - gl
+  - gn
+  - gu
+  - gv
+  - ha
+  - he
+  - hi
+  - ho
+  - hr
+  - ht
+  - hu
+  - hy
+  - hz
+  - ia
+  - id
+  - ie
+  - ig
+  - ii
+  - ik
+  - io
+  - is
+  - it
+  - iu
+  - ja
+  - jv
+  - ka
+  - kg
+  - ki
+  - kj
+  - kk
+  - kl
+  - km
+  - kn
+  - ko
+  - kr
+  - ks
+  - ku
+  - kv
+  - kw
+  - ky
+  - la
+  - lb
+  - lg
+  - li
+  - ln
+  - lo
+  - lt
+  - lu
+  - lv
+  - mg
+  - mh
+  - mi
+  - mk
+  - ml
+  - mn
+  - mr
+  - ms
+  - mt
+  - my
+  - na
+  - nb
+  - nd
+  - ne
+  - ng
+  - nl
+  - nn
+  - no
+  - nr
+  - nv
+  - ny
+  - oc
+  - oj
+  - om
+  - or
+  - os
+  - pa
+  - pi
+  - pl
+  - ps
+  - pt
+  - qu
+  - rm
+  - rn
+  - ro
+  - ru
+  - rw
+  - sa
+  - sc
+  - sd
+  - se
+  - sg
+  - sh
+  - si
+  - sk
+  - sl
+  - sm
+  - sn
+  - so
+  - sq
+  - sr
+  - ss
+  - st
+  - su
+  - sv
+  - sw
+  - ta
+  - te
+  - tg
+  - th
+  - ti
+  - tk
+  - tl
+  - tn
+  - to
+  - tr
+  - ts
+  - tt
+  - tw
+  - ty
+  - ug
+  - uk
+  - ur
+  - uz
+  - ve
+  - vi
+  - vo
+  - wa
+  - wo
+  - xh
+  - yi
+  - yo
+  - za
+  - zh
+  - zu
+x-enum-descriptions:
+  - Afar
+  - Abkhazian
+  - Avestan
+  - Afrikaans
+  - Akan
+  - Amharic
+  - Aragonese
+  - Arabic
+  - Assamese
+  - Avaric
+  - Aymara
+  - Azerbaijani
+  - Bashkir
+  - Belarusian
+  - Bulgarian
+  - Bislama
+  - Bambara
+  - Bengali
+  - Tibetan
+  - Breton
+  - Bosnian
+  - Catalan, Valencian
+  - Chechen
+  - Chamorro
+  - Corsican
+  - Cree
+  - Czech
+  - Church Slavic, Church Slavonic, Old Bulgarian, Old Church Slavonic, Old Slavonic
+  - Chuvash
+  - Welsh
+  - Danish
+  - German
+  - Dhivehi, Divehi, Maldivian
+  - Dzongkha
+  - Ewe
+  - Modern Greek (1453-)
+  - English
+  - Esperanto
+  - Castilian, Spanish
+  - Estonian
+  - Basque
+  - Persian
+  - Fulah
+  - Finnish
+  - Fijian
+  - Faroese
+  - French
+  - Western Frisian
+  - Irish
+  - Gaelic, Scottish Gaelic
+  - Galician
+  - Guarani
+  - Gujarati
+  - Manx
+  - Hausa
+  - Hebrew
+  - Hindi
+  - Hiri Motu
+  - Croatian
+  - Haitian, Haitian Creole
+  - Hungarian
+  - Armenian
+  - Herero
+  - Interlingua (International Auxiliary Language Association)
+  - Indonesian
+  - Interlingue, Occidental
+  - Igbo
+  - Nuosu, Sichuan Yi
+  - Inupiaq
+  - Ido
+  - Icelandic
+  - Italian
+  - Inuktitut
+  - Japanese
+  - Javanese
+  - Georgian
+  - Kongo
+  - Gikuyu, Kikuyu
+  - Kuanyama, Kwanyama
+  - Kazakh
+  - Greenlandic, Kalaallisut
+  - Central Khmer, Khmer
+  - Kannada
+  - Korean
+  - Kanuri
+  - Kashmiri
+  - Kurdish
+  - Komi
+  - Cornish
+  - Kirghiz, Kyrgyz
+  - Latin
+  - Letzeburgesch, Luxembourgish
+  - Ganda
+  - Limburgan, Limburger, Limburgish
+  - Lingala
+  - Lao
+  - Lithuanian
+  - Luba-Katanga
+  - Latvian
+  - Malagasy
+  - Marshallese
+  - Maori
+  - Macedonian
+  - Malayalam
+  - Mongolian
+  - Marathi
+  - Malay (macrolanguage)
+  - Maltese
+  - Burmese
+  - Nauru
+  - Norwegian Bokmål
+  - North Ndebele
+  - Nepali (macrolanguage)
+  - Ndonga
+  - Dutch, Flemish
+  - Norwegian Nynorsk
+  - Norwegian
+  - South Ndebele
+  - Navaho, Navajo
+  - Chewa, Chichewa, Nyanja
+  - Occitan (post 1500)
+  - Ojibwa
+  - Oromo
+  - Oriya (macrolanguage)
+  - Ossetian, Ossetic
+  - Panjabi, Punjabi
+  - Pali
+  - Polish
+  - Pashto, Pushto
+  - Portuguese
+  - Quechua
+  - Romansh
+  - Rundi
+  - Moldavian, Moldovan, Romanian
+  - Russian
+  - Kinyarwanda
+  - Sanskrit
+  - Sardinian
+  - Sindhi
+  - Northern Sami
+  - Sango
+  - Serbo-Croatian
+  - Sinhala, Sinhalese
+  - Slovak
+  - Slovenian
+  - Samoan
+  - Shona
+  - Somali
+  - Albanian
+  - Serbian
+  - Swati
+  - Southern Sotho
+  - Sundanese
+  - Swedish
+  - Swahili (macrolanguage)
+  - Tamil
+  - Telugu
+  - Tajik
+  - Thai
+  - Tigrinya
+  - Turkmen
+  - Tagalog
+  - Tswana
+  - Tonga (Tonga Islands)
+  - Turkish
+  - Tsonga
+  - Tatar
+  - Twi
+  - Tahitian
+  - Uighur, Uyghur
+  - Ukrainian
+  - Urdu
+  - Uzbek
+  - Venda
+  - Vietnamese
+  - Volapük
+  - Walloon
+  - Wolof
+  - Xhosa
+  - Yiddish
+  - Yoruba
+  - Chuang, Zhuang
+  - Chinese
+  - Zulu

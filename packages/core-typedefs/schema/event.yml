@@ -1,0 +1,34 @@
+type: object
+description: Generic event
+required:
+  - id
+  - kind
+  - type
+  - data
+properties:
+  id:
+    type: string
+    format: uuid
+  type:
+    type: string
+    description: A service defined event type, e.g. `change.Tag`
+  principalId:
+    type: string
+    nullable: true
+    format: uuid
+  orgId:
+    type: string
+    nullable: true
+    format: uuid
+  service:
+    type: string
+    nullable: true
+    description: >-
+      An opaque string for describing the service who caused this event. Support for this field is up to the specific
+      implementation as is its format and meaning.
+  data:
+    type: object
+    additionalProperties: {}
+    description: The event data
+  kind: 
+    $ref: './eventKind.yml'

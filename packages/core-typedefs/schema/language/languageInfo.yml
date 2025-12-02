@@ -1,0 +1,28 @@
+type: object
+required:
+  - name
+  - alpha2
+  - alpha3
+properties:
+  name:
+    type: string
+    description: Language name
+  alpha2:
+    type: string
+    description: ISO 639 alpha-3 code
+    pattern: '^[a-z]{2}$'
+  alpha3:
+    type: string
+    description: ISO 639 alpha-3 code
+    pattern: '^[a-z]{3}$'
+  locales:
+    type: object
+    description: A dictionary of locale codes to description
+    additionalProperties:
+      type: string
+    example:
+      zh_CN: Chinese (China)
+      zh_HK: Chinese (Hong Kong SAR China)
+      zh_MO: Chinese (Macao SAR China)
+      zh_SG: Chinese (Singapore)
+      zh_TW: Chinese (Taiwan)

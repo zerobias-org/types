@@ -1,0 +1,12 @@
+description: Error when something cannot be located
+type: object
+allOf:
+  - $ref: './errorModelBase.yml'
+  - type: object
+    required:
+      - obj
+    properties:
+      obj:
+        type: string
+        description: The object which cannot be found
+

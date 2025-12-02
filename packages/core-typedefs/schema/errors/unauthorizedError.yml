@@ -1,0 +1,4 @@
+description: Error indicating the request is not authorized
+type: object
+allOf:
+  - $ref: './errorModelBase.yml'

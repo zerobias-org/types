@@ -1,0 +1,7 @@
+type: integer
+description: >-
+  The format of the policy.
+enum:
+  - 0
+  - 1
+  - 3

@@ -1,0 +1,95 @@
+type: string
+enum:
+  - australiacentral
+  - australiacentral2
+  - australiaeast
+  - australiasoutheast
+  - brazilsouth
+  - canadacentral
+  - canadaeast
+  - centralindia
+  - centralus
+  - chinaeast
+  - chinaeast2
+  - chinanorth
+  - chinanorth2
+  - eastasia
+  - eastus
+  - eastus2
+  - francecentral
+  - francesouth
+  - germanycentral
+  - germanynorth
+  - germanynortheast
+  - germanywestcentral
+  - japaneast
+  - japanwest
+  - koreacentral
+  - koreasouth
+  - northcentralus
+  - northeurope
+  - norwayeast
+  - norwaywest
+  - southafricanorth
+  - southafricawest
+  - southcentralus
+  - southeastasia
+  - southindia
+  - switzerlandnorth
+  - switzerlandwest
+  - uaecentral
+  - uaenorth
+  - uksouth
+  - ukwest
+  - westcentralus
+  - westeurope
+  - westindia
+  - westus
+  - westus2
+x-enum-descriptions:
+  - Australia Central
+  - Australia Central 2
+  - Australia East
+  - Australia Southeast
+  - Brazil South
+  - Canada Central
+  - Canada East
+  - Central India
+  - Central US
+  - China East
+  - China East 2
+  - China North
+  - China North 2
+  - East Asia
+  - East US
+  - East US 2
+  - France Central
+  - France South
+  - Germany Central
+  - Germany North
+  - Germany Northeast
+  - Germany West Central
+  - Japan East
+  - Japan West
+  - Korea Central
+  - Korean South
+  - North Central US
+  - North Europe
+  - Norway East
+  - Norway West
+  - South Africa North
+  - South Africa West
+  - South Central US
+  - Southeast Asia
+  - South India
+  - Switzerland North
+  - Switzerland West
+  - UAE Central
+  - UAE North
+  - UK South
+  - UK West
+  - West Central US
+  - West Europe
+  - West India
+  - West US
+  - West US 2

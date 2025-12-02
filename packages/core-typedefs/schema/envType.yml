@@ -1,0 +1,17 @@
+type: string
+enum:
+  - prod  # Production
+  - stage # Staging
+  - uat   # User acceptance testing
+  - qa    # Quality Assurance
+  - dev   # Development
+  - ci    # Continuous Integration
+  - lab   # Lab Environment
+x-enum-descriptions:
+  - Production
+  - Staging
+  - User Acceptance Testing
+  - Quality Assurance
+  - Development
+  - Continuous Integration
+  - Lab / Evaluation

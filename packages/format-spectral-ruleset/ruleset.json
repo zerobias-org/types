@@ -1,0 +1,14 @@
+{
+  "functions": ["check_format"],
+  "rules": {
+    "valid-coretype-format": {
+      "severity": "error",
+      "given": [
+        "$..*[?(@ != null && @.format)]"
+      ],
+      "then": {
+        "function": "check_format"
+      }
+    }
+  }
+}

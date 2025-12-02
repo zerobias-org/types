@@ -1,0 +1,32 @@
+type: object
+description: >-
+  The time zone information.
+required:
+  - name
+  - type
+  - utcOffset
+  - utcDstOffset
+  - countryCodes
+properties:
+  name:
+    description: The time zone name.
+    $ref: './timeZone.yml'
+  type:
+    $ref: './timeZoneType.yml'
+  utcOffset:
+    type: string
+    description: UTC Offset.
+  utcDstOffset:
+    type: string
+    description: UTC DST Offset.
+  countryCodes:
+    type: array
+    description: The list of country codes.
+    items:
+      $ref: './../geo/geoCountry.yml'
+  link:
+    $ref: './timeZone.yml'
+    description: The source time zone. Only for `link` type.
+  comments:
+    type: string
+    description: Comments.

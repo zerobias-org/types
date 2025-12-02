@@ -1,0 +1,7 @@
+description: >-
+  The total count of elements in a Paginated Result set. 
+  This header is optional and may not be set if the total number of items is unknown.
+required: false
+schema:
+  type: integer
+  format: int64

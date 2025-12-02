@@ -1,0 +1,52 @@
+type: object
+description: Cron Data Model
+properties:
+  minute:
+    oneOf:
+      - type: array
+        items: 
+          type: number
+          minimum: 0
+          maximum: 60
+      - type: number
+        minimum: 0
+        maximum: 60
+      - type: string
+  hour:
+    oneOf:
+      - type: array
+        items: 
+          type: number
+          minimum: 0
+          maximum: 24
+      - type: number
+        minimum: 0
+        maximum: 24
+      - type: string
+  dayOfMonth:
+    oneOf:
+      - type: array
+        items: 
+          type: number
+          minimum: 0
+          maximum: 31
+      - type: number
+        minimum: 0
+        maximum: 31
+      - type: string
+  month:
+    oneOf:
+      - type: array
+        items: 
+          $ref: '../month.yml'
+      - $ref: '../month.yml'
+      - type: string
+  dayOfWeek:
+    oneOf:
+      - type: array
+        items: 
+          $ref: '../dayOfWeek.yml'
+      - $ref: '../dayOfWeek.yml'
+      - type: string
+  timeZone:
+    $ref: '../timeZone/timeZone.yml' 

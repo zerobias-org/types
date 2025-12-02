@@ -1,0 +1,20 @@
+type: object
+description: >-
+  Profile for connecting to a remote system via an OAuth token as described in section 4.1 of
+  [the OAuth RFC](https://www.rfc-editor.org/rfc/rfc6749).
+properties:
+  tokenType:
+    type: string
+    default: bearer
+    description: The type of token this is
+    example: Bearer
+  accessToken:
+    type: string  
+    description: Access token provided by the OAuth Provider
+    format: password
+    example: MTQ0NjJkZmQ5OTM2NDE1ZTZjNGZmZjI3
+  url:
+    type: string
+    format: url
+    description: Optional URL to use for authentication
+    example: https://vendorapi.com

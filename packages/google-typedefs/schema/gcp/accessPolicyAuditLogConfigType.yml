@@ -1,0 +1,8 @@
+type: string
+description: >-
+  The log type that this config enables.
+enum:
+  - log_type_unspecified
+  - admin_read
+  - data_write
+  - data_read

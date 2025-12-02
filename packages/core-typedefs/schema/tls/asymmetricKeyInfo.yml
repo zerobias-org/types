@@ -1,0 +1,19 @@
+type: object
+required:
+  - algorithm
+  - bits
+properties:
+  algorithm:
+    description: Algorithm used for the key
+    $ref: './asymmetricKey.yml'
+  bits:
+    description: Number of bits in the key
+    type: number
+  publicKey:
+    description: The public key as base64
+    type: string
+    format: byte
+  privateKey:
+    description: The private key as base64
+    type: string
+    format: byte

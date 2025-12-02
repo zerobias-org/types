@@ -1,0 +1,578 @@
+[
+  {
+    "cloudMarketId": "aws_af",
+    "code": "aws_af_south_1",
+    "name": "Africa South 1",
+    "location": "Cape Town",
+    "provider": "aws",
+    "providerCode": "af-south-1"
+  },
+  {
+    "cloudMarketId": "aws_ap",
+    "code": "aws_me_south_1",
+    "name": "Middle East South 1",
+    "location": "Bahrain",
+    "provider": "aws",
+    "providerCode": "me-south-1"
+  },
+  {
+    "cloudMarketId": "aws_ap",
+    "code": "aws_ap_east_1",
+    "name": "Asia Pacific East 1",
+    "location": "Hong Kong",
+    "provider": "aws",
+    "providerCode": "ap-east-1"
+  },
+  {
+    "cloudMarketId": "aws_ap",
+    "code": "aws_ap_south_1",
+    "name": "Asia Pacific South 1",
+    "location": "Mumbai",
+    "provider": "aws",
+    "providerCode": "ap-south-1"
+  },
+  {
+    "cloudMarketId": "aws_ap",
+    "code": "aws_ap_northeast_1",
+    "name": "Asia Pacific Northeast 1",
+    "location": "Tokyo",
+    "provider": "aws",
+    "providerCode": "ap-northeast-1"
+  },
+  {
+    "cloudMarketId": "aws_ap",
+    "code": "aws_ap_northeast_2",
+    "name": "Asia Pacific Northeast 2",
+    "location": "Seoul",
+    "provider": "aws",
+    "providerCode": "ap-northeast-2"
+  },
+  {
+    "cloudMarketId": "aws_ap",
+    "code": "aws_ap_northeast_3",
+    "name": "Asia Pacific Northeast 3",
+    "location": "Osaka",
+    "provider": "aws",
+    "providerCode": "ap-northeast-3"
+  },
+  {
+    "cloudMarketId": "aws_ap",
+    "code": "aws_ap_southeast_1",
+    "name": "Asia Pacific Southeast 1",
+    "location": "Singapore",
+    "provider": "aws",
+    "providerCode": "ap-southeast-1"
+  },
+  {
+    "cloudMarketId": "aws_ap",
+    "code": "aws_ap_southeast_2",
+    "name": "Asia Pacific Southeast 2",
+    "location": "Sydney",
+    "provider": "aws",
+    "providerCode": "ap-southeast-2"
+  },
+  {
+    "cloudMarketId": "aws_ap",
+    "code": "aws_ap_southeast_3",
+    "name": "Asia Pacific Southeast 3",
+    "location": "Jakarta",
+    "provider": "aws",
+    "providerCode": "ap-southeast-3"
+  },
+  {
+    "cloudMarketId": "aws_ca",
+    "code": "aws_ca_central_1",
+    "name": "Canada Central 1",
+    "location": "Quebec",
+    "provider": "aws",
+    "providerCode": "ca-central-1"
+  },
+  {
+    "cloudMarketId": "aws_cn",
+    "code": "aws_cn_north_1",
+    "name": "China North 1",
+    "location": "Beijing",
+    "provider": "aws",
+    "providerCode": "cn-north-1"
+  },
+  {
+    "cloudMarketId": "aws_cn",
+    "code": "aws_cn_northwest_1",
+    "name": "China Northwest 1",
+    "location": "Ningxia",
+    "provider": "aws",
+    "providerCode": "cn-northwest-1"
+  },
+  {
+    "cloudMarketId": "aws_eu",
+    "code": "aws_eu_west_2",
+    "name": "Europe West 2",
+    "location": "London",
+    "provider": "aws",
+    "providerCode": "eu-west-2"
+  },
+  {
+    "cloudMarketId": "aws_eu",
+    "code": "aws_eu_west_3",
+    "name": "Europe West 3",
+    "location": "Paris",
+    "provider": "aws",
+    "providerCode": "eu-west-3"
+  },
+  {
+    "cloudMarketId": "aws_eu",
+    "code": "aws_eu_central_1",
+    "name": "Europe Central 1",
+    "location": "Frankfurt",
+    "provider": "aws",
+    "providerCode": "eu-central-1"
+  },
+  {
+    "cloudMarketId": "aws_eu",
+    "code": "aws_eu_west_1",
+    "name": "Europe West 1",
+    "location": "Ireland",
+    "provider": "aws",
+    "providerCode": "eu-west-1"
+  },
+  {
+    "cloudMarketId": "aws_eu",
+    "code": "aws_eu_south_1",
+    "name": "Europe South 1",
+    "location": "Milan",
+    "provider": "aws",
+    "providerCode": "eu-south-1"
+  },
+  {
+    "cloudMarketId": "aws_eu",
+    "code": "aws_eu_north_1",
+    "name": "Europe North 1",
+    "location": "Stockholm",
+    "provider": "aws",
+    "providerCode": "eu-north-1"
+  },
+  {
+    "cloudMarketId": "aws_sa",
+    "code": "aws_sa_east_1",
+    "name": "South America East 1",
+    "location": "São Paulo",
+    "provider": "aws",
+    "providerCode": "sa-east-1"
+  },
+  {
+    "cloudMarketId": "aws_us",
+    "code": "aws_us_west_1",
+    "name": "US West 1",
+    "location": "N. California",
+    "provider": "aws",
+    "providerCode": "us-west-1"
+  },
+  {
+    "cloudMarketId": "aws_us",
+    "code": "aws_us_east_2",
+    "name": "US East 2",
+    "location": "Ohio",
+    "provider": "aws",
+    "providerCode": "us-east-2"
+  },
+  {
+    "cloudMarketId": "aws_us_gov",
+    "code": "aws_us_gov_east_1",
+    "name": "AWS GovCloud East 1",
+    "location": "US-East",
+    "provider": "aws",
+    "providerCode": "us-gov-east-1"
+  },
+  {
+    "cloudMarketId": "aws_us_gov",
+    "code": "aws_us_gov_west_1",
+    "name": "AWS GovCloud West 1",
+    "location": "US-West",
+    "provider": "aws",
+    "providerCode": "us-gov-west-1"
+  },
+  {
+    "cloudMarketId": "aws_us",
+    "code": "aws_us_west_2",
+    "name": "US West 2",
+    "location": "Oregon",
+    "provider": "aws",
+    "providerCode": "us-west-2"
+  },
+  {
+    "cloudMarketId": "aws_us",
+    "code": "aws_us_east_1",
+    "name": "US East 1",
+    "location": "N. Virginia",
+    "provider": "aws",
+    "providerCode": "us-east-1"
+  },
+  {
+    "cloudMarketId": "azure_us",
+    "code": "azure_centralus",
+    "name": "Central US",
+    "location": "Iowa",
+    "provider": "azure",
+    "providerCode": "centralus"
+  },
+  {
+    "cloudMarketId": "azure_us",
+    "code": "azure_eastus",
+    "name": "East US",
+    "location": "Virginia",
+    "provider": "azure",
+    "providerCode": "eastus"
+  },
+  {
+    "cloudMarketId": "azure_us",
+    "code": "azure_eastus2",
+    "name": "East US 2",
+    "location": "Virginia",
+    "provider": "azure",
+    "providerCode": "eastus2"
+  },
+  {
+    "cloudMarketId": "azure_us",
+    "code": "azure_northcentralus",
+    "name": "North Central US",
+    "location": "Illinois",
+    "provider": "azure",
+    "providerCode": "northcentralus"
+  },
+  {
+    "cloudMarketId": "azure_us",
+    "code": "azure_southcentralus",
+    "name": "South Central US",
+    "location": "Texas",
+    "provider": "azure",
+    "providerCode": "southcentralus"
+  },
+  {
+    "cloudMarketId": "azure_us",
+    "code": "azure_westus",
+    "name": "West US",
+    "location": "California",
+    "provider": "azure",
+    "providerCode": "westus"
+  },
+  {
+    "cloudMarketId": "azure_us",
+    "code": "azure_westus2",
+    "name": "West US 2",
+    "location": "Washington",
+    "provider": "azure",
+    "providerCode": "westus2"
+  },
+  {
+    "cloudMarketId": "azure_us",
+    "code": "azure_westcentralus",
+    "name": "West Central US",
+    "location": "Wyoming",
+    "provider": "azure",
+    "providerCode": "westcentralus"
+  },
+  {
+    "cloudMarketId": "azure_ca",
+    "code": "azure_canadacentral",
+    "name": "Canada Central",
+    "location": "Toronto",
+    "provider": "azure",
+    "providerCode": "canadacentral"
+  },
+  {
+    "cloudMarketId": "azure_ca",
+    "code": "azure_canadaeast",
+    "name": "Canada East",
+    "location": "Quebec City",
+    "provider": "azure",
+    "providerCode": "canadaeast"
+  },
+  {
+    "cloudMarketId": "azure_br",
+    "code": "azure_brazilsouth",
+    "name": "Brazil South",
+    "location": "Sao Paulo State",
+    "provider": "azure",
+    "providerCode": "brazilsouth"
+  },
+  {
+    "cloudMarketId": "azure_eu",
+    "code": "azure_northeurope",
+    "name": "North Europe",
+    "location": "Ireland",
+    "provider": "azure",
+    "providerCode": "northeurope"
+  },
+  {
+    "cloudMarketId": "azure_eu",
+    "code": "azure_westeurope",
+    "name": "West Europe",
+    "location": "Netherlands",
+    "provider": "azure",
+    "providerCode": "westeurope"
+  },
+  {
+    "cloudMarketId": "azure_fr",
+    "code": "azure_francecentral",
+    "name": "France Central",
+    "location": "Paris",
+    "provider": "azure",
+    "providerCode": "francecentral"
+  },
+  {
+    "cloudMarketId": "azure_fr",
+    "code": "azure_francesouth",
+    "name": "France South",
+    "location": "Marseille",
+    "provider": "azure",
+    "providerCode": "francesouth"
+  },
+  {
+    "cloudMarketId": "azure_uk",
+    "code": "azure_uksouth",
+    "name": "UK South",
+    "location": "London",
+    "provider": "azure",
+    "providerCode": "uksouth"
+  },
+  {
+    "cloudMarketId": "azure_uk",
+    "code": "azure_ukwest",
+    "name": "UK West",
+    "location": "Cardiff",
+    "provider": "azure",
+    "providerCode": "ukwest"
+  },
+  {
+    "cloudMarketId": "azure_de",
+    "code": "azure_germanycentral",
+    "name": "Germany Central",
+    "location": "Frankfurt",
+    "provider": "azure",
+    "providerCode": "germanycentral"
+  },
+  {
+    "cloudMarketId": "azure_de",
+    "code": "azure_germanynortheast",
+    "name": "Germany Northeast",
+    "location": "Magdeburg",
+    "provider": "azure",
+    "providerCode": "germanynortheast"
+  },
+  {
+    "cloudMarketId": "azure_de",
+    "code": "azure_germanywestcentral",
+    "name": "Germany West Central",
+    "location": "Germany West Central",
+    "provider": "azure",
+    "providerCode": "germanywestcentral"
+  },
+  {
+    "cloudMarketId": "azure_de",
+    "code": "azure_germanynorth",
+    "name": "Germany North",
+    "location": "Germany North",
+    "provider": "azure",
+    "providerCode": "germanynorth"
+  },
+  {
+    "cloudMarketId": "azure_ch",
+    "code": "azure_switzerlandnorth",
+    "name": "Switzerland North",
+    "location": "Zurich",
+    "provider": "azure",
+    "providerCode": "switzerlandnorth"
+  },
+  {
+    "cloudMarketId": "azure_ch",
+    "code": "azure_switzerlandwest",
+    "name": "Switzerland West",
+    "location": "Geneva",
+    "provider": "azure",
+    "providerCode": "switzerlandwest"
+  },
+  {
+    "cloudMarketId": "azure_no",
+    "code": "azure_norwaywest",
+    "name": "Norway West",
+    "location": "Norway",
+    "provider": "azure",
+    "providerCode": "norwaywest"
+  },
+  {
+    "cloudMarketId": "azure_no",
+    "code": "azure_norwayeast",
+    "name": "Norway East",
+    "location": "Norway",
+    "provider": "azure",
+    "providerCode": "norwayeast"
+  },
+  {
+    "cloudMarketId": "azure_apac",
+    "code": "azure_eastasia",
+    "name": "East Asia",
+    "location": "Hong Kong",
+    "provider": "azure",
+    "providerCode": "eastasia"
+  },
+  {
+    "cloudMarketId": "azure_apac",
+    "code": "azure_southeastasia",
+    "name": "Southeast Asia",
+    "location": "Singapore",
+    "provider": "azure",
+    "providerCode": "southeastasia"
+  },
+  {
+    "cloudMarketId": "azure_au",
+    "code": "azure_australiacentral",
+    "name": "Australia Central",
+    "location": "Canberra",
+    "provider": "azure",
+    "providerCode": "australiacentral"
+  },
+  {
+    "cloudMarketId": "azure_au",
+    "code": "azure_australiacentral2",
+    "name": "Australia Central 2",
+    "location": "Canberra",
+    "provider": "azure",
+    "providerCode": "australiacentral2"
+  },
+  {
+    "cloudMarketId": "azure_au",
+    "code": "azure_australiaeast",
+    "name": "Australia East",
+    "location": "New South Wales",
+    "provider": "azure",
+    "providerCode": "australiaeast"
+  },
+  {
+    "cloudMarketId": "azure_au",
+    "code": "azure_australiasoutheast",
+    "name": "Australia Southeast",
+    "location": "Victoria",
+    "provider": "azure",
+    "providerCode": "australiasoutheast"
+  },
+  {
+    "cloudMarketId": "azure_cn",
+    "code": "azure_chinaeast",
+    "name": "China East",
+    "location": "Shanghai",
+    "provider": "azure",
+    "providerCode": "chinaeast"
+  },
+  {
+    "cloudMarketId": "azure_cn",
+    "code": "azure_chinaeast2",
+    "name": "China East 2",
+    "location": "Shanghai",
+    "provider": "azure",
+    "providerCode": "chinaeast2"
+  },
+  {
+    "cloudMarketId": "azure_cn",
+    "code": "azure_chinanorth",
+    "name": "China North",
+    "location": "Beijing",
+    "provider": "azure",
+    "providerCode": "chinanorth"
+  },
+  {
+    "cloudMarketId": "azure_cn",
+    "code": "azure_chinanorth2",
+    "name": "China North 2",
+    "location": "Beijing",
+    "provider": "azure",
+    "providerCode": "chinanorth2"
+  },
+  {
+    "cloudMarketId": "azure_in",
+    "code": "azure_centralindia",
+    "name": "Central India",
+    "location": "Pune",
+    "provider": "azure",
+    "providerCode": "centralindia"
+  },
+  {
+    "cloudMarketId": "azure_in",
+    "code": "azure_westindia",
+    "name": "West India",
+    "location": "Mumbai",
+    "provider": "azure",
+    "providerCode": "westindia"
+  },
+  {
+    "cloudMarketId": "azure_in",
+    "code": "azure_southindia",
+    "name": "South India",
+    "location": "Chennai",
+    "provider": "azure",
+    "providerCode": "southindia"
+  },
+  {
+    "cloudMarketId": "azure_jp",
+    "code": "azure_japaneast",
+    "name": "Japan East",
+    "location": "Tokyo",
+    "provider": "azure",
+    "providerCode": "japaneast"
+  },
+  {
+    "cloudMarketId": "azure_jp",
+    "code": "azure_japanwest",
+    "name": "Japan West",
+    "location": "Osaka",
+    "provider": "azure",
+    "providerCode": "japanwest"
+  },
+  {
+    "cloudMarketId": "azure_kr",
+    "code": "azure_koreacentral",
+    "name": "Korea Central",
+    "location": "Seoul",
+    "provider": "azure",
+    "providerCode": "koreacentral"
+  },
+  {
+    "cloudMarketId": "azure_kr",
+    "code": "azure_koreasouth",
+    "name": "Korean South",
+    "location": "Busan",
+    "provider": "azure",
+    "providerCode": "koreasouth"
+  },
+  {
+    "cloudMarketId": "azure_af",
+    "code": "azure_southafricanorth",
+    "name": "South Africa North",
+    "location": "Johannesburg",
+    "provider": "azure",
+    "providerCode": "southafricanorth"
+  },
+  {
+    "cloudMarketId": "azure_af",
+    "code": "azure_southafricawest",
+    "name": "South Africa West",
+    "location": "Cape Town",
+    "provider": "azure",
+    "providerCode": "southafricawest"
+  },
+  {
+    "cloudMarketId": "azure_uae",
+    "code": "azure_uaenorth",
+    "name": "UAE North",
+    "location": "Dubai",
+    "provider": "azure",
+    "providerCode": "uaenorth"
+  },
+  {
+    "cloudMarketId": "azure_uae",
+    "code": "azure_uaecentral",
+    "name": "UAE Central",
+    "location": "Abu Dhabi",
+    "provider": "azure",
+    "providerCode": "uaecentral"
+  }
+]

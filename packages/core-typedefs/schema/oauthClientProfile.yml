@@ -1,0 +1,24 @@
+type: object
+description: >-
+  Profile for connecting to a remote system via the OAuth client credentials grant as described in
+  section 4.4 of [the OAuth RFC](https://www.rfc-editor.org/rfc/rfc6749). Note that as per RFC 
+  section 2.3.1, these credentials may be passed to the token endpoint via HTTP Basic Auth or 
+  POSTed as part of the token request body.
+required: 
+  - client_id
+  - client_secret
+properties:
+  client_id:
+    type: string
+    description: The OAuth Client ID
+    example: s6BhdRkqt3
+  client_secret:
+    type: string  
+    description: The OAuth Client Secret
+    format: password
+    example: 7Fjfp0ZBr1KtDRbnfVdmIw
+  url:
+    type: string
+    format: url
+    description: Optional URL to use for authentication
+    example: https://vendorapi.com

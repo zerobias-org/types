@@ -1,0 +1,7 @@
+name: sortBy
+in: query
+description: Array of columns to sort by, in order
+schema:
+  type: array
+  items:
+    type: string

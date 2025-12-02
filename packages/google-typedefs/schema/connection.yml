@@ -1,0 +1,20 @@
+type: object
+description: Connection profile for connecting to Google services.
+required:
+  - accessToken
+  - apiKey
+properties:
+  accessToken:
+    type: string
+    description: >-
+      An access token with permission to access Google API.
+      See https://developers.google.com/identity/protocols/oauth2
+    format: password
+    example: MTQ0NjJkZmQ5OTM2NDE1ZTZjNGZmZjI3
+  apiKey:
+    type: string
+    description: |-
+      A simple encrypted string that identifies an application in Google Cloud without any principal
+      See https://cloud.google.com/docs/authentication/api-keys.
+    format: password
+    example: AIzaSyDaGmWKa4JsXZ-HjGw7ISLn_3namBGewQe

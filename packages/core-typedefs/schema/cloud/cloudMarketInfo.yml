@@ -1,0 +1,26 @@
+type: object
+description: >-
+  The geography or market where a cloud is offered that sets data sovereignty and compliance features.
+required:
+  - id
+  - cloudProvider
+  - name
+  - sovereignty
+  - compliance
+properties:
+  id:
+    description: >- 
+      A globally unique identifier for this region. These should be constants which can be referenced from anywhere to signify the same market.
+    $ref: './cloudMarket.yml'
+  cloudProvider:
+    description: The cloud provider for this market.
+    $ref: './cloudProvider.yml'
+  name:
+    type: string
+    description: A human-friendly name for this market.
+  sovereignty:
+    type: string
+    description: Description of the location where the market exists. May be a country or region (i.e. Europe)
+  compliance:
+    type: string
+    description: Description of the compliance features of this market.

@@ -1,0 +1,7 @@
+name: pageSize
+in: query
+description: The number of items in each page of data.
+schema:
+  type: integer
+  format: int32
+  default: 50

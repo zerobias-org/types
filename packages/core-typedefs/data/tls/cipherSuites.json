@@ -1,0 +1,1402 @@
+[
+  {
+    "value": "0x00,0x00",
+    "description": "tls_null_with_null_null"
+  },
+  {
+    "value": "0x00,0x01",
+    "description": "tls_rsa_with_null_md5"
+  },
+  {
+    "value": "0x00,0x02",
+    "description": "tls_rsa_with_null_sha"
+  },
+  {
+    "value": "0x00,0x03",
+    "description": "tls_rsa_export_with_rc4_40_md5"
+  },
+  {
+    "value": "0x00,0x04",
+    "description": "tls_rsa_with_rc4_128_md5"
+  },
+  {
+    "value": "0x00,0x05",
+    "description": "tls_rsa_with_rc4_128_sha"
+  },
+  {
+    "value": "0x00,0x06",
+    "description": "tls_rsa_export_with_rc2_cbc_40_md5"
+  },
+  {
+    "value": "0x00,0x07",
+    "description": "tls_rsa_with_idea_cbc_sha"
+  },
+  {
+    "value": "0x00,0x08",
+    "description": "tls_rsa_export_with_des40_cbc_sha"
+  },
+  {
+    "value": "0x00,0x09",
+    "description": "tls_rsa_with_des_cbc_sha"
+  },
+  {
+    "value": "0x00,0x0A",
+    "description": "tls_rsa_with_3des_ede_cbc_sha"
+  },
+  {
+    "value": "0x00,0x0B",
+    "description": "tls_dh_dss_export_with_des40_cbc_sha"
+  },
+  {
+    "value": "0x00,0x0C",
+    "description": "tls_dh_dss_with_des_cbc_sha"
+  },
+  {
+    "value": "0x00,0x0D",
+    "description": "tls_dh_dss_with_3des_ede_cbc_sha"
+  },
+  {
+    "value": "0x00,0x0E",
+    "description": "tls_dh_rsa_export_with_des40_cbc_sha"
+  },
+  {
+    "value": "0x00,0x0F",
+    "description": "tls_dh_rsa_with_des_cbc_sha"
+  },
+  {
+    "value": "0x00,0x10",
+    "description": "tls_dh_rsa_with_3des_ede_cbc_sha"
+  },
+  {
+    "value": "0x00,0x11",
+    "description": "tls_dhe_dss_export_with_des40_cbc_sha"
+  },
+  {
+    "value": "0x00,0x12",
+    "description": "tls_dhe_dss_with_des_cbc_sha"
+  },
+  {
+    "value": "0x00,0x13",
+    "description": "tls_dhe_dss_with_3des_ede_cbc_sha"
+  },
+  {
+    "value": "0x00,0x14",
+    "description": "tls_dhe_rsa_export_with_des40_cbc_sha"
+  },
+  {
+    "value": "0x00,0x15",
+    "description": "tls_dhe_rsa_with_des_cbc_sha"
+  },
+  {
+    "value": "0x00,0x16",
+    "description": "tls_dhe_rsa_with_3des_ede_cbc_sha"
+  },
+  {
+    "value": "0x00,0x17",
+    "description": "tls_dh_anon_export_with_rc4_40_md5"
+  },
+  {
+    "value": "0x00,0x18",
+    "description": "tls_dh_anon_with_rc4_128_md5"
+  },
+  {
+    "value": "0x00,0x19",
+    "description": "tls_dh_anon_export_with_des40_cbc_sha"
+  },
+  {
+    "value": "0x00,0x1A",
+    "description": "tls_dh_anon_with_des_cbc_sha"
+  },
+  {
+    "value": "0x00,0x1B",
+    "description": "tls_dh_anon_with_3des_ede_cbc_sha"
+  },
+  {
+    "value": "0x00,0x1E",
+    "description": "tls_krb5_with_des_cbc_sha"
+  },
+  {
+    "value": "0x00,0x1F",
+    "description": "tls_krb5_with_3des_ede_cbc_sha"
+  },
+  {
+    "value": "0x00,0x20",
+    "description": "tls_krb5_with_rc4_128_sha"
+  },
+  {
+    "value": "0x00,0x21",
+    "description": "tls_krb5_with_idea_cbc_sha"
+  },
+  {
+    "value": "0x00,0x22",
+    "description": "tls_krb5_with_des_cbc_md5"
+  },
+  {
+    "value": "0x00,0x23",
+    "description": "tls_krb5_with_3des_ede_cbc_md5"
+  },
+  {
+    "value": "0x00,0x24",
+    "description": "tls_krb5_with_rc4_128_md5"
+  },
+  {
+    "value": "0x00,0x25",
+    "description": "tls_krb5_with_idea_cbc_md5"
+  },
+  {
+    "value": "0x00,0x26",
+    "description": "tls_krb5_export_with_des_cbc_40_sha"
+  },
+  {
+    "value": "0x00,0x27",
+    "description": "tls_krb5_export_with_rc2_cbc_40_sha"
+  },
+  {
+    "value": "0x00,0x28",
+    "description": "tls_krb5_export_with_rc4_40_sha"
+  },
+  {
+    "value": "0x00,0x29",
+    "description": "tls_krb5_export_with_des_cbc_40_md5"
+  },
+  {
+    "value": "0x00,0x2A",
+    "description": "tls_krb5_export_with_rc2_cbc_40_md5"
+  },
+  {
+    "value": "0x00,0x2B",
+    "description": "tls_krb5_export_with_rc4_40_md5"
+  },
+  {
+    "value": "0x00,0x2C",
+    "description": "tls_psk_with_null_sha"
+  },
+  {
+    "value": "0x00,0x2D",
+    "description": "tls_dhe_psk_with_null_sha"
+  },
+  {
+    "value": "0x00,0x2E",
+    "description": "tls_rsa_psk_with_null_sha"
+  },
+  {
+    "value": "0x00,0x2F",
+    "description": "tls_rsa_with_aes_128_cbc_sha"
+  },
+  {
+    "value": "0x00,0x30",
+    "description": "tls_dh_dss_with_aes_128_cbc_sha"
+  },
+  {
+    "value": "0x00,0x31",
+    "description": "tls_dh_rsa_with_aes_128_cbc_sha"
+  },
+  {
+    "value": "0x00,0x32",
+    "description": "tls_dhe_dss_with_aes_128_cbc_sha"
+  },
+  {
+    "value": "0x00,0x33",
+    "description": "tls_dhe_rsa_with_aes_128_cbc_sha"
+  },
+  {
+    "value": "0x00,0x34",
+    "description": "tls_dh_anon_with_aes_128_cbc_sha"
+  },
+  {
+    "value": "0x00,0x35",
+    "description": "tls_rsa_with_aes_256_cbc_sha"
+  },
+  {
+    "value": "0x00,0x36",
+    "description": "tls_dh_dss_with_aes_256_cbc_sha"
+  },
+  {
+    "value": "0x00,0x37",
+    "description": "tls_dh_rsa_with_aes_256_cbc_sha"
+  },
+  {
+    "value": "0x00,0x38",
+    "description": "tls_dhe_dss_with_aes_256_cbc_sha"
+  },
+  {
+    "value": "0x00,0x39",
+    "description": "tls_dhe_rsa_with_aes_256_cbc_sha"
+  },
+  {
+    "value": "0x00,0x3A",
+    "description": "tls_dh_anon_with_aes_256_cbc_sha"
+  },
+  {
+    "value": "0x00,0x3B",
+    "description": "tls_rsa_with_null_sha256"
+  },
+  {
+    "value": "0x00,0x3C",
+    "description": "tls_rsa_with_aes_128_cbc_sha256"
+  },
+  {
+    "value": "0x00,0x3D",
+    "description": "tls_rsa_with_aes_256_cbc_sha256"
+  },
+  {
+    "value": "0x00,0x3E",
+    "description": "tls_dh_dss_with_aes_128_cbc_sha256"
+  },
+  {
+    "value": "0x00,0x3F",
+    "description": "tls_dh_rsa_with_aes_128_cbc_sha256"
+  },
+  {
+    "value": "0x00,0x40",
+    "description": "tls_dhe_dss_with_aes_128_cbc_sha256"
+  },
+  {
+    "value": "0x00,0x41",
+    "description": "tls_rsa_with_camellia_128_cbc_sha"
+  },
+  {
+    "value": "0x00,0x42",
+    "description": "tls_dh_dss_with_camellia_128_cbc_sha"
+  },
+  {
+    "value": "0x00,0x43",
+    "description": "tls_dh_rsa_with_camellia_128_cbc_sha"
+  },
+  {
+    "value": "0x00,0x44",
+    "description": "tls_dhe_dss_with_camellia_128_cbc_sha"
+  },
+  {
+    "value": "0x00,0x45",
+    "description": "tls_dhe_rsa_with_camellia_128_cbc_sha"
+  },
+  {
+    "value": "0x00,0x46",
+    "description": "tls_dh_anon_with_camellia_128_cbc_sha"
+  },
+  {
+    "value": "0x00,0x67",
+    "description": "tls_dhe_rsa_with_aes_128_cbc_sha256"
+  },
+  {
+    "value": "0x00,0x68",
+    "description": "tls_dh_dss_with_aes_256_cbc_sha256"
+  },
+  {
+    "value": "0x00,0x69",
+    "description": "tls_dh_rsa_with_aes_256_cbc_sha256"
+  },
+  {
+    "value": "0x00,0x6A",
+    "description": "tls_dhe_dss_with_aes_256_cbc_sha256"
+  },
+  {
+    "value": "0x00,0x6B",
+    "description": "tls_dhe_rsa_with_aes_256_cbc_sha256"
+  },
+  {
+    "value": "0x00,0x6C",
+    "description": "tls_dh_anon_with_aes_128_cbc_sha256"
+  },
+  {
+    "value": "0x00,0x6D",
+    "description": "tls_dh_anon_with_aes_256_cbc_sha256"
+  },
+  {
+    "value": "0x00,0x84",
+    "description": "tls_rsa_with_camellia_256_cbc_sha"
+  },
+  {
+    "value": "0x00,0x85",
+    "description": "tls_dh_dss_with_camellia_256_cbc_sha"
+  },
+  {
+    "value": "0x00,0x86",
+    "description": "tls_dh_rsa_with_camellia_256_cbc_sha"
+  },
+  {
+    "value": "0x00,0x87",
+    "description": "tls_dhe_dss_with_camellia_256_cbc_sha"
+  },
+  {
+    "value": "0x00,0x88",
+    "description": "tls_dhe_rsa_with_camellia_256_cbc_sha"
+  },
+  {
+    "value": "0x00,0x89",
+    "description": "tls_dh_anon_with_camellia_256_cbc_sha"
+  },
+  {
+    "value": "0x00,0x8A",
+    "description": "tls_psk_with_rc4_128_sha"
+  },
+  {
+    "value": "0x00,0x8B",
+    "description": "tls_psk_with_3des_ede_cbc_sha"
+  },
+  {
+    "value": "0x00,0x8C",
+    "description": "tls_psk_with_aes_128_cbc_sha"
+  },
+  {
+    "value": "0x00,0x8D",
+    "description": "tls_psk_with_aes_256_cbc_sha"
+  },
+  {
+    "value": "0x00,0x8E",
+    "description": "tls_dhe_psk_with_rc4_128_sha"
+  },
+  {
+    "value": "0x00,0x8F",
+    "description": "tls_dhe_psk_with_3des_ede_cbc_sha"
+  },
+  {
+    "value": "0x00,0x90",
+    "description": "tls_dhe_psk_with_aes_128_cbc_sha"
+  },
+  {
+    "value": "0x00,0x91",
+    "description": "tls_dhe_psk_with_aes_256_cbc_sha"
+  },
+  {
+    "value": "0x00,0x92",
+    "description": "tls_rsa_psk_with_rc4_128_sha"
+  },
+  {
+    "value": "0x00,0x93",
+    "description": "tls_rsa_psk_with_3des_ede_cbc_sha"
+  },
+  {
+    "value": "0x00,0x94",
+    "description": "tls_rsa_psk_with_aes_128_cbc_sha"
+  },
+  {
+    "value": "0x00,0x95",
+    "description": "tls_rsa_psk_with_aes_256_cbc_sha"
+  },
+  {
+    "value": "0x00,0x96",
+    "description": "tls_rsa_with_seed_cbc_sha"
+  },
+  {
+    "value": "0x00,0x97",
+    "description": "tls_dh_dss_with_seed_cbc_sha"
+  },
+  {
+    "value": "0x00,0x98",
+    "description": "tls_dh_rsa_with_seed_cbc_sha"
+  },
+  {
+    "value": "0x00,0x99",
+    "description": "tls_dhe_dss_with_seed_cbc_sha"
+  },
+  {
+    "value": "0x00,0x9A",
+    "description": "tls_dhe_rsa_with_seed_cbc_sha"
+  },
+  {
+    "value": "0x00,0x9B",
+    "description": "tls_dh_anon_with_seed_cbc_sha"
+  },
+  {
+    "value": "0x00,0x9C",
+    "description": "tls_rsa_with_aes_128_gcm_sha256"
+  },
+  {
+    "value": "0x00,0x9D",
+    "description": "tls_rsa_with_aes_256_gcm_sha384"
+  },
+  {
+    "value": "0x00,0x9E",
+    "description": "tls_dhe_rsa_with_aes_128_gcm_sha256"
+  },
+  {
+    "value": "0x00,0x9F",
+    "description": "tls_dhe_rsa_with_aes_256_gcm_sha384"
+  },
+  {
+    "value": "0x00,0xA0",
+    "description": "tls_dh_rsa_with_aes_128_gcm_sha256"
+  },
+  {
+    "value": "0x00,0xA1",
+    "description": "tls_dh_rsa_with_aes_256_gcm_sha384"
+  },
+  {
+    "value": "0x00,0xA2",
+    "description": "tls_dhe_dss_with_aes_128_gcm_sha256"
+  },
+  {
+    "value": "0x00,0xA3",
+    "description": "tls_dhe_dss_with_aes_256_gcm_sha384"
+  },
+  {
+    "value": "0x00,0xA4",
+    "description": "tls_dh_dss_with_aes_128_gcm_sha256"
+  },
+  {
+    "value": "0x00,0xA5",
+    "description": "tls_dh_dss_with_aes_256_gcm_sha384"
+  },
+  {
+    "value": "0x00,0xA6",
+    "description": "tls_dh_anon_with_aes_128_gcm_sha256"
+  },
+  {
+    "value": "0x00,0xA7",
+    "description": "tls_dh_anon_with_aes_256_gcm_sha384"
+  },
+  {
+    "value": "0x00,0xA8",
+    "description": "tls_psk_with_aes_128_gcm_sha256"
+  },
+  {
+    "value": "0x00,0xA9",
+    "description": "tls_psk_with_aes_256_gcm_sha384"
+  },
+  {
+    "value": "0x00,0xAA",
+    "description": "tls_dhe_psk_with_aes_128_gcm_sha256"
+  },
+  {
+    "value": "0x00,0xAB",
+    "description": "tls_dhe_psk_with_aes_256_gcm_sha384"
+  },
+  {
+    "value": "0x00,0xAC",
+    "description": "tls_rsa_psk_with_aes_128_gcm_sha256"
+  },
+  {
+    "value": "0x00,0xAD",
+    "description": "tls_rsa_psk_with_aes_256_gcm_sha384"
+  },
+  {
+    "value": "0x00,0xAE",
+    "description": "tls_psk_with_aes_128_cbc_sha256"
+  },
+  {
+    "value": "0x00,0xAF",
+    "description": "tls_psk_with_aes_256_cbc_sha384"
+  },
+  {
+    "value": "0x00,0xB0",
+    "description": "tls_psk_with_null_sha256"
+  },
+  {
+    "value": "0x00,0xB1",
+    "description": "tls_psk_with_null_sha384"
+  },
+  {
+    "value": "0x00,0xB2",
+    "description": "tls_dhe_psk_with_aes_128_cbc_sha256"
+  },
+  {
+    "value": "0x00,0xB3",
+    "description": "tls_dhe_psk_with_aes_256_cbc_sha384"
+  },
+  {
+    "value": "0x00,0xB4",
+    "description": "tls_dhe_psk_with_null_sha256"
+  },
+  {
+    "value": "0x00,0xB5",
+    "description": "tls_dhe_psk_with_null_sha384"
+  },
+  {
+    "value": "0x00,0xB6",
+    "description": "tls_rsa_psk_with_aes_128_cbc_sha256"
+  },
+  {
+    "value": "0x00,0xB7",
+    "description": "tls_rsa_psk_with_aes_256_cbc_sha384"
+  },
+  {
+    "value": "0x00,0xB8",
+    "description": "tls_rsa_psk_with_null_sha256"
+  },
+  {
+    "value": "0x00,0xB9",
+    "description": "tls_rsa_psk_with_null_sha384"
+  },
+  {
+    "value": "0x00,0xBA",
+    "description": "tls_rsa_with_camellia_128_cbc_sha256"
+  },
+  {
+    "value": "0x00,0xBB",
+    "description": "tls_dh_dss_with_camellia_128_cbc_sha256"
+  },
+  {
+    "value": "0x00,0xBC",
+    "description": "tls_dh_rsa_with_camellia_128_cbc_sha256"
+  },
+  {
+    "value": "0x00,0xBD",
+    "description": "tls_dhe_dss_with_camellia_128_cbc_sha256"
+  },
+  {
+    "value": "0x00,0xBE",
+    "description": "tls_dhe_rsa_with_camellia_128_cbc_sha256"
+  },
+  {
+    "value": "0x00,0xBF",
+    "description": "tls_dh_anon_with_camellia_128_cbc_sha256"
+  },
+  {
+    "value": "0x00,0xC0",
+    "description": "tls_rsa_with_camellia_256_cbc_sha256"
+  },
+  {
+    "value": "0x00,0xC1",
+    "description": "tls_dh_dss_with_camellia_256_cbc_sha256"
+  },
+  {
+    "value": "0x00,0xC2",
+    "description": "tls_dh_rsa_with_camellia_256_cbc_sha256"
+  },
+  {
+    "value": "0x00,0xC3",
+    "description": "tls_dhe_dss_with_camellia_256_cbc_sha256"
+  },
+  {
+    "value": "0x00,0xC4",
+    "description": "tls_dhe_rsa_with_camellia_256_cbc_sha256"
+  },
+  {
+    "value": "0x00,0xC5",
+    "description": "tls_dh_anon_with_camellia_256_cbc_sha256"
+  },
+  {
+    "value": "0x00,0xC6",
+    "description": "tls_sm4_gcm_sm3"
+  },
+  {
+    "value": "0x00,0xC7",
+    "description": "tls_sm4_ccm_sm3"
+  },
+  {
+    "value": "0x00,0xFF",
+    "description": "tls_empty_renegotiation_info_scsv"
+  },
+  {
+    "value": "0x13,0x01",
+    "description": "tls_aes_128_gcm_sha256"
+  },
+  {
+    "value": "0x13,0x02",
+    "description": "tls_aes_256_gcm_sha384"
+  },
+  {
+    "value": "0x13,0x03",
+    "description": "tls_chacha20_poly1305_sha256"
+  },
+  {
+    "value": "0x13,0x04",
+    "description": "tls_aes_128_ccm_sha256"
+  },
+  {
+    "value": "0x13,0x05",
+    "description": "tls_aes_128_ccm_8_sha256"
+  },
+  {
+    "value": "0x56,0x00",
+    "description": "tls_fallback_scsv"
+  },
+  {
+    "value": "0xC0,0x01",
+    "description": "tls_ecdh_ecdsa_with_null_sha"
+  },
+  {
+    "value": "0xC0,0x02",
+    "description": "tls_ecdh_ecdsa_with_rc4_128_sha"
+  },
+  {
+    "value": "0xC0,0x03",
+    "description": "tls_ecdh_ecdsa_with_3des_ede_cbc_sha"
+  },
+  {
+    "value": "0xC0,0x04",
+    "description": "tls_ecdh_ecdsa_with_aes_128_cbc_sha"
+  },
+  {
+    "value": "0xC0,0x05",
+    "description": "tls_ecdh_ecdsa_with_aes_256_cbc_sha"
+  },
+  {
+    "value": "0xC0,0x06",
+    "description": "tls_ecdhe_ecdsa_with_null_sha"
+  },
+  {
+    "value": "0xC0,0x07",
+    "description": "tls_ecdhe_ecdsa_with_rc4_128_sha"
+  },
+  {
+    "value": "0xC0,0x08",
+    "description": "tls_ecdhe_ecdsa_with_3des_ede_cbc_sha"
+  },
+  {
+    "value": "0xC0,0x09",
+    "description": "tls_ecdhe_ecdsa_with_aes_128_cbc_sha"
+  },
+  {
+    "value": "0xC0,0x0A",
+    "description": "tls_ecdhe_ecdsa_with_aes_256_cbc_sha"
+  },
+  {
+    "value": "0xC0,0x0B",
+    "description": "tls_ecdh_rsa_with_null_sha"
+  },
+  {
+    "value": "0xC0,0x0C",
+    "description": "tls_ecdh_rsa_with_rc4_128_sha"
+  },
+  {
+    "value": "0xC0,0x0D",
+    "description": "tls_ecdh_rsa_with_3des_ede_cbc_sha"
+  },
+  {
+    "value": "0xC0,0x0E",
+    "description": "tls_ecdh_rsa_with_aes_128_cbc_sha"
+  },
+  {
+    "value": "0xC0,0x0F",
+    "description": "tls_ecdh_rsa_with_aes_256_cbc_sha"
+  },
+  {
+    "value": "0xC0,0x10",
+    "description": "tls_ecdhe_rsa_with_null_sha"
+  },
+  {
+    "value": "0xC0,0x11",
+    "description": "tls_ecdhe_rsa_with_rc4_128_sha"
+  },
+  {
+    "value": "0xC0,0x12",
+    "description": "tls_ecdhe_rsa_with_3des_ede_cbc_sha"
+  },
+  {
+    "value": "0xC0,0x13",
+    "description": "tls_ecdhe_rsa_with_aes_128_cbc_sha"
+  },
+  {
+    "value": "0xC0,0x14",
+    "description": "tls_ecdhe_rsa_with_aes_256_cbc_sha"
+  },
+  {
+    "value": "0xC0,0x15",
+    "description": "tls_ecdh_anon_with_null_sha"
+  },
+  {
+    "value": "0xC0,0x16",
+    "description": "tls_ecdh_anon_with_rc4_128_sha"
+  },
+  {
+    "value": "0xC0,0x17",
+    "description": "tls_ecdh_anon_with_3des_ede_cbc_sha"
+  },
+  {
+    "value": "0xC0,0x18",
+    "description": "tls_ecdh_anon_with_aes_128_cbc_sha"
+  },
+  {
+    "value": "0xC0,0x19",
+    "description": "tls_ecdh_anon_with_aes_256_cbc_sha"
+  },
+  {
+    "value": "0xC0,0x1A",
+    "description": "tls_srp_sha_with_3des_ede_cbc_sha"
+  },
+  {
+    "value": "0xC0,0x1B",
+    "description": "tls_srp_sha_rsa_with_3des_ede_cbc_sha"
+  },
+  {
+    "value": "0xC0,0x1C",
+    "description": "tls_srp_sha_dss_with_3des_ede_cbc_sha"
+  },
+  {
+    "value": "0xC0,0x1D",
+    "description": "tls_srp_sha_with_aes_128_cbc_sha"
+  },
+  {
+    "value": "0xC0,0x1E",
+    "description": "tls_srp_sha_rsa_with_aes_128_cbc_sha"
+  },
+  {
+    "value": "0xC0,0x1F",
+    "description": "tls_srp_sha_dss_with_aes_128_cbc_sha"
+  },
+  {
+    "value": "0xC0,0x20",
+    "description": "tls_srp_sha_with_aes_256_cbc_sha"
+  },
+  {
+    "value": "0xC0,0x21",
+    "description": "tls_srp_sha_rsa_with_aes_256_cbc_sha"
+  },
+  {
+    "value": "0xC0,0x22",
+    "description": "tls_srp_sha_dss_with_aes_256_cbc_sha"
+  },
+  {
+    "value": "0xC0,0x23",
+    "description": "tls_ecdhe_ecdsa_with_aes_128_cbc_sha256"
+  },
+  {
+    "value": "0xC0,0x24",
+    "description": "tls_ecdhe_ecdsa_with_aes_256_cbc_sha384"
+  },
+  {
+    "value": "0xC0,0x25",
+    "description": "tls_ecdh_ecdsa_with_aes_128_cbc_sha256"
+  },
+  {
+    "value": "0xC0,0x26",
+    "description": "tls_ecdh_ecdsa_with_aes_256_cbc_sha384"
+  },
+  {
+    "value": "0xC0,0x27",
+    "description": "tls_ecdhe_rsa_with_aes_128_cbc_sha256"
+  },
+  {
+    "value": "0xC0,0x28",
+    "description": "tls_ecdhe_rsa_with_aes_256_cbc_sha384"
+  },
+  {
+    "value": "0xC0,0x29",
+    "description": "tls_ecdh_rsa_with_aes_128_cbc_sha256"
+  },
+  {
+    "value": "0xC0,0x2A",
+    "description": "tls_ecdh_rsa_with_aes_256_cbc_sha384"
+  },
+  {
+    "value": "0xC0,0x2B",
+    "description": "tls_ecdhe_ecdsa_with_aes_128_gcm_sha256"
+  },
+  {
+    "value": "0xC0,0x2C",
+    "description": "tls_ecdhe_ecdsa_with_aes_256_gcm_sha384"
+  },
+  {
+    "value": "0xC0,0x2D",
+    "description": "tls_ecdh_ecdsa_with_aes_128_gcm_sha256"
+  },
+  {
+    "value": "0xC0,0x2E",
+    "description": "tls_ecdh_ecdsa_with_aes_256_gcm_sha384"
+  },
+  {
+    "value": "0xC0,0x2F",
+    "description": "tls_ecdhe_rsa_with_aes_128_gcm_sha256"
+  },
+  {
+    "value": "0xC0,0x30",
+    "description": "tls_ecdhe_rsa_with_aes_256_gcm_sha384"
+  },
+  {
+    "value": "0xC0,0x31",
+    "description": "tls_ecdh_rsa_with_aes_128_gcm_sha256"
+  },
+  {
+    "value": "0xC0,0x32",
+    "description": "tls_ecdh_rsa_with_aes_256_gcm_sha384"
+  },
+  {
+    "value": "0xC0,0x33",
+    "description": "tls_ecdhe_psk_with_rc4_128_sha"
+  },
+  {
+    "value": "0xC0,0x34",
+    "description": "tls_ecdhe_psk_with_3des_ede_cbc_sha"
+  },
+  {
+    "value": "0xC0,0x35",
+    "description": "tls_ecdhe_psk_with_aes_128_cbc_sha"
+  },
+  {
+    "value": "0xC0,0x36",
+    "description": "tls_ecdhe_psk_with_aes_256_cbc_sha"
+  },
+  {
+    "value": "0xC0,0x37",
+    "description": "tls_ecdhe_psk_with_aes_128_cbc_sha256"
+  },
+  {
+    "value": "0xC0,0x38",
+    "description": "tls_ecdhe_psk_with_aes_256_cbc_sha384"
+  },
+  {
+    "value": "0xC0,0x39",
+    "description": "tls_ecdhe_psk_with_null_sha"
+  },
+  {
+    "value": "0xC0,0x3A",
+    "description": "tls_ecdhe_psk_with_null_sha256"
+  },
+  {
+    "value": "0xC0,0x3B",
+    "description": "tls_ecdhe_psk_with_null_sha384"
+  },
+  {
+    "value": "0xC0,0x3C",
+    "description": "tls_rsa_with_aria_128_cbc_sha256"
+  },
+  {
+    "value": "0xC0,0x3D",
+    "description": "tls_rsa_with_aria_256_cbc_sha384"
+  },
+  {
+    "value": "0xC0,0x3E",
+    "description": "tls_dh_dss_with_aria_128_cbc_sha256"
+  },
+  {
+    "value": "0xC0,0x3F",
+    "description": "tls_dh_dss_with_aria_256_cbc_sha384"
+  },
+  {
+    "value": "0xC0,0x40",
+    "description": "tls_dh_rsa_with_aria_128_cbc_sha256"
+  },
+  {
+    "value": "0xC0,0x41",
+    "description": "tls_dh_rsa_with_aria_256_cbc_sha384"
+  },
+  {
+    "value": "0xC0,0x42",
+    "description": "tls_dhe_dss_with_aria_128_cbc_sha256"
+  },
+  {
+    "value": "0xC0,0x43",
+    "description": "tls_dhe_dss_with_aria_256_cbc_sha384"
+  },
+  {
+    "value": "0xC0,0x44",
+    "description": "tls_dhe_rsa_with_aria_128_cbc_sha256"
+  },
+  {
+    "value": "0xC0,0x45",
+    "description": "tls_dhe_rsa_with_aria_256_cbc_sha384"
+  },
+  {
+    "value": "0xC0,0x46",
+    "description": "tls_dh_anon_with_aria_128_cbc_sha256"
+  },
+  {
+    "value": "0xC0,0x47",
+    "description": "tls_dh_anon_with_aria_256_cbc_sha384"
+  },
+  {
+    "value": "0xC0,0x48",
+    "description": "tls_ecdhe_ecdsa_with_aria_128_cbc_sha256"
+  },
+  {
+    "value": "0xC0,0x49",
+    "description": "tls_ecdhe_ecdsa_with_aria_256_cbc_sha384"
+  },
+  {
+    "value": "0xC0,0x4A",
+    "description": "tls_ecdh_ecdsa_with_aria_128_cbc_sha256"
+  },
+  {
+    "value": "0xC0,0x4B",
+    "description": "tls_ecdh_ecdsa_with_aria_256_cbc_sha384"
+  },
+  {
+    "value": "0xC0,0x4C",
+    "description": "tls_ecdhe_rsa_with_aria_128_cbc_sha256"
+  },
+  {
+    "value": "0xC0,0x4D",
+    "description": "tls_ecdhe_rsa_with_aria_256_cbc_sha384"
+  },
+  {
+    "value": "0xC0,0x4E",
+    "description": "tls_ecdh_rsa_with_aria_128_cbc_sha256"
+  },
+  {
+    "value": "0xC0,0x4F",
+    "description": "tls_ecdh_rsa_with_aria_256_cbc_sha384"
+  },
+  {
+    "value": "0xC0,0x50",
+    "description": "tls_rsa_with_aria_128_gcm_sha256"
+  },
+  {
+    "value": "0xC0,0x51",
+    "description": "tls_rsa_with_aria_256_gcm_sha384"
+  },
+  {
+    "value": "0xC0,0x52",
+    "description": "tls_dhe_rsa_with_aria_128_gcm_sha256"
+  },
+  {
+    "value": "0xC0,0x53",
+    "description": "tls_dhe_rsa_with_aria_256_gcm_sha384"
+  },
+  {
+    "value": "0xC0,0x54",
+    "description": "tls_dh_rsa_with_aria_128_gcm_sha256"
+  },
+  {
+    "value": "0xC0,0x55",
+    "description": "tls_dh_rsa_with_aria_256_gcm_sha384"
+  },
+  {
+    "value": "0xC0,0x56",
+    "description": "tls_dhe_dss_with_aria_128_gcm_sha256"
+  },
+  {
+    "value": "0xC0,0x57",
+    "description": "tls_dhe_dss_with_aria_256_gcm_sha384"
+  },
+  {
+    "value": "0xC0,0x58",
+    "description": "tls_dh_dss_with_aria_128_gcm_sha256"
+  },
+  {
+    "value": "0xC0,0x59",
+    "description": "tls_dh_dss_with_aria_256_gcm_sha384"
+  },
+  {
+    "value": "0xC0,0x5A",
+    "description": "tls_dh_anon_with_aria_128_gcm_sha256"
+  },
+  {
+    "value": "0xC0,0x5B",
+    "description": "tls_dh_anon_with_aria_256_gcm_sha384"
+  },
+  {
+    "value": "0xC0,0x5C",
+    "description": "tls_ecdhe_ecdsa_with_aria_128_gcm_sha256"
+  },
+  {
+    "value": "0xC0,0x5D",
+    "description": "tls_ecdhe_ecdsa_with_aria_256_gcm_sha384"
+  },
+  {
+    "value": "0xC0,0x5E",
+    "description": "tls_ecdh_ecdsa_with_aria_128_gcm_sha256"
+  },
+  {
+    "value": "0xC0,0x5F",
+    "description": "tls_ecdh_ecdsa_with_aria_256_gcm_sha384"
+  },
+  {
+    "value": "0xC0,0x60",
+    "description": "tls_ecdhe_rsa_with_aria_128_gcm_sha256"
+  },
+  {
+    "value": "0xC0,0x61",
+    "description": "tls_ecdhe_rsa_with_aria_256_gcm_sha384"
+  },
+  {
+    "value": "0xC0,0x62",
+    "description": "tls_ecdh_rsa_with_aria_128_gcm_sha256"
+  },
+  {
+    "value": "0xC0,0x63",
+    "description": "tls_ecdh_rsa_with_aria_256_gcm_sha384"
+  },
+  {
+    "value": "0xC0,0x64",
+    "description": "tls_psk_with_aria_128_cbc_sha256"
+  },
+  {
+    "value": "0xC0,0x65",
+    "description": "tls_psk_with_aria_256_cbc_sha384"
+  },
+  {
+    "value": "0xC0,0x66",
+    "description": "tls_dhe_psk_with_aria_128_cbc_sha256"
+  },
+  {
+    "value": "0xC0,0x67",
+    "description": "tls_dhe_psk_with_aria_256_cbc_sha384"
+  },
+  {
+    "value": "0xC0,0x68",
+    "description": "tls_rsa_psk_with_aria_128_cbc_sha256"
+  },
+  {
+    "value": "0xC0,0x69",
+    "description": "tls_rsa_psk_with_aria_256_cbc_sha384"
+  },
+  {
+    "value": "0xC0,0x6A",
+    "description": "tls_psk_with_aria_128_gcm_sha256"
+  },
+  {
+    "value": "0xC0,0x6B",
+    "description": "tls_psk_with_aria_256_gcm_sha384"
+  },
+  {
+    "value": "0xC0,0x6C",
+    "description": "tls_dhe_psk_with_aria_128_gcm_sha256"
+  },
+  {
+    "value": "0xC0,0x6D",
+    "description": "tls_dhe_psk_with_aria_256_gcm_sha384"
+  },
+  {
+    "value": "0xC0,0x6E",
+    "description": "tls_rsa_psk_with_aria_128_gcm_sha256"
+  },
+  {
+    "value": "0xC0,0x6F",
+    "description": "tls_rsa_psk_with_aria_256_gcm_sha384"
+  },
+  {
+    "value": "0xC0,0x70",
+    "description": "tls_ecdhe_psk_with_aria_128_cbc_sha256"
+  },
+  {
+    "value": "0xC0,0x71",
+    "description": "tls_ecdhe_psk_with_aria_256_cbc_sha384"
+  },
+  {
+    "value": "0xC0,0x72",
+    "description": "tls_ecdhe_ecdsa_with_camellia_128_cbc_sha256"
+  },
+  {
+    "value": "0xC0,0x73",
+    "description": "tls_ecdhe_ecdsa_with_camellia_256_cbc_sha384"
+  },
+  {
+    "value": "0xC0,0x74",
+    "description": "tls_ecdh_ecdsa_with_camellia_128_cbc_sha256"
+  },
+  {
+    "value": "0xC0,0x75",
+    "description": "tls_ecdh_ecdsa_with_camellia_256_cbc_sha384"
+  },
+  {
+    "value": "0xC0,0x76",
+    "description": "tls_ecdhe_rsa_with_camellia_128_cbc_sha256"
+  },
+  {
+    "value": "0xC0,0x77",
+    "description": "tls_ecdhe_rsa_with_camellia_256_cbc_sha384"
+  },
+  {
+    "value": "0xC0,0x78",
+    "description": "tls_ecdh_rsa_with_camellia_128_cbc_sha256"
+  },
+  {
+    "value": "0xC0,0x79",
+    "description": "tls_ecdh_rsa_with_camellia_256_cbc_sha384"
+  },
+  {
+    "value": "0xC0,0x7A",
+    "description": "tls_rsa_with_camellia_128_gcm_sha256"
+  },
+  {
+    "value": "0xC0,0x7B",
+    "description": "tls_rsa_with_camellia_256_gcm_sha384"
+  },
+  {
+    "value": "0xC0,0x7C",
+    "description": "tls_dhe_rsa_with_camellia_128_gcm_sha256"
+  },
+  {
+    "value": "0xC0,0x7D",
+    "description": "tls_dhe_rsa_with_camellia_256_gcm_sha384"
+  },
+  {
+    "value": "0xC0,0x7E",
+    "description": "tls_dh_rsa_with_camellia_128_gcm_sha256"
+  },
+  {
+    "value": "0xC0,0x7F",
+    "description": "tls_dh_rsa_with_camellia_256_gcm_sha384"
+  },
+  {
+    "value": "0xC0,0x80",
+    "description": "tls_dhe_dss_with_camellia_128_gcm_sha256"
+  },
+  {
+    "value": "0xC0,0x81",
+    "description": "tls_dhe_dss_with_camellia_256_gcm_sha384"
+  },
+  {
+    "value": "0xC0,0x82",
+    "description": "tls_dh_dss_with_camellia_128_gcm_sha256"
+  },
+  {
+    "value": "0xC0,0x83",
+    "description": "tls_dh_dss_with_camellia_256_gcm_sha384"
+  },
+  {
+    "value": "0xC0,0x84",
+    "description": "tls_dh_anon_with_camellia_128_gcm_sha256"
+  },
+  {
+    "value": "0xC0,0x85",
+    "description": "tls_dh_anon_with_camellia_256_gcm_sha384"
+  },
+  {
+    "value": "0xC0,0x86",
+    "description": "tls_ecdhe_ecdsa_with_camellia_128_gcm_sha256"
+  },
+  {
+    "value": "0xC0,0x87",
+    "description": "tls_ecdhe_ecdsa_with_camellia_256_gcm_sha384"
+  },
+  {
+    "value": "0xC0,0x88",
+    "description": "tls_ecdh_ecdsa_with_camellia_128_gcm_sha256"
+  },
+  {
+    "value": "0xC0,0x89",
+    "description": "tls_ecdh_ecdsa_with_camellia_256_gcm_sha384"
+  },
+  {
+    "value": "0xC0,0x8A",
+    "description": "tls_ecdhe_rsa_with_camellia_128_gcm_sha256"
+  },
+  {
+    "value": "0xC0,0x8B",
+    "description": "tls_ecdhe_rsa_with_camellia_256_gcm_sha384"
+  },
+  {
+    "value": "0xC0,0x8C",
+    "description": "tls_ecdh_rsa_with_camellia_128_gcm_sha256"
+  },
+  {
+    "value": "0xC0,0x8D",
+    "description": "tls_ecdh_rsa_with_camellia_256_gcm_sha384"
+  },
+  {
+    "value": "0xC0,0x8E",
+    "description": "tls_psk_with_camellia_128_gcm_sha256"
+  },
+  {
+    "value": "0xC0,0x8F",
+    "description": "tls_psk_with_camellia_256_gcm_sha384"
+  },
+  {
+    "value": "0xC0,0x90",
+    "description": "tls_dhe_psk_with_camellia_128_gcm_sha256"
+  },
+  {
+    "value": "0xC0,0x91",
+    "description": "tls_dhe_psk_with_camellia_256_gcm_sha384"
+  },
+  {
+    "value": "0xC0,0x92",
+    "description": "tls_rsa_psk_with_camellia_128_gcm_sha256"
+  },
+  {
+    "value": "0xC0,0x93",
+    "description": "tls_rsa_psk_with_camellia_256_gcm_sha384"
+  },
+  {
+    "value": "0xC0,0x94",
+    "description": "tls_psk_with_camellia_128_cbc_sha256"
+  },
+  {
+    "value": "0xC0,0x95",
+    "description": "tls_psk_with_camellia_256_cbc_sha384"
+  },
+  {
+    "value": "0xC0,0x96",
+    "description": "tls_dhe_psk_with_camellia_128_cbc_sha256"
+  },
+  {
+    "value": "0xC0,0x97",
+    "description": "tls_dhe_psk_with_camellia_256_cbc_sha384"
+  },
+  {
+    "value": "0xC0,0x98",
+    "description": "tls_rsa_psk_with_camellia_128_cbc_sha256"
+  },
+  {
+    "value": "0xC0,0x99",
+    "description": "tls_rsa_psk_with_camellia_256_cbc_sha384"
+  },
+  {
+    "value": "0xC0,0x9A",
+    "description": "tls_ecdhe_psk_with_camellia_128_cbc_sha256"
+  },
+  {
+    "value": "0xC0,0x9B",
+    "description": "tls_ecdhe_psk_with_camellia_256_cbc_sha384"
+  },
+  {
+    "value": "0xC0,0x9C",
+    "description": "tls_rsa_with_aes_128_ccm"
+  },
+  {
+    "value": "0xC0,0x9D",
+    "description": "tls_rsa_with_aes_256_ccm"
+  },
+  {
+    "value": "0xC0,0x9E",
+    "description": "tls_dhe_rsa_with_aes_128_ccm"
+  },
+  {
+    "value": "0xC0,0x9F",
+    "description": "tls_dhe_rsa_with_aes_256_ccm"
+  },
+  {
+    "value": "0xC0,0xA0",
+    "description": "tls_rsa_with_aes_128_ccm_8"
+  },
+  {
+    "value": "0xC0,0xA1",
+    "description": "tls_rsa_with_aes_256_ccm_8"
+  },
+  {
+    "value": "0xC0,0xA2",
+    "description": "tls_dhe_rsa_with_aes_128_ccm_8"
+  },
+  {
+    "value": "0xC0,0xA3",
+    "description": "tls_dhe_rsa_with_aes_256_ccm_8"
+  },
+  {
+    "value": "0xC0,0xA4",
+    "description": "tls_psk_with_aes_128_ccm"
+  },
+  {
+    "value": "0xC0,0xA5",
+    "description": "tls_psk_with_aes_256_ccm"
+  },
+  {
+    "value": "0xC0,0xA6",
+    "description": "tls_dhe_psk_with_aes_128_ccm"
+  },
+  {
+    "value": "0xC0,0xA7",
+    "description": "tls_dhe_psk_with_aes_256_ccm"
+  },
+  {
+    "value": "0xC0,0xA8",
+    "description": "tls_psk_with_aes_128_ccm_8"
+  },
+  {
+    "value": "0xC0,0xA9",
+    "description": "tls_psk_with_aes_256_ccm_8"
+  },
+  {
+    "value": "0xC0,0xAA",
+    "description": "tls_psk_dhe_with_aes_128_ccm_8"
+  },
+  {
+    "value": "0xC0,0xAB",
+    "description": "tls_psk_dhe_with_aes_256_ccm_8"
+  },
+  {
+    "value": "0xC0,0xAC",
+    "description": "tls_ecdhe_ecdsa_with_aes_128_ccm"
+  },
+  {
+    "value": "0xC0,0xAD",
+    "description": "tls_ecdhe_ecdsa_with_aes_256_ccm"
+  },
+  {
+    "value": "0xC0,0xAE",
+    "description": "tls_ecdhe_ecdsa_with_aes_128_ccm_8"
+  },
+  {
+    "value": "0xC0,0xAF",
+    "description": "tls_ecdhe_ecdsa_with_aes_256_ccm_8"
+  },
+  {
+    "value": "0xC0,0xB0",
+    "description": "tls_eccpwd_with_aes_128_gcm_sha256"
+  },
+  {
+    "value": "0xC0,0xB1",
+    "description": "tls_eccpwd_with_aes_256_gcm_sha384"
+  },
+  {
+    "value": "0xC0,0xB2",
+    "description": "tls_eccpwd_with_aes_128_ccm_sha256"
+  },
+  {
+    "value": "0xC0,0xB3",
+    "description": "tls_eccpwd_with_aes_256_ccm_sha384"
+  },
+  {
+    "value": "0xC0,0xB4",
+    "description": "tls_sha256_sha256"
+  },
+  {
+    "value": "0xC0,0xB5",
+    "description": "tls_sha384_sha384"
+  },
+  {
+    "value": "0xC1,0x00",
+    "description": "tls_gostr341112_256_with_kuznyechik_ctr_omac"
+  },
+  {
+    "value": "0xC1,0x01",
+    "description": "tls_gostr341112_256_with_magma_ctr_omac"
+  },
+  {
+    "value": "0xC1,0x02",
+    "description": "tls_gostr341112_256_with_28147_cnt_imit"
+  },
+  {
+    "value": "0xC1,0x03",
+    "description": "tls_gostr341112_256_with_kuznyechik_mgm_l"
+  },
+  {
+    "value": "0xC1,0x04",
+    "description": "tls_gostr341112_256_with_magma_mgm_l"
+  },
+  {
+    "value": "0xC1,0x05",
+    "description": "tls_gostr341112_256_with_kuznyechik_mgm_s"
+  },
+  {
+    "value": "0xC1,0x06",
+    "description": "tls_gostr341112_256_with_magma_mgm_s"
+  },
+  {
+    "value": "0xCC,0xA8",
+    "description": "tls_ecdhe_rsa_with_chacha20_poly1305_sha256"
+  },
+  {
+    "value": "0xCC,0xA9",
+    "description": "tls_ecdhe_ecdsa_with_chacha20_poly1305_sha256"
+  },
+  {
+    "value": "0xCC,0xAA",
+    "description": "tls_dhe_rsa_with_chacha20_poly1305_sha256"
+  },
+  {
+    "value": "0xCC,0xAB",
+    "description": "tls_psk_with_chacha20_poly1305_sha256"
+  },
+  {
+    "value": "0xCC,0xAC",
+    "description": "tls_ecdhe_psk_with_chacha20_poly1305_sha256"
+  },
+  {
+    "value": "0xCC,0xAD",
+    "description": "tls_dhe_psk_with_chacha20_poly1305_sha256"
+  },
+  {
+    "value": "0xCC,0xAE",
+    "description": "tls_rsa_psk_with_chacha20_poly1305_sha256"
+  },
+  {
+    "value": "0xD0,0x01",
+    "description": "tls_ecdhe_psk_with_aes_128_gcm_sha256"
+  },
+  {
+    "value": "0xD0,0x02",
+    "description": "tls_ecdhe_psk_with_aes_256_gcm_sha384"
+  },
+  {
+    "value": "0xD0,0x03",
+    "description": "tls_ecdhe_psk_with_aes_128_ccm_8_sha256"
+  },
+  {
+    "value": "0xD0,0x05",
+    "description": "tls_ecdhe_psk_with_aes_128_ccm_sha256"
+  }
+]

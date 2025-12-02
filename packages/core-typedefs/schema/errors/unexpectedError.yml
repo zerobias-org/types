@@ -1,0 +1,11 @@
+description: Generic, catch-all error
+type: object
+allOf:
+  - $ref: './errorModelBase.yml'
+  - type: object
+    required:
+      - msg
+    properties:
+      msg:
+        type: string
+        description: A generic message to pass on

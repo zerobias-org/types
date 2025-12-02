@@ -1,0 +1,15 @@
+extends: node_modules/@zerobias-org/util-spectral-config/rules/.jsonschema.spectral.yml
+overrides:
+  - files:
+      - '**/schema/geo/geoCountry.yml'
+      - '**/schema/geo/geoCountryInfo.yml'
+      - '**/schema/geo/geoSubdivision.yml'
+      - '**/schema/language/locale.yml'
+      - '**/schema/language/languageInfo.yml'
+      - '**/schema/timeZone/timeZone.yml'
+      - '**/schema/timeZone/timeZoneInfo.yml'
+      - '**/schema/cron/cronExpression.yml'
+      - '**/schema/tls/x509Certificate.yml'
+      - '**/schema/tls/x509Subject.yml'
+    rules:
+      enumsMustBeSnakeCase: off

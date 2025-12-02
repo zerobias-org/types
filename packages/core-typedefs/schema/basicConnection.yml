@@ -1,0 +1,22 @@
+type: object
+description: >-
+  A basic credential object, similar to HTTP Basic auth but not necessarily specific to HTTP
+required:
+  - uri
+  - username
+  - password
+properties:
+  uri:
+    type: string
+    format: url
+    description: The URI to connect to
+    example: https://example.local
+  username:
+    type: string
+    description: The username to use for authentication
+    example: elduderino
+  password:
+    type: string
+    format: password
+    description: The password to provide for authentication
+    example: c4uc4s14n

@@ -1,0 +1,45 @@
+type: string
+enum:
+  - rsa_encryption
+  - md5_with_rsa_encryption
+  - sha1_with_rsa_encryption
+  - rsaes_oaep
+  - mgf1
+  - p_specified
+  - rsassa_pss
+  - sha256_with_rsa_encryption
+  - sha384_with_rsa_encryption
+  - sha512_with_rsa_encryption
+  - sha256_with_ecdsa_encryption
+  - sha384_with_ecdsa_encryption
+  - sha512_with_ecdsa_encryption
+  - ed_dsa25519
+  - dsa_with_sha1
+  - des_cbc
+  - sha1
+  - sha256
+  - sha384
+  - sha512
+  - md5
+x-enum-descriptions:
+  - RSA
+  - MD5WithRSAEncryption
+  - SHA1WithRSAEncryption
+  - RSAES-OAEP
+  - MGF1
+  - PSpecified
+  - RSASSA-PSS
+  - SHA256WithRSAEncryption
+  - SHA384WithRSAEncryption
+  - SHA512WithRSAEncryption
+  - SHA256WithECDSAEncryption
+  - SHA384WithECDSAEncryption
+  - SHA512WithECDSAEncryption
+  - Edwards-curve Digital Signature Algorithm (EdDSA) Ed25519
+  - DSA-With-SHA1
+  - DESCBC
+  - SHA1
+  - SHA256
+  - SHA384
+  - SHA512
+  - MD5

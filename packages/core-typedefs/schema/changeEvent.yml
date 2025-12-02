@@ -1,0 +1,20 @@
+type: object
+description: Generic event for handling data changes
+required:
+  - op
+  - objectType
+allOf:
+  - $ref: './event.yml'
+  - type: object
+    properties:
+      op:
+        $ref: ./changeOperation.yml
+      objectType:
+        type: string
+        description: the type of object that has changed
+      before:
+        type: object
+        nullable: true
+        description: >- 
+          The object's state before the change event. This can only be present on `update` and `delete` but may be 
+          absent even on those events, depending on the implementation.

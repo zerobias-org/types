@@ -1,0 +1,10 @@
+type: object
+allOf:
+  - $ref: './baseConnectionState.yml'
+  - type: object
+    properties:
+      accessToken:
+        description: The access token returned by the Auth client
+        type: string
+        format: password
+        example: MTQ0NjJkZmQ5OTM2NDE1ZTZjNGZmZjI3

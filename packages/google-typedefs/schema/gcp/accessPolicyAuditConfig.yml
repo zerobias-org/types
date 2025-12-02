@@ -1,0 +1,17 @@
+type: object
+description: >-
+  Specifies the audit configuration for a service.
+properties:
+  service:
+    type: string
+    description: >-
+      Specifies a service that will be enabled for audit logging.
+    example:
+      - storage.googleapis.com
+      - allServices
+  auditLogConfigs:
+    type: array
+    description: >-
+      The configuration for logging of each type of permission.
+    items:
+      $ref: './accessPolicyAuditLogConfig.yml'

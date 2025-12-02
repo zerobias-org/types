@@ -1,0 +1,33 @@
+type: string
+description : >-
+  A collection of Cloud Market Codes.
+enum:
+  - aws_af
+  - aws_ap
+  - aws_ca
+  - aws_cn
+  - aws_eu
+  - aws_me
+  - aws_sa
+  - aws_us
+  - aws_us_gov
+  - aws_us_gov_secret
+  - aws_us_gov_top_secret
+  - azure_us
+  - azure_us_gov
+  - azure_ca
+  - azure_br
+  - azure_eu
+  - azure_fr
+  - azure_uk
+  - azure_de
+  - azure_ch
+  - azure_no
+  - azure_apac
+  - azure_au
+  - azure_cn
+  - azure_in
+  - azure_jp
+  - azure_kr
+  - azure_af
+  - azure_uae

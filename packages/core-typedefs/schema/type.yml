@@ -1,0 +1,79 @@
+type: object
+description: Defines a Core Type
+properties:
+  name: 
+    type: string
+    description: >- 
+      The name of the type. This should be `lowerCamel` by convention. This value, combined with `formats`, will be valid
+      OpenAPI `format` values to match this type.
+    example: ipAddress
+  formats:
+    type: array
+    description: >-
+      Additional values for the OpenAPI `format` field.
+    items: 
+      type: string
+    example: [ip, ipv4, ipv6]
+  jsonType:
+    type: string
+    description: The JSON type for this type.
+    enum:
+      - object
+      - array
+      - string
+      - number
+      - boolean
+  isEnum:
+    type: boolean
+    default: false
+    description: Flag indicating whether or not this type is restricted to 
+  extendedInfoType:
+    type: string
+    description: >-
+      The name of the type which represents extended info for this type. 
+      This is only valid for `enum` types. This should be the name of the 
+      type which provide extended info which can be keyed by the enum type's 
+      value
+  extendedInfoValues:
+    type: string
+    description: >-
+      Optional path to the JSON file containing extended info values. This is only required if the convention of a pluralized version of the enum name will not locate the values (i.e. geoCountries.json for geoCountry)
+  description:
+    type: string
+    description: A long description of the type.
+  examples:
+    type: array
+    description: An array of valid example values for this type.
+    items:
+      type: object
+  pattern:
+    description: A regular expression used to validate the core type.
+    type: string
+  path:
+    description: The relative path to the yml type, if it exists.
+    type: string
+  htmlInput:
+    type: string
+    description: The HTML input type to use for the type
+    enum:
+      - color
+      - date
+      - datetime-local
+      - email
+      - month
+      - number
+      - password
+      - search
+      - tel
+      - text
+      - time
+      - url
+      - week
+    default: text
+required:
+  - name
+  - jsonType
+  - isEnum
+  - description
+  - examples
+  - htmlInput

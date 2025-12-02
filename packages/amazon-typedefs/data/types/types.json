@@ -1,0 +1,146 @@
+[
+  {
+    "name": "arn",
+    "jsonType": "string",
+    "description": "An Amazon Resource Name",
+    "examples": [
+      "arn:aws:clouddirectory:us-west-2:12345678910:directory/ARIqk1HD-UjdtmcIrJHEvPI",
+      "arn:aws:s3:::examplebucket/developers/design_info.doc",
+      "arn:aws:iam::123456789012:user/*"
+    ]
+  },
+  {
+    "name": "awsPartition",
+    "jsonType": "string",
+    "isEnum": true,
+    "description": "An AWS Partition",
+    "examples": [
+      "aws",
+      "aws_cn",
+      "aws_us_gov"
+    ],
+    "path": "../schema/aws/partition.yml"
+  },
+  {
+    "name": "awsService",
+    "jsonType": "string",
+    "isEnum": true,
+    "description": "An AWS Service Namespace",
+    "examples": [
+      "s3",
+      "rds",
+      "iam"
+    ],
+    "path": "../schema/aws/service.yml"
+  },
+  {
+    "name": "awsImageId",
+    "jsonType": "string",
+    "description": "A valid AWS ECR Image Identifier which consists of its digest and tag",
+    "examples": [
+      "sha256:881befbe6f54c1e85029fe3a11554342bf765a0849600ecb8fa2f922798b4925:trusty",
+      "sha256:881befbe6f54c1e85029fe3a11554342bf765a0849600ecb8fa2f922798b4925:latest",
+      "sha256:881befbe6f54c1e85029fe3a11554342bf765a0849600ecb8fa2f922798b4925:xenial"
+    ]
+  },
+  {
+    "name": "awsAccessPolicy",
+    "jsonType": "object",
+    "description": "An AWS Access Policy",
+    "examples": [
+      {
+        "version": "2012-10-17",
+        "statement": [
+          {
+            "sid": "FirstStatement",
+            "effect": "allow",
+            "action": [
+              "iam:ChangePassword"
+            ],
+            "resource": "*"
+          },
+          {
+            "sid": "SecondStatement",
+            "effect": "allow",
+            "action": "s3:ListAllMyBuckets",
+            "resource": "*"
+          }
+        ]
+      }
+    ],
+    "path": "../schema/aws/accessPolicy.yml"
+  },
+  {
+    "name": "awsAccessPolicyStatement",
+    "jsonType": "object",
+    "description": "An AWS Access Policy Statement",
+    "examples": [
+      {
+        "sid": "FirstStatement",
+        "effect": "allow",
+        "action": [
+          "iam:ChangePassword"
+        ],
+        "resource": "*"
+      }
+    ],
+    "path": "../schema/aws/accessPolicyStatement.yml"
+  },
+  {
+    "name": "awsAccessPolicyStatementCondition",
+    "jsonType": "object",
+    "description": "An AWS Access Policy Statement Condition",
+    "examples": [
+      {
+        "operator": "bool",
+        "values": {
+          "aws:MultiFactorAuthPresent": "true"
+        }
+      }
+    ],
+    "path": "../schema/aws/accessPolicyStatementCondition.yml"
+  },
+  {
+    "name": "awsAccessPolicyStatementEffect",
+    "jsonType": "string",
+    "isEnum": true,
+    "description": "An AWS Access Policy Statement Condition",
+    "examples": [
+      "allow",
+      "deny"
+    ],
+    "path": "../schema/aws/accessPolicyStatementEffect.yml"
+  },
+  {
+    "name": "awsAccessPolicyStatementOperator",
+    "jsonType": "string",
+    "isEnum": true,
+    "description": "An AWS Access Policy Statement Operator",
+    "examples": [
+      "arn_like",
+      "arn_not_like, numeric_equals"
+    ],
+    "path": "../schema/aws/accessPolicyStatementOperator.yml"
+  },
+  {
+    "name": "awsCloudRegion",
+    "jsonType": "string",
+    "isEnum": true,
+    "description": "An AWS Cloud Region Code",
+    "examples": [
+      "eu-west-3",
+      "us-east-2"
+    ],
+    "path": "../schema/aws/region.yml"
+  },
+  {
+    "name": "awsAccessPolicyStatementResource",
+    "jsonType": "string",
+    "isEnum": true,
+    "description": "An AWS Access Policy Statement Resource",
+    "examples": [
+      "all"
+    ],
+    "path": "../schema/aws/accessPolicyStatementResource.yml"
+  }
+]

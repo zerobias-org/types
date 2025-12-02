@@ -1,0 +1,25 @@
+type: object
+description: The identity of the resource.
+properties:
+  principalId:
+    type: string
+    description: The principal ID of resource identity.
+  tenantId:
+    type: string
+    description: The tenant ID of resource.
+  type:
+    $ref: './resourceIdentityType.yml'
+  userAssignedIdentities:
+    type: object
+    title: azureUserAssignedIdentities
+    description: >-
+      "The list of user identities associated with the resource. The user identity dictionary key references will be ARM resource ids in the form: '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ManagedIdentity/userAssignedIdentities/{identityName}'."
+    additionalProperties:
+      type: object
+      properties:
+        clientId:
+          type: string
+          description: The client id of user assigned identity.
+        principalId:
+          description: The principal id of user assigned identity.
+          type: string

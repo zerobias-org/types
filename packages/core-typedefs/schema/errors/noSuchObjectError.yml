@@ -1,0 +1,15 @@
+description: Error indicating some sort of conflict
+type: object
+allOf:
+  - $ref: './errorModelBase.yml'
+  - type: object
+    required:
+      - type
+      - id
+    properties:
+      type:
+        type: string
+        description: The type of object which cannot be found
+      id:
+        type: string
+        description: The ID of the object

@@ -1,0 +1,12 @@
+description: Error indicating a timeout was exceeded
+type: object
+allOf:
+  - $ref: './errorModelBase.yml'
+  - type: object
+    required:
+      - timeout
+    properties:
+      timeout:
+        type: string
+        format: duration
+        description: The timeout which was exceeded

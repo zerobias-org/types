@@ -1,0 +1,11 @@
+description: Error indicating a eula not accepted
+type: object
+allOf:
+  - $ref: './errorModelBase.yml'
+  - type: object
+    required:
+      - eulaId
+    properties:
+      eulaId:
+        type: string
+        description: ID of a eula that hasnt been accepted

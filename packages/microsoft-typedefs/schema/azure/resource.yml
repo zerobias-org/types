@@ -1,0 +1,17 @@
+type: object
+required:
+  - id
+  - name
+  - type
+properties:
+  id:
+    type: string
+    description: Resource Id.
+  name:
+    type: string
+    description: Resource name.
+  type:
+    type: string
+    description: Resource type.
+    format: azureResourceType
+
