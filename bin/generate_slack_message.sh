@@ -33,46 +33,57 @@ output=""
 
 # Add actor info if available
 if [ -n "$GITHUB_ACTOR" ]; then
-  output+="Published by *@${GITHUB_ACTOR}*\n\n"
+  output+="Published by *@${GITHUB_ACTOR}*"
+  output+=$'\n\n'
 fi
 
 if [ ${#core_pkgs[@]} -gt 0 ]; then
-  output+="*:package: Core*\n"
+  output+="*:package: Core*"
+  output+=$'\n'
   for entry in "${core_pkgs[@]}"; do
-    output+="${entry}\n"
+    output+="${entry}"
+    output+=$'\n'
   done
-  output+="\n"
+  output+=$'\n'
 fi
 
 if [ ${#amazon_pkgs[@]} -gt 0 ]; then
-  output+="*:aws: Amazon*\n"
+  output+="*:aws: Amazon*"
+  output+=$'\n'
   for entry in "${amazon_pkgs[@]}"; do
-    output+="${entry}\n"
+    output+="${entry}"
+    output+=$'\n'
   done
-  output+="\n"
+  output+=$'\n'
 fi
 
 if [ ${#google_pkgs[@]} -gt 0 ]; then
-  output+="*:gcp: Google*\n"
+  output+="*:gcp: Google*"
+  output+=$'\n'
   for entry in "${google_pkgs[@]}"; do
-    output+="${entry}\n"
+    output+="${entry}"
+    output+=$'\n'
   done
-  output+="\n"
+  output+=$'\n'
 fi
 
 if [ ${#microsoft_pkgs[@]} -gt 0 ]; then
-  output+="*:azure: Microsoft*\n"
+  output+="*:azure: Microsoft*"
+  output+=$'\n'
   for entry in "${microsoft_pkgs[@]}"; do
-    output+="${entry}\n"
+    output+="${entry}"
+    output+=$'\n'
   done
-  output+="\n"
+  output+=$'\n'
 fi
 
 if [ ${#atlassian_pkgs[@]} -gt 0 ]; then
-  output+="*:atlassian: Atlassian*\n"
+  output+="*:atlassian: Atlassian*"
+  output+=$'\n'
   for entry in "${atlassian_pkgs[@]}"; do
-    output+="${entry}\n"
+    output+="${entry}"
+    output+=$'\n'
   done
 fi
 
-echo -e "$output"
+printf '%s' "$output"

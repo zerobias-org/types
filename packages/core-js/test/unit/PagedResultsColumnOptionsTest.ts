@@ -242,9 +242,11 @@ describe('PagedResults Column Options', () => {
 
     await pr.getSearchColumnOptions('test', 'test1')
       .then(() => {
-        expect(false);
+        expect.fail('Expected an error for unsupported column');
       })
-      .catch((error: any) => Promise.reject(error.message));
+      .catch((error: any) => {
+        expect(error.message).to.include('400');
+      });
   }).timeout(30000);
 
   after('teardown', () => {

@@ -355,11 +355,19 @@ export class PagedResults<T> {
     reject: (reason?: any) => void
   ): Promise<void> {
     try {
-      resolve(await axiosReal.request(req).then((resp) => resp.data.options));
+      const resp = await axiosReal.request(req);
+      // Check for error status codes since validateStatus: () => true allows all through
+      if (resp.status >= 400) {
+        const error: any = new Error(`Request failed with status ${resp.status}`);
+        error.response = resp;
+        throw error;
+      }
+      resolve(resp.data.options);
     } catch (e: any) {
       if (e.response && (e.response.status < 500 && e.response.status !== 408)) {
         // don't retry for 4xx except for a 408 which is a client timeout
         reject(e);
+        return;
       }
 
       if (att < 3) {
@@ -432,11 +440,19 @@ export class PagedResults<T> {
     reject: (reason?: any) => void
   ): Promise<void> {
     try {
-      resolve(await axiosReal.request(req).then((resp) => resp.data.searchOptions));
+      const resp = await axiosReal.request(req);
+      // Check for error status codes since validateStatus: () => true allows all through
+      if (resp.status >= 400) {
+        const error: any = new Error(`Request failed with status ${resp.status}`);
+        error.response = resp;
+        throw error;
+      }
+      resolve(resp.data.searchOptions);
     } catch (e: any) {
       if (e.response && (e.response.status < 500 && e.response.status !== 408)) {
         // don't retry for 4xx except for a 408 which is a client timeout
         reject(e);
+        return;
       }
 
       if (att < 3) {
@@ -572,18 +588,22 @@ export class PagedResults<T> {
     reject: (reason?: any) => void
   ): Promise<void> {
     try {
-      resolve(await axiosReal
-        .request(req)
-        .then((resp) => {
-          if (resp.headers.pagetoken) {
-            this.pageToken = resp.headers.pagetoken;
-          }
-          return resp.data.map((obj: any) => (this.mapper ? this.mapper(obj) : obj));
-        }));
+      const resp = await axiosReal.request(req);
+      // Check for error status codes since validateStatus: () => true allows all through
+      if (resp.status >= 400) {
+        const error: any = new Error(`Request failed with status ${resp.status}`);
+        error.response = resp;
+        throw error;
+      }
+      if (resp.headers.pagetoken) {
+        this.pageToken = resp.headers.pagetoken;
+      }
+      resolve(resp.data.map((obj: any) => (this.mapper ? this.mapper(obj) : obj)));
     } catch (e: any) {
       if (e.response && (e.response.status < 500 && e.response.status !== 408)) {
         // don't retry for 4xx except for a 408 which is a client timeout
         reject(e);
+        return;
       }
       if (attempt < 3) {
         setTimeout(() => this.doFetch(attempt + 1, req, resolve, reject), attempt * 2000);
