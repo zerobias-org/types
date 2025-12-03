@@ -34,9 +34,5 @@
     "models.yml",
     "*.md",
     "bom.json"
-  ],
-  "dependencies": {},
-  "devDependencies": {
-    "@zerobias-org/types-format-spectral-ruleset": "^1.0.0"
-  }
+  ]
 }

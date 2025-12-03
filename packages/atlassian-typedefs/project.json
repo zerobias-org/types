@@ -1,0 +1,8 @@
+{
+  "name": "@zerobias-org/types-atlassian",
+  "targets": {
+    "lint": {
+      "dependsOn": ["@zerobias-org/types-format-spectral-ruleset:transpile"]
+    }
+  }
+}

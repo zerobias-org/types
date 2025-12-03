@@ -28,5 +28,7 @@
     "type-data.json",
     "bom.json"
   ],
-  "dependencies": {}
+  "dependencies": {
+    "@zerobias-org/types-core-js": "^1.0.0"
+  }
 }
