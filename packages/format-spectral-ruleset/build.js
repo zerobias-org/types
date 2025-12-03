@@ -67,12 +67,11 @@ async function build() {
     validTypes,
     allFormats,
     formatToTypeName,
-    generatedAt: new Date().toISOString(),
   };
 
   // Save type-data.json
   const typeDataPath = join(__dirname, 'type-data.json');
-  writeFileSync(typeDataPath, JSON.stringify(typeData, null, 2));
+  writeFileSync(typeDataPath, JSON.stringify(typeData, null, 2) + '\n');
 
   // Generate Spectral ruleset with inlined type data
   // This avoids ESM import issues since all data is inlined
@@ -80,8 +79,6 @@ async function build() {
 
   const rulesetContent = `/**
  * Auto-generated Spectral ruleset with inlined type data.
- * Generated at: ${typeData.generatedAt}
- *
  * DO NOT EDIT - regenerate with: npm run transpile
  */
 
