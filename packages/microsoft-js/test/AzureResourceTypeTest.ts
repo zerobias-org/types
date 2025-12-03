@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import { CoreType, IllegalArgumentError, InvalidInputError } from '@zerobias-org/types-core-js';
-import { AzureResourceProvider } from '../generated/model.js';
+import { AzureResourceProvider } from '../generated/model/index.js';
 import { AzureResourceType } from '../src/index.js';
 
 describe('AzureResourceType', function () {

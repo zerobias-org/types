@@ -14,4 +14,4 @@ properties:
     description: >-
       The configuration for logging of each type of permission.
     items:
-      $ref: './accessPolicyAuditLogConfig.yml'
+      $ref: './gcpAccessPolicyAuditLogConfig.yml'

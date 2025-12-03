@@ -1,12 +1,12 @@
 allOf:
-  - $ref: './resource.yml'
+  - $ref: './azureResource.yml'
   - type: object
     properties:
       location:
         type: string
         anyOf:
-          - $ref: './region.yml'
-          - $ref: './additionalLocations.yml'
+          - $ref: './azureRegion.yml'
+          - $ref: './azureAdditionalLocations.yml'
         description: Resource location.
       tags:
         type: object
@@ -14,7 +14,7 @@ allOf:
         additionalProperties:
           type: string
       identity:
-        $ref: './resourceIdentity.yml'
+        $ref: './azureResourceIdentity.yml'
       kind:
         type: string
         description: The kind of resource.
@@ -22,6 +22,6 @@ allOf:
         type: string
         description: ID of the resource that manages this resource.
       plan:
-        $ref: './resourcePlan.yml'
+        $ref: './azureResourcePlan.yml'
       sku:
-        $ref: './resourceSku.yml'
+        $ref: './azureResourceSku.yml'

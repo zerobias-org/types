@@ -8,7 +8,12 @@ import { CoreType } from '../CoreType.js';
  * Class representing an IP address, either v4 or v6
  */
 export class IpAddress extends StringFormat<IpAddress> {
-  private static coreType:CoreType = CoreType.get('ipAddress');
+  private static _coreType: ReturnType<typeof CoreType.get> | null = null;
+
+  private static get coreType() {
+    if (!IpAddress._coreType) IpAddress._coreType = CoreType.get('ipAddress');
+    return IpAddress._coreType;
+  }
 
   ip: Address4 | Address6;
 
@@ -38,12 +43,13 @@ export class IpAddress extends StringFormat<IpAddress> {
    * @returns an IPv4 or IPv6 address, if valid. Else, returns `null`
    */
   private static toIp(input: string): Address4 | Address6 | null {
-    const ip = new Address4(input);
-    if (!ip.isValid()) {
-      const ipv6 = new Address6(input);
-      return ipv6.isValid() ? ipv6 : null;
+    if (Address4.isValid(input)) {
+      return new Address4(input);
     }
-    return ip;
+    if (Address6.isValid(input)) {
+      return new Address6(input);
+    }
+    return null;
   }
 
   toString(): string {

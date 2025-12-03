@@ -8,7 +8,12 @@ const CIDR = 'cidr';
 export class Cidr extends StringFormat<Cidr> {
   private cidr!: Address4 | Address6;
 
-  private static coreType: CoreType = CoreType.get(CIDR);
+  private static _coreType: ReturnType<typeof CoreType.get> | null = null;
+
+  private static get coreType() {
+    if (!Cidr._coreType) Cidr._coreType = CoreType.get(CIDR);
+    return Cidr._coreType;
+  }
 
   constructor(cidr: string) {
     super();
@@ -20,14 +25,10 @@ export class Cidr extends StringFormat<Cidr> {
       throw new InvalidInputError(CIDR, 'Subnet was not provided', Cidr.examples());
     }
     let cidr: Address4 | Address6 | undefined;
-    const ipv4: Address4 = new Address4(input);
-    if (ipv4.isValid()) {
-      cidr = ipv4;
-    } else {
-      const ipv6 = new Address6(input);
-      if (ipv6.isValid()) {
-        cidr = ipv6;
-      }
+    if (Address4.isValid(input)) {
+      cidr = new Address4(input);
+    } else if (Address6.isValid(input)) {
+      cidr = new Address6(input);
     }
 
     if (!cidr) {

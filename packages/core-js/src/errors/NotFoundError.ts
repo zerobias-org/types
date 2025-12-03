@@ -1,5 +1,5 @@
 import { CoreError } from './CoreError.js';
-import { NotFoundError as Model } from '../../generated/model.js';
+import { NotFoundError as Model } from '../../generated/model/index.js';
 
 export class NotFoundError extends CoreError<Model> {
   static readonly MESSAGE_KEY = 'err.not.found';
@@ -17,10 +17,8 @@ export class NotFoundError extends CoreError<Model> {
       timestamp,
       obj,
     });
-    // Set the prototype explicitly - https://github.com/Microsoft/TypeScript/wiki/Breaking-Changes#extending-built-ins-like-error-array-and-map-may-no-longer-work
+    // Set prototype explicitly for proper instanceof checks
     Object.setPrototypeOf(this, NotFoundError.prototype);
-    this.message = this._model.template
-      .replace('{obj}', this.obj);
   }
 
   get obj(): string {

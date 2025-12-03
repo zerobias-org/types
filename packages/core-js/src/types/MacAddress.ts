@@ -6,9 +6,19 @@ import { CoreType } from '../CoreType.js';
  * Class representing a MAC address
  */
 export class MacAddress extends StringFormat<MacAddress> {
-  private static coreType: CoreType = CoreType.get('macAddress');
+  private static _coreType: ReturnType<typeof CoreType.get> | null = null;
 
-  private static pattern = new RegExp(MacAddress.coreType.pattern as string);
+  private static get coreType() {
+    if (!MacAddress._coreType) MacAddress._coreType = CoreType.get('macAddress');
+    return MacAddress._coreType;
+  }
+
+  private static _pattern: RegExp | null = null;
+
+  private static get pattern() {
+    if (!MacAddress._pattern) MacAddress._pattern = new RegExp(MacAddress.coreType.pattern as string);
+    return MacAddress._pattern;
+  }
 
   private token: string;
 
@@ -53,4 +63,9 @@ export class MacAddress extends StringFormat<MacAddress> {
   }
 }
 
-export const nil = new MacAddress('00:00:00:00:00:00');
+// Lazy nil instance getter to avoid circular dependency at module load time
+let _nil: MacAddress | null = null;
+export function getNilMacAddress(): MacAddress {
+  if (!_nil) _nil = new MacAddress('00:00:00:00:00:00');
+  return _nil;
+}

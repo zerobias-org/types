@@ -1,0 +1,55 @@
+import checkFormat from './functions/check_format.js';
+import { pattern, casing, truthy } from '@stoplight/spectral-functions';
+
+export default {
+  rules: {
+    'valid-coretype-format': {
+      severity: 'error',
+      given: ['$..*[?(@ != null && @.format)]'],
+      then: {
+        function: checkFormat,
+      },
+    },
+    'propertyNamesMustBeCamel': {
+      description: 'Name of a property should be in camelCase.',
+      given: '$..properties',
+      severity: 'error',
+      then: {
+        field: '@key',
+        function: casing,
+        functionOptions: {
+          type: 'camel',
+        },
+      },
+    },
+    'propertiesMustHaveDescriptions': {
+      description: 'Properties must have a description.',
+      given: '$..properties[*]',
+      severity: 'warn',
+      then: {
+        field: 'description',
+        function: truthy,
+      },
+    },
+    'typeMustHaveDescription': {
+      description: 'A type must have a description',
+      given: '$',
+      severity: 'warn',
+      then: {
+        field: 'description',
+        function: truthy,
+      },
+    },
+    'enumsMustBeSnakeCase': {
+      description: 'Enums must be snake_case.',
+      given: '$..enum[*]',
+      severity: 'error',
+      then: {
+        function: casing,
+        functionOptions: {
+          type: 'snake',
+        },
+      },
+    },
+  },
+};

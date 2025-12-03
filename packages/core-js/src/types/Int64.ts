@@ -6,7 +6,12 @@ import { NumberFormat } from './NumberFormat.js';
  * Class representing a 64-bit signed integer
  */
 export class Int64 extends NumberFormat<Int64> {
-  private static coreType = CoreType.get('int64');
+  private static _coreType: ReturnType<typeof CoreType.get> | null = null;
+
+  private static get coreType() {
+    if (!Int64._coreType) Int64._coreType = CoreType.get('int64');
+    return Int64._coreType;
+  }
 
   private value: number;
 
@@ -28,7 +33,7 @@ export class Int64 extends NumberFormat<Int64> {
   }
 
   static examples(): Array<number> {
-    return this.coreType.examples.map((example) => Number(example));
+    return this.coreType.examples.map(Number);
   }
 
   static async parse(input: number): Promise<Int64> {

@@ -6,7 +6,12 @@ import { NumberFormat } from './NumberFormat.js';
  * Class representing an integer
  */
 export class Integer extends NumberFormat<Integer> {
-  private static coreType = CoreType.get('integer');
+  private static _coreType: ReturnType<typeof CoreType.get> | null = null;
+
+  private static get coreType() {
+    if (!Integer._coreType) Integer._coreType = CoreType.get('integer');
+    return Integer._coreType;
+  }
 
   private value: number;
 
@@ -25,7 +30,7 @@ export class Integer extends NumberFormat<Integer> {
   }
 
   static examples(): Array<number> {
-    return this.coreType.examples.map((example) => Number(example));
+    return this.coreType.examples.map(Number);
   }
 
   static async parse(input: number): Promise<Integer> {

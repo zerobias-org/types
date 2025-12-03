@@ -1,7 +1,7 @@
 type: object
 properties:
   operator:
-    $ref: './accessPolicyStatementOperator.yml'
+    $ref: './awsAccessPolicyStatementOperator.yml'
   values:
     type: object
     additionalProperties:

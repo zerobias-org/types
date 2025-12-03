@@ -10,14 +10,14 @@ export abstract class NumberFormat<T extends NumberFormat<T>> {
    * @returns an array of example inputs for this type
    */
   static examples(): Array<number> {
-    return [10, 0.2, -100, 12.10112, 8198171901, -19811.8298292];
+    return [10, 0.2, -100, 12.101_12, 8_198_171_901, -19_811.829_829_2];
   }
 
   /**
    * @param input - the input value to parse into an object
    * @returns the given input represented as this type
    */
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+   
   static async parse(input: number): Promise<NumberFormat<any>> {
     throw new Error('unimplemented');
   }
@@ -43,9 +43,9 @@ export abstract class NumberFormat<T extends NumberFormat<T>> {
   abstract equals(other?: any): boolean;
 
   /**
-   * @returns Method supporting CTF from {@link https://github.com/vitaly-t/pg-promise#custom-type-formatting}. This enables types to be seamlessly utilized in `pg-promise`
+   * @returns Method supporting CTF for pg-promise custom type formatting
    */
-  // eslint-disable-next-line class-methods-use-this
+   
   toPostgres(self: T): any {
     return self.toNumber();
   }

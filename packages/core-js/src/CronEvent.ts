@@ -1,4 +1,4 @@
-import { EventKind, EventKindDef } from '../generated/model.js';
+import { EventKind, EventKindDef } from '../generated/model/index.js';
 import { UUID } from './types/UUID.js';
 import { Event, EventImpl } from './Event.js';
 
@@ -45,7 +45,7 @@ export class CronEventImpl<T> extends EventImpl<T> implements CronEvent<T> {
     this._cronId = cronId;
   }
 
-  // eslint-disable-next-line class-methods-use-this
+   
   get kind(): EventKindDef {
     return EventKind.Cron;
   }

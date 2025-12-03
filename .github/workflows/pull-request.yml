@@ -1,0 +1,90 @@
+name: Pull Request
+
+on:
+  pull_request:
+
+permissions:
+  contents: write
+  id-token: write
+  packages: write
+
+env:
+  ZB_TOKEN: ${{ secrets.ZB_TOKEN }}
+  NPM_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  READ_TOKEN: ${{ secrets.READ_TOKEN }}
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    env:
+      NPM_TOKEN: ${{ env.NPM_TOKEN }}
+      GITHUB_TOKEN: ${{ env.GITHUB_TOKEN }}
+
+    steps:
+      - name: Acquire cache v4
+        uses: actions/cache@v4
+        with:
+          path: .git
+          key: repo-git-folder
+
+      - name: Check out code v4
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup node v4
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'npm'
+
+      - name: Setup java v4
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+      
+      - name: Configure git user
+        run: |
+          git config --global user.email "ci@neverfail.com"
+          git config --global user.name "@$GITHUB_ACTOR"
+
+      - name: Install nx
+        run: |
+          npm install -g nx@20.5.0
+        env:
+          NPM_TOKEN: ${{ env.NPM_TOKEN }}
+          ZB_TOKEN: ${{ env.ZB_TOKEN }}
+
+      - name: Determine base ref for nx affected
+        id: base_ref
+        run: |
+          # Get the last publish tag for nx affected base reference
+          LAST_PUBLISH_TAG=$(git describe --tags --abbrev=0 --match="*" 2>/dev/null || echo "")
+          if [ -z "$LAST_PUBLISH_TAG" ]; then
+            echo "No publish tag found, using origin/main~1 as base"
+            echo "BASE_REF=origin/main~1" >> $GITHUB_OUTPUT
+          else
+            echo "Using last publish tag as base: $LAST_PUBLISH_TAG"
+            echo "BASE_REF=$LAST_PUBLISH_TAG" >> $GITHUB_OUTPUT
+          fi
+        env:
+          NPM_TOKEN: ${{ env.NPM_TOKEN }}
+          ZB_TOKEN: ${{ env.ZB_TOKEN }}
+
+      - name: Install and build
+        run: |
+          npm i
+          nx affected -t build --base=${{ steps.base_ref.outputs.BASE_REF }}
+        env:
+          NPM_TOKEN: ${{ env.NPM_TOKEN }}
+          ZB_TOKEN: ${{ env.ZB_TOKEN }}
+
+      - name: Run tests
+        run: |
+          nx affected -t test --base=${{ steps.base_ref.outputs.BASE_REF }}
+        env:
+          NPM_TOKEN: ${{ env.NPM_TOKEN }}
+          ZB_TOKEN: ${{ env.ZB_TOKEN }}

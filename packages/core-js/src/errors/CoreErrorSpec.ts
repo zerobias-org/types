@@ -8,7 +8,7 @@ export interface CoreErrorSpec {
   readonly key: string;
   readonly statusCode: number
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+   
   toJSON(): any;
 
   toString(): string;

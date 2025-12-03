@@ -18,7 +18,7 @@ properties:
     description: The ID of the Access Key to use
     example: AKIAIOSFODNN7EXAMPLE
   region:
-    $ref: './region.yml'
+    $ref: './awsRegion.yml'
     example: us-east-1 
   endpoint:
     type: string

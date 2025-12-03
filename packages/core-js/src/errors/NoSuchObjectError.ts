@@ -1,5 +1,5 @@
 import { CoreError } from './CoreError.js';
-import { NoSuchObjectError as Model } from '../../generated/model.js';
+import { NoSuchObjectError as Model } from '../../generated/model/index.js';
 
 export class NoSuchObjectError extends CoreError<Model> {
   static readonly MESSAGE_KEY = 'err.no.such.object';
@@ -19,11 +19,8 @@ export class NoSuchObjectError extends CoreError<Model> {
       type,
       id,
     });
-    // Set the prototype explicitly - https://github.com/Microsoft/TypeScript/wiki/Breaking-Changes#extending-built-ins-like-error-array-and-map-may-no-longer-work
+    // Set prototype explicitly for proper instanceof checks
     Object.setPrototypeOf(this, NoSuchObjectError.prototype);
-    this.message = this._model.template
-      .replace('{type}', this.type)
-      .replace('{id}', this.id);
   }
 
   get type(): string {

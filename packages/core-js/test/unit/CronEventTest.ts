@@ -1,7 +1,7 @@
 /* eslint-disable */
 import { expect } from 'chai';
 import { EventKind } from '../../src/index.js';
-import { ChangeOperation } from '../../generated/model.js';
+import { ChangeOperation } from '../../generated/model/index.js';
 import { UUID } from '../../src/types/UUID.js';
 import { CronEventImpl } from '../../src/CronEvent.js';
 

@@ -1,5 +1,5 @@
 import { CoreError } from './CoreError.js';
-import { TimeoutError as Model } from '../../generated/model.js';
+import { TimeoutError as Model } from '../../generated/model/index.js';
 import { Duration } from '../types/Duration.js';
 
 export class TimeoutError extends CoreError<Model> {
@@ -18,10 +18,8 @@ export class TimeoutError extends CoreError<Model> {
       timestamp,
       timeout,
     });
-    // Set the prototype explicitly - https://github.com/Microsoft/TypeScript/wiki/Breaking-Changes#extending-built-ins-like-error-array-and-map-may-no-longer-work
+    // Set prototype explicitly for proper instanceof checks
     Object.setPrototypeOf(this, TimeoutError.prototype);
-    this.message = this._model.template
-      .replace('{timeout}', this.timeout.toString());
   }
 
   get timeout(): Duration {

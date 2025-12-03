@@ -6,9 +6,19 @@ import { CoreType } from '../CoreType.js';
  * Class representing an NMTOKEN
  */
 export class Nmtoken extends StringFormat<Nmtoken> {
-  private static coreType: CoreType = CoreType.get('nmtoken');
+  private static _coreType: ReturnType<typeof CoreType.get> | null = null;
 
-  private static pattern = new RegExp(Nmtoken.coreType.pattern as string);
+  private static get coreType() {
+    if (!Nmtoken._coreType) Nmtoken._coreType = CoreType.get('nmtoken');
+    return Nmtoken._coreType;
+  }
+
+  private static _pattern: RegExp | null = null;
+
+  private static get pattern() {
+    if (!Nmtoken._pattern) Nmtoken._pattern = new RegExp(Nmtoken.coreType.pattern as string);
+    return Nmtoken._pattern;
+  }
 
   private token: string;
 

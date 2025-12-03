@@ -1,10 +1,11 @@
 import { ErrorLibrary } from '../ErrorLibrary.js';
-import { CoreErrorLibrary } from './CoreErrorLibrary.js';
 import { CoreErrorSpec } from './CoreErrorSpec.js';
 import { ErrorModel } from './ErrorModel.js';
 
 /**
- * Base class for well-formed, internationalizable error types. Message keys and interpolation are provided by default. The `message` should be interpolated using arguments wrapped in curlies (i.e. - `{foo}`).
+ * Base class for well-formed, internationalizable error types.
+ * Message keys and interpolation are provided by default.
+ * The `message` should be interpolated using arguments wrapped in curlies (i.e. - `{foo}`).
  */
 export abstract class CoreError<T extends ErrorModel> extends Error implements CoreErrorSpec {
   private static initialized = false;
@@ -34,18 +35,28 @@ export abstract class CoreError<T extends ErrorModel> extends Error implements C
    * @param library a library of error keys and types to register
    */
   static register(library: ErrorLibrary): void {
-    library.listKeys().forEach((key) => {
+    for (const key of library.listKeys()) {
       if (CoreError.errorKeys.has(key)) {
         throw new Error(`Error ${key} already registered`);
       }
       CoreError.errorKeys.set(key, library);
-    });
+    }
   }
 
-  static init(): void {
+  /**
+   * Initialize the CoreError system. Must be called after all error classes are loaded.
+   * This is called automatically by index.ts
+   */
+  static initWithLibrary(library: ErrorLibrary): void {
     if (!CoreError.initialized) {
-      CoreError.register(new CoreErrorLibrary());
+      CoreError.register(library);
       CoreError.initialized = true;
+    }
+  }
+
+  private static ensureInitialized(): void {
+    if (!CoreError.initialized) {
+      throw new Error('CoreError not initialized. Call CoreError.initWithLibrary() or import from index.js');
     }
   }
 
@@ -54,7 +65,7 @@ export abstract class CoreError<T extends ErrorModel> extends Error implements C
    * @param data an object which should represent an `ErrorModel`
    */
   static deserialize(data: any): Error & CoreErrorSpec {
-    CoreError.init();
+    CoreError.ensureInitialized();
     const { key, template, statusCode, timestamp, stack } = data;
     if (!template || !statusCode || !key || !timestamp) {
       throw new Error(data ? data.toString() : '');
@@ -87,9 +98,9 @@ export abstract class CoreError<T extends ErrorModel> extends Error implements C
     return this._model.statusCode;
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+   
   toJSON(): any {
-    CoreError.init();
+    CoreError.ensureInitialized();
     const library = CoreError.errorKeys.get(this.key.toString());
     if (!library) {
       throw new Error(`No ErrorLibrary located for ${this.key}`);

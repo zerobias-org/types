@@ -1,9 +1,10 @@
 import { createRequire } from 'node:module';
-import { plural } from 'pluralize';
 import { IllegalArgumentError } from './errors/IllegalArgumentError.js';
-import { ObjectSerializer, Type } from '../generated/model.js';
+import { ObjectSerializer, Type } from '../generated/model/index.js';
 
 const require = createRequire(import.meta.url);
+const pluralize = require('pluralize');
+const { plural } = pluralize;
 
 export class TypeLibrary {
   libraryName: string;
@@ -41,20 +42,22 @@ export class TypeLibrary {
     this.enumTypeMap = enumTypeMap;
     this.deserializer = deserializer;
     this.schemaLocator = schemaLocator;
-    libraryTypedefs.forEach((jt: Record<string, unknown>) => {
-      const type: Type = ObjectSerializer.deserialize(jt, 'Type');
+    for (const jt of libraryTypedefs) {
+      const type: Type = ObjectSerializer.deserialize(jt as Record<string, unknown>, 'Type');
       this.typeNames.push(type.name);
       if (this.types[type.name]) {
         throw new IllegalArgumentError(`${type.name} already exists`);
       }
       this.types[type.name] = type;
-      type.formats?.forEach((f) => {
-        if (this.types[f]) {
-          throw new IllegalArgumentError(`${type.name} already exists`);
+      if (type.formats) {
+        for (const f of type.formats) {
+          if (this.types[f]) {
+            throw new IllegalArgumentError(`${type.name} already exists`);
+          }
+          this.types[f] = type;
         }
-        this.types[f] = type;
-      });
-    });
+      }
+    }
   }
 
   listEnumMembers(enumType: string): Array<{
@@ -141,15 +144,15 @@ export class TypeLibrary {
     infoModule?: string
   ): T[] {
     const pathSplits = typePath?.replace('schema', 'data').split('/') || [];
-    // eslint-disable-next-line max-len
-    const infoPath = `${this.libraryName}/${pathSplits.slice(1, pathSplits.length - 1).join('/')}/${infoModule || plural(enumType)}.json`;
-    // eslint-disable-next-line
+     
+    const infoPath = `${this.libraryName}/${pathSplits.slice(1, - 1).join('/')}/${infoModule || plural(enumType)}.json`;
+     
     const info = require(infoPath);
     return info.map((i: Record<string, unknown>) => this.deserializer(i, infoType));
   }
 
   getSchema(type: string): Record<string, unknown> {
-    const className = `${type.charAt(0).toUpperCase()}${type.substring(1)}`;
+    const className = `${type.charAt(0).toUpperCase()}${type.slice(1)}`;
     if (this.schemaLocator) {
       const b64 = this.schemaLocator(className);
       if (b64) {
@@ -161,7 +164,7 @@ export class TypeLibrary {
   }
 
   newInstance(type: string, args: any) {
-    const className = `${type.charAt(0).toUpperCase()}${type.substring(1)}`;
+    const className = `${type.charAt(0).toUpperCase()}${type.slice(1)}`;
     if (this.primitiveTypeMap[className]) {
       return new this.primitiveTypeMap[className](args);
     }

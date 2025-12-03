@@ -1,5 +1,5 @@
 import { CoreError } from './CoreError.js';
-import { EulaNotAcceptedError as Model } from '../../generated/model.js';
+import { EulaNotAcceptedError as Model } from '../../generated/model/index.js';
 
 export class EulaNotAcceptedError extends CoreError<Model> {
   static readonly MESSAGE_KEY = 'err.eula.not.accepted';
@@ -17,10 +17,8 @@ export class EulaNotAcceptedError extends CoreError<Model> {
       timestamp,
       eulaId,
     });
-    // Set the prototype explicitly - https://github.com/Microsoft/TypeScript/wiki/Breaking-Changes#extending-built-ins-like-error-array-and-map-may-no-longer-work
+    // Set prototype explicitly for proper instanceof checks
     Object.setPrototypeOf(this, EulaNotAcceptedError.prototype);
-    this.message = this._model.template
-      .replace('{eulaId}', this.eulaId);
   }
 
   get eulaId(): string {

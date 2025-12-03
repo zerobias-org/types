@@ -1,5 +1,5 @@
 import { CoreError } from './CoreError.js';
-import { ConflictError as Model } from '../../generated/model.js';
+import { ConflictError as Model } from '../../generated/model/index.js';
 
 export class ConflictError extends CoreError<Model> {
   static readonly MESSAGE_KEY = 'err.conflict';
@@ -17,10 +17,8 @@ export class ConflictError extends CoreError<Model> {
       timestamp,
       msg,
     });
-    // Set the prototype explicitly - https://github.com/Microsoft/TypeScript/wiki/Breaking-Changes#extending-built-ins-like-error-array-and-map-may-no-longer-work
+    // Set prototype explicitly for proper instanceof checks
     Object.setPrototypeOf(this, ConflictError.prototype);
-    this.message = this._model.template
-      .replace('{msg}', this.msg);
   }
 
   get msg(): string {

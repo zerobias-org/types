@@ -3,7 +3,7 @@ description: >-
   Provides the configuration for logging a type of permissions.
 properties:
   logType:
-    $ref: './accessPolicyAuditLogConfigType.yml'
+    $ref: './gcpAccessPolicyAuditLogConfigType.yml'
   exemptedMembers:
     type: array
     description: >-

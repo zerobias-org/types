@@ -5,7 +5,12 @@ import { CoreType } from '../CoreType.js';
  * Class representing a password
  */
 export class Password extends StringFormat<Password> {
-  private static coreType: CoreType = CoreType.get('password');
+  private static _coreType: ReturnType<typeof CoreType.get> | null = null;
+
+  private static get coreType() {
+    if (!Password._coreType) Password._coreType = CoreType.get('password');
+    return Password._coreType;
+  }
 
   private password: string;
 

@@ -1,5 +1,5 @@
 import { ErrorModel } from './ErrorModel.js';
-import { ObjectSerializer } from '../../generated/model.js';
+import { ObjectSerializer } from '../../generated/model/index.js';
 import { ErrorLibrary } from '../ErrorLibrary.js';
 import { CoreErrorSpec } from './CoreErrorSpec.js';
 import { ConflictError } from './ConflictError.js';
@@ -73,52 +73,70 @@ export class CoreErrorLibrary implements ErrorLibrary {
     // TODO: this won't return the subclass until my PR @openapi-generator gets merged
     const model = ObjectSerializer.deserialize(data, 'CoreError');
     switch (model.key) {
-      case this.lib.ConflictError.MESSAGE_KEY:
+      case this.lib.ConflictError.MESSAGE_KEY: {
         return new this.lib.ConflictError(model.msg, model.timestamp);
-      case this.lib.IllegalArgumentError.MESSAGE_KEY:
+      }
+      case this.lib.IllegalArgumentError.MESSAGE_KEY: {
         return new this.lib.IllegalArgumentError(model.msg, model.timestamp);
-      case this.lib.EulaNotAcceptedError.MESSAGE_KEY:
+      }
+      case this.lib.EulaNotAcceptedError.MESSAGE_KEY: {
         return new this.lib.EulaNotAcceptedError(model.eulaId, model.timestamp);
-      case this.lib.ForbiddenError.MESSAGE_KEY:
+      }
+      case this.lib.ForbiddenError.MESSAGE_KEY: {
         return new this.lib.ForbiddenError(model.timestamp);
-      case this.lib.InvalidCredentialsError.MESSAGE_KEY:
+      }
+      case this.lib.InvalidCredentialsError.MESSAGE_KEY: {
         return new this.lib.InvalidCredentialsError(model.timestamp);
-      case this.lib.InvalidInputError.MESSAGE_KEY:
-        // eslint-disable-next-line max-len
+      }
+      case this.lib.InvalidInputError.MESSAGE_KEY: {
+         
         return new this.lib.InvalidInputError(model.type, model.value, model.examples, model.timestamp);
-      case this.lib.InvalidStateError.MESSAGE_KEY:
+      }
+      case this.lib.InvalidStateError.MESSAGE_KEY: {
         return new this.lib.InvalidInputError(model.msg, model.timestamp);
-      case this.lib.NotConnectedError.MESSAGE_KEY:
+      }
+      case this.lib.NotConnectedError.MESSAGE_KEY: {
         return new this.lib.NotConnectedError(model.timestamp);
-      case this.lib.NotFoundError.MESSAGE_KEY:
+      }
+      case this.lib.NotFoundError.MESSAGE_KEY: {
         return new this.lib.NotFoundError(model.obj, model.timestamp);
-      case this.lib.NoSuchObjectError.MESSAGE_KEY:
+      }
+      case this.lib.NoSuchObjectError.MESSAGE_KEY: {
         return new this.lib.NoSuchObjectError(model.type, model.id, model.timestamp);
-      case this.lib.ParameterRequiredError.MESSAGE_KEY:
+      }
+      case this.lib.ParameterRequiredError.MESSAGE_KEY: {
         return new this.lib.ParameterRequiredError(model.paramName, model.timestamp);
-      case this.lib.RateLimitExceededError.MESSAGE_KEY:
+      }
+      case this.lib.RateLimitExceededError.MESSAGE_KEY: {
         return new this.lib.RateLimitExceededError(
           model.timestamp,
           model.callCount,
           model.duration
         );
-      case this.lib.ResultLimitExceededError.MESSAGE_KEY:
-        // eslint-disable-next-line max-len
+      }
+      case this.lib.ResultLimitExceededError.MESSAGE_KEY: {
+         
         return new this.lib.ResultLimitExceededError(model.requested, model.returned, model.timestamp);
-      case this.lib.TimeoutError.MESSAGE_KEY:
+      }
+      case this.lib.TimeoutError.MESSAGE_KEY: {
         return new this.lib.TimeoutError(model.timeout, model.timestamp);
-      case this.lib.UnauthenticatedError.MESSAGE_KEY:
+      }
+      case this.lib.UnauthenticatedError.MESSAGE_KEY: {
         return new this.lib.UnauthenticatedError(model.timestamp);
-      case this.lib.UnauthorizedError.MESSAGE_KEY:
+      }
+      case this.lib.UnauthorizedError.MESSAGE_KEY: {
         return new this.lib.UnauthorizedError(model.timestamp);
-      case this.lib.UnexpectedError.MESSAGE_KEY:
+      }
+      case this.lib.UnexpectedError.MESSAGE_KEY: {
         return new this.lib.UnexpectedError(model.msg, model.statusCode, model.timestamp);
-      default:
+      }
+      default: {
         throw new this.lib.NotFoundError(`error ${model.key}`);
+      }
     }
   }
 
-  // eslint-disable-next-line class-methods-use-this
+   
   serialize<ModelType extends ErrorModel>(model: ModelType) {
     return ObjectSerializer.serialize(model, 'CoreError');
   }

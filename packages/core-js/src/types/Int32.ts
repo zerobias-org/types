@@ -2,13 +2,18 @@ import { CoreType } from '../CoreType.js';
 import { InvalidInputError } from '../errors/index.js';
 import { NumberFormat } from './NumberFormat.js';
 
-export const MAX_VALUE = 2147483647;
+export const MAX_VALUE = 2_147_483_647;
 
 /**
  * Class representing a 32-bit signed integer
  */
 export class Int32 extends NumberFormat<Int32> {
-  private static coreType = CoreType.get('int32');
+  private static _coreType: ReturnType<typeof CoreType.get> | null = null;
+
+  private static get coreType() {
+    if (!Int32._coreType) Int32._coreType = CoreType.get('int32');
+    return Int32._coreType;
+  }
 
   private value: number;
 
@@ -30,7 +35,7 @@ export class Int32 extends NumberFormat<Int32> {
   }
 
   static examples(): Array<number> {
-    return this.coreType.examples.map((example) => Number(example));
+    return this.coreType.examples.map(Number);
   }
 
   static async parse(input: number): Promise<Int32> {

@@ -13,7 +13,7 @@ import {
   AwsRegionDef,
   AwsService,
   AwsServiceDef
-} from '../../generated/model.js';
+} from '../../generated/model/index.js';
 import { AmazonType } from '../AmazonType.js';
 
 const prefixRegex = /^arn$/;

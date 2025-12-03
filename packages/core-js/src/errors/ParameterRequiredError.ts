@@ -1,5 +1,5 @@
 import { CoreError } from './CoreError.js';
-import { ParameterRequiredError as Model } from '../../generated/model.js';
+import { ParameterRequiredError as Model } from '../../generated/model/index.js';
 
 export class ParameterRequiredError extends CoreError<Model> {
   static readonly MESSAGE_KEY = 'err.param.required';
@@ -17,10 +17,8 @@ export class ParameterRequiredError extends CoreError<Model> {
       timestamp,
       paramName,
     });
-    // Set the prototype explicitly - https://github.com/Microsoft/TypeScript/wiki/Breaking-Changes#extending-built-ins-like-error-array-and-map-may-no-longer-work
+    // Set prototype explicitly for proper instanceof checks
     Object.setPrototypeOf(this, ParameterRequiredError.prototype);
-    this.message = this._model.template
-      .replace('{paramName}', this.paramName);
   }
 
   get paramName(): string {

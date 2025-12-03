@@ -13,8 +13,9 @@
   },
   "scripts": {
     "clean": "rimraf dist/ .docs/ generated/",
+    "generate": "npm run generate:code",
     "transpile": "tsc",
-    "build": "npm run generate:code && npm run transpile",
+    "build": "npm run generate && npm run transpile",
     "test": "mocha --inline-diffs --reporter=list",
     "test:watch": "npm run test -- --watch --reporter=min",
     "docs:tsdoc": "typedoc --plugin typedoc-plugin-markdown --out .docs",
@@ -22,7 +23,7 @@
     "docs": "npm run docs:tsdoc && npm run docs:combine",
     "version": "npm run generate:badge && git add version.svg",
     "generate:badge": "npx badge $(yq -oy e .name package.json) $(npm run -s get-version) :red @flat > version.svg",
-    "generate:code": "JAVA_OPTS=\"${JAVA_OPTS} -DgoogleTypesSource=../../src\" hub-generator generate -g hub-module --additional-properties supportsES6=true -p skipHubImpl=true -i ./node_modules/@zerobias-org/types-google/models.yml -o generated/",
+    "generate:code": "JAVA_OPTS=\"${JAVA_OPTS} -DgoogleTypesSource=../../src\" hub-generator generate -g hub-module --additional-properties supportsES6=true -p skipHubImpl=true -i ../../node_modules/@zerobias-org/types-google/models.yml -o generated/ && ./bin/fix-generated-esm.sh generated",
     "get-version": "node -p \"require('./package.json').version\"",
     "lint": "eslint src/",
     "lint:fix": "eslint --fix src/"
@@ -38,7 +39,7 @@
     "directory": "packages/google-js"
   },
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com/"
+    "registry": "https://pkg.zerobias.org/"
   },
   "files": [
     "dist/src",

@@ -10,7 +10,12 @@ const RANGE_TYPE = 'versionRange';
  * Class representing a range of semantic versions
  */
 export class VersionRange extends StringFormat<VersionRange> {
-  private static coreType: CoreType = CoreType.get(RANGE_TYPE);
+  private static _coreType: ReturnType<typeof CoreType.get> | null = null;
+
+  private static get coreType() {
+    if (!VersionRange._coreType) VersionRange._coreType = CoreType.get(RANGE_TYPE);
+    return VersionRange._coreType;
+  }
 
   private range: semver.Range;
 
@@ -42,7 +47,7 @@ export class VersionRange extends StringFormat<VersionRange> {
     return this.orig;
   }
 
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
+   
   equals(other?: any): boolean {
     return this.range.toString() === new VersionRange(other.toString()).toString();
   }

@@ -15,7 +15,12 @@ export const enum Version {
  * Class representing a UUID
  */
 export class UUID extends StringFormat<UUID> {
-  private static coreType:CoreType = CoreType.get('uuid');
+  private static _coreType: ReturnType<typeof CoreType.get> | null = null;
+
+  private static get coreType() {
+    if (!UUID._coreType) UUID._coreType = CoreType.get('uuid');
+    return UUID._coreType;
+  }
 
   private id: string;
 
@@ -82,4 +87,9 @@ export class UUID extends StringFormat<UUID> {
   }
 }
 
-export const nil = new UUID('00000000-0000-0000-0000-000000000000');
+// Lazy nil instance getter to avoid circular dependency at module load time
+let _nil: UUID | null = null;
+export function getNilUUID(): UUID {
+  if (!_nil) _nil = new UUID('00000000-0000-0000-0000-000000000000');
+  return _nil;
+}

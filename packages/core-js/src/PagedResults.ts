@@ -1,4 +1,3 @@
-import * as qs from 'query-string';
 import { PromisePool } from '@supercharge/promise-pool';
 import axios, { AxiosRequestConfig } from 'axios';
 import {
@@ -8,8 +7,9 @@ import {
   ResultLimitExceededError
 } from './errors/index.js';
 import { URL } from './types/URL.js';
-import { HttpMethod, Nmtoken, UUID } from '.';
-import { SortDirectionDef } from '../generated/model.js';
+import { Nmtoken } from './types/Nmtoken.js';
+import { UUID } from './types/UUID.js';
+import { HttpMethod, SortDirectionDef } from '../generated/model/index.js';
 
 export enum PagedResultsColumnOptionsFilterType {
   String = 'string',
@@ -210,7 +210,7 @@ export class PagedResults<T> {
     if (data.sortBy && data.sortDir) {
       pr.sort(data.sortBy, data.sortDir);
     }
-    pr.items = data.items?.map(mapper);
+    pr.items = data.items?.map((item) => mapper(item));
     return pr;
   }
 
@@ -309,7 +309,7 @@ export class PagedResults<T> {
       filterable: false,
       filter: undefined,
     };
-    columns.forEach((column) => { this._columnOptions[column] = baseColumnDef; });
+    for (const column of columns) { this._columnOptions[column] = baseColumnDef; }
   }
 
   async getColumnOptions(): Promise<Record<string, PagedResultsColumnOptionsDef>> {
@@ -337,8 +337,9 @@ export class PagedResults<T> {
     const request: AxiosRequestConfig = {
       method: HttpMethod.Get.toString(),
       headers: this.headers,
-      timeout: 60871,
+      timeout: 60_871,
       url,
+      // eslint-disable-next-line unicorn/prefer-structured-clone -- need mutable copy
       params: JSON.parse(JSON.stringify(this.params)),
     };
     return new Promise((resolve: (value: Record<string, PagedResultsColumnOptionsDef>)
@@ -406,6 +407,7 @@ export class PagedResults<T> {
       throw new InvalidStateError('Cannot fetch search column options without baseUrl set');
     }
 
+    // eslint-disable-next-line unicorn/prefer-structured-clone -- need mutable copy with new properties
     const params = JSON.parse(JSON.stringify(this.params));
     params.columnName = columnName;
     params.search = search;
@@ -413,7 +415,7 @@ export class PagedResults<T> {
     const request: AxiosRequestConfig = {
       method: HttpMethod.Get.toString(),
       headers: this.headers,
-      timeout: 60871,
+      timeout: 60_871,
       url,
       params,
     };
@@ -451,7 +453,11 @@ export class PagedResults<T> {
   }
 
   /**
-   * @returns values for the `Link` header which point to the `first`, `last`, `prev`, and `next` pages, if such pages are present and NOT the page represented by this instance. i.e. - if this is the last page, the `last` link will not be present. Additionally, if a page would be duplicated (i.e. - page 1 is both `first` and `prev`), it will only be included once, preferring the `first` and `last` links.
+   * @returns values for the `Link` header which point to the `first`, `last`, `prev`, and `next`
+   * pages, if such pages are present and NOT the page represented by this instance.
+   * i.e. - if this is the last page, the `last` link will not be present.
+   * Additionally, if a page would be duplicated (i.e. - page 1 is both `first` and `prev`),
+   * it will only be included once, preferring the `first` and `last` links.
    */
   getLinks(): string[] {
     const links: string[] = [];
@@ -468,27 +474,28 @@ export class PagedResults<T> {
         throw new InvalidStateError('Cannot compute links without base URL being set');
       }
       const base = `${this.baseUrl.protocol}://${this.baseUrl.host}${this.baseUrl.path}`;
+      // eslint-disable-next-line unicorn/prefer-structured-clone -- need mutable copy with new properties
       const params = JSON.parse(JSON.stringify(this.baseUrl.searchParams));
       params.pageSize = `${this.pageSize}`;
       if (this.pageNumber !== 1) {
         // not first, so we can include 'first'
         params.pageNumber = '1';
-        links.push(`<${base}?${qs.stringify(params)}>; rel="first"`);
+        links.push(`<${base}?${new URLSearchParams(params).toString()}>; rel="first"`);
       }
       if (this.pageNumber > 2) {
         // can do prev
         params.pageNumber = `${this.pageNumber - 1}`;
-        links.push(`<${base}?${qs.stringify(params)}>; rel="prev"`);
+        links.push(`<${base}?${new URLSearchParams(params).toString()}>; rel="prev"`);
       }
       if (this.pageNumber < this.pageCount) {
         // not last
         params.pageNumber = `${this.pageCount}`;
-        links.push(`<${base}?${qs.stringify(params)}>; rel="last"`);
+        links.push(`<${base}?${new URLSearchParams(params).toString()}>; rel="last"`);
       }
       if (this.pageNumber + 1 < this.pageCount) {
         // has next
         params.pageNumber = `${this.pageNumber + 1}`;
-        links.push(`<${base}?${qs.stringify(params)}>; rel="next"`);
+        links.push(`<${base}?${new URLSearchParams(params).toString()}>; rel="next"`);
       }
     }
     return links;
@@ -498,11 +505,7 @@ export class PagedResults<T> {
    * Calculates and sets {@link _pageCount | the page count} based on the values of {@link _count} and {@link _pageSize}.
    */
   private calculatePageCount(): void {
-    if (this._count && this._count > 0 && this._pageSize > 0) {
-      this._pageCount = Math.ceil(this._count / this._pageSize);
-    } else {
-      this._pageCount = undefined;
-    }
+    this._pageCount = this._count && this._count > 0 && this._pageSize > 0 ? Math.ceil(this._count / this._pageSize) : undefined;
   }
 
   /**
@@ -515,7 +518,7 @@ export class PagedResults<T> {
     if (pageNumber < 1) {
       throw new InvalidInputError('page number', pageNumber);
     }
-    const pageCount = arr.length ? Math.ceil(arr.length / pageSize) : 1;
+    const pageCount = arr.length > 0 ? Math.ceil(arr.length / pageSize) : 1;
     if (pageNumber > pageCount) {
       throw new IllegalArgumentError(
         `Requested page ${pageNumber} but only ${pageCount} pages exist`
@@ -545,7 +548,7 @@ export class PagedResults<T> {
     if (pageNumber < 1) {
       throw new InvalidInputError('page number', pageNumber);
     }
-    const pageCount = arr.length ? Math.ceil(arr.length / pageSize) : 1;
+    const pageCount = arr.length > 0 ? Math.ceil(arr.length / pageSize) : 1;
     if (pageNumber > pageCount) {
       throw new IllegalArgumentError(
         `Requested page ${pageNumber} but only ${pageCount} pages exist`
@@ -556,6 +559,7 @@ export class PagedResults<T> {
     results.pageSize = pageSize;
     results.pageNumber = pageNumber;
     results.pageToken = pageToken;
+    // eslint-disable-next-line unicorn/explicit-length-check -- length is used as value, not boolean
     results.count = count || arr.length;
     results.items = arr.slice(beg, end);
     return results;
@@ -602,7 +606,7 @@ export class PagedResults<T> {
         pageNumber: `${pageNumber}`,
         pageToken: `${this.pageToken}`,
       };
-      url = `${this.baseUrl.origin}${this.baseUrl.path}?${qs.stringify(params)}`;
+      url = `${this.baseUrl.origin}${this.baseUrl.path}?${new URLSearchParams(params).toString()}`;
     } else if (HttpMethod.Post.eq(this.httpMethod) || HttpMethod.Put.eq(this.httpMethod)) {
       body.pageSize = this.pageSize;
       body.pageNumber = pageNumber;
@@ -616,7 +620,7 @@ export class PagedResults<T> {
       method: this.httpMethod.toString(),
       data: body,
       headers: this.headers,
-      timeout: 60871,
+      timeout: 60_871,
       url,
     };
     return new Promise((resolve: (value: T[]) => void, reject: (reason?: any) => void) => {
@@ -631,18 +635,13 @@ export class PagedResults<T> {
       let pageNum = 1;
       while (!done) {
         let page: T[] = [];
-        if (pageNum === this.pageNumber) {
-          page = this.items;
-        } else {
-          // eslint-disable-next-line no-await-in-loop
-          page = await this.fetchPage(pageNum);
-        }
+        page = pageNum === this.pageNumber ? this.items : (await this.fetchPage(pageNum));
         if (page.length < this.pageSize) {
           done = true;
         }
         pageNum += 1;
         let i = -1;
-        // eslint-disable-next-line no-plusplus
+         
         while (++i < page.length) {
           yield page[i];
         }
@@ -650,7 +649,7 @@ export class PagedResults<T> {
     } else {
       // just iterate through what we have
       let i = -1;
-      // eslint-disable-next-line no-plusplus
+       
       while (++i < this.items.length) {
         yield this.items[i];
       }
@@ -664,7 +663,7 @@ export class PagedResults<T> {
       throw new InvalidInputError('limit', limit);
     }
     const allItems: T[] = [];
-    // eslint-disable-next-line no-restricted-syntax
+     
     for await (const item of this) {
       allItems.push(item);
       if (limit && allItems.length >= limit) {
@@ -678,6 +677,6 @@ export class PagedResults<T> {
       .process(async (data, index) => {
         await func(allItems[index]);
       })
-      .then(() => Promise.resolve());
+      .then(() => {});
   }
 }

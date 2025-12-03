@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "OpenAPI type definitions for Atlassian services",
   "type": "module",
+  "dependencies": {
+    "@zerobias-org/types-core": "^1.0.0"
+  },
   "scripts": {
     "clean": "rm -f models.yml",
     "generate:badge": "npx badge $(yq -oy e .name package.json) $(npm run -s get-version) :red @flat > version.svg",
@@ -26,7 +29,7 @@
     "directory": "packages/atlassian-typedefs"
   },
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com/"
+    "registry": "https://pkg.zerobias.org/"
   },
   "files": [
     "data",

@@ -8,13 +8,18 @@ const SEMVER_TYPE = 'semver';
  * Class representing a Semantic Version
  */
 export class Semver extends StringFormat<Semver> {
-  private static coreType: CoreType = CoreType.get(SEMVER_TYPE);
+  private static _coreType: ReturnType<typeof CoreType.get> | null = null;
+
+  private static get coreType() {
+    if (!Semver._coreType) Semver._coreType = CoreType.get(SEMVER_TYPE);
+    return Semver._coreType;
+  }
 
   private semver!: string;
 
   constructor(input: string) {
     super();
-    const cleanSemver = semver.clean(input, { includePrerelease: true, loose: true });
+    const cleanSemver = semver.clean(input, { loose: true });
     if (!cleanSemver) {
       throw new InvalidInputError(SEMVER_TYPE, input, Semver.examples());
     }

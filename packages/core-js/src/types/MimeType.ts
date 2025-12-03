@@ -6,14 +6,19 @@ import { CoreType } from '../CoreType.js';
 const require = createRequire(import.meta.url);
 const MIME_TYPES = require('@zerobias-org/types-core/data/mimeType/mimeTypes.json');
 
-const MIME_TYPE_REGEX = /^[a-z0-9-]+\/[a-z0-9-_+\\. =;/]+(".*")*$/i;
+const MIME_TYPE_REGEX = /^[\da-z-]+\/[\w +./;=\\-]+(".*")*$/i;
 
 /**
  * Class representing a MIME type
  */
 
 export class MimeType extends StringFormat<MimeType> {
-  private static coreType: CoreType = CoreType.get('mimeType');
+  private static _coreType: ReturnType<typeof CoreType.get> | null = null;
+
+  private static get coreType() {
+    if (!MimeType._coreType) MimeType._coreType = CoreType.get('mimeType');
+    return MimeType._coreType;
+  }
 
   private mimeType: string;
 
@@ -51,7 +56,7 @@ export class MimeType extends StringFormat<MimeType> {
   }
 
   private static isValid(input: string): boolean {
-    return !!input.match(MIME_TYPE_REGEX);
+    return !!MIME_TYPE_REGEX.test(input);
   }
 
   isUnknown(): boolean {

@@ -3,7 +3,12 @@ import { InvalidInputError } from '../errors/InvalidInputError.js';
 import { CoreType } from '../CoreType.js';
 
 export class Netmask extends StringFormat<Netmask> {
-  private static coreType: CoreType = CoreType.get('netmask');
+  private static _coreType: ReturnType<typeof CoreType.get> | null = null;
+
+  private static get coreType() {
+    if (!Netmask._coreType) Netmask._coreType = CoreType.get('netmask');
+    return Netmask._coreType;
+  }
 
   private netmask: string;
 
@@ -36,12 +41,12 @@ export class Netmask extends StringFormat<Netmask> {
     if (split.length !== 4) {
       throw new InvalidInputError('Netmask', input, Netmask.examples());
     }
-    split.forEach((group) => {
+    for (const group of split) {
       const groupNumValue = Number(group);
       if (Number.isNaN(groupNumValue) || groupNumValue < 0 || groupNumValue > 255) {
         throw new InvalidInputError('Netmask', input, Netmask.examples());
       }
-    });
+    }
     const binValue = split
       .map((group) => Number(group).toString(2).padStart(8, '0'))
       .join('.');
@@ -64,7 +69,7 @@ export class Netmask extends StringFormat<Netmask> {
     }
     return binValue
       .split('.')
-      .map((group) => parseInt(group, 2))
+      .map((group) => Number.parseInt(group, 2))
       .join('.');
   }
 

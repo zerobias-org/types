@@ -1,7 +1,7 @@
 type: object
 allOf:
-  - $ref: './../node_modules/@zerobias-org/types-core/schema/oauthTokenProfile.yml'
-  - $ref: './../node_modules/@zerobias-org/types-core/schema/oauthTokenState.yml'
+  - $ref: './../../../node_modules/@zerobias-org/types-core/schema/oauthTokenProfile.yml'
+  - $ref: './../../../node_modules/@zerobias-org/types-core/schema/oauthTokenState.yml'
   - type: object
     x-oauth-providers:
       - google.oauth

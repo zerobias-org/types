@@ -1,4 +1,4 @@
-import { ChangeOperationDef, EventKind, EventKindDef } from '../generated/model.js';
+import { ChangeOperationDef, EventKind, EventKindDef } from '../generated/model/index.js';
 import { UUID } from './types/UUID.js';
 import { Event, EventImpl } from './Event.js';
 
@@ -79,7 +79,7 @@ export class ChangeEventImpl<T> extends EventImpl<T> implements ChangeEvent<T> {
     return this.data;
   }
 
-  // eslint-disable-next-line class-methods-use-this
+   
   get kind(): EventKindDef {
     return EventKind.Change;
   }

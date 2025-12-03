@@ -1,5 +1,5 @@
 import { CoreError } from './CoreError.js';
-import { UnauthorizedError as Model } from '../../generated/model.js';
+import { UnauthorizedError as Model } from '../../generated/model/index.js';
 
 export class UnauthorizedError extends CoreError<Model> {
   static readonly MESSAGE_KEY = 'err.not.authorized';
@@ -14,7 +14,7 @@ export class UnauthorizedError extends CoreError<Model> {
       statusCode: 401,
       timestamp,
     });
-    // Set the prototype explicitly - https://github.com/Microsoft/TypeScript/wiki/Breaking-Changes#extending-built-ins-like-error-array-and-map-may-no-longer-work
+    // Set prototype explicitly for proper instanceof checks
     Object.setPrototypeOf(this, UnauthorizedError.prototype);
   }
 }

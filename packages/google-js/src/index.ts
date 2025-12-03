@@ -1,2 +1,1 @@
-/* eslint-disable import/no-cycle */
-export * from '../generated/model.js';
+export * from '../generated/model/index.js';

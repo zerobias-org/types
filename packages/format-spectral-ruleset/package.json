@@ -1,12 +1,18 @@
 {
   "name": "@zerobias-org/types-format-spectral-ruleset",
   "version": "1.0.0",
-  "description": "Spectral ruleset ensuring any type format is using the type name and not alternative formats",
+  "description": "Redocly plugin ensuring any type format is using the type name and not alternative formats",
   "type": "module",
-  "main": "ruleset.json",
+  "main": "plugin.js",
+  "exports": {
+    ".": "./plugin.js"
+  },
   "scripts": {
-    "test:lint:api": "npx spectral lint testapi.yml -r spectral.yml",
-    "transpile": "echo 'No transpile needed for spectral ruleset'"
+    "clean": "rimraf dist/ type-data.json",
+    "generate": "echo 'No generate needed for spectral-ruleset'",
+    "transpile": "node build.js",
+    "build": "npm run transpile",
+    "lint": "echo 'No lint needed for spectral-ruleset'"
   },
   "license": "ISC",
   "repository": {
@@ -17,15 +23,10 @@
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"
   },
-  "dependencies": {
-    "@zerobias-org/types-amazon-js": "^1.0.0",
-    "@zerobias-org/types-core-js": "^1.0.0",
-    "@zerobias-org/types-microsoft-js": "^1.0.0"
-  },
   "files": [
-    "functions/",
-    "ruleset.json",
-    "spectral.yml",
+    "dist",
+    "type-data.json",
     "bom.json"
-  ]
+  ],
+  "dependencies": {}
 }

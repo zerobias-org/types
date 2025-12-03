@@ -3,19 +3,19 @@ description: >-
   A GCP IAM Policy. More details [here](https://cloud.google.com/iam/docs/reference/rest/v1/Policy)
 properties:
   version:
-    $ref: './accessPolicyVersion.yml'
+    $ref: './gcpAccessPolicyVersion.yml'
   auditConfigs:
     type: array
     description: >-
       Specifies cloud audit logging configuration for this policy.
     items:
-      $ref: './accessPolicyAuditConfig.yml'
+      $ref: './gcpAccessPolicyAuditConfig.yml'
   bindings:
     type: array
     description: >-
       Associates a list of members to a role.
     items:
-      $ref: './accessPolicyBinding.yml'
+      $ref: './gcpAccessPolicyBinding.yml'
   etag:
     type: string
     description: >-

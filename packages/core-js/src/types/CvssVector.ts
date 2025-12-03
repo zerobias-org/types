@@ -5,7 +5,12 @@ import { InvalidInputError } from '../errors/index.js';
 import { Severity, SeverityDef } from '../index.js';
 
 export class CvssVector extends StringFormat<CvssVector> {
-  private static coreType = CoreType.get('cvssVector');
+  private static _coreType: ReturnType<typeof CoreType.get> | null = null;
+
+  private static get coreType() {
+    if (!CvssVector._coreType) CvssVector._coreType = CoreType.get('cvssVector');
+    return CvssVector._coreType;
+  }
 
   private cvss: string;
 

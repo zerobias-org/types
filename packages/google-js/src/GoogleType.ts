@@ -4,7 +4,7 @@ import {
   ObjectSerializer,
   GcpAccessPolicyAuditLogConfigType,
   GcpAccessPolicyVersion
-} from '../generated/model.js';
+} from '../generated/model/index.js';
 import * as primitiveTypes from './types/index.js';
 
 const require = createRequire(import.meta.url);

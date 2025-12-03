@@ -1,9 +1,9 @@
 import { IllegalArgumentError } from './errors/IllegalArgumentError.js';
 import { NoSuchObjectError } from './errors/NoSuchObjectError.js';
 import { TypeLibrary } from './TypeLibrary.js';
-import { Type } from '../generated/model.js';
+import { Type } from '../generated/model/index.js';
 import { CoreTypeLibrary } from './CoreTypeLibrary.js';
-import { UnexpectedError } from '.';
+import { UnexpectedError } from './errors/UnexpectedError.js';
 
 /**
  * Returns whether the current ref is a reference to the document's top level.
@@ -63,13 +63,13 @@ export class CoreType {
 
   private static find(ref: string): CoreType {
     const parts = (ref).split('/');
-    const name = parts[parts.length - 1];
+    const name = parts.at(-1)!;
     const typeName = name.endsWith('.yml')
       ? name.replace('.yml', '')
-      : `${name.charAt(0).toLowerCase()}${name.substring(1)}`;
+      : `${name.charAt(0).toLowerCase()}${name.slice(1)}`;
     try {
       return CoreType.get(typeName);
-    // eslint-disable-next-line no-empty
+     
     } catch (e) {}
 
     const type = Object.values(CoreType.types)
@@ -78,7 +78,7 @@ export class CoreType {
         // i.e. typeName: awsAccessPolicyStatement, filename and refs: aws/accessPolicyStatement
         if (name.toLowerCase().endsWith(t.name.toLowerCase()) && t.path) {
           const pathParts = t.path.split('/');
-          let full = `${pathParts[pathParts.length - 2]}${pathParts[pathParts.length - 1]}`;
+          let full = `${pathParts.at(-2)}${pathParts.at(-1)}`;
           full = full.replace('.yml', '');
           if (full.toLowerCase() === name.toLowerCase()) {
             return t;
@@ -94,12 +94,10 @@ export class CoreType {
   }
 
   static loadTypeLibrary(library: TypeLibrary) {
-    library.typeNames
-      .filter((tn) => !CoreType.typeNames.includes(tn))
-      .forEach((tn) => CoreType.typeNames.push(tn));
-    Object.keys(library.types)
-      .filter((k) => !CoreType.types[k])
-      .forEach((k) => { CoreType.types[k] = new CoreType(library.types[k], library); });
+    for (const tn of library.typeNames
+      .filter((tn) => !CoreType.typeNames.includes(tn))) CoreType.typeNames.push(tn);
+    for (const k of Object.keys(library.types)
+      .filter((k) => !CoreType.types[k])) { CoreType.types[k] = new CoreType(library.types[k], library); }
   }
 
   /**
@@ -244,6 +242,7 @@ export class CoreType {
 
   private static dereference(ref: string): { name: string, schema: unknown; } | null {
     try {
+      // eslint-disable-next-line unicorn/no-array-callback-reference -- CoreType.find is not Array.find
       const ct = CoreType.find(ref);
       const prop: { name: string, schema: unknown; } = {
         name: ct.name,
@@ -271,7 +270,8 @@ export class CoreType {
       .find((key) => key === 'anyOf' || key === 'oneOf');
     if (schema.allOf) {
       // merge objects
-      const sch = schema.allOf.reduce((res, subschema) => {
+      let sch = {};
+      for (const subschema of schema.allOf) {
         this.dereferenceSchema(subschema);
         const derefed = subschema.schema || subschema;
         if (derefed.type !== 'object') {
@@ -279,8 +279,8 @@ export class CoreType {
             `Unsupported schema ${subschema.type || JSON.stringify(subschema)}`
           );
         }
-        return mergeSchemas(res, derefed);
-      }, {});
+        sch = mergeSchemas(sch, derefed);
+      }
       delete schema.allOf;
       Object.assign(schema, sch);
     } else if (anyOfOneOfKey) {
@@ -298,10 +298,10 @@ export class CoreType {
       if (!deref) {
         // try to dereference FooModel_allOf -> FooModelAllOf
         const parts = schema.$ref.split('/');
-        let name = parts[parts.length - 1];
+        let name = parts.at(-1);
         if (schema.$ref.includes('_')) {
-          const splits = parts[parts.length - 1].split('_');
-          name = `${splits[0]}${splits[1].substring(0, 1).toUpperCase()}${splits[1].substring(1)}`;
+          const splits = parts.at(-1).split('_');
+          name = `${splits[0]}${splits[1].slice(0, 1).toUpperCase()}${splits[1].slice(1)}`;
         }
         const directSchema = this.library.getSchema(name);
         this.dereferenceSchema(directSchema);
@@ -329,26 +329,24 @@ export class CoreType {
     } else if (schema.type === 'array' && schema.items) {
       this.dereferenceSchema(schema.items);
     } else if (schema.type === 'object' && schema.properties) {
-      Object.keys(schema.properties).forEach((key: string) => {
+      for (const key of Object.keys(schema.properties)) {
         const nestedProperty = schema.properties[key];
         this.dereferenceSchema(nestedProperty);
-      });
+      }
     }
   }
 
   get schema(): Record<string, unknown> {
     if (!this._schema) {
       this._schema = this.library.getSchema(this.type.name);
-      if (Object.keys(this._schema).length === 0) {
-        if (this.type.path) {
+      if (Object.keys(this._schema).length === 0 && this.type.path) {
           const splits = this.type.path.split('/');
           if (splits.length === 4) {
-            // eslint-disable-next-line max-len
-            const fullname = `${splits[2]}${this.type.name.charAt(0).toUpperCase()}${this.type.name.substring(1)}`;
+             
+            const fullname = `${splits[2]}${this.type.name.charAt(0).toUpperCase()}${this.type.name.slice(1)}`;
             this._schema = this.library.getSchema(fullname);
           }
         }
-      }
       if (this._schema) {
         this.dereferenceSchema(this._schema);
       }
@@ -367,7 +365,7 @@ export class CoreType {
       type = '';
       for (let i = pathSplits.length - 1, len = 2; i >= len; i--) {
         if (!type.toLowerCase().startsWith(pathSplits[i].toLowerCase())) {
-          type = `${pathSplits[i].charAt(0).toUpperCase()}${pathSplits[i].substring(1)}${type}`;
+          type = `${pathSplits[i].charAt(0).toUpperCase()}${pathSplits[i].slice(1)}${type}`;
         }
       }
     }

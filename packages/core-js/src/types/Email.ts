@@ -6,9 +6,19 @@ import { CoreType } from '../CoreType.js';
  * Class representing an email
  */
 export class Email extends StringFormat<Email> {
-  private static coreType = CoreType.get('email');
+  private static _coreType: ReturnType<typeof CoreType.get> | null = null;
 
-  private static pattern = new RegExp(Email.coreType.pattern as string);
+  private static get coreType() {
+    if (!Email._coreType) Email._coreType = CoreType.get('email');
+    return Email._coreType;
+  }
+
+  private static _pattern: RegExp | null = null;
+
+  private static get pattern() {
+    if (!Email._pattern) Email._pattern = new RegExp(Email.coreType.pattern as string);
+    return Email._pattern;
+  }
 
   private email: string;
 

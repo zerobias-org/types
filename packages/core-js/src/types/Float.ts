@@ -6,7 +6,12 @@ import { InvalidInputError } from '../errors/index.js';
  * Class representing a floating-point number
  */
 export class Float extends NumberFormat<Float> {
-  private static coreType = CoreType.get('float');
+  private static _coreType: ReturnType<typeof CoreType.get> | null = null;
+
+  private static get coreType() {
+    if (!Float._coreType) Float._coreType = CoreType.get('float');
+    return Float._coreType;
+  }
 
   private value: number;
 
@@ -23,7 +28,7 @@ export class Float extends NumberFormat<Float> {
   }
 
   static examples(): Array<number> {
-    return this.coreType.examples.map((example) => Number(example));
+    return this.coreType.examples.map(Number);
   }
 
   static async parse(input: number): Promise<Float> {

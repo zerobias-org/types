@@ -1,7 +1,7 @@
 /* eslint-disable */
 import { expect } from 'chai';
 import { IpAddress, CoreType } from '../../src/index.js';
-import { Type } from '../../generated/model.js';
+import { Type } from '../../generated/model/index.js';
 
 describe('CoreType', function () {
   it('should return a list of all types', async function () {

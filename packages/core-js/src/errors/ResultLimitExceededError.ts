@@ -1,5 +1,5 @@
 import { CoreError } from './CoreError.js';
-import { ResultLimitExceededError as Model } from '../../generated/model.js';
+import { ResultLimitExceededError as Model } from '../../generated/model/index.js';
 
 export class ResultLimitExceededError extends CoreError<Model> {
   static readonly MESSAGE_KEY = 'err.result.limit.exceeded';
@@ -19,11 +19,8 @@ export class ResultLimitExceededError extends CoreError<Model> {
       requested,
       returned,
     });
-    // Set the prototype explicitly - https://github.com/Microsoft/TypeScript/wiki/Breaking-Changes#extending-built-ins-like-error-array-and-map-may-no-longer-work
+    // Set prototype explicitly for proper instanceof checks
     Object.setPrototypeOf(this, ResultLimitExceededError.prototype);
-    this.message = this._model.template
-      .replace('{requested}', this.requested.toString())
-      .replace('{returned}', this.returned.toString());
   }
 
   get requested(): number {

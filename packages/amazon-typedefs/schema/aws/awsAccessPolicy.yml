@@ -17,4 +17,4 @@ properties:
     description: >-
       A list of policy statements.
     items:
-      $ref : './accessPolicyStatement.yml'
+      $ref : './awsAccessPolicyStatement.yml'

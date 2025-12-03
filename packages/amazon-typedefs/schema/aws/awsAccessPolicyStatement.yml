@@ -7,7 +7,7 @@ properties:
     description: >-
       An optional statement ID to differentiate between statements.
   effect:
-    $ref: './accessPolicyStatementEffect.yml'
+    $ref: './awsAccessPolicyStatementEffect.yml'
   principal:
     type: object
     description: >-
@@ -45,7 +45,7 @@ properties:
       anyOf:
         - type: string
           format: arn
-        - $ref: './accessPolicyStatementResource.yml'
+        - $ref: './awsAccessPolicyStatementResource.yml'
   notResources:
     type: array
     description: >-
@@ -55,10 +55,10 @@ properties:
       anyOf:
         - type: string
           format: arn
-        - $ref: './accessPolicyStatementResource.yml'
+        - $ref: './awsAccessPolicyStatementResource.yml'
   conditions:
     type: array
     description: >-
       The circumstances under which the policy grants permission.
     items:
-      $ref: './accessPolicyStatementCondition.yml'
+      $ref: './awsAccessPolicyStatementCondition.yml'

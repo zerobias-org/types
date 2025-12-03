@@ -1,5 +1,5 @@
 import { StringFormat, InvalidInputError, EnumValue } from '@zerobias-org/types-core-js';
-import { AzureResourceProvider, AzureResourceProviderDef } from '../../generated/model.js';
+import { AzureResourceProvider, AzureResourceProviderDef } from '../../generated/model/index.js';
 import { MicrosoftType } from '../MicrosoftType.js';
 
 /**
@@ -16,12 +16,12 @@ export class AzureResourceType extends StringFormat<AzureResourceType> {
 
   constructor(resourceType: string) {
     super();
-    const providerStr = resourceType.substring(0, resourceType.indexOf('/'));
+    const providerStr = resourceType.slice(0, resourceType.indexOf('/'));
     this._provider = AzureResourceType.toAzureResourceProvider(providerStr);
     if (!this.provider) {
       throw new InvalidInputError('resourceType', resourceType, AzureResourceType.examples());
     }
-    this._path = resourceType.substring(resourceType.indexOf('/'));
+    this._path = resourceType.slice(resourceType.indexOf('/'));
     this.resourceType = resourceType;
   }
 
@@ -46,12 +46,9 @@ export class AzureResourceType extends StringFormat<AzureResourceType> {
   }
 
   private static toAzureResourceProvider(input: string): EnumValue {
-    let strValue;
-    if (input === '84codes.CloudAMQP') {
-      strValue = 'cloudamqp';
-    } else {
-      strValue = input.toLowerCase().replace(/\./g, '_');
-    }
+    const strValue = input === '84codes.CloudAMQP'
+      ? 'cloudamqp'
+      : input.toLowerCase().replaceAll('.', '_');
     return AzureResourceProvider.from(strValue);
   }
 

@@ -7,18 +7,23 @@
   "types": "dist/src/index.d.ts",
   "exports": {
     ".": {
+      "types": "./dist/src/index.d.ts",
       "import": "./dist/src/index.js",
-      "types": "./dist/src/index.d.ts"
+      "require": "./dist/src/index.js",
+      "default": "./dist/src/index.js"
     },
     "./*": {
+      "types": "./dist/src/*.d.ts",
       "import": "./dist/src/*.js",
-      "types": "./dist/src/*.d.ts"
+      "require": "./dist/src/*.js",
+      "default": "./dist/src/*.js"
     }
   },
   "scripts": {
     "clean": "rimraf dist/ .docs/ generated/",
+    "generate": "npm run generate:code",
     "transpile": "tsc",
-    "build": "npm run generate:code && npm run transpile",
+    "build": "npm run generate && npm run transpile",
     "test": "mocha --inline-diffs --reporter=list test/unit/**/*.ts",
     "test:unit": "mocha --inline-diffs --reporter=list test/unit/*.ts",
     "test:watch": "npm run test -- --watch --reporter=min",
@@ -27,7 +32,7 @@
     "docs": "npm run docs:tsdoc && npm run docs:combine",
     "version": "npm run generate:badge && git add version.svg",
     "generate:badge": "npx badge $(yq -oy e .name package.json) $(npm run -s get-version) :red @flat > version.svg",
-    "generate:code": "JAVA_OPTS=\"${JAVA_OPTS} -DcoreTypesSource=../../src\" hub-generator generate -g hub-module --additional-properties supportsES6=true -p skipHubImpl=true -p isCore=true -i ./node_modules/@zerobias-org/types-core/models.yml -o generated/",
+    "generate:code": "JAVA_OPTS=\"${JAVA_OPTS} -DcoreTypesSource=../../src\" hub-generator generate -g hub-module --additional-properties supportsES6=true -p skipHubImpl=true -p isCore=true -i ../../node_modules/@zerobias-org/types-core/models.yml -o generated/ && ./bin/fix-generated-esm.sh generated",
     "lint": "eslint src/",
     "lint:fix": "eslint --fix src/",
     "get-version": "node -p \"require('./package.json').version\""
@@ -43,7 +48,7 @@
     "directory": "packages/core-js"
   },
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com/"
+    "registry": "https://pkg.zerobias.org/"
   },
   "files": [
     "dist/src",

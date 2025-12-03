@@ -7,16 +7,26 @@ import { IpAddress } from './IpAddress.js';
  * Class representing a hostname
  */
 export class Hostname extends StringFormat<Hostname> {
-  private static coreType: CoreType = CoreType.get('hostname');
+  private static _coreType: ReturnType<typeof CoreType.get> | null = null;
 
-  private static pattern = new RegExp(Hostname.coreType.pattern as string);
+  private static get coreType() {
+    if (!Hostname._coreType) Hostname._coreType = CoreType.get('hostname');
+    return Hostname._coreType;
+  }
+
+  private static _pattern: RegExp | null = null;
+
+  private static get pattern() {
+    if (!Hostname._pattern) Hostname._pattern = new RegExp(Hostname.coreType.pattern as string);
+    return Hostname._pattern;
+  }
 
   private hostname: string;
 
   constructor(hostname: string) {
     super();
     try {
-      // eslint-disable-next-line no-new
+       
       new IpAddress(hostname);
       throw new InvalidInputError('hostname', hostname, Hostname.examples());
     } catch (e) {

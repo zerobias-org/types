@@ -17,7 +17,7 @@ export abstract class StringFormat<T extends StringFormat<T>> {
    * @param input - the input value to parse into an object
    * @returns the given input represented as this type
    */
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+   
   static async parse(input: string): Promise<StringFormat<any>> {
     throw new Error('unimplemented');
   }
@@ -33,7 +33,7 @@ export abstract class StringFormat<T extends StringFormat<T>> {
    * @param value
    * @returns
    */
-  // eslint-disable-next-line class-methods-use-this
+   
   matches(value: any): boolean {
     throw new Error('unimplemented');
   }
@@ -50,9 +50,9 @@ export abstract class StringFormat<T extends StringFormat<T>> {
   abstract equals(other?: any): boolean;
 
   /**
-   * @returns Method supporting CTF from {@link https://github.com/vitaly-t/pg-promise#custom-type-formatting}. This enables types to be seamlessly utilized in `pg-promise`
+   * @returns Method supporting CTF for pg-promise custom type formatting
    */
-  // eslint-disable-next-line class-methods-use-this
+   
   toPostgres(self: T): any {
     return self.toString();
   }

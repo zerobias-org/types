@@ -1,6 +1,6 @@
 import { expect } from "chai";
 import { CronImpl } from "../../src/Cron.js";
-import { CronExpression, DayOfWeek, Month, TimeZone } from "../../generated/model.js";
+import { CronExpression, DayOfWeek, Month, TimeZone } from "../../generated/model/index.js";
 
 describe('CronEvent', function () {
   it('should handle a cron string #1', async function () {

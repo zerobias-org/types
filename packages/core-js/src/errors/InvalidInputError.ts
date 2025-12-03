@@ -1,5 +1,5 @@
 import { CoreError } from './CoreError.js';
-import { InvalidInputError as Model } from '../../generated/model.js';
+import { InvalidInputError as Model } from '../../generated/model/index.js';
 
 export class InvalidInputError extends CoreError<Model> {
   static readonly MESSAGE_KEY = 'err.invalid.input';
@@ -26,11 +26,8 @@ export class InvalidInputError extends CoreError<Model> {
       value,
       examples: examples.map((v: string | number) => v.toString()),
     });
-    // Set the prototype explicitly - https://github.com/Microsoft/TypeScript/wiki/Breaking-Changes#extending-built-ins-like-error-array-and-map-may-no-longer-work
+    // Set prototype explicitly for proper instanceof checks
     Object.setPrototypeOf(this, InvalidInputError.prototype);
-    this.message = this._model.template
-      .replace('{type}', this.type)
-      .replace('{value}', this.value);
   }
 
   get type(): string {

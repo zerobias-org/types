@@ -7,7 +7,12 @@ export type OIDInput = string | number | Array<number> | Array<string>;
  * Class representing an OID (Object Identifier)
  */
 export class OID extends StringFormat<OID> {
-  private static coreType:CoreType = CoreType.get('oid');
+  private static _coreType: ReturnType<typeof CoreType.get> | null = null;
+
+  private static get coreType() {
+    if (!OID._coreType) OID._coreType = CoreType.get('oid');
+    return OID._coreType;
+  }
 
   oid: number[];
 
@@ -23,18 +28,18 @@ export class OID extends StringFormat<OID> {
         throw new InvalidInputError('oid', oid, OID.examples());
       }
       for (let i = 0; i < oid.length; i++) {
-        const value = parseInt(oid[i].toString(), 10);
+        const value = Number.parseInt(oid[i].toString(), 10);
         if (Number.isNaN(value) || value < 0) {
           throw new InvalidInputError('oid', oid, OID.examples());
         }
         this.oid.push(value);
       }
     } else if (typeof oid === 'string' && oid.startsWith('{')) {
-      const s = oid.substring(1, oid.length - 1);
+      const s = oid.slice(1, -1);
       if (s.length > 0) {
         const parts = s.split(',');
-        for (let i = 0; i < parts.length; i++) {
-          const value = parseInt(parts[i], 10);
+        for (const part of parts) {
+          const value = Number.parseInt(part, 10);
           if (Number.isNaN(value) || value < 0) {
             throw new InvalidInputError('oid', oid, OID.examples());
           }
@@ -47,8 +52,8 @@ export class OID extends StringFormat<OID> {
         throw new InvalidInputError('oid', oid, OID.examples());
       }
       const parts = s.split('.');
-      for (let i = 0; i < parts.length; i++) {
-        const value = parseInt(parts[i], 10);
+      for (const part of parts) {
+        const value = Number.parseInt(part, 10);
         if (Number.isNaN(value)) {
           throw new InvalidInputError('oid', oid, OID.examples());
         }
@@ -121,7 +126,7 @@ export class OID extends StringFormat<OID> {
       if (v1 === v2) {
         mid.push(v1);
       } else {
-        const midpoint = (v2 - v1) / 2.0;
+        const midpoint = (v2 - v1) / 2;
         const whole = Math.floor(midpoint);
         const decimal = midpoint - whole;
         mid.push(v1 + whole);

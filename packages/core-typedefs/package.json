@@ -26,7 +26,7 @@
     "directory": "packages/core-typedefs"
   },
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com/"
+    "registry": "https://pkg.zerobias.org/"
   },
   "files": [
     "data",
@@ -34,5 +34,9 @@
     "models.yml",
     "*.md",
     "bom.json"
-  ]
+  ],
+  "dependencies": {},
+  "devDependencies": {
+    "@zerobias-org/types-format-spectral-ruleset": "^1.0.0"
+  }
 }

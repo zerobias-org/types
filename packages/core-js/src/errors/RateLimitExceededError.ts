@@ -1,5 +1,5 @@
 import { CoreError } from './CoreError.js';
-import { RateLimitExceededError as Model } from '../../generated/model.js';
+import { RateLimitExceededError as Model } from '../../generated/model/index.js';
 
 export class RateLimitExceededError extends CoreError<Model> {
   static readonly MESSAGE_KEY = 'err.rate.limit.exceeded';

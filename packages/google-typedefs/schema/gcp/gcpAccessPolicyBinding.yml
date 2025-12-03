@@ -17,4 +17,4 @@ properties:
     items:
       type: string
   condition:
-    $ref: './accessPolicyBindingCondition.yml'
+    $ref: './gcpAccessPolicyBindingCondition.yml'

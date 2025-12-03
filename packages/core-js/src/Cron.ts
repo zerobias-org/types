@@ -1,10 +1,9 @@
-import { CronExpression as CronParserExpression, parseExpression } from 'cron-parser';
-import { CronExpression, DayOfWeek, Month, TimeZoneDef } from '../generated/model.js';
+import { CronExpression as CronParserExpression, CronExpressionParser } from 'cron-parser';
+import { CronExpression, DayOfWeek, Month, TimeZoneDef } from '../generated/model/index.js';
 
-function parseCron(expression: string, tz?: TimeZoneDef): CronParserExpression<false> {
-  return parseExpression(expression, {
+function parseCron(expression: string, tz?: TimeZoneDef): CronParserExpression {
+  return CronExpressionParser.parse(expression, {
     tz: tz?.toString(),
-    utc: tz === undefined,
   });
 }
 
@@ -49,7 +48,7 @@ function parseCronModel(expression: CronExpression, tz?: TimeZoneDef): CronParse
 }
 
 export class CronImpl {
-  private readonly _cronExpression: CronParserExpression<false>;
+  private readonly _cronExpression: CronParserExpression;
 
   private readonly _cron: CronExpression;
 
@@ -64,19 +63,19 @@ export class CronImpl {
   }
 
   constructor(expression: string | CronExpression, timeZone?: TimeZoneDef) {
-    if (typeof expression !== 'string') {
-      this._cronExpression = parseCronModel(expression, timeZone);
-      this._cron = expression;
-    } else {
+    if (typeof expression === 'string') {
       this._cronExpression = parseCron(expression.toString(), timeZone);
       const { fields } = this._cronExpression;
       this._cron = CronExpression.newInstance({
-        minute: fields.minute,
-        hour: fields.hour,
-        dayOfMonth: fields.dayOfMonth,
-        month: fields.month.map((m) => Month[m - 1]),
-        dayOfWeek: fields.dayOfWeek.map((d) => DayOfWeek[d]),
+        minute: [...fields.minute.values],
+        hour: [...fields.hour.values],
+        dayOfMonth: [...fields.dayOfMonth.values],
+        month: fields.month.values.map((m) => Month.values[m - 1]),
+        dayOfWeek: fields.dayOfWeek.values.map((d) => DayOfWeek.values[d]),
       });
+    } else {
+      this._cronExpression = parseCronModel(expression, timeZone);
+      this._cron = expression;
     }
     this._tz = timeZone;
   }

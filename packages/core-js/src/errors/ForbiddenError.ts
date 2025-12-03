@@ -1,5 +1,5 @@
 import { CoreError } from './CoreError.js';
-import { ForbiddenError as Model } from '../../generated/model.js';
+import { ForbiddenError as Model } from '../../generated/model/index.js';
 
 export class ForbiddenError extends CoreError<Model> {
   static readonly MESSAGE_KEY = 'err.forbidden';
@@ -14,7 +14,7 @@ export class ForbiddenError extends CoreError<Model> {
       statusCode: 403,
       timestamp,
     });
-    // Set the prototype explicitly - https://github.com/Microsoft/TypeScript/wiki/Breaking-Changes#extending-built-ins-like-error-array-and-map-may-no-longer-work
+    // Set prototype explicitly for proper instanceof checks
     Object.setPrototypeOf(this, ForbiddenError.prototype);
   }
 }

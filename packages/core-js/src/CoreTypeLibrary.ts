@@ -10,21 +10,21 @@ import {
   GeoCountry,
   HttpMethod,
   Language,
-  LanguageLocale,
+  Locale,
   ObjectSerializer,
   OpenApiMethod,
   TimeZone,
   TimeZoneType,
-  TlsAsymmetricKey,
-  TlsCipherSuite,
+  AsymmetricKey,
+  CipherSuite,
   TlsProtocol,
-  TlsSignatureAlgorithm,
+  SignatureAlgorithm,
   CloudAvailabilityZone,
   SortDirection,
   Severity,
   DayOfWeek,
   Month
-} from '../generated/model.js';
+} from '../generated/model/index.js';
 import * as primitiveTypes from './types/index.js';
 
 const require = createRequire(import.meta.url);
@@ -48,11 +48,11 @@ export class CoreTypeLibrary extends TypeLibrary {
         geoCountry: GeoCountry,
         geoSubdivision: GeoSubdivision,
         language: Language,
-        locale: LanguageLocale,
-        asymmetricKey: TlsAsymmetricKey,
-        cipherSuite: TlsCipherSuite,
+        locale: Locale,
+        asymmetricKey: AsymmetricKey,
+        cipherSuite: CipherSuite,
         tlsProtocol: TlsProtocol,
-        signatureAlgorithm: TlsSignatureAlgorithm,
+        signatureAlgorithm: SignatureAlgorithm,
         timeZone: TimeZone,
         timeZoneType: TimeZoneType,
         httpMethod: HttpMethod,
@@ -75,13 +75,20 @@ export class CoreTypeLibrary extends TypeLibrary {
 
   override newInstance(type: string, args: any) {
     switch (type) {
-      case 'date-time': return super.newInstance('DateTime', args);
-      case 'date': return super.newInstance('DateFormat', args);
-      case 'number': return super.newInstance('Double', args);
-      case 'url': return super.newInstance('URL', args);
-      case 'uuid': return super.newInstance('UUID', args);
-      case 'oid': return super.newInstance('OID', args);
-      default: return super.newInstance(type, args);
+      case 'date-time': { return super.newInstance('DateTime', args);
+      }
+      case 'date': { return super.newInstance('DateFormat', args);
+      }
+      case 'number': { return super.newInstance('Double', args);
+      }
+      case 'url': { return super.newInstance('URL', args);
+      }
+      case 'uuid': { return super.newInstance('UUID', args);
+      }
+      case 'oid': { return super.newInstance('OID', args);
+      }
+      default: { return super.newInstance(type, args);
+      }
     }
   }
 }

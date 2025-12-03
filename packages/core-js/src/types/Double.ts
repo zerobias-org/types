@@ -6,7 +6,12 @@ import { InvalidInputError } from '../errors/index.js';
  * Class representing a floating-point number with double precision
  */
 export class Double extends NumberFormat<Double> {
-  private static coreType = CoreType.get('double');
+  private static _coreType: ReturnType<typeof CoreType.get> | null = null;
+
+  private static get coreType() {
+    if (!Double._coreType) Double._coreType = CoreType.get('double');
+    return Double._coreType;
+  }
 
   private value: number;
 
@@ -23,7 +28,7 @@ export class Double extends NumberFormat<Double> {
   }
 
   static examples(): Array<number> {
-    return this.coreType.examples.map((example) => Number(example));
+    return this.coreType.examples.map(Number);
   }
 
   static async parse(input: number): Promise<Double> {

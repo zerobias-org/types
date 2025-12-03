@@ -6,9 +6,19 @@ import { CoreType } from '../CoreType.js';
  * Class representing a duration
  */
 export class DateFormat extends StringFormat<DateFormat> {
-  private static coreType = CoreType.get('date');
+  private static _coreType: ReturnType<typeof CoreType.get> | null = null;
 
-  private static pattern = new RegExp(DateFormat.coreType.pattern as string);
+  private static get coreType() {
+    if (!DateFormat._coreType) DateFormat._coreType = CoreType.get('date');
+    return DateFormat._coreType;
+  }
+
+  private static _pattern: RegExp | null = null;
+
+  private static get pattern() {
+    if (!DateFormat._pattern) DateFormat._pattern = new RegExp(DateFormat.coreType.pattern as string);
+    return DateFormat._pattern;
+  }
 
   private date: Date;
 

@@ -1,6 +1,6 @@
 openapi: 3.0.2
 info:
-  version: 4.8.3
+  version: 4.9.2
   description: A collection of OpenApi core type snippets
   title: '@zerobias-org/types-core'
 paths:
@@ -15,6 +15,134 @@ paths:
 components:
   schemas:
     EnvType:
+      $ref: '#/components/schemas/envType'
+    CronEvent:
+      $ref: '#/components/schemas/cronEvent'
+    TokenConnectionState:
+      $ref: '#/components/schemas/tokenConnectionState'
+    BaseConnectionState:
+      $ref: '#/components/schemas/baseConnectionState'
+    CloudRegion:
+      $ref: '#/components/schemas/cloudRegion'
+    CloudMarket:
+      $ref: '#/components/schemas/cloudMarket'
+    CloudAvailabilityZone:
+      $ref: '#/components/schemas/cloudAvailabilityZone'
+    CloudRegionInfo:
+      $ref: '#/components/schemas/cloudRegionInfo'
+    CloudProvider:
+      $ref: '#/components/schemas/cloudProvider'
+    CloudMarketInfo:
+      $ref: '#/components/schemas/cloudMarketInfo'
+    GeoPoint:
+      $ref: '#/components/schemas/geoPoint'
+    GeoSubdivision:
+      $ref: '#/components/schemas/geoSubdivision'
+    GeoCountry:
+      $ref: '#/components/schemas/geoCountry'
+    GeoCountryInfo:
+      $ref: '#/components/schemas/geoCountryInfo'
+    OpenApiMethod:
+      $ref: '#/components/schemas/openApiMethod'
+    LanguageInfo:
+      $ref: '#/components/schemas/languageInfo'
+    Language:
+      $ref: '#/components/schemas/language'
+    LanguageLocale:
+      $ref: '#/components/schemas/locale'
+    HttpMethod:
+      $ref: '#/components/schemas/httpMethod'
+    Severity:
+      $ref: '#/components/schemas/severity'
+    TlsCipherSuiteInfo:
+      $ref: '#/components/schemas/cipherSuiteInfo'
+    TlsCipherSuite:
+      $ref: '#/components/schemas/cipherSuite'
+    TlsX509Subject:
+      $ref: '#/components/schemas/x509Subject'
+    TlsSignatureAlgorithm:
+      $ref: '#/components/schemas/signatureAlgorithm'
+    TlsAsymmetricKey:
+      $ref: '#/components/schemas/asymmetricKey'
+    TlsProtocol:
+      $ref: '#/components/schemas/tlsProtocol'
+    TlsX509Certificate:
+      $ref: '#/components/schemas/x509Certificate'
+    TlsAsymmetricKeyInfo:
+      $ref: '#/components/schemas/asymmetricKeyInfo'
+    InvalidStateError:
+      $ref: '#/components/schemas/invalidStateError'
+    ConflictError:
+      $ref: '#/components/schemas/conflictError'
+    NoSuchObjectError:
+      $ref: '#/components/schemas/noSuchObjectError'
+    UnauthenticatedError:
+      $ref: '#/components/schemas/unauthenticatedError'
+    ParameterRequiredError:
+      $ref: '#/components/schemas/parameterRequiredError'
+    TimeoutError:
+      $ref: '#/components/schemas/timeoutError'
+    InvalidInputError:
+      $ref: '#/components/schemas/invalidInputError'
+    IllegalArgumentError:
+      $ref: '#/components/schemas/illegalArgumentError'
+    CoreErrorModel:
+      $ref: '#/components/schemas/coreErrorModel'
+    ForbiddenError:
+      $ref: '#/components/schemas/forbiddenError'
+    NotFoundError:
+      $ref: '#/components/schemas/notFoundError'
+    InvalidCredentialsError:
+      $ref: '#/components/schemas/invalidCredentialsError'
+    UnexpectedError:
+      $ref: '#/components/schemas/unexpectedError'
+    EulaNotAcceptedError:
+      $ref: '#/components/schemas/eulaNotAcceptedError'
+    UnauthorizedError:
+      $ref: '#/components/schemas/unauthorizedError'
+    ResultLimitExceededError:
+      $ref: '#/components/schemas/resultLimitExceededError'
+    NotConnectedError:
+      $ref: '#/components/schemas/notConnectedError'
+    ErrorModelBase:
+      $ref: '#/components/schemas/errorModelBase'
+    RateLimitExceededError:
+      $ref: '#/components/schemas/rateLimitExceededError'
+    CronExpression:
+      $ref: '#/components/schemas/cronExpression'
+    OauthTokenProfile:
+      $ref: '#/components/schemas/oauthTokenProfile'
+    EventKind:
+      $ref: '#/components/schemas/eventKind'
+    BasicConnection:
+      $ref: '#/components/schemas/basicConnection'
+    TimeZoneInfo:
+      $ref: '#/components/schemas/timeZoneInfo'
+    TimeZone:
+      $ref: '#/components/schemas/timeZone'
+    TimeZoneType:
+      $ref: '#/components/schemas/timeZoneType'
+    TokenProfile:
+      $ref: '#/components/schemas/tokenProfile'
+    SortDirection:
+      $ref: '#/components/schemas/sortDirection'
+    ChangeOperation:
+      $ref: '#/components/schemas/changeOperation'
+    Event:
+      $ref: '#/components/schemas/event'
+    Month:
+      $ref: '#/components/schemas/month'
+    OauthClientProfile:
+      $ref: '#/components/schemas/oauthClientProfile'
+    DayOfWeek:
+      $ref: '#/components/schemas/dayOfWeek'
+    OauthTokenState:
+      $ref: '#/components/schemas/oauthTokenState'
+    ChangeEvent:
+      $ref: '#/components/schemas/changeEvent'
+    Type:
+      $ref: '#/components/schemas/type'
+    envType:
       type: string
       enum:
         - prod
@@ -32,13 +160,53 @@ components:
         - Development
         - Continuous Integration
         - Lab / Evaluation
-    CronEvent:
+    eventKind:
+      type: string
+      description: Describes the concrete type for this event. This may be used alongside openapi `discriminator` to get a union type.
+      enum:
+        - change
+        - base
+        - cron
+    event:
+      type: object
+      description: Generic event
+      required:
+        - id
+        - kind
+        - type
+        - data
+      properties:
+        id:
+          type: string
+          format: uuid
+        type:
+          type: string
+          description: A service defined event type, e.g. `change.Tag`
+        principalId:
+          type: string
+          nullable: true
+          format: uuid
+        orgId:
+          type: string
+          nullable: true
+          format: uuid
+        service:
+          type: string
+          nullable: true
+          description: An opaque string for describing the service who caused this event. Support for this field is up to the specific implementation as is its format and meaning.
+        data:
+          type: object
+          additionalProperties: {}
+          description: The event data
+        kind:
+          $ref: '#/components/schemas/eventKind'
+    cronEvent:
       type: object
       description: Generic cron event
       required:
         - cronId
       allOf:
-        - $ref: '#/components/schemas/Event'
+        - $ref: '#/components/schemas/event'
         - type: object
           properties:
             cronId:
@@ -46,16 +214,27 @@ components:
               description: An identifier for the cron schedule which issued the event
             cronType:
               type: string
-              description: 'The type of cron event being fired.  This is part of `event.type` used for registering handlers. i.e. cron.trigger, cron.oauth_refresh'
-    TokenConnectionState:
+              description: The type of cron event being fired.  This is part of `event.type` used for registering handlers. i.e. cron.trigger, cron.oauth_refresh
+    baseConnectionState:
       type: object
       properties:
-        accessToken:
-          description: The access token returned by the Auth client
-          type: string
-          format: password
-          example: MTQ0NjJkZmQ5OTM2NDE1ZTZjNGZmZjI3
-    CloudRegion:
+        expiresIn:
+          type: number
+          format: int64
+          description: Number of seconds after which the access token becomes invalid
+          example: 3600
+    tokenConnectionState:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/baseConnectionState'
+        - type: object
+          properties:
+            accessToken:
+              description: The access token returned by the Auth client
+              type: string
+              format: password
+              example: MTQ0NjJkZmQ5OTM2NDE1ZTZjNGZmZjI3
+    cloudRegion:
       type: string
       description: A collection of Cloud Region Codes
       enum:
@@ -204,7 +383,7 @@ components:
         - Azure West India
         - Azure West US
         - Azure West US 2
-    CloudMarket:
+    cloudMarket:
       type: string
       description: A collection of Cloud Market Codes.
       enum:
@@ -237,7 +416,7 @@ components:
         - azure_kr
         - azure_af
         - azure_uae
-    CloudAvailabilityZone:
+    cloudAvailabilityZone:
       type: string
       description: An availability zone code.
       enum:
@@ -560,7 +739,17 @@ components:
         - gcp_us_west4_a
         - gcp_us_west4_b
         - gcp_us_west4_c
-    CloudRegionInfo:
+    cloudProvider:
+      type: string
+      enum:
+        - aws
+        - azure
+        - gcp
+      x-enum-descriptions:
+        - Amazon AWS
+        - Microsoft Azure
+        - Google Cloud Platform
+    cloudRegionInfo:
       type: object
       description: Model describing the region where a cloud site operates.
       required:
@@ -571,10 +760,10 @@ components:
         - provider
       properties:
         code:
-          $ref: '#/components/schemas/CloudRegion'
+          $ref: '#/components/schemas/cloudRegion'
           description: Globally unique and referencable ID for this region.
         cloudMarketId:
-          $ref: '#/components/schemas/CloudMarket'
+          $ref: '#/components/schemas/cloudMarket'
           description: ID referencing the CloudMarket this Region operates in.
         name:
           type: string
@@ -583,19 +772,9 @@ components:
           type: string
           description: A more specific location for this region's datacenter (i.e. - the city it exists in)
         provider:
-          $ref: '#/components/schemas/CloudProvider'
-          description: 'The cloud provider (i.e. - azure, aws, gcp)'
-    CloudProvider:
-      type: string
-      enum:
-        - aws
-        - azure
-        - gcp
-      x-enum-descriptions:
-        - Amazon AWS
-        - Microsoft Azure
-        - Google Cloud Platform
-    CloudMarketInfo:
+          $ref: '#/components/schemas/cloudProvider'
+          description: The cloud provider (i.e. - azure, aws, gcp)
+    cloudMarketInfo:
       type: object
       description: The geography or market where a cloud is offered that sets data sovereignty and compliance features.
       required:
@@ -607,10 +786,10 @@ components:
       properties:
         id:
           description: A globally unique identifier for this region. These should be constants which can be referenced from anywhere to signify the same market.
-          $ref: '#/components/schemas/CloudMarket'
+          $ref: '#/components/schemas/cloudMarket'
         cloudProvider:
           description: The cloud provider for this market.
-          $ref: '#/components/schemas/CloudProvider'
+          $ref: '#/components/schemas/cloudProvider'
         name:
           type: string
           description: A human-friendly name for this market.
@@ -620,7 +799,7 @@ components:
         compliance:
           type: string
           description: Description of the compliance features of this market.
-    GeoPoint:
+    geoPoint:
       type: object
       description: Model describing the location with latitude and longitude.
       required:
@@ -633,7 +812,7 @@ components:
         longitude:
           type: number
           format: double
-    GeoSubdivision:
+    geoSubdivision:
       type: string
       description: An ISO-3166-2 subdivision.
       enum:
@@ -4643,7 +4822,7 @@ components:
         - Quindio
         - Risaralda
         - Santander
-        - 'San Andres, Providencia y Santa Catalina'
+        - San Andres, Providencia y Santa Catalina
         - Sucre
         - Tolima
         - Valle del Cauca
@@ -4689,7 +4868,7 @@ components:
         - Ammochostos
         - Pafos
         - Keryneia
-        - 'Praha, Hlavni mesto'
+        - Praha, Hlavni mesto
         - Stredocesky kraj
         - Jihocesky kraj
         - Plzensky kraj
@@ -4882,7 +5061,7 @@ components:
         - Shimali al Bahri al Ahmar
         - Andalucia
         - Aragon
-        - 'Asturias, Principado de'
+        - Asturias, Principado de
         - Cantabria
         - Ceuta
         - Castilla y Leon
@@ -4892,13 +5071,13 @@ components:
         - Extremadura
         - Galicia
         - Illes Balears
-        - 'Murcia, Region de'
-        - 'Madrid, Comunidad de'
+        - Murcia, Region de
+        - Madrid, Comunidad de
         - Melilla
-        - 'Navarra, Comunidad Foral de'
+        - Navarra, Comunidad Foral de
         - Pais Vasco
         - La Rioja
-        - 'Valenciana, Comunidad'
+        - Valenciana, Comunidad
         - Adis Abeba
         - Afar
         - Amara
@@ -5694,7 +5873,7 @@ components:
         - Edinet
         - Falesti
         - Floresti
-        - 'Gagauzia, Unitatea teritoriala autonoma'
+        - Gagauzia, Unitatea teritoriala autonoma
         - Glodeni
         - Hincesti
         - Ialoveni
@@ -5706,7 +5885,7 @@ components:
         - Riscani
         - Soldanesti
         - Singerei
-        - 'Stinga Nistrului, unitatea teritoriala din'
+        - Stinga Nistrului, unitatea teritoriala din
         - Soroca
         - Straseni
         - Stefan Voda
@@ -6450,22 +6629,22 @@ components:
         - Pecki okrug
         - Prizrenski okrug
         - Kosovsko-Mitrovacki okrug
-        - 'Adygeya, Respublika'
-        - 'Altay, Respublika'
+        - Adygeya, Respublika
+        - Altay, Respublika
         - Altayskiy kray
         - Amurskaya oblast'
         - Arkhangel'skaya oblast'
         - Astrakhanskaya oblast'
-        - 'Bashkortostan, Respublika'
+        - Bashkortostan, Respublika
         - Belgorodskaya oblast'
         - Bryanskaya oblast'
-        - 'Buryatiya, Respublika'
+        - Buryatiya, Respublika
         - Chechenskaya Respublika
         - Chelyabinskaya oblast'
         - Chukotskiy avtonomnyy okrug
         - Chuvashskaya Respublika
-        - 'Dagestan, Respublika'
-        - 'Ingushetiya, Respublika'
+        - Dagestan, Respublika
+        - Ingushetiya, Respublika
         - Irkutskaya oblast'
         - Ivanovskaya oblast'
         - Kamchatskiy kray
@@ -6478,19 +6657,19 @@ components:
         - Khabarovskiy kray
         - Khanty-Mansiyskiy avtonomnyy okrug
         - Kirovskaya oblast'
-        - 'Khakasiya, Respublika'
-        - 'Kalmykiya, Respublika'
+        - Khakasiya, Respublika
+        - Kalmykiya, Respublika
         - Kaluzhskaya oblast'
-        - 'Komi, Respublika'
+        - Komi, Respublika
         - Kostromskaya oblast'
-        - 'Kareliya, Respublika'
+        - Kareliya, Respublika
         - Kurskaya oblast'
         - Krasnoyarskiy kray
         - Leningradskaya oblast'
         - Lipetskaya oblast'
         - Magadanskaya oblast'
-        - 'Mariy El, Respublika'
-        - 'Mordoviya, Respublika'
+        - Mariy El, Respublika
+        - Mordoviya, Respublika
         - Moskovskaya oblast'
         - Moskva
         - Murmanskaya oblast'
@@ -6507,21 +6686,21 @@ components:
         - Pskovskaya oblast'
         - Rostovskaya oblast'
         - Ryazanskaya oblast'
-        - 'Saha, Respublika'
+        - Saha, Respublika
         - Sakhalinskaya oblast'
         - Samarskaya oblast'
         - Saratovskaya oblast'
-        - 'Severnaya Osetiya, Respublika'
+        - Severnaya Osetiya, Respublika
         - Smolenskaya oblast'
         - Sankt-Peterburg
         - Stavropol'skiy kray
         - Sverdlovskaya oblast'
-        - 'Tatarstan, Respublika'
+        - Tatarstan, Respublika
         - Tambovskaya oblast'
         - Tomskaya oblast'
         - Tul'skaya oblast'
         - Tverskaya oblast'
-        - 'Tyva, Respublika'
+        - Tyva, Respublika
         - Tyumenskaya oblast'
         - Udmurtskaya Respublika
         - Ul'yanovskaya oblast'
@@ -7522,7 +7701,7 @@ components:
         - Matabeleland South
         - Masvingo
         - Mashonaland West
-    GeoCountry:
+    geoCountry:
       type: string
       enum:
         - AD
@@ -7804,7 +7983,7 @@ components:
         - Bermuda
         - Brunei Darussalam
         - Bolivia (Plurinational State of)
-        - 'Bonaire, Sint Eustatius and Saba'
+        - Bonaire, Sint Eustatius and Saba
         - Brazil
         - Bahamas
         - Bhutan
@@ -7814,7 +7993,7 @@ components:
         - Belize
         - Canada
         - Cocos (Keeling) Islands
-        - 'Congo, Democratic Republic of the'
+        - Congo, Democratic Republic of the
         - Central African Republic
         - Congo
         - Switzerland
@@ -7896,7 +8075,7 @@ components:
         - Comoros
         - Saint Kitts and Nevis
         - Korea (Democratic People's Republic of)
-        - 'Korea, Republic of'
+        - Korea, Republic of
         - Kuwait
         - Cayman Islands
         - Kazakhstan
@@ -7913,7 +8092,7 @@ components:
         - Libya
         - Morocco
         - Monaco
-        - 'Moldova, Republic of'
+        - Moldova, Republic of
         - Montenegro
         - Saint Martin (French part)
         - Madagascar
@@ -7957,7 +8136,7 @@ components:
         - Saint Pierre and Miquelon
         - Pitcairn
         - Puerto Rico
-        - 'Palestine, State of'
+        - Palestine, State of
         - Portugal
         - Palau
         - Paraguay
@@ -7973,7 +8152,7 @@ components:
         - Sudan
         - Sweden
         - Singapore
-        - 'Saint Helena, Ascension and Tristan da Cunha'
+        - Saint Helena, Ascension and Tristan da Cunha
         - Slovenia
         - Svalbard and Jan Mayen
         - Slovakia
@@ -8002,8 +8181,8 @@ components:
         - Turkey
         - Trinidad and Tobago
         - Tuvalu
-        - 'Taiwan, Province of China'
-        - 'Tanzania, United Republic of'
+        - Taiwan, Province of China
+        - Tanzania, United Republic of
         - Ukraine
         - Uganda
         - United States Minor Outlying Islands
@@ -8024,7 +8203,7 @@ components:
         - South Africa
         - Zambia
         - Zimbabwe
-    GeoCountryInfo:
+    geoCountryInfo:
       type: object
       description: Model describing the ISO-3166 country.
       required:
@@ -8039,35 +8218,35 @@ components:
         code:
           type: string
           description: Country code.
-          pattern: '^\d{3}$'
+          pattern: ^\d{3}$
         alpha2:
           description: Two-letter country code defined in ISO 3166-1
-          $ref: '#/components/schemas/GeoCountry'
+          $ref: '#/components/schemas/geoCountry'
         alpha3:
           type: string
           description: Three-letter country code defined in ISO 3166-1
-          pattern: '^[A-Za-z]{3}$'
+          pattern: ^[A-Za-z]{3}$
         region:
           description: Region from which this country belongs
           type: string
         regionCode:
           description: The code of the region from which this country belongs
           type: string
-          pattern: '^\d{3}$'
+          pattern: ^\d{3}$
         subRegion:
           description: Sub-region from which this country belongs
           type: string
         subRegionCode:
           description: The code of the sub-region from which this country belongs
           type: string
-          pattern: '^\d{3}$'
+          pattern: ^\d{3}$
         intermediateRegion:
           description: Intermediate-region from which this country belongs
           type: string
         intermediateRegionCode:
           description: The code of the intermediate-region from which this country belongs
           type: string
-          pattern: '^\d{3}$'
+          pattern: ^\d{3}$
         subdivisions:
           description: A dictionary of subdivision codes to description
           type: object
@@ -8082,9 +8261,9 @@ components:
             AU-TAS: Tasmania
             AU-VIC: Victoria
             AU-WA: Western Australia
-    OpenApiMethod:
+    openApiMethod:
       type: string
-      description: 'The set of http operations supported by OpenAPI. ( https://spec.openapis.org/oas/v3.1.0#fixed-fields-6 ).'
+      description: The set of http operations supported by OpenAPI. ( https://spec.openapis.org/oas/v3.1.0#fixed-fields-6 ).
       enum:
         - get
         - head
@@ -8103,7 +8282,7 @@ components:
         - A definition of a OPTIONS operation on a given path.
         - A definition of a TRACE operation on a given path.
         - A definition of a PATCH operation on a given path.
-    LanguageInfo:
+    languageInfo:
       type: object
       required:
         - name
@@ -8116,11 +8295,11 @@ components:
         alpha2:
           type: string
           description: ISO 639 alpha-3 code
-          pattern: '^[a-z]{2}$'
+          pattern: ^[a-z]{2}$
         alpha3:
           type: string
           description: ISO 639 alpha-3 code
-          pattern: '^[a-z]{3}$'
+          pattern: ^[a-z]{3}$
         locales:
           type: object
           description: A dictionary of locale codes to description
@@ -8132,7 +8311,7 @@ components:
             zh_MO: Chinese (Macao SAR China)
             zh_SG: Chinese (Singapore)
             zh_TW: Chinese (Taiwan)
-    Language:
+    language:
       type: string
       enum:
         - aa
@@ -8341,24 +8520,24 @@ components:
         - Tibetan
         - Breton
         - Bosnian
-        - 'Catalan, Valencian'
+        - Catalan, Valencian
         - Chechen
         - Chamorro
         - Corsican
         - Cree
         - Czech
-        - 'Church Slavic, Church Slavonic, Old Bulgarian, Old Church Slavonic, Old Slavonic'
+        - Church Slavic, Church Slavonic, Old Bulgarian, Old Church Slavonic, Old Slavonic
         - Chuvash
         - Welsh
         - Danish
         - German
-        - 'Dhivehi, Divehi, Maldivian'
+        - Dhivehi, Divehi, Maldivian
         - Dzongkha
         - Ewe
         - Modern Greek (1453-)
         - English
         - Esperanto
-        - 'Castilian, Spanish'
+        - Castilian, Spanish
         - Estonian
         - Basque
         - Persian
@@ -8369,7 +8548,7 @@ components:
         - French
         - Western Frisian
         - Irish
-        - 'Gaelic, Scottish Gaelic'
+        - Gaelic, Scottish Gaelic
         - Galician
         - Guarani
         - Gujarati
@@ -8379,15 +8558,15 @@ components:
         - Hindi
         - Hiri Motu
         - Croatian
-        - 'Haitian, Haitian Creole'
+        - Haitian, Haitian Creole
         - Hungarian
         - Armenian
         - Herero
         - Interlingua (International Auxiliary Language Association)
         - Indonesian
-        - 'Interlingue, Occidental'
+        - Interlingue, Occidental
         - Igbo
-        - 'Nuosu, Sichuan Yi'
+        - Nuosu, Sichuan Yi
         - Inupiaq
         - Ido
         - Icelandic
@@ -8397,11 +8576,11 @@ components:
         - Javanese
         - Georgian
         - Kongo
-        - 'Gikuyu, Kikuyu'
-        - 'Kuanyama, Kwanyama'
+        - Gikuyu, Kikuyu
+        - Kuanyama, Kwanyama
         - Kazakh
-        - 'Greenlandic, Kalaallisut'
-        - 'Central Khmer, Khmer'
+        - Greenlandic, Kalaallisut
+        - Central Khmer, Khmer
         - Kannada
         - Korean
         - Kanuri
@@ -8409,11 +8588,11 @@ components:
         - Kurdish
         - Komi
         - Cornish
-        - 'Kirghiz, Kyrgyz'
+        - Kirghiz, Kyrgyz
         - Latin
-        - 'Letzeburgesch, Luxembourgish'
+        - Letzeburgesch, Luxembourgish
         - Ganda
-        - 'Limburgan, Limburger, Limburgish'
+        - Limburgan, Limburger, Limburgish
         - Lingala
         - Lao
         - Lithuanian
@@ -8434,26 +8613,26 @@ components:
         - North Ndebele
         - Nepali (macrolanguage)
         - Ndonga
-        - 'Dutch, Flemish'
+        - Dutch, Flemish
         - Norwegian Nynorsk
         - Norwegian
         - South Ndebele
-        - 'Navaho, Navajo'
-        - 'Chewa, Chichewa, Nyanja'
+        - Navaho, Navajo
+        - Chewa, Chichewa, Nyanja
         - Occitan (post 1500)
         - Ojibwa
         - Oromo
         - Oriya (macrolanguage)
-        - 'Ossetian, Ossetic'
-        - 'Panjabi, Punjabi'
+        - Ossetian, Ossetic
+        - Panjabi, Punjabi
         - Pali
         - Polish
-        - 'Pashto, Pushto'
+        - Pashto, Pushto
         - Portuguese
         - Quechua
         - Romansh
         - Rundi
-        - 'Moldavian, Moldovan, Romanian'
+        - Moldavian, Moldovan, Romanian
         - Russian
         - Kinyarwanda
         - Sanskrit
@@ -8462,7 +8641,7 @@ components:
         - Northern Sami
         - Sango
         - Serbo-Croatian
-        - 'Sinhala, Sinhalese'
+        - Sinhala, Sinhalese
         - Slovak
         - Slovenian
         - Samoan
@@ -8489,7 +8668,7 @@ components:
         - Tatar
         - Twi
         - Tahitian
-        - 'Uighur, Uyghur'
+        - Uighur, Uyghur
         - Ukrainian
         - Urdu
         - Uzbek
@@ -8501,10 +8680,10 @@ components:
         - Xhosa
         - Yiddish
         - Yoruba
-        - 'Chuang, Zhuang'
+        - Chuang, Zhuang
         - Chinese
         - Zulu
-    LanguageLocale:
+    locale:
       type: string
       enum:
         - af_NA
@@ -8982,7 +9161,7 @@ components:
         - Bosnian (Bosnia & Herzegovina)
         - Catalan (Andorra)
         - Catalan (Spain)
-        - 'Catalan (Spain, Valencian)'
+        - Catalan (Spain, Valencian)
         - Catalan (France)
         - Catalan (Italy)
         - Chechen (Russia)
@@ -9099,7 +9278,7 @@ components:
         - English (Uganda)
         - English (U.S. Outlying Islands)
         - English (United States)
-        - 'English (United States, Computer)'
+        - English (United States, Computer)
         - English (St. Vincent & Grenadines)
         - English (British Virgin Islands)
         - English (U.S. Virgin Islands)
@@ -9267,7 +9446,7 @@ components:
         - Dutch (Sint Maarten)
         - Norwegian Nynorsk (Norway)
         - Norwegian (Norway)
-        - 'Norwegian (Norway, Nynorsk)'
+        - Norwegian (Norway, Nynorsk)
         - Oromo (Ethiopia)
         - Oromo (Kenya)
         - Odia (India)
@@ -9366,7 +9545,7 @@ components:
         - Chinese (Singapore)
         - Chinese (Taiwan)
         - Zulu (South Africa)
-    HttpMethod:
+    httpMethod:
       type: string
       description: The set of HTTP methods as defined by RFC-7231 and RFC-5789
       enum:
@@ -9379,9 +9558,9 @@ components:
         - OPTIONS
         - TRACE
         - PATCH
-    Severity:
+    severity:
       type: string
-      description: 'Severity/magnitude of a risk, incident, bug, or vulnerability'
+      description: Severity/magnitude of a risk, incident, bug, or vulnerability
       enum:
         - Critical
         - High
@@ -9389,25 +9568,12 @@ components:
         - Low
         - None
       x-enum-descriptions:
-        - 'Critical - emergency, alert, critical conditions (0)'
-        - 'High - error, high risk (1)'
-        - 'Medium - warning, medium, moderate risk (2)'
-        - 'Low - notice, informational, low risk (3)'
+        - Critical - emergency, alert, critical conditions (0)
+        - High - error, high risk (1)
+        - Medium - warning, medium, moderate risk (2)
+        - Low - notice, informational, low risk (3)
         - None - Debug (4)
-    TlsCipherSuiteInfo:
-      type: object
-      required:
-        - value
-        - description
-      properties:
-        value:
-          description: IANA cipher suite hex value
-          type: string
-        description:
-          oneOf:
-            - type: string
-            - $ref: '#/components/schemas/TlsCipherSuite'
-    TlsCipherSuite:
+    cipherSuite:
       type: string
       description: IANA cipher suite description
       enum:
@@ -9761,7 +9927,20 @@ components:
         - tls_ecdhe_psk_with_aes_256_gcm_sha384
         - tls_ecdhe_psk_with_aes_128_ccm_8_sha256
         - tls_ecdhe_psk_with_aes_128_ccm_sha256
-    TlsX509Subject:
+    cipherSuiteInfo:
+      type: object
+      required:
+        - value
+        - description
+      properties:
+        value:
+          description: IANA cipher suite hex value
+          type: string
+        description:
+          oneOf:
+            - type: string
+            - $ref: '#/components/schemas/cipherSuite'
+    x509Subject:
       type: object
       properties:
         cn:
@@ -9778,14 +9957,14 @@ components:
           description: Town / City
         st:
           type: string
-          description: 'Province, Region, County or State'
+          description: Province, Region, County or State
         c:
-          $ref: '#/components/schemas/GeoCountry'
+          $ref: '#/components/schemas/geoCountry'
         mail:
           type: string
           format: email
           description: Email address
-    TlsSignatureAlgorithm:
+    signatureAlgorithm:
       type: string
       enum:
         - rsa_encryption
@@ -9831,7 +10010,7 @@ components:
         - SHA384
         - SHA512
         - MD5
-    TlsAsymmetricKey:
+    asymmetricKey:
       type: string
       enum:
         - rsa
@@ -9853,7 +10032,7 @@ components:
         - ED25519
         - ED448
         - DH
-    TlsProtocol:
+    tlsProtocol:
       type: string
       enum:
         - sslv2
@@ -9869,42 +10048,7 @@ components:
         - TLS1.1
         - TLS1.2
         - TLS1.3
-    TlsX509Certificate:
-      type: object
-      properties:
-        serialNumber:
-          type: string
-          description: Serial number
-        subject:
-          description: Subject
-          $ref: '#/components/schemas/TlsX509Subject'
-        issuer:
-          description: Issuer
-          $ref: '#/components/schemas/TlsX509Subject'
-        subjectAltName:
-          description: Subject alternative name
-          type: string
-        publicKey:
-          description: Public key
-          $ref: '#/components/schemas/TlsAsymmetricKeyInfo'
-        signatureAlgorithm:
-          description: Signature algorithm
-          $ref: '#/components/schemas/TlsSignatureAlgorithm'
-        validFrom:
-          description: Validity start date-time
-          type: string
-          format: date-time
-        validTo:
-          description: Validity end date-time
-          type: string
-          format: date-time
-        issuerCertificate:
-          description: Issuer certificate chain
-          $ref: '#/components/schemas/TlsX509Certificate'
-        infoAccess:
-          description: Information access URLs
-          type: object
-    TlsAsymmetricKeyInfo:
+    asymmetricKeyInfo:
       type: object
       required:
         - algorithm
@@ -9912,7 +10056,7 @@ components:
       properties:
         algorithm:
           description: Algorithm used for the key
-          $ref: '#/components/schemas/TlsAsymmetricKey'
+          $ref: '#/components/schemas/asymmetricKey'
         bits:
           description: Number of bits in the key
           type: number
@@ -9924,11 +10068,76 @@ components:
           description: The private key as base64
           type: string
           format: byte
-    InvalidStateError:
+    x509Certificate:
+      type: object
+      properties:
+        serialNumber:
+          type: string
+          description: Serial number
+        subject:
+          description: Subject
+          $ref: '#/components/schemas/x509Subject'
+        issuer:
+          description: Issuer
+          $ref: '#/components/schemas/x509Subject'
+        subjectAltName:
+          description: Subject alternative name
+          type: string
+        publicKey:
+          description: Public key
+          $ref: '#/components/schemas/asymmetricKeyInfo'
+        signatureAlgorithm:
+          description: Signature algorithm
+          $ref: '#/components/schemas/signatureAlgorithm'
+        validFrom:
+          description: Validity start date-time
+          type: string
+          format: date-time
+        validTo:
+          description: Validity end date-time
+          type: string
+          format: date-time
+        issuerCertificate:
+          description: Issuer certificate chain
+          $ref: '#/components/schemas/x509Certificate'
+        infoAccess:
+          description: Information access URLs
+          type: object
+    errorModelBase:
+      type: object
+      description: Base class for error models
+      required:
+        - key
+        - template
+        - timestamp
+        - statusCode
+      properties:
+        key:
+          type: string
+          description: A unique message key for this error. This is used both for discrimination and i18n
+        template:
+          description: The error message. This may contain substitutions of the form `{key}` where `key` maps to a key in the `args` list.
+          type: string
+          example: The {thing} is down
+        timestamp:
+          type: string
+          format: date-time
+          description: Timestamp when this error was generated
+        statusCode:
+          description: An HTTP status code to use for this error when transmitting it over HTTP
+          type: integer
+          format: int32
+          default: 500
+          minimum: 100
+          maximum: 599
+        stack:
+          description: The stack trace, if available, for this error.
+          type: string
+    invalidStateError:
       description: Generic error when an object is in a state which is not valid
       type: object
       allOf:
-        - $ref: '#/components/schemas/ErrorModelBase'
+        - $ref: '#/components/schemas/errorModelBase'
         - type: object
           required:
             - msg
@@ -9936,11 +10145,11 @@ components:
             msg:
               type: string
               description: The error message
-    ConflictError:
+    conflictError:
       description: Error indicating some sort of conflict
       type: object
       allOf:
-        - $ref: '#/components/schemas/ErrorModelBase'
+        - $ref: '#/components/schemas/errorModelBase'
         - type: object
           required:
             - msg
@@ -9948,11 +10157,11 @@ components:
             msg:
               type: string
               description: The conflict error message
-    NoSuchObjectError:
+    noSuchObjectError:
       description: Error indicating some sort of conflict
       type: object
       allOf:
-        - $ref: '#/components/schemas/ErrorModelBase'
+        - $ref: '#/components/schemas/errorModelBase'
         - type: object
           required:
             - type
@@ -9964,16 +10173,16 @@ components:
             id:
               type: string
               description: The ID of the object
-    UnauthenticatedError:
+    unauthenticatedError:
       description: Error indicating the request is unable to authenticate
       type: object
       allOf:
-        - $ref: '#/components/schemas/ErrorModelBase'
-    ParameterRequiredError:
+        - $ref: '#/components/schemas/errorModelBase'
+    parameterRequiredError:
       description: Error indicating a required parameter was not provided
       type: object
       allOf:
-        - $ref: '#/components/schemas/ErrorModelBase'
+        - $ref: '#/components/schemas/errorModelBase'
         - type: object
           required:
             - paramName
@@ -9981,11 +10190,11 @@ components:
             paramName:
               type: string
               description: The name of the parameter which is missing
-    TimeoutError:
+    timeoutError:
       description: Error indicating a timeout was exceeded
       type: object
       allOf:
-        - $ref: '#/components/schemas/ErrorModelBase'
+        - $ref: '#/components/schemas/errorModelBase'
         - type: object
           required:
             - timeout
@@ -9994,11 +10203,11 @@ components:
               type: string
               format: duration
               description: The timeout which was exceeded
-    InvalidInputError:
+    invalidInputError:
       description: Error indicating the given input was invalid
       type: object
       allOf:
-        - $ref: '#/components/schemas/ErrorModelBase'
+        - $ref: '#/components/schemas/errorModelBase'
         - type: object
           required:
             - type
@@ -10015,11 +10224,11 @@ components:
               type: array
               items:
                 type: string
-    IllegalArgumentError:
+    illegalArgumentError:
       description: Generic error for illegal arguments
       type: object
       allOf:
-        - $ref: '#/components/schemas/ErrorModelBase'
+        - $ref: '#/components/schemas/errorModelBase'
         - type: object
           required:
             - msg
@@ -10027,86 +10236,11 @@ components:
             msg:
               type: string
               description: The error message
-    CoreErrorModel:
-      type: object
-      description: Supertype for all ErrorModels defined in types-core
-      oneOf:
-        - $ref: '#/components/schemas/ConflictError'
-        - $ref: '#/components/schemas/IllegalArgumentError'
-        - $ref: '#/components/schemas/EulaNotAcceptedError'
-        - $ref: '#/components/schemas/ForbiddenError'
-        - $ref: '#/components/schemas/InvalidCredentialsError'
-        - $ref: '#/components/schemas/InvalidInputError'
-        - $ref: '#/components/schemas/InvalidStateError'
-        - $ref: '#/components/schemas/NoSuchObjectError'
-        - $ref: '#/components/schemas/NotConnectedError'
-        - $ref: '#/components/schemas/NotFoundError'
-        - $ref: '#/components/schemas/ParameterRequiredError'
-        - $ref: '#/components/schemas/RateLimitExceededError'
-        - $ref: '#/components/schemas/ResultLimitExceededError'
-        - $ref: '#/components/schemas/TimeoutError'
-        - $ref: '#/components/schemas/UnauthorizedError'
-        - $ref: '#/components/schemas/UnauthenticatedError'
-        - $ref: '#/components/schemas/UnexpectedError'
-      discriminator:
-        propertyName: key
-        mapping:
-          err.conflict: '#/components/schemas/ConflictError'
-          err.illegal.argument: '#/components/schemas/IllegalArgumentError'
-          err.eula.not.accepted: '#/components/schemas/EulaNotAcceptedError'
-          err.forbidden: '#/components/schemas/ForbiddenError'
-          err.invalid.credentials: '#/components/schemas/InvalidCredentialsError'
-          err.invalid.input: '#/components/schemas/InvalidInputError'
-          err.invalid.state: '#/components/schemas/InvalidStateError'
-          err.no.such.object: '#/components/schemas/NoSuchObjectError'
-          err.not.connected: '#/components/schemas/NotConnectedError'
-          err.not.found: '#/components/schemas/NotFoundError'
-          err.param.required: '#/components/schemas/ParameterRequiredError'
-          err.rate.limit.exceeded: '#/components/schemas/RateLimitExceededError'
-          err.result.limit.exceeded: '#/components/schemas/ResultLimitExceededError'
-          err.timeout: '#/components/schemas/TimeoutError'
-          err.not.authorized: '#/components/schemas/UnauthorizedError'
-          err.unable.to.authenticate: '#/components/schemas/UnauthenticatedError'
-          err.unexpected: '#/components/schemas/UnexpectedError'
-    ForbiddenError:
-      description: Error indicating forbidden
-      type: object
-      allOf:
-        - $ref: '#/components/schemas/ErrorModelBase'
-    NotFoundError:
-      description: Error when something cannot be located
-      type: object
-      allOf:
-        - $ref: '#/components/schemas/ErrorModelBase'
-        - type: object
-          required:
-            - obj
-          properties:
-            obj:
-              type: string
-              description: The object which cannot be found
-    InvalidCredentialsError:
-      description: Error indicating invalid credentials
-      type: object
-      allOf:
-        - $ref: '#/components/schemas/ErrorModelBase'
-    UnexpectedError:
-      description: 'Generic, catch-all error'
-      type: object
-      allOf:
-        - $ref: '#/components/schemas/ErrorModelBase'
-        - type: object
-          required:
-            - msg
-          properties:
-            msg:
-              type: string
-              description: A generic message to pass on
-    EulaNotAcceptedError:
+    eulaNotAcceptedError:
       description: Error indicating a eula not accepted
       type: object
       allOf:
-        - $ref: '#/components/schemas/ErrorModelBase'
+        - $ref: '#/components/schemas/errorModelBase'
         - type: object
           required:
             - eulaId
@@ -10114,16 +10248,51 @@ components:
             eulaId:
               type: string
               description: ID of a eula that hasnt been accepted
-    UnauthorizedError:
-      description: Error indicating the request is not authorized
+    forbiddenError:
+      description: Error indicating forbidden
       type: object
       allOf:
-        - $ref: '#/components/schemas/ErrorModelBase'
-    ResultLimitExceededError:
+        - $ref: '#/components/schemas/errorModelBase'
+    invalidCredentialsError:
+      description: Error indicating invalid credentials
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/errorModelBase'
+    notConnectedError:
+      description: Error indicating some sort of conflict
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/errorModelBase'
+    notFoundError:
+      description: Error when something cannot be located
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/errorModelBase'
+        - type: object
+          required:
+            - obj
+          properties:
+            obj:
+              type: string
+              description: The object which cannot be found
+    rateLimitExceededError:
+      description: Error indicating that a call limit has been reached.
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/errorModelBase'
+        - type: object
+          properties:
+            callCount:
+              type: integer
+              description: The number of calls performed.
+            duration:
+              type: string
+              description: The wait time before more calls can be made.
+    resultLimitExceededError:
       description: Error indicating more objects were requested than could be returned
       type: object
       allOf:
-        - $ref: '#/components/schemas/ErrorModelBase'
+        - $ref: '#/components/schemas/errorModelBase'
         - type: object
           required:
             - requested
@@ -10137,193 +10306,113 @@ components:
               type: number
               format: int64
               description: The number of items which were returned
-    NotConnectedError:
-      description: Error indicating some sort of conflict
+    unauthorizedError:
+      description: Error indicating the request is not authorized
       type: object
       allOf:
-        - $ref: '#/components/schemas/ErrorModelBase'
-    ErrorModelBase:
-      type: object
-      description: Base class for error models
-      required:
-        - key
-        - template
-        - timestamp
-        - statusCode
-      properties:
-        key:
-          type: string
-          description: A unique message key for this error. This is used both for discrimination and i18n
-        template:
-          description: 'The error message. This may contain substitutions of the form `{key}` where `key` maps to a key in the `args` list.'
-          type: string
-          example: 'The {thing} is down'
-        timestamp:
-          type: string
-          format: date-time
-          description: Timestamp when this error was generated
-        statusCode:
-          description: An HTTP status code to use for this error when transmitting it over HTTP
-          type: integer
-          format: int32
-          default: 500
-          minimum: 100
-          maximum: 599
-        stack:
-          description: 'The stack trace, if available, for this error.'
-          type: string
-    RateLimitExceededError:
-      description: Error indicating that a call limit has been reached.
+        - $ref: '#/components/schemas/errorModelBase'
+    unexpectedError:
+      description: Generic, catch-all error
       type: object
       allOf:
-        - $ref: '#/components/schemas/ErrorModelBase'
+        - $ref: '#/components/schemas/errorModelBase'
         - type: object
+          required:
+            - msg
           properties:
-            callCount:
-              type: integer
-              description: The number of calls performed.
-            duration:
+            msg:
               type: string
-              description: The wait time before more calls can be made.
-    CronExpression:
+              description: A generic message to pass on
+    coreErrorModel:
       type: object
-      description: Cron Data Model
-      properties:
-        minute:
-          nullable: true
-          oneOf:
-            - type: array
-              items:
-                type: number
-                minimum: 0
-                maximum: 60
-            - type: number
-              minimum: 0
-              maximum: 60
-            - type: string
-        hour:
-          nullable: true
-          oneOf:
-            - type: array
-              items:
-                type: number
-                minimum: 0
-                maximum: 24
-            - type: number
-              minimum: 0
-              maximum: 24
-            - type: string
-        dayOfMonth:
-          nullable: true
-          oneOf:
-            - type: array
-              items:
-                type: number
-                minimum: 0
-                maximum: 31
-            - type: number
-              minimum: 0
-              maximum: 31
-            - type: string
-        month:
-          nullable: true
-          oneOf:
-            - type: array
-              items:
-                $ref: '#/components/schemas/Month'
-            - $ref: '#/components/schemas/Month'
-            - type: string
-        dayOfWeek:
-          nullable: true
-          oneOf:
-            - type: array
-              items:
-                $ref: '#/components/schemas/DayOfWeek'
-            - $ref: '#/components/schemas/DayOfWeek'
-            - type: string
-        timeZone:
-          $ref: '#/components/schemas/TimeZone'
-    OauthTokenProfile:
-      type: object
-      description: 'Profile for connecting to a remote system via an OAuth token as described in section 4.1 of [the OAuth RFC](https://www.rfc-editor.org/rfc/rfc6749).'
-      properties:
-        tokenType:
-          type: string
-          default: bearer
-          description: The type of token this is
-          example: Bearer
-        accessToken:
-          type: string
-          description: Access token provided by the OAuth Provider
-          format: password
-          example: MTQ0NjJkZmQ5OTM2NDE1ZTZjNGZmZjI3
-        url:
-          type: string
-          format: url
-          description: Optional URL to use for authentication
-          example: 'https://vendorapi.com'
-    EventKind:
+      description: Supertype for all ErrorModels defined in types-core
+      oneOf:
+        - $ref: '#/components/schemas/conflictError'
+        - $ref: '#/components/schemas/illegalArgumentError'
+        - $ref: '#/components/schemas/eulaNotAcceptedError'
+        - $ref: '#/components/schemas/forbiddenError'
+        - $ref: '#/components/schemas/invalidCredentialsError'
+        - $ref: '#/components/schemas/invalidInputError'
+        - $ref: '#/components/schemas/invalidStateError'
+        - $ref: '#/components/schemas/noSuchObjectError'
+        - $ref: '#/components/schemas/notConnectedError'
+        - $ref: '#/components/schemas/notFoundError'
+        - $ref: '#/components/schemas/parameterRequiredError'
+        - $ref: '#/components/schemas/rateLimitExceededError'
+        - $ref: '#/components/schemas/resultLimitExceededError'
+        - $ref: '#/components/schemas/timeoutError'
+        - $ref: '#/components/schemas/unauthorizedError'
+        - $ref: '#/components/schemas/unauthenticatedError'
+        - $ref: '#/components/schemas/unexpectedError'
+      discriminator:
+        propertyName: key
+        mapping:
+          err.conflict: '#/components/schemas/conflictError'
+          err.illegal.argument: '#/components/schemas/illegalArgumentError'
+          err.eula.not.accepted: '#/components/schemas/eulaNotAcceptedError'
+          err.forbidden: '#/components/schemas/forbiddenError'
+          err.invalid.credentials: '#/components/schemas/invalidCredentialsError'
+          err.invalid.input: '#/components/schemas/invalidInputError'
+          err.invalid.state: '#/components/schemas/invalidStateError'
+          err.no.such.object: '#/components/schemas/noSuchObjectError'
+          err.not.connected: '#/components/schemas/notConnectedError'
+          err.not.found: '#/components/schemas/notFoundError'
+          err.param.required: '#/components/schemas/parameterRequiredError'
+          err.rate.limit.exceeded: '#/components/schemas/rateLimitExceededError'
+          err.result.limit.exceeded: '#/components/schemas/resultLimitExceededError'
+          err.timeout: '#/components/schemas/timeoutError'
+          err.not.authorized: '#/components/schemas/unauthorizedError'
+          err.unable.to.authenticate: '#/components/schemas/unauthenticatedError'
+          err.unexpected: '#/components/schemas/unexpectedError'
+    month:
       type: string
-      description: Describes the concrete type for this event. This may be used alongside openapi `discriminator` to get a union type.
+      description: Month of the year
       enum:
-        - change
-        - base
-        - cron
-    BasicConnection:
-      type: object
-      description: 'A basic credential object, similar to HTTP Basic auth but not necessarily specific to HTTP'
-      required:
-        - uri
-        - username
-        - password
-      properties:
-        uri:
-          type: string
-          format: url
-          description: The URI to connect to
-          example: 'https://example.local'
-        username:
-          type: string
-          description: The username to use for authentication
-          example: elduderino
-        password:
-          type: string
-          format: password
-          description: The password to provide for authentication
-          example: c4uc4s14n
-    TimeZoneInfo:
-      type: object
-      description: The time zone information.
-      required:
-        - name
-        - type
-        - utcOffset
-        - utcDstOffset
-        - countryCodes
-      properties:
-        name:
-          description: The time zone name.
-          $ref: '#/components/schemas/TimeZone'
-        type:
-          $ref: '#/components/schemas/TimeZoneType'
-        utcOffset:
-          type: string
-          description: UTC Offset.
-        utcDstOffset:
-          type: string
-          description: UTC DST Offset.
-        countryCodes:
-          type: array
-          description: The list of country codes.
-          items:
-            $ref: '#/components/schemas/GeoCountry'
-        link:
-          $ref: '#/components/schemas/TimeZone'
-          description: The source time zone. Only for `link` type.
-        comments:
-          type: string
-          description: Comments.
-    TimeZone:
+        - january
+        - february
+        - march
+        - april
+        - may
+        - june
+        - july
+        - august
+        - september
+        - october
+        - november
+        - december
+      x-enum-description:
+        - January
+        - February
+        - March
+        - April
+        - May
+        - June
+        - July
+        - August
+        - September
+        - October
+        - November
+        - December
+    dayOfWeek:
+      type: string
+      description: Day of the week
+      enum:
+        - sunday
+        - monday
+        - tuesday
+        - wednesday
+        - thursday
+        - friday
+        - saturday
+      x-enum-description:
+        - Sunday
+        - Monday
+        - Tuesday
+        - Wednesday
+        - Thursday
+        - Friday
+        - Saturday
+    timeZone:
       type: string
       description: A time zone name.
       enum:
@@ -10890,28 +10979,154 @@ components:
         - W-SU
         - WET
         - Zulu
-    TimeZoneType:
+    cronExpression:
+      type: object
+      description: Cron Data Model
+      properties:
+        minute:
+          oneOf:
+            - type: array
+              items:
+                type: number
+                minimum: 0
+                maximum: 60
+            - type: number
+              minimum: 0
+              maximum: 60
+            - type: string
+        hour:
+          oneOf:
+            - type: array
+              items:
+                type: number
+                minimum: 0
+                maximum: 24
+            - type: number
+              minimum: 0
+              maximum: 24
+            - type: string
+        dayOfMonth:
+          oneOf:
+            - type: array
+              items:
+                type: number
+                minimum: 0
+                maximum: 31
+            - type: number
+              minimum: 0
+              maximum: 31
+            - type: string
+        month:
+          oneOf:
+            - type: array
+              items:
+                $ref: '#/components/schemas/month'
+            - $ref: '#/components/schemas/month'
+            - type: string
+        dayOfWeek:
+          oneOf:
+            - type: array
+              items:
+                $ref: '#/components/schemas/dayOfWeek'
+            - $ref: '#/components/schemas/dayOfWeek'
+            - type: string
+        timeZone:
+          $ref: '#/components/schemas/timeZone'
+    oauthTokenProfile:
+      type: object
+      description: Profile for connecting to a remote system via an OAuth token as described in section 4.1 of [the OAuth RFC](https://www.rfc-editor.org/rfc/rfc6749).
+      properties:
+        tokenType:
+          type: string
+          default: bearer
+          description: The type of token this is
+          example: Bearer
+        accessToken:
+          type: string
+          description: Access token provided by the OAuth Provider
+          format: password
+          example: MTQ0NjJkZmQ5OTM2NDE1ZTZjNGZmZjI3
+        url:
+          type: string
+          format: url
+          description: Optional URL to use for authentication
+          example: https://vendorapi.com
+    basicConnection:
+      type: object
+      description: A basic credential object, similar to HTTP Basic auth but not necessarily specific to HTTP
+      required:
+        - uri
+        - username
+        - password
+      properties:
+        uri:
+          type: string
+          format: url
+          description: The URI to connect to
+          example: https://example.local
+        username:
+          type: string
+          description: The username to use for authentication
+          example: elduderino
+        password:
+          type: string
+          format: password
+          description: The password to provide for authentication
+          example: c4uc4s14n
+    timeZoneType:
       type: string
       description: The type of the time zone.
       enum:
         - canonical
         - link
-    TokenProfile:
+    timeZoneInfo:
+      type: object
+      description: The time zone information.
+      required:
+        - name
+        - type
+        - utcOffset
+        - utcDstOffset
+        - countryCodes
+      properties:
+        name:
+          description: The time zone name.
+          $ref: '#/components/schemas/timeZone'
+        type:
+          $ref: '#/components/schemas/timeZoneType'
+        utcOffset:
+          type: string
+          description: UTC Offset.
+        utcDstOffset:
+          type: string
+          description: UTC DST Offset.
+        countryCodes:
+          type: array
+          description: The list of country codes.
+          items:
+            $ref: '#/components/schemas/geoCountry'
+        link:
+          $ref: '#/components/schemas/timeZone'
+          description: The source time zone. Only for `link` type.
+        comments:
+          type: string
+          description: Comments.
+    tokenProfile:
       type: object
       required:
         - apiToken
       properties:
         apiToken:
           type: string
-          description: 'Personal access token, an OAuth token, an installation access token or a JSON Web Token'
+          description: Personal access token, an OAuth token, an installation access token or a JSON Web Token
           format: password
           example: AYjcyMzY3ZDhiNmJkNTY
         url:
           type: string
           format: url
           description: Organization domain
-          example: 'https://vendorapi.com'
-    SortDirection:
+          example: https://vendorapi.com
+    sortDirection:
       type: string
       enum:
         - asc
@@ -10919,78 +11134,16 @@ components:
       x-enum-descriptions:
         - Ascending
         - Descending
-    ChangeOperation:
+    changeOperation:
       type: string
       description: The type of change operation
       enum:
         - create
         - update
         - delete
-    Event:
+    oauthClientProfile:
       type: object
-      description: Generic event
-      required:
-        - id
-        - kind
-        - type
-        - data
-      properties:
-        id:
-          type: string
-          format: uuid
-        type:
-          type: string
-          description: 'A service defined event type, e.g. `change.Tag`'
-        principalId:
-          type: string
-          nullable: true
-          format: uuid
-        orgId:
-          type: string
-          nullable: true
-          format: uuid
-        service:
-          type: string
-          nullable: true
-          description: An opaque string for describing the service who caused this event. Support for this field is up to the specific implementation as is its format and meaning.
-        data:
-          type: object
-          additionalProperties: {}
-          description: The event data
-        kind:
-          $ref: '#/components/schemas/EventKind'
-    Month:
-      type: string
-      description: Month of the year
-      enum:
-        - january
-        - february
-        - march
-        - april
-        - may
-        - june
-        - july
-        - august
-        - september
-        - october
-        - november
-        - december
-      x-enum-description:
-        - January
-        - February
-        - March
-        - April
-        - May
-        - June
-        - July
-        - August
-        - September
-        - October
-        - November
-        - December
-    OauthClientProfile:
-      type: object
-      description: 'Profile for connecting to a remote system via the OAuth client credentials grant as described in section 4.4 of [the OAuth RFC](https://www.rfc-editor.org/rfc/rfc6749). Note that as per RFC  section 2.3.1, these credentials may be passed to the token endpoint via HTTP Basic Auth or  POSTed as part of the token request body.'
+      description: Profile for connecting to a remote system via the OAuth client credentials grant as described in section 4.4 of [the OAuth RFC](https://www.rfc-editor.org/rfc/rfc6749). Note that as per RFC  section 2.3.1, these credentials may be passed to the token endpoint via HTTP Basic Auth or  POSTed as part of the token request body.
       required:
         - client_id
         - client_secret
@@ -11008,85 +11161,64 @@ components:
           type: string
           format: url
           description: Optional URL to use for authentication
-          example: 'https://vendorapi.com'
-    DayOfWeek:
-      type: string
-      description: Day of the week
-      enum:
-        - sunday
-        - monday
-        - tuesday
-        - wednesday
-        - thursday
-        - friday
-        - saturday
-      x-enum-description:
-        - Sunday
-        - Monday
-        - Tuesday
-        - Wednesday
-        - Thursday
-        - Friday
-        - Saturday
-    OauthTokenState:
+          example: https://vendorapi.com
+    oauthTokenState:
       type: object
-      description: 'State object for connections leveraging the OAuth Authorization Code flow. This is essentially the Access Token Response, described in section 5.1 of [the OAuth RFC](https://www.rfc-editor.org/rfc/rfc6749).'
-      properties:
-        tokenType:
-          type: string
-          default: bearer
-          description: The type of token this is
-          example: Bearer
-        accessToken:
-          type: string
-          description: Access token provided by the OAuth Provider
-          format: password
-          example: MTQ0NjJkZmQ5OTM2NDE1ZTZjNGZmZjI3
-        refreshToken:
-          type: string
-          description: Optional refresh token which can be used to obtain a new access token
-          format: password
-          example: IwOGYzYTlmM2YxOTQ5MGE3YmNmMDFkNTVk
-        expiresIn:
-          type: number
-          format: int64
-          description: Number of seconds after which the access token becomes invalid
-          example: 3600
-        scope:
-          type: string
-          description: The scope issued to this token
-          example: read
-        url:
-          type: string
-          format: url
-          description: Optional URL to use for authentication
-          example: 'https://vendorapi.com'
-    ChangeEvent:
+      description: State object for connections leveraging the OAuth Authorization Code flow. This is essentially the Access Token Response, described in section 5.1 of [the OAuth RFC](https://www.rfc-editor.org/rfc/rfc6749).
+      allOf:
+        - $ref: '#/components/schemas/baseConnectionState'
+        - type: object
+          properties:
+            tokenType:
+              type: string
+              default: bearer
+              description: The type of token this is
+              example: Bearer
+            accessToken:
+              type: string
+              description: Access token provided by the OAuth Provider
+              format: password
+              example: MTQ0NjJkZmQ5OTM2NDE1ZTZjNGZmZjI3
+            refreshToken:
+              type: string
+              description: Optional refresh token which can be used to obtain a new access token
+              format: password
+              example: IwOGYzYTlmM2YxOTQ5MGE3YmNmMDFkNTVk
+            scope:
+              type: string
+              description: The scope issued to this token
+              example: read
+            url:
+              type: string
+              format: url
+              description: Optional URL to use for authentication
+              example: https://vendorapi.com
+    changeEvent:
       type: object
       description: Generic event for handling data changes
       required:
         - op
         - objectType
       allOf:
-        - $ref: '#/components/schemas/Event'
+        - $ref: '#/components/schemas/event'
         - type: object
           properties:
             op:
-              $ref: '#/components/schemas/ChangeOperation'
+              $ref: '#/components/schemas/changeOperation'
             objectType:
               type: string
               description: the type of object that has changed
             before:
               type: object
               nullable: true
-              description: 'The object''s state before the change event. This can only be present on `update` and `delete` but may be  absent even on those events, depending on the implementation.'
-    Type:
+              description: The object's state before the change event. This can only be present on `update` and `delete` but may be  absent even on those events, depending on the implementation.
+    type:
       type: object
       description: Defines a Core Type
       properties:
         name:
           type: string
-          description: 'The name of the type. This should be `lowerCamel` by convention. This value, combined with `formats`, will be valid OpenAPI `format` values to match this type.'
+          description: The name of the type. This should be `lowerCamel` by convention. This value, combined with `formats`, will be valid OpenAPI `format` values to match this type.
           example: ipAddress
         formats:
           type: array
@@ -11128,7 +11260,7 @@ components:
           description: A regular expression used to validate the core type.
           type: string
         path:
-          description: 'The relative path to the yml type, if it exists.'
+          description: The relative path to the yml type, if it exists.
           type: string
         htmlInput:
           type: string
@@ -11155,4 +11287,3 @@ components:
         - description
         - examples
         - htmlInput
-

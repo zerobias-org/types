@@ -19,11 +19,5 @@
     "typeRoots": [
       "node_modules/@types"
     ]
-  },
-  "references": [
-    { "path": "packages/core-js" },
-    { "path": "packages/amazon-js" },
-    { "path": "packages/google-js" },
-    { "path": "packages/microsoft-js" }
-  ]
+  }
 }

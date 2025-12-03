@@ -12,7 +12,12 @@ import { CoreType } from '../CoreType.js';
  * Class representing a duration
  */
 export class Duration extends StringFormat<Duration> {
-  private static coreType = CoreType.get('duration');
+  private static _coreType: ReturnType<typeof CoreType.get> | null = null;
+
+  private static get coreType() {
+    if (!Duration._coreType) Duration._coreType = CoreType.get('duration');
+    return Duration._coreType;
+  }
 
   private duration: TinyDuration;
 
@@ -43,7 +48,7 @@ export class Duration extends StringFormat<Duration> {
       throw new IllegalArgumentError('Duration cannot be negative');
     }
     const dt = new Date(ms);
-    const parts = [
+    const parts: [string, number | null][] = [
       ['Y', dt.getUTCFullYear() - 1970],
       ['M', dt.getUTCMonth()],
       ['D', dt.getUTCDate() - 1],
@@ -52,19 +57,16 @@ export class Duration extends StringFormat<Duration> {
       ['M', dt.getUTCMinutes()],
       ['S', dt.getUTCSeconds()],
     ];
-    const str = parts.reduce(
-      (acc: string, [k, v]) => {
-        if (k === 'S') {
-          acc = `${acc}${v}.${dt.getUTCMilliseconds()}${k}`;
-        } else if (v && v > 0) {
-          acc = `${acc}${v}${k}`;
-        } else if (k === 'T') {
-          acc = `${acc}${k}`;
-        }
-        return acc;
-      },
-      'P'
-    );
+    let str = 'P';
+    for (const [k, v] of parts) {
+      if (k === 'S') {
+        str = `${str}${v}.${dt.getUTCMilliseconds()}${k}`;
+      } else if (v !== null && v > 0) {
+        str = `${str}${v}${k}`;
+      } else if (k === 'T') {
+        str = `${str}${k}`;
+      }
+    }
     return new Duration(str.endsWith('T') ? str.slice(0, -1) : str);
   }
 
@@ -77,12 +79,12 @@ export class Duration extends StringFormat<Duration> {
   }
 
   getMilliseconds(): number {
-    return (this.duration.years || 0) * 31557600000
-      + (this.duration.months || 0) * 2629800000 // note: this really should not be static...
-      + (this.duration.weeks || 0) * 604800000
-      + (this.duration.days || 0) * 86400000
-      + (this.duration.hours || 0) * 3600000
-      + (this.duration.minutes || 0) * 60000
+    return (this.duration.years || 0) * 31_557_600_000
+      + (this.duration.months || 0) * 2_629_800_000 // note: this really should not be static...
+      + (this.duration.weeks || 0) * 604_800_000
+      + (this.duration.days || 0) * 86_400_000
+      + (this.duration.hours || 0) * 3_600_000
+      + (this.duration.minutes || 0) * 60_000
       + (this.duration.seconds || 0) * 1000;
   }
 }

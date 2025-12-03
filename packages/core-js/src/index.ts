@@ -33,8 +33,8 @@ export {
   Language,
   LanguageDef,
   LanguageInfo,
-  LanguageLocale,
-  LanguageLocaleDef,
+  Locale as LanguageLocale,
+  LocaleDef as LanguageLocaleDef,
   OauthClientProfile,
   OauthTokenProfile,
   OauthTokenState,
@@ -46,18 +46,18 @@ export {
   SortDirectionDef,
   TimeZone,
   TimeZoneDef,
-  TlsAsymmetricKey,
-  TlsAsymmetricKeyDef,
-  TlsAsymmetricKeyInfo,
-  TlsCipherSuite,
-  TlsCipherSuiteDef,
-  TlsCipherSuiteInfo,
+  AsymmetricKey as TlsAsymmetricKey,
+  AsymmetricKeyDef as TlsAsymmetricKeyDef,
+  AsymmetricKeyInfo as TlsAsymmetricKeyInfo,
+  CipherSuite as TlsCipherSuite,
+  CipherSuiteDef as TlsCipherSuiteDef,
+  CipherSuiteInfo as TlsCipherSuiteInfo,
   TlsProtocol,
   TlsProtocolDef,
-  TlsSignatureAlgorithm,
-  TlsSignatureAlgorithmDef,
-  TlsX509Certificate,
-  TlsX509Subject,
+  SignatureAlgorithm as TlsSignatureAlgorithm,
+  SignatureAlgorithmDef as TlsSignatureAlgorithmDef,
+  X509Certificate as TlsX509Certificate,
+  X509Subject as TlsX509Subject,
   TokenConnectionState,
   TokenProfile,
   Type,
@@ -68,10 +68,17 @@ export {
   DayOfWeek,
   Month,
   CronExpression
-} from '../generated/model.js';
+} from '../generated/model/index.js';
 export * from './errors/index.js';
 export * from './types/index.js';
 export * from './Event.js';
 export * from './ChangeEvent.js';
 export * from './CronEvent.js';
 export * from './Cron.js';
+
+// Initialize the CoreError library after all modules are loaded
+// This breaks the circular dependency by ensuring CoreErrorLibrary
+// is only imported after all error classes are defined
+import { CoreError } from './errors/CoreError.js';
+import { CoreErrorLibrary } from './errors/CoreErrorLibrary.js';
+CoreError.initWithLibrary(new CoreErrorLibrary());

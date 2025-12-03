@@ -17,4 +17,4 @@ properties:
     type: string
     description: The SKU size.
   tier:
-    $ref: './resourceSkuTier.yml'
+    $ref: './azureResourceSkuTier.yml'

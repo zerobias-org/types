@@ -1,4 +1,4 @@
-import { EventKind, EventKindDef } from '../generated/model.js';
+import { EventKind, EventKindDef } from '../generated/model/index.js';
 import { UUID } from './types/UUID.js';
 
 export interface Event<T> {
@@ -113,7 +113,7 @@ export class EventImpl<T> implements Event<T> {
     return this._service;
   }
 
-  // eslint-disable-next-line class-methods-use-this
+   
   get kind(): EventKindDef {
     return EventKind.Base;
   }

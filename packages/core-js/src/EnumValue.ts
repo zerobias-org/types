@@ -47,7 +47,7 @@ export class EnumValue {
   }
 
   /**
-   * @returns Method supporting CTF from {@link https://github.com/vitaly-t/pg-promise#custom-type-formatting}. This enables types to be seamlessly utilized in `pg-promise`
+   * @returns Method supporting CTF for pg-promise custom type formatting
    */
   toPostgres(): any {
     return this.value;
