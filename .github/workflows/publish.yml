@@ -97,8 +97,10 @@ jobs:
       - name: Get published versions
         id: get_package_versions
         run: |
-          ./bin/generate_slack_message.sh
-          echo ::set-output name=output::$(./bin/generate_slack_message.sh)
+          output=$(./bin/generate_slack_message.sh)
+          echo "output<<EOF" >> $GITHUB_OUTPUT
+          echo "$output" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
 
       - name: Slack Notification on failure
         uses: slackapi/slack-github-action@v2.1.1
@@ -124,15 +126,22 @@ jobs:
           webhook: ${{ env.SLACK_RELEASES_WEBHOOK }}
           webhook-type: incoming-webhook
           payload: |
-            blocks:
-              - type: "section"
-                text:
-                  type: "mrkdwn"
-                  text: ":robot: :gear: New artifacts published :tada:"
-              - type: "section"
-                text:
-                  type: "mrkdwn"
-                  text: "${{ steps.get_package_versions.outputs.output }}"
+            attachments:
+              - color: "#36a64f"
+                blocks:
+                  - type: "header"
+                    text:
+                      type: "mrkdwn"
+                      text: ":robot: New Types Published :tada:"
+                      emoji: true
+                  - type: "section"
+                    text:
+                      type: "mrkdwn"
+                      text: "${{ steps.get_package_versions.outputs.output }}"
+                  - type: "context"
+                    elements:
+                      - type: "mrkdwn"
+                        text: "<https://github.com/${{ github.repository }}|${{ github.repository }}> • <https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}|View run>"
 
   # sbom-recorder:
   #   needs: publish
