@@ -59,6 +59,7 @@
   "dependencies": {
     "@supercharge/promise-pool": "3.2.0",
     "@zerobias-org/types-core": "^1.0.1",
+    "axios": "^1.13.2",
     "awesome-phonenumber": "7.6.0",
     "buffer": "6.0.3",
     "cron-parser": "5.4.0",
@@ -69,8 +70,5 @@
     "uuid": "13.0.0",
     "validator": "13.15.23",
     "vuln-vects": "1.1.0"
-  },
-  "peerDependencies": {
-    "axios": "^1.13.2"
   }
 }
