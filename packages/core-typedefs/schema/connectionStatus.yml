@@ -1,0 +1,24 @@
+type: string
+description: The current status of a Connection
+enum:
+  - initialized
+  - invalid
+  - down
+  - error
+  - off
+  - disabled
+  - standby
+  - on
+  - starting
+  - stopping
+x-enum-descriptions:
+  - State indicating the current ConnectionProfile has not yet been validated. This is the initial state of a Connection. Updates to the ConnectionProfile will also transition the Connection to this state.
+  - State similar to `error` indicating that the Connection has *never* successfully connected.
+  - Error has been detected and the retry loop has expired, resulting in no successful connection.
+  - Error detected. Retry loop is still active
+  - Manually turned off
+  - Administratively disabled
+  - Automatically turned off
+  - On and ready for execution
+  - Connecting and configuring
+  - Stopping and cleaning up

@@ -1,0 +1,53 @@
+type: object
+description: Information about a Connection
+required:
+  - status
+properties:
+  status:
+    description: The operational status of the Connection
+    $ref: './connectionStatus.yml'
+  connected:
+    description: Timestamp when the Connection last connected
+    type: string
+    format: date-time
+  lastActivity:
+    description: Timestamp when the Connection last handled a message
+    type: string
+    format: date-time
+  disconnected:
+    description: Timestamp when the Connection last disconnected
+    type: string
+    format: date-time
+  bytesIn:
+    description: Number of bytes received by the Connection
+    type: number
+    format: int64
+  bytesOut:
+    description: Number of bytes sent by the Connection
+    type: number
+    format: int64
+  moduleKey:
+    description: The key of the module this Connection is using
+    type: string
+    example: '@zerobias-org/github'
+  moduleVersion:
+    description: The version of the module this Connection is using
+    type: string
+    format: semver
+  serverVersion:
+    description: >-
+      The version of the Hub server this connection is using. This will only be present if using a HubConnector
+    type: string
+    format: semver
+  connectionProfile:
+    description: Any non-secret details that are a part of the Connection Profile
+    type: object
+    additionalProperties: {}
+  remoteSystemInfo:
+    description: Information gathered from the system the module is connected to
+    type: object
+    additionalProperties: {}
+    properties:
+      version:
+        description: The version of the software, API, etc. the remote system is running
+        type: string
