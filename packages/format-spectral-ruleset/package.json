@@ -29,6 +29,9 @@
     "bom.json"
   ],
   "dependencies": {
-    "@zerobias-org/types-core-js": "^1.0.0"
+    "@zerobias-org/types-core-js": "^1.0.0",
+    "@zerobias-org/types-amazon-js": "^1.0.0",
+    "@zerobias-org/types-microsoft-js": "^1.0.0",
+    "@zerobias-org/types-google-js": "^1.0.0"
   }
 }
