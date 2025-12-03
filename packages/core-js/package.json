@@ -24,7 +24,7 @@
     "generate": "npm run generate:code",
     "transpile": "tsc",
     "build": "npm run generate && npm run transpile",
-    "test": "mocha --inline-diffs --reporter=list test/unit/**/*.ts",
+    "test": "mocha --inline-diffs --reporter=list 'test/unit/**/*.ts'",
     "test:unit": "mocha --inline-diffs --reporter=list test/unit/*.ts",
     "test:watch": "npm run test -- --watch --reporter=min",
     "docs:tsdoc": "typedoc --plugin typedoc-plugin-markdown --out .docs",

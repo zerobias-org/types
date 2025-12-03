@@ -168,6 +168,10 @@ export class TypeLibrary {
     if (this.primitiveTypeMap[className]) {
       return new this.primitiveTypeMap[className](args);
     }
+    // enumTypeMap uses lowercase keys
+    if (this.enumTypeMap[type]) {
+      return this.enumTypeMap[type].from(args);
+    }
     return this.deserializer(args, className);
   }
 }

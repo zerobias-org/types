@@ -18,7 +18,7 @@
     "generate": "npm run generate:code",
     "transpile": "tsc",
     "build": "npm run generate && npm run transpile",
-    "test": "mocha --inline-diffs --reporter=list",
+    "test": "mocha --inline-diffs --reporter=list test/*.ts",
     "test:watch": "npm run test -- --watch --reporter=min",
     "docs:tsdoc": "typedoc --plugin typedoc-plugin-markdown --out .docs",
     "docs:combine": "concat-md --toc --decrease-title-levels --dir-name-as-title .docs > README.md",

@@ -25,9 +25,25 @@ export abstract class CoreError<T extends ErrorModel> extends Error implements C
   constructor(model: T) {
     super(model.template);
     this._model = model;
+    // Interpolate the template with model values
+    this.message = this.interpolateTemplate(model);
     if (model.stack) {
       this.stack = model.stack;
     }
+  }
+
+  /**
+   * Interpolates the template string with values from the model.
+   * Replaces placeholders like {key} with corresponding model values.
+   */
+  private interpolateTemplate(model: T): string {
+    let message = model.template;
+    for (const [key, value] of Object.entries(model)) {
+      if (key !== 'template' && key !== 'stack' && value !== undefined) {
+        message = message.replace(`{${key}}`, String(value));
+      }
+    }
+    return message;
   }
 
   /**

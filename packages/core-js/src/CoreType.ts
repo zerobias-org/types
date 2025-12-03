@@ -360,6 +360,10 @@ export class CoreType {
    */
   newInstance<T>(args: any): T {
     let type = this.type.name;
+    // For enum types, use the type name directly
+    if (this.isEnum) {
+      return this.library.newInstance(type, args);
+    }
     if (this.path) {
       const pathSplits = this.path.replace('.yml', '').split('/');
       type = '';

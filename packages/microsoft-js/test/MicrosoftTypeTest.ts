@@ -78,7 +78,7 @@ describe('types', function () {
       expect((schema.properties as any).location).to.be.ok;
       expect((schema.properties as any).location.anyOf).to.be.ok;
       expect((schema.properties as any).location.anyOf.length).to.eq(2);
-      expect((schema.properties as any).location.anyOf[0].name).to.eq('AzureRegion');
+      expect((schema.properties as any).location.anyOf[0].name).to.eq('azureRegion');
       expect((schema.properties as any).location.anyOf[0].schema).to.be.ok;
       expect((schema.properties as any).location.anyOf[0].schema.type).to.eq('string');
       expect((schema.properties as any).location.anyOf[0].schema.enum).to.be.ok;

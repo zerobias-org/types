@@ -165,7 +165,7 @@ export class Arn extends StringFormat<Arn> {
       if (enumValue) {
         return enumValue;
       }
-    } catch (err) {
+    } catch (err: any) {
       if (!(err instanceof IllegalArgumentError) || !(err.message.includes('is not a valid'))) {
         throw err;
       }
@@ -184,6 +184,7 @@ export class Arn extends StringFormat<Arn> {
       throw new InvalidInputError('Arn', arn, Arn.examples());
     }
 
+    console.log(`Creating arn with value: ${arn} - arn parts: ${JSON.stringify(arnParts)}`);
     this._partition = Arn.mapElement(AwsPartition, arnParts.partition.replace(/-/g, '_'));
     this._service = Arn.mapElement(AwsService, arnParts.service.replace(/-/g, '_'));
     this._region = arnParts.region
