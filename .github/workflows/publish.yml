@@ -98,9 +98,14 @@ jobs:
         id: get_package_versions
         run: |
           output=$(./bin/generate_slack_message.sh)
-          echo "output<<EOF" >> $GITHUB_OUTPUT
-          echo "$output" >> $GITHUB_OUTPUT
-          echo "EOF" >> $GITHUB_OUTPUT
+          if [ "$output" = "No packages published" ] || [ -z "$output" ]; then
+            echo "has_packages=false" >> $GITHUB_OUTPUT
+          else
+            echo "has_packages=true" >> $GITHUB_OUTPUT
+            echo "output<<EOF" >> $GITHUB_OUTPUT
+            echo "$output" >> $GITHUB_OUTPUT
+            echo "EOF" >> $GITHUB_OUTPUT
+          fi
 
       - name: Slack Notification on failure
         uses: slackapi/slack-github-action@v2.1.1
@@ -121,7 +126,7 @@ jobs:
 
       - name: Slack Notification
         uses: slackapi/slack-github-action@v2.1.1
-        if: success()
+        if: success() && steps.get_package_versions.outputs.has_packages == 'true'
         with:
           webhook: ${{ env.SLACK_RELEASES_WEBHOOK }}
           webhook-type: incoming-webhook
