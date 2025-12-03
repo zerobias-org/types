@@ -14,26 +14,378 @@ paths:
           description: Foo
 components:
   schemas:
-    AwsService:
-      $ref: '#/components/schemas/awsService'
+    AwsAccessPolicy:
+      $ref: '#/components/schemas/awsAccessPolicy'
+    AwsAccessPolicyStatement:
+      $ref: '#/components/schemas/awsAccessPolicyStatement'
     AwsAccessPolicyStatementCondition:
       $ref: '#/components/schemas/awsAccessPolicyStatementCondition'
+    AwsAccessPolicyStatementEffect:
+      $ref: '#/components/schemas/awsAccessPolicyStatementEffect'
+    AwsAccessPolicyStatementOperator:
+      $ref: '#/components/schemas/awsAccessPolicyStatementOperator'
     AwsAccessPolicyStatementResource:
       $ref: '#/components/schemas/awsAccessPolicyStatementResource'
     AwsConnection:
       $ref: '#/components/schemas/awsConnection'
-    AwsAccessPolicy:
-      $ref: '#/components/schemas/awsAccessPolicy'
     AwsPartition:
       $ref: '#/components/schemas/awsPartition'
-    AwsAccessPolicyStatementEffect:
-      $ref: '#/components/schemas/awsAccessPolicyStatementEffect'
     AwsRegion:
       $ref: '#/components/schemas/awsRegion'
-    AwsAccessPolicyStatement:
-      $ref: '#/components/schemas/awsAccessPolicyStatement'
-    AwsAccessPolicyStatementOperator:
-      $ref: '#/components/schemas/awsAccessPolicyStatementOperator'
+    AwsService:
+      $ref: '#/components/schemas/awsService'
+    awsAccessPolicyStatementEffect:
+      type: string
+      description: Whether the policy allows or denies access.
+      enum:
+        - allow
+        - deny
+    awsAccessPolicyStatementResource:
+      type: string
+      enum:
+        - all
+    awsAccessPolicyStatementOperator:
+      type: string
+      enum:
+        - 'null'
+        - arn_equals
+        - arn_equals_if_exists
+        - arn_like
+        - arn_like_if_exists
+        - arn_not_equals
+        - arn_not_equals_if_exists
+        - arn_not_like
+        - arn_not_like_if_exists
+        - binary_equals
+        - binary_equals_if_exists
+        - bool
+        - bool_if_exists
+        - date_equals
+        - date_equals_if_exists
+        - date_greater_than
+        - date_greater_than_equals
+        - date_greater_than_equals_if_exists
+        - date_greater_than_if_exists
+        - date_less_than
+        - date_less_than_equals
+        - date_less_than_equals_if_exists
+        - date_less_than_if_exists
+        - date_not_equals
+        - date_not_equals_if_exists
+        - for_all_values_arn_equals
+        - for_all_values_arn_equals_if_exists
+        - for_all_values_arn_like
+        - for_all_values_arn_like_if_exists
+        - for_all_values_arn_not_equals
+        - for_all_values_arn_not_equals_if_exists
+        - for_all_values_arn_not_like
+        - for_all_values_arn_not_like_if_exists
+        - for_all_values_binary_equals
+        - for_all_values_binary_equals_if_exists
+        - for_all_values_bool
+        - for_all_values_bool_if_exists
+        - for_all_values_date_equals
+        - for_all_values_date_equals_if_exists
+        - for_all_values_date_greater_than
+        - for_all_values_date_greater_than_equals
+        - for_all_values_date_greater_than_equals_if_exists
+        - for_all_values_date_greater_than_if_exists
+        - for_all_values_date_less_than
+        - for_all_values_date_less_than_equals
+        - for_all_values_date_less_than_equals_if_exists
+        - for_all_values_date_less_than_if_exists
+        - for_all_values_date_not_equals
+        - for_all_values_date_not_equals_if_exists
+        - for_all_values_ip_address
+        - for_all_values_ip_address_if_exists
+        - for_all_values_not_ip_address
+        - for_all_values_not_ip_address_if_exists
+        - for_all_values_numeric_equals
+        - for_all_values_numeric_equals_if_exists
+        - for_all_values_numeric_greater_than
+        - for_all_values_numeric_greater_than_equals
+        - for_all_values_numeric_greater_than_equals_if_exists
+        - for_all_values_numeric_greater_than_if_exists
+        - for_all_values_numeric_less_than
+        - for_all_values_numeric_less_than_equals
+        - for_all_values_numeric_less_than_equals_if_exists
+        - for_all_values_numeric_less_than_if_exists
+        - for_all_values_numeric_not_equals
+        - for_all_values_numeric_not_equals_if_exists
+        - for_all_values_string_equals
+        - for_all_values_string_equals_if_exists
+        - for_all_values_string_like
+        - for_all_values_string_like_if_exists
+        - for_all_values_string_not_equals
+        - for_all_values_string_not_equals_if_exists
+        - for_all_values_string_not_like
+        - for_all_values_string_not_like_if_exists
+        - for_any_value_arn_equals
+        - for_any_value_arn_equals_if_exists
+        - for_any_value_arn_like
+        - for_any_value_arn_like_if_exists
+        - for_any_value_arn_not_equals
+        - for_any_value_arn_not_equals_if_exists
+        - for_any_value_arn_not_like
+        - for_any_value_arn_not_like_if_exists
+        - for_any_value_binary_equals
+        - for_any_value_binary_equals_if_exists
+        - for_any_value_bool
+        - for_any_value_bool_if_exists
+        - for_any_value_date_equals
+        - for_any_value_date_equals_if_exists
+        - for_any_value_date_greater_than
+        - for_any_value_date_greater_than_equals
+        - for_any_value_date_greater_than_equals_if_exists
+        - for_any_value_date_greater_than_if_exists
+        - for_any_value_date_less_than
+        - for_any_value_date_less_than_equals
+        - for_any_value_date_less_than_equals_if_exists
+        - for_any_value_date_less_than_if_exists
+        - for_any_value_date_not_equals
+        - for_any_value_date_not_equals_if_exists
+        - for_any_value_ip_address
+        - for_any_value_ip_address_if_exists
+        - for_any_value_not_ip_address
+        - for_any_value_not_ip_address_if_exists
+        - for_any_value_numeric_equals
+        - for_any_value_numeric_equals_if_exists
+        - for_any_value_numeric_greater_than
+        - for_any_value_numeric_greater_than_equals
+        - for_any_value_numeric_greater_than_equals_if_exists
+        - for_any_value_numeric_greater_than_if_exists
+        - for_any_value_numeric_less_than
+        - for_any_value_numeric_less_than_equals
+        - for_any_value_numeric_less_than_equals_if_exists
+        - for_any_value_numeric_less_than_if_exists
+        - for_any_value_numeric_not_equals
+        - for_any_value_numeric_not_equals_if_exists
+        - for_any_value_string_equals
+        - for_any_value_string_equals_if_exists
+        - for_any_value_string_like
+        - for_any_value_string_like_if_exists
+        - for_any_value_string_not_equals
+        - for_any_value_string_not_equals_if_exists
+        - for_any_value_string_not_like
+        - for_any_value_string_not_like_if_exists
+        - ip_address
+        - ip_address_if_exists
+        - not_ip_address
+        - not_ip_address_if_exists
+        - numeric_equals
+        - numeric_equals_if_exists
+        - numeric_greater_than
+        - numeric_greater_than_equals
+        - numeric_greater_than_equals_if_exists
+        - numeric_greater_than_if_exists
+        - numeric_less_than
+        - numeric_less_than_equals
+        - numeric_less_than_equals_if_exists
+        - numeric_less_than_if_exists
+        - numeric_not_equals
+        - numeric_not_equals_if_exists
+        - string_equals
+        - string_equals_if_exists
+        - string_equals_ignore_case
+        - string_equals_ignore_case_if_exists
+        - string_like
+        - string_like_if_exists
+        - string_not_equals
+        - string_not_equals_if_exists
+        - string_not_like
+        - string_not_like_if_exists
+        - string_not_equals_ignore_case
+        - string_not_equals_ignore_case_if_exists
+    awsAccessPolicyStatementCondition:
+      type: object
+      properties:
+        operator:
+          $ref: '#/components/schemas/awsAccessPolicyStatementOperator'
+        values:
+          type: object
+          additionalProperties:
+            anyOf:
+              - type: string
+              - type: array
+                items:
+                  type: string
+    awsAccessPolicyStatement:
+      type: object
+      required:
+        - effect
+      properties:
+        sid:
+          type: string
+          description: An optional statement ID to differentiate between statements.
+        effect:
+          $ref: '#/components/schemas/awsAccessPolicyStatementEffect'
+        principal:
+          type: object
+          description: If you create a resource-based policy, you must indicate the account, user, role, or federated user to which you would like to allow or deny access. If you are creating an IAM permissions policy to attach to a user or role, you cannot include this element. The principal is implied as that user or role.
+          additionalProperties:
+            type: array
+            items:
+              type: string
+        notPrincipal:
+          type: object
+          description: An exception to a list of principals.
+          additionalProperties:
+            type: array
+            items:
+              type: string
+        actions:
+          type: array
+          description: A list of actions that the policy allows or denies.
+          items:
+            type: string
+        notActions:
+          type: array
+          description: An advanced policy element that explicitly matches everything except the specified list of actions.
+          items:
+            type: string
+        resources:
+          type: array
+          description: If you create an IAM permissions policy, you must specify a list of resources to which the actions apply. If you create a resource-based policy, this element is optional. If you do not include this element, then the resource to which the action applies is the resource to which the policy is attached.
+          items:
+            type: string
+            anyOf:
+              - type: string
+                format: arn
+              - $ref: '#/components/schemas/awsAccessPolicyStatementResource'
+        notResources:
+          type: array
+          description: An advanced policy element that explicitly matches every resource except those specified.
+          items:
+            type: string
+            anyOf:
+              - type: string
+                format: arn
+              - $ref: '#/components/schemas/awsAccessPolicyStatementResource'
+        conditions:
+          type: array
+          description: The circumstances under which the policy grants permission.
+          items:
+            $ref: '#/components/schemas/awsAccessPolicyStatementCondition'
+    awsAccessPolicy:
+      type: object
+      description: An AWS Access Policy. More details [here](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#access_policies-json)
+      required:
+        - statements
+      properties:
+        version:
+          type: string
+          description: The version of the policy language.
+        id:
+          type: string
+          description: An optional identifier for the policy.
+        statements:
+          type: array
+          description: A list of policy statements.
+          items:
+            $ref: '#/components/schemas/awsAccessPolicyStatement'
+    awsRegion:
+      type: string
+      enum:
+        - af-south-1
+        - ap-east-1
+        - ap-northeast-1
+        - ap-northeast-2
+        - ap-northeast-3
+        - ap-south-1
+        - ap-southeast-1
+        - ap-southeast-2
+        - ap-southeast-3
+        - ca-central-1
+        - cn-north-1
+        - cn-northwest-1
+        - eu-central-1
+        - eu-north-1
+        - eu-south-1
+        - eu-west-1
+        - eu-west-2
+        - eu-west-3
+        - me-south-1
+        - sa-east-1
+        - us-east-1
+        - us-east-2
+        - us-gov-east-1
+        - us-gov-west-1
+        - us-west-1
+        - us-west-2
+      x-enum-descriptions:
+        - Africa South 1
+        - Asia Pacific East 1
+        - Asia Pacific Northeast 1
+        - Asia Pacific Northeast 2
+        - Asia Pacific Northeast 3
+        - Asia Pacific South 1
+        - Asia Pacific Southeast 1
+        - Asia Pacific Southeast 2
+        - Asia Pacific Southeast 3
+        - Canada Central 1
+        - China North 1
+        - China Northwest 1
+        - Europe Central 1
+        - Europe North 1
+        - Europe South 1
+        - Europe West 1
+        - Europe West 2
+        - Europe West 3
+        - Middle East South 1
+        - South America East 1
+        - US East 1
+        - US East 2
+        - AWS GovCloud East 1
+        - AWS GovCloud West 1
+        - US West 1
+        - US West 2
+    awsConnection:
+      type: object
+      description: Connection profile for connecting to AWS services. Either `region` or `endpoint` must be provided
+      required:
+        - useInfrastructure
+      properties:
+        useInfrastructure:
+          type: boolean
+          description: Whether to use EC2 IAM roles for authentication.
+          example: false
+        secretKey:
+          type: string
+          description: The AWS secret key to use
+          example: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
+          format: password
+        accessKeyId:
+          type: string
+          description: The ID of the Access Key to use
+          example: AKIAIOSFODNN7EXAMPLE
+        region:
+          $ref: '#/components/schemas/awsRegion'
+          example: us-east-1
+        endpoint:
+          type: string
+          format: hostname
+          description: The AWS Endpoint to connect to
+          example: rds.us-east-1.amazonaws.com
+        roleArn:
+          type: string
+          description: The ARN of the role to assume
+          format: arn
+          example: arn:aws:iam::123456789012:role/Example
+        roleSessionName:
+          type: string
+          description: An identifier for the assumed role session
+          example: identifier-1234
+    awsPartition:
+      type: string
+      description: The partition in which the resource is located. A partition is a group of AWS Regions. Each AWS account is scoped to one partition.
+      enum:
+        - aws
+        - aws_cn
+        - aws_us_gov
+      x-enum-descriptions:
+        - AWS Regions
+        - AWS China Regions
+        - AWS GovCloud (US) Regions
     awsService:
       type: string
       description: The service namespace that identifies the AWS product. For example, s3 for Amazon S3 resources.
@@ -891,355 +1243,3 @@ components:
         - Amazon WorkSpaces Thin Client
         - Amazon WorkSpaces Web
         - AWS X-Ray
-    awsAccessPolicyStatementOperator:
-      type: string
-      enum:
-        - 'null'
-        - arn_equals
-        - arn_equals_if_exists
-        - arn_like
-        - arn_like_if_exists
-        - arn_not_equals
-        - arn_not_equals_if_exists
-        - arn_not_like
-        - arn_not_like_if_exists
-        - binary_equals
-        - binary_equals_if_exists
-        - bool
-        - bool_if_exists
-        - date_equals
-        - date_equals_if_exists
-        - date_greater_than
-        - date_greater_than_equals
-        - date_greater_than_equals_if_exists
-        - date_greater_than_if_exists
-        - date_less_than
-        - date_less_than_equals
-        - date_less_than_equals_if_exists
-        - date_less_than_if_exists
-        - date_not_equals
-        - date_not_equals_if_exists
-        - for_all_values_arn_equals
-        - for_all_values_arn_equals_if_exists
-        - for_all_values_arn_like
-        - for_all_values_arn_like_if_exists
-        - for_all_values_arn_not_equals
-        - for_all_values_arn_not_equals_if_exists
-        - for_all_values_arn_not_like
-        - for_all_values_arn_not_like_if_exists
-        - for_all_values_binary_equals
-        - for_all_values_binary_equals_if_exists
-        - for_all_values_bool
-        - for_all_values_bool_if_exists
-        - for_all_values_date_equals
-        - for_all_values_date_equals_if_exists
-        - for_all_values_date_greater_than
-        - for_all_values_date_greater_than_equals
-        - for_all_values_date_greater_than_equals_if_exists
-        - for_all_values_date_greater_than_if_exists
-        - for_all_values_date_less_than
-        - for_all_values_date_less_than_equals
-        - for_all_values_date_less_than_equals_if_exists
-        - for_all_values_date_less_than_if_exists
-        - for_all_values_date_not_equals
-        - for_all_values_date_not_equals_if_exists
-        - for_all_values_ip_address
-        - for_all_values_ip_address_if_exists
-        - for_all_values_not_ip_address
-        - for_all_values_not_ip_address_if_exists
-        - for_all_values_numeric_equals
-        - for_all_values_numeric_equals_if_exists
-        - for_all_values_numeric_greater_than
-        - for_all_values_numeric_greater_than_equals
-        - for_all_values_numeric_greater_than_equals_if_exists
-        - for_all_values_numeric_greater_than_if_exists
-        - for_all_values_numeric_less_than
-        - for_all_values_numeric_less_than_equals
-        - for_all_values_numeric_less_than_equals_if_exists
-        - for_all_values_numeric_less_than_if_exists
-        - for_all_values_numeric_not_equals
-        - for_all_values_numeric_not_equals_if_exists
-        - for_all_values_string_equals
-        - for_all_values_string_equals_if_exists
-        - for_all_values_string_like
-        - for_all_values_string_like_if_exists
-        - for_all_values_string_not_equals
-        - for_all_values_string_not_equals_if_exists
-        - for_all_values_string_not_like
-        - for_all_values_string_not_like_if_exists
-        - for_any_value_arn_equals
-        - for_any_value_arn_equals_if_exists
-        - for_any_value_arn_like
-        - for_any_value_arn_like_if_exists
-        - for_any_value_arn_not_equals
-        - for_any_value_arn_not_equals_if_exists
-        - for_any_value_arn_not_like
-        - for_any_value_arn_not_like_if_exists
-        - for_any_value_binary_equals
-        - for_any_value_binary_equals_if_exists
-        - for_any_value_bool
-        - for_any_value_bool_if_exists
-        - for_any_value_date_equals
-        - for_any_value_date_equals_if_exists
-        - for_any_value_date_greater_than
-        - for_any_value_date_greater_than_equals
-        - for_any_value_date_greater_than_equals_if_exists
-        - for_any_value_date_greater_than_if_exists
-        - for_any_value_date_less_than
-        - for_any_value_date_less_than_equals
-        - for_any_value_date_less_than_equals_if_exists
-        - for_any_value_date_less_than_if_exists
-        - for_any_value_date_not_equals
-        - for_any_value_date_not_equals_if_exists
-        - for_any_value_ip_address
-        - for_any_value_ip_address_if_exists
-        - for_any_value_not_ip_address
-        - for_any_value_not_ip_address_if_exists
-        - for_any_value_numeric_equals
-        - for_any_value_numeric_equals_if_exists
-        - for_any_value_numeric_greater_than
-        - for_any_value_numeric_greater_than_equals
-        - for_any_value_numeric_greater_than_equals_if_exists
-        - for_any_value_numeric_greater_than_if_exists
-        - for_any_value_numeric_less_than
-        - for_any_value_numeric_less_than_equals
-        - for_any_value_numeric_less_than_equals_if_exists
-        - for_any_value_numeric_less_than_if_exists
-        - for_any_value_numeric_not_equals
-        - for_any_value_numeric_not_equals_if_exists
-        - for_any_value_string_equals
-        - for_any_value_string_equals_if_exists
-        - for_any_value_string_like
-        - for_any_value_string_like_if_exists
-        - for_any_value_string_not_equals
-        - for_any_value_string_not_equals_if_exists
-        - for_any_value_string_not_like
-        - for_any_value_string_not_like_if_exists
-        - ip_address
-        - ip_address_if_exists
-        - not_ip_address
-        - not_ip_address_if_exists
-        - numeric_equals
-        - numeric_equals_if_exists
-        - numeric_greater_than
-        - numeric_greater_than_equals
-        - numeric_greater_than_equals_if_exists
-        - numeric_greater_than_if_exists
-        - numeric_less_than
-        - numeric_less_than_equals
-        - numeric_less_than_equals_if_exists
-        - numeric_less_than_if_exists
-        - numeric_not_equals
-        - numeric_not_equals_if_exists
-        - string_equals
-        - string_equals_if_exists
-        - string_equals_ignore_case
-        - string_equals_ignore_case_if_exists
-        - string_like
-        - string_like_if_exists
-        - string_not_equals
-        - string_not_equals_if_exists
-        - string_not_like
-        - string_not_like_if_exists
-        - string_not_equals_ignore_case
-        - string_not_equals_ignore_case_if_exists
-    awsAccessPolicyStatementCondition:
-      type: object
-      properties:
-        operator:
-          $ref: '#/components/schemas/awsAccessPolicyStatementOperator'
-        values:
-          type: object
-          additionalProperties:
-            anyOf:
-              - type: string
-              - type: array
-                items:
-                  type: string
-    awsAccessPolicyStatementResource:
-      type: string
-      enum:
-        - all
-    awsRegion:
-      type: string
-      enum:
-        - af-south-1
-        - ap-east-1
-        - ap-northeast-1
-        - ap-northeast-2
-        - ap-northeast-3
-        - ap-south-1
-        - ap-southeast-1
-        - ap-southeast-2
-        - ap-southeast-3
-        - ca-central-1
-        - cn-north-1
-        - cn-northwest-1
-        - eu-central-1
-        - eu-north-1
-        - eu-south-1
-        - eu-west-1
-        - eu-west-2
-        - eu-west-3
-        - me-south-1
-        - sa-east-1
-        - us-east-1
-        - us-east-2
-        - us-gov-east-1
-        - us-gov-west-1
-        - us-west-1
-        - us-west-2
-      x-enum-descriptions:
-        - Africa South 1
-        - Asia Pacific East 1
-        - Asia Pacific Northeast 1
-        - Asia Pacific Northeast 2
-        - Asia Pacific Northeast 3
-        - Asia Pacific South 1
-        - Asia Pacific Southeast 1
-        - Asia Pacific Southeast 2
-        - Asia Pacific Southeast 3
-        - Canada Central 1
-        - China North 1
-        - China Northwest 1
-        - Europe Central 1
-        - Europe North 1
-        - Europe South 1
-        - Europe West 1
-        - Europe West 2
-        - Europe West 3
-        - Middle East South 1
-        - South America East 1
-        - US East 1
-        - US East 2
-        - AWS GovCloud East 1
-        - AWS GovCloud West 1
-        - US West 1
-        - US West 2
-    awsConnection:
-      type: object
-      description: Connection profile for connecting to AWS services. Either `region` or `endpoint` must be provided
-      required:
-        - useInfrastructure
-      properties:
-        useInfrastructure:
-          type: boolean
-          description: Whether to use EC2 IAM roles for authentication.
-          example: false
-        secretKey:
-          type: string
-          description: The AWS secret key to use
-          example: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
-          format: password
-        accessKeyId:
-          type: string
-          description: The ID of the Access Key to use
-          example: AKIAIOSFODNN7EXAMPLE
-        region:
-          $ref: '#/components/schemas/awsRegion'
-          example: us-east-1
-        endpoint:
-          type: string
-          format: hostname
-          description: The AWS Endpoint to connect to
-          example: rds.us-east-1.amazonaws.com
-        roleArn:
-          type: string
-          description: The ARN of the role to assume
-          format: arn
-          example: arn:aws:iam::123456789012:role/Example
-        roleSessionName:
-          type: string
-          description: An identifier for the assumed role session
-          example: identifier-1234
-    awsAccessPolicyStatementEffect:
-      type: string
-      description: Whether the policy allows or denies access.
-      enum:
-        - allow
-        - deny
-    awsAccessPolicyStatement:
-      type: object
-      required:
-        - effect
-      properties:
-        sid:
-          type: string
-          description: An optional statement ID to differentiate between statements.
-        effect:
-          $ref: '#/components/schemas/awsAccessPolicyStatementEffect'
-        principal:
-          type: object
-          description: If you create a resource-based policy, you must indicate the account, user, role, or federated user to which you would like to allow or deny access. If you are creating an IAM permissions policy to attach to a user or role, you cannot include this element. The principal is implied as that user or role.
-          additionalProperties:
-            type: array
-            items:
-              type: string
-        notPrincipal:
-          type: object
-          description: An exception to a list of principals.
-          additionalProperties:
-            type: array
-            items:
-              type: string
-        actions:
-          type: array
-          description: A list of actions that the policy allows or denies.
-          items:
-            type: string
-        notActions:
-          type: array
-          description: An advanced policy element that explicitly matches everything except the specified list of actions.
-          items:
-            type: string
-        resources:
-          type: array
-          description: If you create an IAM permissions policy, you must specify a list of resources to which the actions apply. If you create a resource-based policy, this element is optional. If you do not include this element, then the resource to which the action applies is the resource to which the policy is attached.
-          items:
-            type: string
-            anyOf:
-              - type: string
-                format: arn
-              - $ref: '#/components/schemas/awsAccessPolicyStatementResource'
-        notResources:
-          type: array
-          description: An advanced policy element that explicitly matches every resource except those specified.
-          items:
-            type: string
-            anyOf:
-              - type: string
-                format: arn
-              - $ref: '#/components/schemas/awsAccessPolicyStatementResource'
-        conditions:
-          type: array
-          description: The circumstances under which the policy grants permission.
-          items:
-            $ref: '#/components/schemas/awsAccessPolicyStatementCondition'
-    awsAccessPolicy:
-      type: object
-      description: An AWS Access Policy. More details [here](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#access_policies-json)
-      required:
-        - statements
-      properties:
-        version:
-          type: string
-          description: The version of the policy language.
-        id:
-          type: string
-          description: An optional identifier for the policy.
-        statements:
-          type: array
-          description: A list of policy statements.
-          items:
-            $ref: '#/components/schemas/awsAccessPolicyStatement'
-    awsPartition:
-      type: string
-      description: The partition in which the resource is located. A partition is a group of AWS Regions. Each AWS account is scoped to one partition.
-      enum:
-        - aws
-        - aws_cn
-        - aws_us_gov
-      x-enum-descriptions:
-        - AWS Regions
-        - AWS China Regions
-        - AWS GovCloud (US) Regions

@@ -14,10 +14,18 @@ paths:
           description: Foo
 components:
   schemas:
-    AzureResourceIdentity:
-      $ref: '#/components/schemas/azureResourceIdentity'
+    AzureAdditionalLocations:
+      $ref: '#/components/schemas/azureAdditionalLocations'
+    AzureConnection:
+      $ref: '#/components/schemas/azureConnection'
     AzureRegion:
       $ref: '#/components/schemas/azureRegion'
+    AzureResource:
+      $ref: '#/components/schemas/azureResource'
+    AzureResourceIdentity:
+      $ref: '#/components/schemas/azureResourceIdentity'
+    AzureResourceIdentityType:
+      $ref: '#/components/schemas/azureResourceIdentityType'
     AzureResourceInfo:
       $ref: '#/components/schemas/azureResourceInfo'
     AzureResourcePlan:
@@ -26,55 +34,47 @@ components:
       $ref: '#/components/schemas/azureResourceProvider'
     AzureResourceSku:
       $ref: '#/components/schemas/azureResourceSku'
-    AzureVmSize:
-      $ref: '#/components/schemas/azureVmSize'
+    AzureResourceSkuTier:
+      $ref: '#/components/schemas/azureResourceSkuTier'
     AzureStorageConnection:
       $ref: '#/components/schemas/azureStorageConnection'
     AzureTokenProfile:
       $ref: '#/components/schemas/azureTokenProfile'
-    AzureResourceSkuTier:
-      $ref: '#/components/schemas/azureResourceSkuTier'
-    AzureConnection:
-      $ref: '#/components/schemas/azureConnection'
-    AzureAdditionalLocations:
-      $ref: '#/components/schemas/azureAdditionalLocations'
-    AzureResource:
-      $ref: '#/components/schemas/azureResource'
-    AzureResourceIdentityType:
-      $ref: '#/components/schemas/azureResourceIdentityType'
-    azureResourceIdentityType:
+    AzureVmSize:
+      $ref: '#/components/schemas/azureVmSize'
+    azureAdditionalLocations:
       type: string
-      description: The identity type.
       enum:
-        - none
-        - system_assigned
-        - system_assigned_user_assigned
-        - user_assigned
-    azureResourceIdentity:
+        - global
+    azureConnection:
       type: object
-      description: The identity of the resource.
+      description: Connection profile for connecting to Azure services.
       properties:
-        principalId:
+        clientId:
           type: string
-          description: The principal ID of resource identity.
+          format: uuid
+          description: The active directory application client Id.
+          example: 123e4567-e89b-12d3-a456-426614174000
+        clientSecret:
+          type: string
+          description: The application secret for the service principal.
+          format: password
+          example: IwOGYzYTlmM2YxOTQ5MGE3YmNmMDFkNTVk
         tenantId:
           type: string
-          description: The tenant ID of resource.
-        type:
-          $ref: '#/components/schemas/azureResourceIdentityType'
-        userAssignedIdentities:
-          type: object
-          title: azureUserAssignedIdentities
-          description: '"The list of user identities associated with the resource. The user identity dictionary key references will be ARM resource ids in the form: ''/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ManagedIdentity/userAssignedIdentities/{identityName}''."'
-          additionalProperties:
-            type: object
-            properties:
-              clientId:
-                type: string
-                description: The client id of user assigned identity.
-              principalId:
-                description: The principal id of user assigned identity.
-                type: string
+          format: uuid
+          description: The tenant Id containing this application.
+          example: 123e4567-e89b-12d3-a456-426614174000
+        subscriptionId:
+          type: string
+          format: uuid
+          description: The subscription Id which uniquely identifies a Microsoft Azure subscription.
+          example: 123e4567-e89b-12d3-a456-426614174000
+      required:
+        - clientId
+        - clientSecret
+        - tenantId
+        - subscriptionId
     azureRegion:
       type: string
       enum:
@@ -188,10 +188,39 @@ components:
           type: string
           description: Resource type.
           format: azureResourceType
-    azureAdditionalLocations:
+    azureResourceIdentityType:
       type: string
+      description: The identity type.
       enum:
-        - global
+        - none
+        - system_assigned
+        - system_assigned_user_assigned
+        - user_assigned
+    azureResourceIdentity:
+      type: object
+      description: The identity of the resource.
+      properties:
+        principalId:
+          type: string
+          description: The principal ID of resource identity.
+        tenantId:
+          type: string
+          description: The tenant ID of resource.
+        type:
+          $ref: '#/components/schemas/azureResourceIdentityType'
+        userAssignedIdentities:
+          type: object
+          title: azureUserAssignedIdentities
+          description: '"The list of user identities associated with the resource. The user identity dictionary key references will be ARM resource ids in the form: ''/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ManagedIdentity/userAssignedIdentities/{identityName}''."'
+          additionalProperties:
+            type: object
+            properties:
+              clientId:
+                type: string
+                description: The client id of user assigned identity.
+              principalId:
+                description: The principal id of user assigned identity.
+                type: string
     azureResourcePlan:
       type: object
       description: The plan of the resource.
@@ -480,6 +509,37 @@ components:
         - stackify_retrace
         - u2uconsult_the_identity_hub
         - wandisco_fusion
+    azureStorageConnection:
+      type: object
+      description: Connection profile for Azure Storage services.  accountOrConnectionString must be provided and is either a storage account or a connection string. If a storage account is provided then an access key must be provided too.
+      required:
+        - accountOrConnectionString
+      properties:
+        accountOrConnectionString:
+          type: string
+          format: password
+          description: An Azure Storage account or a Connection String.
+        accessKey:
+          type: string
+          format: password
+          description: Access Key associated with the Azure Storage Account, leave unset if using a connection string.
+    azureTokenProfile:
+      type: object
+      properties:
+        accessToken:
+          type: string
+          format: password
+        tenantId:
+          type: string
+          format: uuid
+          description: The tenant Id containing this application.
+        subscriptionId:
+          type: string
+          format: uuid
+          description: The subscription Id which uniquely identifies a Microsoft Azure subscription.
+      required:
+        - accessToken
+        - tenantId
     azureVmSize:
       type: string
       description: The name of the virtual machine size. More info can be found [here](https://docs.microsoft.com/en-us/azure/virtual-machines/sizes)
@@ -866,63 +926,3 @@ components:
         - standard_nv6s_v2
         - standard_nv8as_v4
         - standard_pb6s
-    azureStorageConnection:
-      type: object
-      description: Connection profile for Azure Storage services.  accountOrConnectionString must be provided and is either a storage account or a connection string. If a storage account is provided then an access key must be provided too.
-      required:
-        - accountOrConnectionString
-      properties:
-        accountOrConnectionString:
-          type: string
-          format: password
-          description: An Azure Storage account or a Connection String.
-        accessKey:
-          type: string
-          format: password
-          description: Access Key associated with the Azure Storage Account, leave unset if using a connection string.
-    azureTokenProfile:
-      type: object
-      properties:
-        accessToken:
-          type: string
-          format: password
-        tenantId:
-          type: string
-          format: uuid
-          description: The tenant Id containing this application.
-        subscriptionId:
-          type: string
-          format: uuid
-          description: The subscription Id which uniquely identifies a Microsoft Azure subscription.
-      required:
-        - accessToken
-        - tenantId
-    azureConnection:
-      type: object
-      description: Connection profile for connecting to Azure services.
-      properties:
-        clientId:
-          type: string
-          format: uuid
-          description: The active directory application client Id.
-          example: 123e4567-e89b-12d3-a456-426614174000
-        clientSecret:
-          type: string
-          description: The application secret for the service principal.
-          format: password
-          example: IwOGYzYTlmM2YxOTQ5MGE3YmNmMDFkNTVk
-        tenantId:
-          type: string
-          format: uuid
-          description: The tenant Id containing this application.
-          example: 123e4567-e89b-12d3-a456-426614174000
-        subscriptionId:
-          type: string
-          format: uuid
-          description: The subscription Id which uniquely identifies a Microsoft Azure subscription.
-          example: 123e4567-e89b-12d3-a456-426614174000
-      required:
-        - clientId
-        - clientSecret
-        - tenantId
-        - subscriptionId

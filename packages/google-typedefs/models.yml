@@ -14,24 +14,121 @@ paths:
           description: Foo
 components:
   schemas:
+    GcpAccessPolicy:
+      $ref: '#/components/schemas/gcpAccessPolicy'
+    GcpAccessPolicyAuditConfig:
+      $ref: '#/components/schemas/gcpAccessPolicyAuditConfig'
+    GcpAccessPolicyAuditLogConfig:
+      $ref: '#/components/schemas/gcpAccessPolicyAuditLogConfig'
+    GcpAccessPolicyAuditLogConfigType:
+      $ref: '#/components/schemas/gcpAccessPolicyAuditLogConfigType'
+    GcpAccessPolicyBinding:
+      $ref: '#/components/schemas/gcpAccessPolicyBinding'
+    GcpAccessPolicyBindingCondition:
+      $ref: '#/components/schemas/gcpAccessPolicyBindingCondition'
+    GcpAccessPolicyVersion:
+      $ref: '#/components/schemas/gcpAccessPolicyVersion'
     GcpConnection:
       $ref: '#/components/schemas/gcpConnection'
     GoogleConnection:
       $ref: '#/components/schemas/googleConnection'
-    GcpAccessPolicyAuditLogConfigType:
-      $ref: '#/components/schemas/gcpAccessPolicyAuditLogConfigType'
-    GcpAccessPolicy:
-      $ref: '#/components/schemas/gcpAccessPolicy'
-    GcpAccessPolicyBindingCondition:
-      $ref: '#/components/schemas/gcpAccessPolicyBindingCondition'
-    GcpAccessPolicyBinding:
-      $ref: '#/components/schemas/gcpAccessPolicyBinding'
-    GcpAccessPolicyAuditLogConfig:
-      $ref: '#/components/schemas/gcpAccessPolicyAuditLogConfig'
-    GcpAccessPolicyVersion:
-      $ref: '#/components/schemas/gcpAccessPolicyVersion'
-    GcpAccessPolicyAuditConfig:
-      $ref: '#/components/schemas/gcpAccessPolicyAuditConfig'
+    gcpAccessPolicyVersion:
+      type: integer
+      description: The format of the policy.
+      enum:
+        - 0
+        - 1
+        - 3
+    gcpAccessPolicyAuditLogConfigType:
+      type: string
+      description: The log type that this config enables.
+      enum:
+        - log_type_unspecified
+        - admin_read
+        - data_write
+        - data_read
+    gcpAccessPolicyAuditLogConfig:
+      type: object
+      description: Provides the configuration for logging a type of permissions.
+      properties:
+        logType:
+          $ref: '#/components/schemas/gcpAccessPolicyAuditLogConfigType'
+        exemptedMembers:
+          type: array
+          description: Specifies the identities that do not cause logging for this type of permission.
+          items:
+            type: string
+    gcpAccessPolicyAuditConfig:
+      type: object
+      description: Specifies the audit configuration for a service.
+      properties:
+        service:
+          type: string
+          description: Specifies a service that will be enabled for audit logging.
+          example:
+            - storage.googleapis.com
+            - allServices
+        auditLogConfigs:
+          type: array
+          description: The configuration for logging of each type of permission.
+          items:
+            $ref: '#/components/schemas/gcpAccessPolicyAuditLogConfig'
+    gcpAccessPolicyBindingCondition:
+      type: object
+      description: The condition that is associated with this binding.
+      required:
+        - expression
+      properties:
+        expression:
+          type: string
+          description: Textual representation of an expression in Common Expression Language syntax.
+        title:
+          type: string
+          description: Title for the expression, i.e. a short string describing its purpose. This can be used e.g. in UIs which allow to enter the expression.
+        description:
+          type: string
+          description: Description of the expression. This is a longer text which describes the expression, e.g. when hovered over it in a UI.
+        location:
+          type: string
+          description: String indicating the location of the expression for error reporting, e.g. a file name and a position in the file.
+    gcpAccessPolicyBinding:
+      type: object
+      description: Associates members with a role.
+      properties:
+        role:
+          type: string
+          description: Role that is assigned to members.
+          example:
+            - roles/viewer
+            - roles/editor
+            - roles/owner
+        members:
+          type: array
+          description: Specifies the identities requesting access for a Cloud Platform resource.
+          items:
+            type: string
+        condition:
+          $ref: '#/components/schemas/gcpAccessPolicyBindingCondition'
+    gcpAccessPolicy:
+      type: object
+      description: A GCP IAM Policy. More details [here](https://cloud.google.com/iam/docs/reference/rest/v1/Policy)
+      properties:
+        version:
+          $ref: '#/components/schemas/gcpAccessPolicyVersion'
+        auditConfigs:
+          type: array
+          description: Specifies cloud audit logging configuration for this policy.
+          items:
+            $ref: '#/components/schemas/gcpAccessPolicyAuditConfig'
+        bindings:
+          type: array
+          description: Associates a list of members to a role.
+          items:
+            $ref: '#/components/schemas/gcpAccessPolicyBinding'
+        etag:
+          type: string
+          description: Optimistic concurrency control as a way to help prevent simultaneous updates of a policy from overwriting each other.
+          format: byte
     oauthTokenProfile:
       type: object
       description: Profile for connecting to a remote system via an OAuth token as described in section 4.1 of [the OAuth RFC](https://www.rfc-editor.org/rfc/rfc6749).
@@ -143,100 +240,3 @@ components:
             See https://cloud.google.com/docs/authentication/api-keys.
           format: password
           example: AIzaSyDaGmWKa4JsXZ-HjGw7ISLn_3namBGewQe
-    gcpAccessPolicyAuditLogConfigType:
-      type: string
-      description: The log type that this config enables.
-      enum:
-        - log_type_unspecified
-        - admin_read
-        - data_write
-        - data_read
-    gcpAccessPolicyVersion:
-      type: integer
-      description: The format of the policy.
-      enum:
-        - 0
-        - 1
-        - 3
-    gcpAccessPolicyAuditLogConfig:
-      type: object
-      description: Provides the configuration for logging a type of permissions.
-      properties:
-        logType:
-          $ref: '#/components/schemas/gcpAccessPolicyAuditLogConfigType'
-        exemptedMembers:
-          type: array
-          description: Specifies the identities that do not cause logging for this type of permission.
-          items:
-            type: string
-    gcpAccessPolicyAuditConfig:
-      type: object
-      description: Specifies the audit configuration for a service.
-      properties:
-        service:
-          type: string
-          description: Specifies a service that will be enabled for audit logging.
-          example:
-            - storage.googleapis.com
-            - allServices
-        auditLogConfigs:
-          type: array
-          description: The configuration for logging of each type of permission.
-          items:
-            $ref: '#/components/schemas/gcpAccessPolicyAuditLogConfig'
-    gcpAccessPolicyBindingCondition:
-      type: object
-      description: The condition that is associated with this binding.
-      required:
-        - expression
-      properties:
-        expression:
-          type: string
-          description: Textual representation of an expression in Common Expression Language syntax.
-        title:
-          type: string
-          description: Title for the expression, i.e. a short string describing its purpose. This can be used e.g. in UIs which allow to enter the expression.
-        description:
-          type: string
-          description: Description of the expression. This is a longer text which describes the expression, e.g. when hovered over it in a UI.
-        location:
-          type: string
-          description: String indicating the location of the expression for error reporting, e.g. a file name and a position in the file.
-    gcpAccessPolicyBinding:
-      type: object
-      description: Associates members with a role.
-      properties:
-        role:
-          type: string
-          description: Role that is assigned to members.
-          example:
-            - roles/viewer
-            - roles/editor
-            - roles/owner
-        members:
-          type: array
-          description: Specifies the identities requesting access for a Cloud Platform resource.
-          items:
-            type: string
-        condition:
-          $ref: '#/components/schemas/gcpAccessPolicyBindingCondition'
-    gcpAccessPolicy:
-      type: object
-      description: A GCP IAM Policy. More details [here](https://cloud.google.com/iam/docs/reference/rest/v1/Policy)
-      properties:
-        version:
-          $ref: '#/components/schemas/gcpAccessPolicyVersion'
-        auditConfigs:
-          type: array
-          description: Specifies cloud audit logging configuration for this policy.
-          items:
-            $ref: '#/components/schemas/gcpAccessPolicyAuditConfig'
-        bindings:
-          type: array
-          description: Associates a list of members to a role.
-          items:
-            $ref: '#/components/schemas/gcpAccessPolicyBinding'
-        etag:
-          type: string
-          description: Optimistic concurrency control as a way to help prevent simultaneous updates of a policy from overwriting each other.
-          format: byte

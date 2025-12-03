@@ -4,7 +4,7 @@ TARGET=models.yml
 
 cp api.yml $TARGET
 
-for m in $(find schema -type f -print); do
+for m in $(find schema -type f -print | sort); do
 
   name=$(basename $m .yml)
 
