@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.6](https://github.com/zerobias-org/types/compare/@zerobias-org/types-core-js@1.0.5...@zerobias-org/types-core-js@1.0.6) (2025-12-03)
+
+
+### Bug Fixes
+
+* minor tweaks, exports ([8642261](https://github.com/zerobias-org/types/commit/8642261e981643388f47b20aee9539a171a8a3d2))
+
+
+
 ## [1.0.5](https://github.com/zerobias-org/types/compare/@zerobias-org/types-core-js@1.0.4...@zerobias-org/types-core-js@1.0.5) (2025-12-03)
 
 **Note:** Version bump only for package @zerobias-org/types-core-js
