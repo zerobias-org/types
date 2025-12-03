@@ -1,7 +1,7 @@
 openapi: 3.0.2
 info:
-  version: 2.0.8
-  description: OpenApi snippets for Microsoft core types
+  version: 1.0.1
+  description: OpenAPI type definitions for Microsoft services
   title: '@zerobias-org/types-microsoft'
 paths:
   /foo:
