@@ -1,6 +1,6 @@
 {
   "name": "@zerobias-org/types-microsoft",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "OpenAPI type definitions for Microsoft services",
   "type": "module",
   "scripts": {

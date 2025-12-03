@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.0.1 (2025-12-03)
+
+
+### Bug Fixes
+
+* correct workflow ([9e94a16](https://github.com/zerobias-org/types/commit/9e94a1623137276676f1e8f9ee1e346c5031192c))
+* push initial commit ([63f2422](https://github.com/zerobias-org/types/commit/63f24225a9097b82ef4270aa7fc64bd83356ca92))
+* try again ([c152183](https://github.com/zerobias-org/types/commit/c152183219975e4e78652fc6853a08f78b124390))
+* try again ([328805c](https://github.com/zerobias-org/types/commit/328805c3f1e36bb5f609467ea992425f7ae3860d))
+* try again ([7709427](https://github.com/zerobias-org/types/commit/77094274cd7d586309cab6aca0e20cade553f002))
+* types ([81bdf09](https://github.com/zerobias-org/types/commit/81bdf09277a20884582fc17d9262bad37f55c7ab))
+
+
+
 ## [0.2.99](https://github.com/auditmation/types/compare/@auditmation/types-format-spectral-ruleset@0.2.98...@auditmation/types-format-spectral-ruleset@0.2.99) (2025-11-24)
 
 **Note:** Version bump only for package @auditmation/types-format-spectral-ruleset

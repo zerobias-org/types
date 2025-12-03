@@ -1,6 +1,6 @@
 {
   "name": "@zerobias-org/types-amazon",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "OpenAPI type definitions for Amazon services",
   "type": "module",
   "scripts": {
