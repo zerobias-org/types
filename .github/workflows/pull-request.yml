@@ -77,7 +77,7 @@ jobs:
       - name: Install and build
         run: |
           npm i
-          nx affected -t build --base=${{ steps.base_ref.outputs.BASE_REF }}
+          nx affected -t lint generate transpile --base=${{ steps.base_ref.outputs.BASE_REF }}
         env:
           NPM_TOKEN: ${{ env.NPM_TOKEN }}
           ZB_TOKEN: ${{ env.ZB_TOKEN }}
