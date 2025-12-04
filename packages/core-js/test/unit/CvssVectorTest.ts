@@ -1,4 +1,4 @@
-/* eslint-disable */
+ 
 import { expect } from 'chai';
 import { CvssVector, InvalidInputError, Severity } from '../../src/index.js';
 

@@ -81,7 +81,7 @@ describe('types', function () {
       expect(libTypes).to.be.ok;
       expect(libTypes.length).to.be.greaterThan(0);
 
-      libTypes.forEach(type => {
+      for (const type of libTypes) {
         let schema = type.schema;
         expect(schema).to.be.ok;
         if (Type.JsonTypeEnum.Object.eq(type.jsonType) || type.isEnum) {
@@ -89,7 +89,7 @@ describe('types', function () {
         } else {
           expect(schema).to.be.empty;
         }
-      });
+      }
     });
   });
 
@@ -101,21 +101,20 @@ describe('types', function () {
         .filter((type) => type.isEnum);
 
       expect(libTypes.length).to.be.greaterThan(0);
-      libTypes.forEach((type) => {
+      for (const type of libTypes) {
         const keys = type.enumKeys;
         const values = type.enumValues;
         expect(keys.length).to.be.greaterThan(0);
         expect(keys.length).to.eq(values.length);
-      });
+      }
     });
   });
 
   it('should verify enum accessors', function () {
-    CoreType.listTypes()
+    for (const type of CoreType.listTypes()
       .map((t) => CoreType.get(t))
       .filter(t => isOwnType(t))
-      .filter((type) => type.isEnum)
-      .forEach((type) => {
+      .filter((type) => type.isEnum)) {
         const keys = type.enumKeys;
         const values = type.enumValues;
         const members = type.enumMembers;
@@ -125,20 +124,20 @@ describe('types', function () {
         expect(keys.length).to.eq(values.length);
         expect(keys.length).to.eq(members.length);
 
-        keys.forEach((k) => {
+        for (const k of keys) {
           expect(memberKeys).to.include(k);
-        });
+        }
 
-        values.forEach((k) => {
+        for (const k of values) {
           expect(memberValues).to.include(k);
-        });
+        }
 
-        members.slice(0, 50).forEach((m) => {
+        for (const m of members.slice(0, 50)) {
           const memberByKey = type.getEnumMember(m.key);
           const memberByValue = type.getEnumMember(m.value);
           expect(memberByKey).to.be.ok;
           expect(memberByKey).to.deep.eq(memberByValue);
-        });
-      });
+        }
+      }
   });
 });

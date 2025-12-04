@@ -16,10 +16,10 @@ describe('Semver', function () {
     });
 
     it('should validate all semantic versions examples', async function () {
-        Semver.examples().forEach(async semver => {
+        for (const semver of Semver.examples()) {
             const response = await Semver.parse(semver.toString());
             expect(response).to.be.ok;
-        })
+        }
     });
 
     it('should fail for an invalid semantic version', async function () {

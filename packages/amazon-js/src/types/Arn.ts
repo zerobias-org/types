@@ -18,13 +18,13 @@ import { AmazonType } from '../AmazonType.js';
 
 const prefixRegex = /^arn$/;
 const partitionRegex = /^(?<partition>aws|aws-cn|aws-us-gov|.*[*?].*)$/;
-// eslint-disable-next-line
+ 
 const variableRegex = '(?:\\${[^}]+})';
 const baseElementRegex = `(?:[\\w+=\\/,.@\\-*?]+|${variableRegex})`;
 const serviceRegex = new RegExp(`(?<service>${baseElementRegex}+)`);
 const regionRegex = new RegExp(`(?<region>${baseElementRegex}*)`);
 const accountRegex = new RegExp(`^(?<account>(?:[0-9*?]+|${variableRegex})*|aws)$`);
-const resourceTypeRegex = /^((?<resourceType>[\w-_]*)[:/]{1}){0,1}(?<resourceId>.*)$/;
+const resourceTypeRegex = /^((?<resourceType>[\w-_]*)[/:]){0,1}(?<resourceId>.*)$/;
 
 // That regex is too complicated and seems to be hanging against specific inputs
 // (containing spaces or [])
@@ -51,7 +51,7 @@ function hasVariables(str: string): boolean {
  * @returns
  */
 function testPatternArn(patternArn: string, arn: string) {
-  const w = patternArn.replace(/[.+^${}()|[\]\\]/g, '\\$&'); // regexp escape
+  const w = patternArn.replace(/[$()+.[\\\]^{|}]/g, '\\$&'); // regexp escape
   const re = new RegExp(`^${w.replace(/\*/g, '.*').replace(/\?/g, '.')}$`, 'i');
   return re.test(arn);
 }
@@ -215,7 +215,7 @@ export class Arn extends StringFormat<Arn> {
     return this.arn;
   }
 
-  // eslint-disable-next-line
+   
   equals(other?: any): boolean {
     return other && other instanceof Arn && other.toString() === this.arn;
   }

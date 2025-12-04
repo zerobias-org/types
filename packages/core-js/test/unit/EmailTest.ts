@@ -1,4 +1,4 @@
-/* eslint-disable */
+ 
 import { expect } from 'chai';
 import { Email } from '../../src/types/Email.js';
 import { CoreType, InvalidInputError, Type } from '../../src/index.js';

@@ -13,9 +13,9 @@ describe('GeoCountry', () => {
     const countryCodes = CoreType.get('geoCountry').enumValues;
     expect(dataObject).to.have.length(countryCodes.length);
     expect(countryCodes[0]).to.eq('AD');
-    countryCodes.forEach((code, i) => {
+    for (const [i, code] of countryCodes.entries()) {
       expect(code).eq(dataObject[i].alpha2);
-    });
+    }
   });
 
   it('should return enum keys', () => {
@@ -24,9 +24,9 @@ describe('GeoCountry', () => {
     const countryCodes = CoreType.get('geoCountry').enumKeys;
     expect(dataObject).to.have.length(countryCodes.length);
     expect(countryCodes[0]).to.eq('Ad');
-    countryCodes.forEach((code, i) => {
+    for (const [i, code] of countryCodes.entries()) {
       expect(code).not.eq(dataObject[i].alpha2);
-    });
+    }
   });
 
   it('Should load a member', async function () {

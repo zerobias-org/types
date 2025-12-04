@@ -1,4 +1,4 @@
-/* eslint-disable */
+ 
 import { expect } from 'chai';
 import { CoreType, Type } from '../../src/index.js';
 import { Password } from '../../src/types/Password.js';

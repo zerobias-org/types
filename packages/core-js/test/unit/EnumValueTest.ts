@@ -1,4 +1,4 @@
-/* eslint-disable */
+ 
 import { expect } from 'chai';
 import { EnumValue } from '../../src/index.js';
 

@@ -13,9 +13,9 @@ describe('Language', () => {
     const languageCodes = CoreType.get('language').enumValues;
     expect(dataObject).to.have.length(languageCodes.length);
     expect(languageCodes[0]).to.eq('aa');
-    languageCodes.forEach((code, i) => {
+    for (const [i, code] of languageCodes.entries()) {
       expect(code).eq(dataObject[i].alpha2);
-    });
+    }
   });
 
   it('should return enum keys', () => {
@@ -24,9 +24,9 @@ describe('Language', () => {
     const languageCodes = CoreType.get('language').enumKeys;
     expect(dataObject).to.have.length(languageCodes.length);
     expect(languageCodes[0]).to.eq('Aa');
-    languageCodes.forEach((code, i) => {
+    for (const [i, code] of languageCodes.entries()) {
       expect(code).not.eq(dataObject[i].alpha2);
-    });
+    }
   });
 
   it('Should load a member', async function () {

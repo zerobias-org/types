@@ -1,7 +1,7 @@
 import { InvalidInputError, StringFormat } from '@zerobias-org/types-core-js';
 import { AmazonType } from '../AmazonType.js';
 
-const pattern = /^(?<digest>sha256:[A-Fa-f0-9]{64})(:(?!$))?(?<tag>[a-zA-Z0-9.-]{1,300})?$/;
+const pattern = /^(?<digest>sha256:[\dA-Fa-f]{64})(:(?!$))?(?<tag>[\d.A-Za-z-]{1,300})?$/;
 
 /**
  * Class representing an AWS ECR Image Id
@@ -47,7 +47,7 @@ export class AwsImageId extends StringFormat<AwsImageId> {
     return this.awsImageId;
   }
 
-  // eslint-disable-next-line
+   
   equals(other?: any): boolean {
     return (
       other

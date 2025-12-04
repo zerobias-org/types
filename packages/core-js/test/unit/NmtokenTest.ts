@@ -1,4 +1,4 @@
-/* eslint-disable */
+ 
 import { expect } from 'chai';
 import { Nmtoken } from '../../src/types/index.js';
 import { InvalidInputError } from '../../src/index.js';

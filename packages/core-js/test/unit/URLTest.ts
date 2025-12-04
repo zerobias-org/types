@@ -1,4 +1,4 @@
-/* eslint-disable */
+ 
 import { expect } from 'chai';
 import { CoreType, Type } from '../../src/index.js';
 import { URL } from '../../src/types/URL.js';

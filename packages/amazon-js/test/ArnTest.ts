@@ -203,7 +203,9 @@ describe('Arn', function () {
   });
 
   it('should validate and parse a valid arn with a reference to latest', async function () {
-    const arn = await Arn.parse('arn:aws:logs:us-east-1:123456789:log-group:/aws/lambda/AWSWAFSecurityAutomations-Helper-123AWDSD4w32185:log-stream:2020/12/11/[$LATEST]ABCDEFGHJKLMNOP');
+    const arnString = 'arn:aws:logs:us-east-1:123456789:log-group:' +
+      '/aws/lambda/AWSWAFSecurityAutomations-Helper-123AWDSD4w32185:log-stream:2020/12/11/[$LATEST]ABCDEFGHJKLMNOP';
+    const arn = await Arn.parse(arnString);
     expect(arn).to.be.ok;
     expect(arn instanceof Arn).to.be.true;
     expect(arn.partition.toString()).to.be.equal("aws");

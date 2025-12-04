@@ -1,4 +1,4 @@
-/* eslint-disable */
+ 
 import { expect } from 'chai';
 import { Byte, InvalidInputError } from '../../src/index.js';
 

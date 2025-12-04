@@ -1,4 +1,4 @@
-/* eslint-disable */
+ 
 import { expect } from 'chai';
 import { Event, EventImpl, EventKind } from '../../src/index.js';
 import { ChangeOperation } from '../../generated/model/index.js';

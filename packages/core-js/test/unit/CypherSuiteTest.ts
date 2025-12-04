@@ -11,9 +11,9 @@ describe('CypherSuite', () => {
 
     const cyphers = CoreType.get('cipherSuite').enumValues;
     expect(dataObject).to.have.length(cyphers.length);
-    cyphers.forEach((code, i) => {
+    for (const [i, code] of cyphers.entries()) {
       expect(code).eq(dataObject[i].description);
-    });
+    }
   });
   
   it('should return enum keys', () => {
@@ -21,8 +21,8 @@ describe('CypherSuite', () => {
 
     const cyphers = CoreType.get('cipherSuite').enumKeys;
     expect(dataObject).to.have.length(cyphers.length);
-    cyphers.forEach((code, i) => {
+    for (const [i, code] of cyphers.entries()) {
       expect(code).not.eq(dataObject[i].description);
-    });
+    }
   });
 });

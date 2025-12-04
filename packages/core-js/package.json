@@ -33,8 +33,8 @@
     "version": "npm run generate:badge && git add version.svg",
     "generate:badge": "npx badge $(yq -oy e .name package.json) $(npm run -s get-version) :red @flat > version.svg",
     "generate:code": "JAVA_OPTS=\"${JAVA_OPTS} -DcoreTypesSource=../../src\" hub-generator generate -g hub-module --additional-properties supportsES6=true -p skipHubImpl=true -p isCore=true -i ../../node_modules/@zerobias-org/types-core/models.yml -o generated/ && ./bin/fix-generated-esm.sh generated",
-    "lint": "eslint src/",
-    "lint:fix": "eslint --fix src/",
+    "lint": "eslint 'src/**/*.ts' 'test/**/*.ts'",
+    "lint:fix": "eslint --fix 'src/**/*.ts' 'test/**/*.ts'",
     "get-version": "node -p \"require('./package.json').version\""
   },
   "engines": {

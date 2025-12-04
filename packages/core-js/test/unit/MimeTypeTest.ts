@@ -56,10 +56,10 @@ describe('MimeType', function () {
 
   it('should validate all types in data', async function () {
     const types = MIME_TYPES.map(m => m.template);
-    types.forEach((type) => {
+    for (const type of types) {
       const mimeType = new MimeType(type);
       expect(mimeType).to.be.ok;
-    });
+    }
   });
 
   it('should reject a string that doesn\'t match MIME Type pattern', async function () {
@@ -72,12 +72,12 @@ describe('MimeType', function () {
   });
 
   it('should validate all types in allMimeTypes', async function () {
-    allMimeTypes.forEach((type) => {
+    for (const type of allMimeTypes) {
       const mimeType = new MimeType(type);
       expect(mimeType).to.be.ok;
       const hasName = !!(mimeType.getName());
       const isUnknown = mimeType.isUnknown();
       expect(hasName).to.be.equal(!isUnknown);
-    });
+    }
   });
 });
