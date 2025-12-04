@@ -65,6 +65,7 @@ export {
   TokenProfile,
   Type,
   EventKind,
+  EventKindDef,
   Event as EventModel,
   ChangeEvent as ChangeEventModel,
   CronEvent as CronEventModel,
