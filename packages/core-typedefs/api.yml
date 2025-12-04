@@ -1,6 +1,6 @@
 openapi: 3.0.2
 info:
-  version: 1.0.6
+  version: 1.0.7
   description: A collection of OpenApi core type snippets
   title: '@zerobias-org/types-core'
 paths:

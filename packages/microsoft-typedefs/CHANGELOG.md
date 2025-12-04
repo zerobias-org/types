@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.6](https://github.com/zerobias-org/types/compare/@zerobias-org/types-microsoft@1.0.5...@zerobias-org/types-microsoft@1.0.6) (2025-12-04)
+
+
+### Bug Fixes
+
+* change pre publishes to use nx ([dab5e8d](https://github.com/zerobias-org/types/commit/dab5e8d7f2b0f2e823d46fd7cec045caf5f50222))
+
+
+
 ## [1.0.5](https://github.com/zerobias-org/types/compare/@zerobias-org/types-microsoft@1.0.4...@zerobias-org/types-microsoft@1.0.5) (2025-12-04)
 
 
