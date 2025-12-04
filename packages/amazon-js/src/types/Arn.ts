@@ -184,7 +184,6 @@ export class Arn extends StringFormat<Arn> {
       throw new InvalidInputError('Arn', arn, Arn.examples());
     }
 
-    console.log(`Creating arn with value: ${arn} - arn parts: ${JSON.stringify(arnParts)}`);
     this._partition = Arn.mapElement(AwsPartition, arnParts.partition.replace(/-/g, '_'));
     this._service = Arn.mapElement(AwsService, arnParts.service.replace(/-/g, '_'));
     this._region = arnParts.region
