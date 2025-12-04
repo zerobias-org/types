@@ -1,6 +1,6 @@
 {
   "name": "@zerobias-org/types-core-js",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "JS core type implementations.",
   "type": "module",
   "main": "dist/src/index.js",
