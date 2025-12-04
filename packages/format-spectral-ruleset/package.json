@@ -13,7 +13,7 @@
     "transpile": "node build.js",
     "build": "npm run transpile",
     "lint": "echo 'No lint needed for spectral-ruleset'",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npx nx run @zerobias-org/types-format-spectral-ruleset:build"
   },
   "license": "ISC",
   "repository": {

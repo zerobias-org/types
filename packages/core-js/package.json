@@ -36,7 +36,7 @@
     "lint": "eslint 'src/**/*.ts' 'test/**/*.ts'",
     "lint:fix": "eslint --fix 'src/**/*.ts' 'test/**/*.ts'",
     "get-version": "node -p \"require('./package.json').version\"",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npx nx run @zerobias-org/types-core-js:build"
   },
   "engines": {
     "node": ">=22.0.0"

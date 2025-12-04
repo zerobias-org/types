@@ -15,7 +15,7 @@
     "generate": "npm run generate:api && npm run generate:inflate",
     "build": "npm run generate",
     "transpile": "echo 'No transpile needed for typedefs'",
-    "prepublishOnly": "npm run build",
+    "prepublishOnly": "npx nx run @zerobias-org/types-atlassian:build",
     "version": "npm run sync:meta && npm run generate:badge && git add api.yml version.svg",
     "get-version": "yq -oy e .version package.json",
     "lint": "npm run lint:api",

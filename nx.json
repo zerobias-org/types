@@ -32,7 +32,7 @@
       "cache": false
     },
     "generate": {
-      "dependsOn": ["^transpile"],
+      "dependsOn": ["^generate"],
       "cache": true
     },
     "generate:bom": {
