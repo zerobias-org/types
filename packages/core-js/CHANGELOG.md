@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.8](https://github.com/zerobias-org/types/compare/@zerobias-org/types-core-js@1.0.7...@zerobias-org/types-core-js@1.0.8) (2025-12-04)
+
+
+### Bug Fixes
+
+* now run prepublish ([7286766](https://github.com/zerobias-org/types/commit/7286766b5594c751d07b327506917352a6a1f474))
+
+
+
 ## [1.0.7](https://github.com/zerobias-org/types/compare/@zerobias-org/types-core-js@1.0.6...@zerobias-org/types-core-js@1.0.7) (2025-12-04)
 
 

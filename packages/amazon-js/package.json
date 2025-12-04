@@ -1,6 +1,6 @@
 {
   "name": "@zerobias-org/types-amazon-js",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "JS types for Amazon services",
   "type": "module",
   "main": "dist/src/index.js",
@@ -52,6 +52,6 @@
   ],
   "dependencies": {
     "@zerobias-org/types-amazon": "^1.0.5",
-    "@zerobias-org/types-core-js": "^1.0.7"
+    "@zerobias-org/types-core-js": "^1.0.8"
   }
 }
