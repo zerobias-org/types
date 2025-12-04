@@ -74,10 +74,15 @@ jobs:
             echo "BASE_REF=$LAST_PUBLISH_TAG" >> $GITHUB_OUTPUT
           fi
 
-      - name: Install and build
+      - name: Install dependencies
+        run: npm i
+        env:
+          NPM_TOKEN: ${{ env.NPM_TOKEN }}
+          ZB_TOKEN: ${{ env.ZB_TOKEN }}
+
+      - name: Lint affected packages
         run: |
-          npm i
-          nx affected -t lint generate transpile --base=${{ steps.base_ref.outputs.BASE_REF }}
+          nx affected -t lint --base=${{ steps.base_ref.outputs.BASE_REF }}
         env:
           NPM_TOKEN: ${{ env.NPM_TOKEN }}
           ZB_TOKEN: ${{ env.ZB_TOKEN }}
@@ -102,9 +107,11 @@ jobs:
             echo "has_packages=false" >> $GITHUB_OUTPUT
           else
             echo "has_packages=true" >> $GITHUB_OUTPUT
-            echo "output<<EOF" >> $GITHUB_OUTPUT
-            echo "$output" >> $GITHUB_OUTPUT
-            echo "EOF" >> $GITHUB_OUTPUT
+            # Escape for JSON: replace newlines with \n
+            escaped=$(echo "$output" | jq -Rs '.')
+            # Remove surrounding quotes added by jq
+            escaped="${escaped:1:-1}"
+            echo "output=${escaped}" >> $GITHUB_OUTPUT
           fi
 
       - name: Slack Notification on failure

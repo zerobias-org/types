@@ -12,7 +12,8 @@
     "generate": "echo 'No generate needed for spectral-ruleset'",
     "transpile": "node build.js",
     "build": "npm run transpile",
-    "lint": "echo 'No lint needed for spectral-ruleset'"
+    "lint": "echo 'No lint needed for spectral-ruleset'",
+    "prepublishOnly": "npm run build"
   },
   "license": "ISC",
   "repository": {

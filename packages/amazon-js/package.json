@@ -28,7 +28,8 @@
     "generate:code": "JAVA_OPTS=\"${JAVA_OPTS} -DamazonTypesSource=../../src\" hub-generator generate -g hub-module --additional-properties supportsES6=true -p skipHubImpl=true -i ../../node_modules/@zerobias-org/types-amazon/models.yml -o generated/ && ./bin/fix-generated-esm.sh generated",
     "get-version": "node -p \"require('./package.json').version\"",
     "lint": "eslint 'src/**/*.ts' 'test/**/*.ts'",
-    "lint:fix": "eslint --fix 'src/**/*.ts' 'test/**/*.ts'"
+    "lint:fix": "eslint --fix 'src/**/*.ts' 'test/**/*.ts'",
+    "prepublishOnly": "npm run build"
   },
   "engines": {
     "node": ">=22.0.0"
