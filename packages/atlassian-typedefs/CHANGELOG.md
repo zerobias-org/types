@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.6](https://github.com/zerobias-org/types/compare/@zerobias-org/types-atlassian@1.0.5...@zerobias-org/types-atlassian@1.0.6) (2025-12-04)
+
+
+### Bug Fixes
+
+* fix version script ([c4d4ba0](https://github.com/zerobias-org/types/commit/c4d4ba02352459743fa37f2f81caa3a5bb3b60d2))
+* was missing git ignore and models was getting commit ([b2e83a1](https://github.com/zerobias-org/types/commit/b2e83a156e6aee6d4999658c2b36ef53df22f02b))
+
+
+
 ## [1.0.5](https://github.com/zerobias-org/types/compare/@zerobias-org/types-atlassian@1.0.4...@zerobias-org/types-atlassian@1.0.5) (2025-12-03)
 
 **Note:** Version bump only for package @zerobias-org/types-atlassian

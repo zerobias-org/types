@@ -1,6 +1,6 @@
 openapi: 3.0.2
 info:
-  version: 1.0.5
+  version: 1.0.6
   description: OpenAPI type definitions for Google services
   title: '@zerobias-org/types-google'
 paths:

@@ -1,6 +1,6 @@
 {
   "name": "@zerobias-org/types-microsoft-js",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "JS types for Microsoft services",
   "type": "module",
   "main": "dist/src/index.js",
@@ -50,7 +50,7 @@
     "bom.json"
   ],
   "dependencies": {
-    "@zerobias-org/types-core-js": "^1.0.6",
-    "@zerobias-org/types-microsoft": "^1.0.4"
+    "@zerobias-org/types-core-js": "^1.0.7",
+    "@zerobias-org/types-microsoft": "^1.0.5"
   }
 }

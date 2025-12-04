@@ -1,6 +1,6 @@
 openapi: 3.0.2
 info:
-  version: 1.0.4
+  version: 1.0.5
   description: "OpenAPI type definitions for Amazon services"
   title: '@zerobias-org/types-amazon'
 paths:
