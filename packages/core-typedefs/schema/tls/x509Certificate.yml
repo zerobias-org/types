@@ -28,7 +28,7 @@ properties:
     format: date-time
   issuerCertificate:
     description: Issuer certificate chain
-    $ref: '#'
+    $ref: './x509Certificate.yml'
   infoAccess:
     description: Information access URLs
     type: object
