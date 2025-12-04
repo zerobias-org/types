@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.13](https://github.com/zerobias-org/types/compare/@zerobias-org/types-format-spectral-ruleset@1.0.12...@zerobias-org/types-format-spectral-ruleset@1.0.13) (2025-12-04)
+
+
+### Bug Fixes
+
+* fix npmrc and stop lint causing too many things ([89f9a6e](https://github.com/zerobias-org/types/commit/89f9a6e66c58851553496f4775db02f8c17ddac7))
+
+
+
 ## [1.0.12](https://github.com/zerobias-org/types/compare/@zerobias-org/types-format-spectral-ruleset@1.0.11...@zerobias-org/types-format-spectral-ruleset@1.0.12) (2025-12-04)
 
 
