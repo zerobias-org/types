@@ -1,6 +1,6 @@
 openapi: 3.0.2
 info:
-  version: 1.0.8
+  version: 1.0.9
   description: OpenAPI type definitions for Atlassian services
   title: '@zerobias-org/types-atlassian'
 paths:

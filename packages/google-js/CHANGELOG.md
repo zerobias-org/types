@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.14](https://github.com/zerobias-org/types/compare/@zerobias-org/types-google-js@1.0.13...@zerobias-org/types-google-js@1.0.14) (2025-12-04)
+
+
+### Bug Fixes
+
+* remove unneeded script, always build everything for this case ([22faebb](https://github.com/zerobias-org/types/commit/22faebbe3661d71d68a94941c461f4867009d566))
+
+
+
 ## [1.0.13](https://github.com/zerobias-org/types/compare/@zerobias-org/types-google-js@1.0.12...@zerobias-org/types-google-js@1.0.13) (2025-12-04)
 
 

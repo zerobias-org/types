@@ -1,6 +1,6 @@
 {
   "name": "@zerobias-org/types-core",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "A collection of OpenApi core type snippets",
   "type": "module",
   "scripts": {

@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.15](https://github.com/zerobias-org/types/compare/@zerobias-org/types-format-spectral-ruleset@1.0.14...@zerobias-org/types-format-spectral-ruleset@1.0.15) (2025-12-04)
+
+
+### Bug Fixes
+
+* okay build order change, and updated codegen ([92464b3](https://github.com/zerobias-org/types/commit/92464b30224d6e4f97d5d3f079bd0e2621744e95))
+
+
+
 ## [1.0.14](https://github.com/zerobias-org/types/compare/@zerobias-org/types-format-spectral-ruleset@1.0.13...@zerobias-org/types-format-spectral-ruleset@1.0.14) (2025-12-04)
 
 **Note:** Version bump only for package @zerobias-org/types-format-spectral-ruleset

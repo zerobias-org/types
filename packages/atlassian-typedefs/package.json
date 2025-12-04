@@ -1,10 +1,10 @@
 {
   "name": "@zerobias-org/types-atlassian",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "OpenAPI type definitions for Atlassian services",
   "type": "module",
   "dependencies": {
-    "@zerobias-org/types-core": "^1.0.8"
+    "@zerobias-org/types-core": "^1.0.9"
   },
   "scripts": {
     "clean": "rm -f models.yml",

@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.9](https://github.com/zerobias-org/types/compare/@zerobias-org/types-core@1.0.8...@zerobias-org/types-core@1.0.9) (2025-12-04)
+
+
+### Bug Fixes
+
+* correct ref issue ([6cc1571](https://github.com/zerobias-org/types/commit/6cc157155de5e289eb9a09af21dd1e4bdf9c3a97))
+
+
+
 ## [1.0.8](https://github.com/zerobias-org/types/compare/@zerobias-org/types-core@1.0.7...@zerobias-org/types-core@1.0.8) (2025-12-04)
 
 **Note:** Version bump only for package @zerobias-org/types-core
