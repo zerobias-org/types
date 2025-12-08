@@ -80,10 +80,10 @@ jobs:
           NPM_TOKEN: ${{ env.NPM_TOKEN }}
           ZB_TOKEN: ${{ env.ZB_TOKEN }}
 
-      - name: Lint and build packages
+      - name: Build and lint packages
         run: |
-          nx affected -t lint --base=${{ steps.base_ref.outputs.BASE_REF }}
           nx run-many -t build
+          nx affected -t lint --base=${{ steps.base_ref.outputs.BASE_REF }}
         env:
           NPM_TOKEN: ${{ env.NPM_TOKEN }}
           ZB_TOKEN: ${{ env.ZB_TOKEN }}
