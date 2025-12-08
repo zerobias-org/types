@@ -15,6 +15,10 @@
     "sharedGlobals": ["{workspaceRoot}/.github/workflows/publish.yml"]
   },
   "targetDefaults": {
+    "build": {
+      "dependsOn": ["^build"],
+      "cache": true
+    },
     "clean": {
       "cache": false
     },
