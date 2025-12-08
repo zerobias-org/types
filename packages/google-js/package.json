@@ -1,6 +1,6 @@
 {
   "name": "@zerobias-org/types-google-js",
-  "version": "1.0.14",
+  "version": "1.0.15",
   "description": "JS types for Google services",
   "type": "module",
   "main": "dist/src/index.js",

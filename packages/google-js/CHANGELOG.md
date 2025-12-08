@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.15](https://github.com/zerobias-org/types/compare/@zerobias-org/types-google-js@1.0.14...@zerobias-org/types-google-js@1.0.15) (2025-12-08)
+
+
+### Bug Fixes
+
+* correct export ([85ea468](https://github.com/zerobias-org/types/commit/85ea46886ca2f677a92a0c36706408abf945bb58))
+
+
+
 ## [1.0.14](https://github.com/zerobias-org/types/compare/@zerobias-org/types-google-js@1.0.13...@zerobias-org/types-google-js@1.0.14) (2025-12-04)
 
 
