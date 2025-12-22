@@ -1,4 +1,3 @@
-import { createRequire } from 'node:module';
 import { CoreType, TypeLibrary } from '@zerobias-org/types-core-js';
 import {
   ObjectSerializer,
@@ -6,9 +5,7 @@ import {
   GcpAccessPolicyVersion
 } from '../generated/model/index.js';
 import * as primitiveTypes from './types/index.js';
-
-const require = createRequire(import.meta.url);
-const googleTypeDefs = require('@zerobias-org/types-google/data/types/types.json');
+import googleTypeDefs from '@zerobias-org/types-google/data/types/types.json' with { type: 'json' };
 
 export class GoogleType {
   private static initialized = false;

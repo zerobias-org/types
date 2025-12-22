@@ -1,10 +1,7 @@
-import { createRequire } from 'node:module';
 import { StringFormat } from './StringFormat.js';
 import { InvalidInputError, NotFoundError } from '../errors/index.js';
 import { CoreType } from '../CoreType.js';
-
-const require = createRequire(import.meta.url);
-const MIME_TYPES = require('@zerobias-org/types-core/data/mimeType/mimeTypes.json');
+import MIME_TYPES from '@zerobias-org/types-core/data/mimeType/mimeTypes.json' with { type: 'json' };
 
 const MIME_TYPE_REGEX = /^[\da-z-]+\/[\w +./;=\\-]+(".*")*$/i;
 

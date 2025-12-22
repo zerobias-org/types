@@ -1,11 +1,8 @@
-import { createRequire } from 'node:module';
 import { parsePhoneNumber, type ParsedPhoneNumber } from 'awesome-phonenumber';
 import { StringFormat } from './StringFormat.js';
 import { InvalidInputError, NotFoundError } from '../errors/index.js';
 import { CoreType } from '../CoreType.js';
-
-const require = createRequire(import.meta.url);
-const COUNTRIES = require('@zerobias-org/types-core/data/geo/geoCountries.json');
+import COUNTRIES from '@zerobias-org/types-core/data/geo/geoCountries.json' with { type: 'json' };
 
 /**
  * Class representing a phone number

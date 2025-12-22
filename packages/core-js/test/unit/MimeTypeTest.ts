@@ -1,11 +1,8 @@
-import { createRequire } from 'node:module';
-
 import { expect } from 'chai';
 import { InvalidInputError } from '../../src/index.js';
 import { MimeType } from '../../src/types/MimeType.js';
 import { allMimeTypes } from './resources/AllMimeTypes.js';
-const require = createRequire(import.meta.url);
-const MIME_TYPES = require('@zerobias-org/types-core/data/mimeType/mimeTypes.json');
+import MIME_TYPES from '@zerobias-org/types-core/data/mimeType/mimeTypes.json' with { type: 'json' };
 
 describe('MimeType', function () {
 

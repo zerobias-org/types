@@ -1,4 +1,3 @@
-import { createRequire } from 'node:module';
 import { CoreType, TypeLibrary } from '@zerobias-org/types-core-js';
 import {
   AwsAccessPolicyStatementEffect,
@@ -10,9 +9,7 @@ import {
   ObjectSerializer
 } from '../generated/model/index.js';
 import * as primitiveTypes from './types/index.js';
-
-const require = createRequire(import.meta.url);
-const amazonTypeDefs = require('@zerobias-org/types-amazon/data/types/types.json');
+import amazonTypeDefs from '@zerobias-org/types-amazon/data/types/types.json' with { type: 'json' };
 
 export class AmazonType {
   private static initialized = false;

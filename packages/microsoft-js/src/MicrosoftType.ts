@@ -1,4 +1,3 @@
-import { createRequire } from 'node:module';
 import { CoreType, TypeLibrary } from '@zerobias-org/types-core-js';
 import {
   AzureAdditionalLocations,
@@ -10,9 +9,7 @@ import {
   ObjectSerializer
 } from '../generated/model/index.js';
 import * as primitiveTypes from './types/index.js';
-
-const require = createRequire(import.meta.url);
-const microsoftTypeDefs = require('@zerobias-org/types-microsoft/data/types/types.json');
+import microsoftTypeDefs from '@zerobias-org/types-microsoft/data/types/types.json' with { type: 'json' };
 
 export class MicrosoftType {
   private static initialized = false;

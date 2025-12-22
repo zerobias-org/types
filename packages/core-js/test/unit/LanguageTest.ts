@@ -1,9 +1,7 @@
-import { createRequire } from 'node:module';
 import { expect } from 'chai';
 
 import { CoreType } from '../../src/index.js';
-const require = createRequire(import.meta.url);
-const dataObject = require('@zerobias-org/types-core/data/language/languages.json');
+import dataObject from '@zerobias-org/types-core/data/language/languages.json' with { type: 'json' };
 
 describe('Language', () => {
 

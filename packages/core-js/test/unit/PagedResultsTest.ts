@@ -8,8 +8,8 @@ import {
   InvalidInputError,
   UUID
 } from '../../src/index.js';
+import json from './got.json' with { type: 'json' };
 
-const json = require('./got.json');
 const CHARACTERS = json.characters;
 console.info('Testing with %s Game of Thrones characters', CHARACTERS.length);
 
