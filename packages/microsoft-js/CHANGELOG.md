@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.15](https://github.com/zerobias-org/types/compare/@zerobias-org/types-microsoft-js@1.0.14...@zerobias-org/types-microsoft-js@1.0.15) (2025-12-22)
+
+
+### Bug Fixes
+
+* try new import for json ([7d84748](https://github.com/zerobias-org/types/commit/7d84748c54e2de30c9d3c4d72c8aa0d580692713))
+
+
+
 ## [1.0.14](https://github.com/zerobias-org/types/compare/@zerobias-org/types-microsoft-js@1.0.13...@zerobias-org/types-microsoft-js@1.0.14) (2025-12-04)
 
 
