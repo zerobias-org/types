@@ -6,7 +6,8 @@ export {
   PagedResultsColumnOptionsDef,
   PagedResultsColumnOptionsFilterDef,
   PagedResultsColumnOptionsFilterType,
-  PagedResultsSearchColumnOptionsDef
+  PagedResultsSearchColumnOptionsDef,
+  PaginationMode
 } from './PagedResults.js';
 export {
   BasicConnection,

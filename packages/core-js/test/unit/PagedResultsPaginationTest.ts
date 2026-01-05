@@ -5,10 +5,12 @@ import axios from 'axios';
 import path from 'path';
 import { readFileSync } from 'fs';
 import { URL as NodeURL } from 'url';
-import { URL, PagedResults, InvalidInputError } from '../../src/index.js';
+import { URL, PagedResults, InvalidInputError, PaginationMode } from '../../src/index.js';
 
 let server: Server;
+let cursorServer: Server;
 const port = process.env.PORT || 9876;
+const cursorPort = Number(port) + 1;
 const contents = readFileSync(path.join(__dirname, 'got.json'));
 const json = JSON.parse(contents.toString());
 const CHARACTERS = json.characters;
@@ -130,6 +132,169 @@ describe('PagedResults Pagination', () => {
       server.close();
     }
   });
-      
+});
 
+describe('PagedResults Cursor-Based Pagination', () => {
+  // Map to track cursor state - simulates server-side cursor tracking
+  const cursorState = new Map<string, number>();
+
+  before('setup cursor server', async () => {
+    const cursorRequestHandler = function (req, res) {
+      const url = new NodeURL(req.url, `http://localhost:${cursorPort}/`);
+      const pageSize = Number(url.searchParams.get('pageSize') || 20);
+      const pageToken = url.searchParams.get('pageToken');
+      const pageNumber = url.searchParams.get('pageNumber');
+
+      // Determine starting position
+      let startIndex = 0;
+      if (pageToken) {
+        // Cursor-based: decode token to get position
+        startIndex = parseInt(Buffer.from(pageToken, 'base64').toString(), 10);
+      } else if (pageNumber) {
+        // Offset-based fallback
+        startIndex = (Number(pageNumber) - 1) * pageSize;
+      }
+
+      let endIndex = startIndex + pageSize;
+      if (endIndex > CHARACTERS.length) {
+        endIndex = CHARACTERS.length;
+      }
+
+      res.setHeader('Content-Type', 'application/json');
+
+      // Set pageToken header for next page (if more items exist)
+      if (endIndex < CHARACTERS.length) {
+        const nextToken = Buffer.from(endIndex.toString()).toString('base64');
+        res.setHeader('pagetoken', nextToken);
+      }
+
+      res.writeHead(200);
+      res.end(JSON.stringify(CHARACTERS.slice(startIndex, endIndex)));
+    };
+
+    cursorServer = http.createServer(cursorRequestHandler);
+
+    cursorServer.listen(cursorPort, () => {
+      console.log(`Cursor server is listening on ${cursorPort}`);
+    });
+
+    // give it a little time to settle
+    await delay(100);
+  });
+
+  it('should iterate over a cursor-based result set', async () => {
+    // Get first page
+    const characters = await axios.get(`http://localhost:${cursorPort}?pageSize=20`)
+      .then((resp) => {
+        const pr = PagedResults.fromArray(resp.data, 1, 20, undefined, resp.headers.pagetoken);
+        pr.baseUrl = new URL(`http://localhost:${cursorPort}`);
+        pr.paginationMode = 'cursor';
+        return pr;
+      });
+
+    let count = 0;
+    // iterate through them all
+    for await (const char of characters) {
+      expect(char).to.be.deep.eq(CHARACTERS[count++]);
+    }
+    expect(count).to.be.eq(CHARACTERS.length);
+  }).timeout(30000);
+
+  it('should auto-detect cursor mode from pageToken header', async () => {
+    // Get first page - let auto-detection work
+    const characters = await axios.get(`http://localhost:${cursorPort}?pageSize=20`)
+      .then((resp) => {
+        const pr = PagedResults.fromArray(resp.data, 1, 20, undefined, resp.headers.pagetoken);
+        pr.baseUrl = new URL(`http://localhost:${cursorPort}`);
+        // paginationMode is 'auto' by default
+        expect(pr.paginationMode).to.be.eq('auto');
+        return pr;
+      });
+
+    let count = 0;
+    for await (const char of characters) {
+      count++;
+    }
+    expect(count).to.be.eq(CHARACTERS.length);
+  }).timeout(30000);
+
+  it('should only send pageToken in cursor mode (not both)', async () => {
+    // This test verifies the smart parameter selection
+    let requestCount = 0;
+    let lastParams: URLSearchParams | null = null;
+
+    const testServer = http.createServer((req, res) => {
+      const url = new NodeURL(req.url || '/', `http://localhost:${cursorPort + 100}/`);
+      lastParams = url.searchParams;
+      requestCount++;
+
+      const pageSize = Number(url.searchParams.get('pageSize') || 20);
+      const hasPageToken = url.searchParams.has('pageToken');
+      const hasPageNumber = url.searchParams.has('pageNumber');
+
+      // Verify mutual exclusivity: only one should be present after first request
+      if (requestCount > 1 && hasPageToken) {
+        expect(hasPageNumber).to.be.false;
+      }
+
+      res.setHeader('Content-Type', 'application/json');
+      if (requestCount < 3) {
+        res.setHeader('pagetoken', `token-${requestCount + 1}`);
+      }
+      res.writeHead(200);
+      res.end(JSON.stringify([{ id: requestCount }]));
+    });
+
+    await new Promise<void>(resolve => testServer.listen(cursorPort + 100, () => resolve()));
+
+    const pr = PagedResults.fromArray([{ id: 1 }], 1, 1, undefined, 'token-1');
+    pr.baseUrl = new URL(`http://localhost:${cursorPort + 100}`);
+    pr.paginationMode = 'cursor';
+
+    let count = 0;
+    for await (const item of pr) {
+      count++;
+      if (count >= 3) break; // Limit iterations for test
+    }
+
+    testServer.close();
+    expect(requestCount).to.be.greaterThan(1);
+  }).timeout(30000);
+
+  it('should serialize and deserialize paginationMode', () => {
+    const pr = new PagedResults<{ id: number }>();
+    pr.paginationMode = 'cursor';
+    pr.pageToken = 'test-token';
+
+    const json = pr.toJSON();
+    expect(json.paginationMode).to.be.eq('cursor');
+    expect(json.pageToken).to.be.eq('test-token');
+
+    const restored = PagedResults.newInstance(json, (obj) => obj);
+    expect(restored.paginationMode).to.be.eq('cursor');
+    expect(restored.pageToken).to.be.eq('test-token');
+  });
+
+  it('should use offset mode when paginationMode is explicitly set', async () => {
+    // Use cursor server but force offset mode - server supports both
+    const characters = await axios.get(`http://localhost:${cursorPort}?pageSize=20&pageNumber=1`)
+      .then((resp) => {
+        const pr = PagedResults.fromArray(resp.data, 1, 20);
+        pr.baseUrl = new URL(`http://localhost:${cursorPort}`);
+        pr.paginationMode = 'offset'; // Explicitly set offset mode
+        return pr;
+      });
+
+    let count = 0;
+    for await (const char of characters) {
+      expect(char).to.be.deep.eq(CHARACTERS[count++]);
+    }
+    expect(count).to.be.eq(CHARACTERS.length);
+  }).timeout(30000);
+
+  after('teardown cursor server', () => {
+    if (cursorServer) {
+      cursorServer.close();
+    }
+  });
 });
