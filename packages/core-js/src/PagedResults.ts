@@ -619,10 +619,15 @@ export class PagedResults<T> {
     }
 
     // Check response body for offset indicators
-    if (resp.data && typeof resp.data === 'object' && !Array.isArray(resp.data)) {
-      if (resp.data.totalCount !== undefined || resp.data.count !== undefined || resp.data.pageCount !== undefined) {
-        this._detectedMode = 'offset';
-      }
+    if (
+      resp.data &&
+      typeof resp.data === 'object' &&
+      !Array.isArray(resp.data) &&
+      (resp.data.totalCount !== undefined ||
+        resp.data.count !== undefined ||
+        resp.data.pageCount !== undefined)
+    ) {
+      this._detectedMode = 'offset';
     }
   }
 
@@ -704,13 +709,9 @@ export class PagedResults<T> {
       }
 
       // Extract page token from response (supports multiple header formats and body)
+      // Clear pageToken if not present in response (end of cursor pagination)
       const nextToken = this.extractPageToken(resp);
-      if (nextToken) {
-        this.pageToken = nextToken;
-      } else {
-        // Clear pageToken if not present in response (end of cursor pagination)
-        this.pageToken = undefined;
-      }
+      this.pageToken = nextToken || undefined;
 
       resolve(resp.data.map((obj: any) => (this.mapper ? this.mapper(obj) : obj)));
     } catch (e: any) {
