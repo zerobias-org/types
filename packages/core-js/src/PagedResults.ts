@@ -1,5 +1,5 @@
 import { PromisePool } from '@supercharge/promise-pool';
-import axios, { AxiosRequestConfig } from 'axios';
+import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import {
   IllegalArgumentError,
   InvalidInputError,
@@ -75,6 +75,14 @@ const axiosReal = axios.create({
 });
 
 /**
+ * Pagination mode for PagedResults
+ * - 'auto': Automatically detect from API response (default)
+ * - 'cursor': Use cursor-based pagination with pageToken
+ * - 'offset': Use offset-based pagination with pageNumber
+ */
+export type PaginationMode = 'auto' | 'cursor' | 'offset';
+
+/**
 * Wrapper for a response with a paged result set.
 */
 export class PagedResults<T> {
@@ -122,6 +130,19 @@ export class PagedResults<T> {
    * The token to retrieve the next page, if present
    */
   pageToken?: string = undefined;
+
+  /**
+   * Pagination mode: 'auto' (detect from response), 'cursor', or 'offset'.
+   * When 'auto', the mode is detected from the first API response based on
+   * whether a pageToken is returned in headers or response body.
+   */
+  paginationMode: PaginationMode = 'auto';
+
+  /**
+   * Detected pagination mode after first API response (internal use).
+   * This is set automatically when paginationMode is 'auto'.
+   */
+  private _detectedMode?: 'cursor' | 'offset';
 
   /**
    * The items included in this page
@@ -204,6 +225,9 @@ export class PagedResults<T> {
     if (data.pageToken) {
       pr.pageToken = data.pageToken;
     }
+    if (data.paginationMode) {
+      pr.paginationMode = data.paginationMode;
+    }
     if (data.count && data.count > 0) {
       pr.count = data.count;
     }
@@ -229,6 +253,7 @@ export class PagedResults<T> {
       pageNumber: this.pageNumber,
       pageSize: this.pageSize,
       pageToken: this.pageToken,
+      paginationMode: this.paginationMode,
       items: this.items,
       columnOptions: this.columnOptions,
       sortBy: this.sortBy,
@@ -525,6 +550,83 @@ export class PagedResults<T> {
   }
 
   /**
+   * Determines the effective pagination mode to use for fetching pages.
+   * Priority: explicit paginationMode > detected mode > presence of pageToken > default to offset
+   */
+  private getEffectivePaginationMode(): 'cursor' | 'offset' {
+    // If explicitly set (not auto), use that mode
+    if (this.paginationMode !== 'auto') {
+      return this.paginationMode;
+    }
+    // If we've detected a mode from API responses, use it
+    if (this._detectedMode) {
+      return this._detectedMode;
+    }
+    // If pageToken is set, assume cursor mode
+    if (this.pageToken) {
+      return 'cursor';
+    }
+    // Default to offset-based pagination
+    return 'offset';
+  }
+
+  /**
+   * Extracts the page token from an API response.
+   * Checks multiple common header variations and response body fields.
+   * @param resp The Axios response to extract the token from
+   * @returns The page token if found, undefined otherwise
+   */
+  private extractPageToken(resp: AxiosResponse): string | undefined {
+    const headers = resp.headers;
+
+    // Check common header variations (axios normalizes to lowercase)
+    const headerToken = headers['pagetoken'] ||
+                        headers['page-token'] ||
+                        headers['x-next-page-token'] ||
+                        headers['next-page-token'] ||
+                        headers['x-page-token'];
+
+    if (headerToken) {
+      return headerToken;
+    }
+
+    // Check response body for token (common in REST APIs)
+    if (resp.data && typeof resp.data === 'object' && !Array.isArray(resp.data)) {
+      return resp.data.pageToken || resp.data.nextPageToken;
+    }
+
+    return undefined;
+  }
+
+  /**
+   * Detects pagination mode from API response headers and updates internal state.
+   * @param resp The Axios response to analyze
+   */
+  private detectPaginationMode(resp: AxiosResponse): void {
+    const headers = resp.headers;
+
+    // Check for cursor indicators
+    const hasPageToken = this.extractPageToken(resp) !== undefined;
+    if (hasPageToken) {
+      this._detectedMode = 'cursor';
+      return;
+    }
+
+    // Check for offset indicators (total count headers)
+    if (headers['x-total-count'] || headers['count'] || headers['total-count']) {
+      this._detectedMode = 'offset';
+      return;
+    }
+
+    // Check response body for offset indicators
+    if (resp.data && typeof resp.data === 'object' && !Array.isArray(resp.data)) {
+      if (resp.data.totalCount !== undefined || resp.data.count !== undefined || resp.data.pageCount !== undefined) {
+        this._detectedMode = 'offset';
+      }
+    }
+  }
+
+  /**
    * Ingests the content of the given array into this instance
    * @param arr the array to ingest
    * @param pageNumber the page number to display
@@ -595,9 +697,21 @@ export class PagedResults<T> {
         error.response = resp;
         throw error;
       }
-      if (resp.headers.pagetoken) {
-        this.pageToken = resp.headers.pagetoken;
+
+      // Detect pagination mode from response (for 'auto' mode)
+      if (this.paginationMode === 'auto' && !this._detectedMode) {
+        this.detectPaginationMode(resp);
       }
+
+      // Extract page token from response (supports multiple header formats and body)
+      const nextToken = this.extractPageToken(resp);
+      if (nextToken) {
+        this.pageToken = nextToken;
+      } else {
+        // Clear pageToken if not present in response (end of cursor pagination)
+        this.pageToken = undefined;
+      }
+
       resolve(resp.data.map((obj: any) => (this.mapper ? this.mapper(obj) : obj)));
     } catch (e: any) {
       if (e.response && (e.response.status < 500 && e.response.status !== 408)) {
@@ -620,17 +734,35 @@ export class PagedResults<T> {
 
     let url = '';
     const body: Record<string, unknown> = { ...this.body };
+    const mode = this.getEffectivePaginationMode();
+
     if (HttpMethod.Get.eq(this.httpMethod)) {
-      const params = {
+      // Smart parameter selection - only send pageToken OR pageNumber, not both
+      const params: Record<string, string> = {
         pageSize: `${this.pageSize}`,
-        pageNumber: `${pageNumber}`,
-        pageToken: `${this.pageToken}`,
       };
+
+      if (mode === 'cursor' && this.pageToken) {
+        // Cursor-based: use pageToken only
+        params.pageToken = this.pageToken;
+      } else {
+        // Offset-based: use pageNumber only
+        params.pageNumber = `${pageNumber}`;
+      }
+
       url = `${this.baseUrl.origin}${this.baseUrl.path}?${new URLSearchParams(params).toString()}`;
     } else if (HttpMethod.Post.eq(this.httpMethod) || HttpMethod.Put.eq(this.httpMethod)) {
       body.pageSize = this.pageSize;
-      body.pageNumber = pageNumber;
-      body.pageToken = this.pageToken;
+
+      // Smart parameter selection for request body
+      if (mode === 'cursor' && this.pageToken) {
+        // Cursor-based: use pageToken only
+        body.pageToken = this.pageToken;
+      } else {
+        // Offset-based: use pageNumber only
+        body.pageNumber = pageNumber;
+      }
+
       url = `${this.baseUrl}`;
     } else {
       throw new InvalidStateError(`HTTP method ${this.httpMethod} is unsupported`);
@@ -650,28 +782,47 @@ export class PagedResults<T> {
 
   async* asyncGenerator() {
     if (this.baseUrl) {
-      // TODO: don't prefetch them all, JIT them
-      let done = false;
-      let pageNum = 1;
-      while (!done) {
-        let page: T[] = [];
-        page = pageNum === this.pageNumber ? this.items : (await this.fetchPage(pageNum));
-        if (page.length < this.pageSize) {
-          done = true;
+      const mode = this.getEffectivePaginationMode();
+
+      // Yield current page items first
+      for (const item of this.items) {
+        yield item;
+      }
+
+      if (mode === 'cursor') {
+        // Cursor-based pagination: follow pageToken chain
+        // pageToken is updated by doFetch() via extractPageToken()
+        while (this.pageToken) {
+          const page = await this.fetchPage(0); // pageNumber ignored in cursor mode
+          if (page.length === 0) {
+            break;
+          }
+          for (const item of page) {
+            yield item;
+          }
+          // Note: pageToken is updated (or cleared) by doFetch after each request
         }
-        pageNum += 1;
-        let i = -1;
-         
-        while (++i < page.length) {
-          yield page[i];
+      } else {
+        // Offset-based pagination: increment page numbers
+        let pageNum = this.pageNumber + 1;
+        let hasMore = this.items.length === this.pageSize;
+
+        while (hasMore) {
+          const page = await this.fetchPage(pageNum);
+          if (page.length === 0) {
+            break;
+          }
+          for (const item of page) {
+            yield item;
+          }
+          hasMore = page.length === this.pageSize;
+          pageNum += 1;
         }
       }
     } else {
-      // just iterate through what we have
-      let i = -1;
-       
-      while (++i < this.items.length) {
-        yield this.items[i];
+      // Local iteration - no remote fetching, just iterate what we have
+      for (const item of this.items) {
+        yield item;
       }
     }
   }
