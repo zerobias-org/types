@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.0](https://github.com/zerobias-org/types/compare/@zerobias-org/types-core-js@1.1.0...@zerobias-org/types-core-js@1.2.0) (2026-01-05)
+
+
+### Features
+
+* **core-js:** add PropertySelector for dot notation property selection ([51b5c70](https://github.com/zerobias-org/types/commit/51b5c70254ea21d44157ef2c98d840bb6a5c136a))
+
+
+
 ## [1.1.0](https://github.com/zerobias-org/types/compare/@zerobias-org/types-core-js@1.0.14...@zerobias-org/types-core-js@1.1.0) (2026-01-05)
 
 
