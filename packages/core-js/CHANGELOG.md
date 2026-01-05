@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.0](https://github.com/zerobias-org/types/compare/@zerobias-org/types-core-js@1.0.14...@zerobias-org/types-core-js@1.1.0) (2026-01-05)
+
+
+### Features
+
+* **core-js:** add cursor-based pagination support to PagedResults ([81566cb](https://github.com/zerobias-org/types/commit/81566cbea4d39dea18502a7b0848b1903583fea8))
+
+
+### Bug Fixes
+
+* lint ([ec9c6e2](https://github.com/zerobias-org/types/commit/ec9c6e2a8250a9a9bc34f158ec8f927f3758d508))
+
+
+
 ## [1.0.14](https://github.com/zerobias-org/types/compare/@zerobias-org/types-core-js@1.0.13...@zerobias-org/types-core-js@1.0.14) (2025-12-22)
 
 
