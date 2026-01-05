@@ -9,6 +9,7 @@ export {
   PagedResultsSearchColumnOptionsDef,
   PaginationMode
 } from './PagedResults.js';
+export { PropertySelector } from './PropertySelector.js';
 export {
   BasicConnection,
   ChangeOperation,
