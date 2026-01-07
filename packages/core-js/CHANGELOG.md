@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.4](https://github.com/zerobias-org/types/compare/@zerobias-org/types-core-js@1.2.3...@zerobias-org/types-core-js@1.2.4) (2026-01-07)
+
+
+### Bug Fixes
+
+* was missing exports from core-js ([b098b6f](https://github.com/zerobias-org/types/commit/b098b6f16b1a41fa5407315224833e4379b6b6e6))
+
+
+
 ## [1.2.3](https://github.com/zerobias-org/types/compare/@zerobias-org/types-core-js@1.2.2...@zerobias-org/types-core-js@1.2.3) (2026-01-07)
 
 

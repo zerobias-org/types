@@ -1,6 +1,6 @@
 {
   "name": "@zerobias-org/types-google-js",
-  "version": "1.0.21",
+  "version": "1.0.22",
   "description": "JS types for Google services",
   "type": "module",
   "main": "dist/src/index.js",
@@ -51,7 +51,7 @@
     "bom.json"
   ],
   "dependencies": {
-    "@zerobias-org/types-core-js": "^1.2.3",
+    "@zerobias-org/types-core-js": "^1.2.4",
     "@zerobias-org/types-google": "^1.0.10"
   }
 }
