@@ -16,8 +16,9 @@ describe('enums#accessPolicyStatementOperator', function () {
   it('Should load enum values', async function () {
     const ct = CoreType.get('awsAccessPolicyStatementOperator');
     expect(ct.enumValues).to.be.ok;
-    expect(ct.getEnumInfoValues()).to.be.ok;
-    expect(ct.getEnumInfoValues().length).eq(0);
+    const infoValues = await ct.getEnumInfoValues();
+    expect(infoValues).to.be.ok;
+    expect(infoValues.length).eq(0);
 
     const expected = {
       key: 'StringEqualsIgnoreCase',
@@ -33,8 +34,9 @@ describe('enums#accessPolicyStatementEffect', function () {
   it('Should load enum values', async function () {
     const ct = CoreType.get('awsAccessPolicyStatementEffect');
     expect(ct.enumValues).to.be.ok;
-    expect(ct.getEnumInfoValues()).to.be.ok;
-    expect(ct.getEnumInfoValues().length).eq(0);
+    const infoValues = await ct.getEnumInfoValues();
+    expect(infoValues).to.be.ok;
+    expect(infoValues.length).eq(0);
 
     const expected = {
       key: 'Allow',
@@ -50,8 +52,9 @@ describe('enums#awsPartition', function () {
   it('Should load enum values', async function () {
     const ct = CoreType.get('awsPartition');
     expect(ct.enumValues).to.be.ok;
-    expect(ct.getEnumInfoValues()).to.be.ok;
-    expect(ct.getEnumInfoValues().length).eq(0);
+    const infoValues = await ct.getEnumInfoValues();
+    expect(infoValues).to.be.ok;
+    expect(infoValues.length).eq(0);
 
     const expected = {
       key: 'AwsCn',
@@ -67,8 +70,9 @@ describe('enums#awsService', function () {
   it('Should load enum values', async function () {
     const ct = CoreType.get('awsService');
     expect(ct.enumValues).to.be.ok;
-    expect(ct.getEnumInfoValues()).to.be.ok;
-    expect(ct.getEnumInfoValues().length).eq(0);
+    const infoValues = await ct.getEnumInfoValues();
+    expect(infoValues).to.be.ok;
+    expect(infoValues.length).eq(0);
 
     const expected = {
       key: 'AwsMarketplace',
@@ -84,8 +88,9 @@ describe('enums#awsCloudRegion', function () {
   it('Should load enum values', async function () {
     const ct = CoreType.get('awsCloudRegion');
     expect(ct.enumValues).to.be.ok;
-    expect(ct.getEnumInfoValues()).to.be.ok;
-    expect(ct.getEnumInfoValues().length).eq(0);
+    const infoValues = await ct.getEnumInfoValues();
+    expect(infoValues).to.be.ok;
+    expect(infoValues.length).eq(0);
 
     const expected = {
       key: 'UsWest2',

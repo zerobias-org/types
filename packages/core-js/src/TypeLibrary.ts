@@ -1,6 +1,7 @@
+import pluralize from 'pluralize';
+
 import { IllegalArgumentError } from './errors/IllegalArgumentError.js';
 import { ObjectSerializer, Type } from '../generated/model/index.js';
-import pluralize from 'pluralize';
 
 const { plural } = pluralize;
 
@@ -135,17 +136,17 @@ export class TypeLibrary {
    * @param infoModule the name of the info module if it does not match the pluralized version of the enum type
    * @returns all the info object values for this type, assuming it is an Enum.
    */
-  getEnumInfoValues<T>(
+  async getEnumInfoValues<T>(
     enumType: string,
     infoType: string,
     typePath?: string,
     infoModule?: string
-  ): T[] {
+  ): Promise<T[]> {
     const pathSplits = typePath?.replace('schema', 'data').split('/') || [];
-     
+
     const infoPath = `${this.libraryName}/${pathSplits.slice(1, - 1).join('/')}/${infoModule || plural(enumType)}.json`;
-     
-    const info = require(infoPath);
+
+    const { default: info } = await import(infoPath, { with: { type: 'json' } });
     return info.map((i: Record<string, unknown>) => this.deserializer(i, infoType));
   }
 

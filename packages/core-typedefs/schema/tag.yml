@@ -1,0 +1,39 @@
+type: object
+description: A generic tag for an object
+required:
+  - id
+  - name
+  - ownerId
+  - type
+properties:
+  id:
+    description: ID for this tag
+    type: string
+    format: uuid
+  name:
+    description: Name of this tag
+    type: string
+  description:
+    description: A longer description of the tag
+    type: string
+  ownerId:
+    type: string
+    format: uuid
+    description: The ID of the owner of this Tag
+  type:
+    description: Type of this tag
+    type: string
+    format: nmtoken
+    default: other
+  created:
+    type: string
+    nullable: true
+    format: date-time
+  deleted:
+    type: string
+    nullable: true
+    format: date-time
+  updated:
+    type: string
+    nullable: true
+    format: date-time

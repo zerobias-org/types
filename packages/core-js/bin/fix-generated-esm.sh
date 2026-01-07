@@ -22,6 +22,7 @@ while IFS= read -r -d '' file; do
   sed "${SED_I[@]}" "s|@auditmation/types-amazon-js|@zerobias-org/types-amazon-js|g" "$file"
   sed "${SED_I[@]}" "s|@auditmation/types-google-js|@zerobias-org/types-google-js|g" "$file"
   sed "${SED_I[@]}" "s|@auditmation/types-microsoft-js|@zerobias-org/types-microsoft-js|g" "$file"
+
 done < <(find "$GENERATED_DIR" -name "*.ts" -type f -print0)
 
 echo "ESM fixes applied to $GENERATED_DIR"

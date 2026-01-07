@@ -16,8 +16,9 @@ describe('enums#azureVmSize', function () {
   it('Should load enum values', async function () {
     const ct = CoreType.get('azureVmSize');
     expect(ct.enumValues).to.be.ok;
-    expect(ct.getEnumInfoValues()).to.be.ok;
-    expect(ct.getEnumInfoValues().length).eq(0);
+    const infoValues = await ct.getEnumInfoValues();
+    expect(infoValues).to.be.ok;
+    expect(infoValues.length).eq(0);
 
     const expected = {
       key: 'StandardD1V2',
@@ -33,8 +34,9 @@ describe('enums#azureResourceProvider', function () {
   it('Should load enum values', async function () {
     const ct = CoreType.get('azureResourceProvider');
     expect(ct.enumValues).to.be.ok;
-    expect(ct.getEnumInfoValues()).to.be.ok;
-    expect(ct.getEnumInfoValues().length).eq(0);
+    const infoValues = await ct.getEnumInfoValues();
+    expect(infoValues).to.be.ok;
+    expect(infoValues.length).eq(0);
 
     const expected = {
       key: 'AutonomousSystems',
@@ -50,8 +52,9 @@ describe('enums#azureCloudRegion', function () {
   it('Should load enum values', async function () {
     const ct = CoreType.get('azureCloudRegion');
     expect(ct.enumValues).to.be.ok;
-    expect(ct.getEnumInfoValues()).to.be.ok;
-    expect(ct.getEnumInfoValues().length).eq(0);
+    const infoValues = await ct.getEnumInfoValues();
+    expect(infoValues).to.be.ok;
+    expect(infoValues.length).eq(0);
 
     const expected = {
       key: 'Westcentralus',
@@ -67,8 +70,9 @@ describe('enums#azureResourceSkuTier', function () {
   it('Should load enum values', async function () {
     const ct = CoreType.get('azureResourceSkuTier');
     expect(ct.enumValues).to.be.ok;
-    expect(ct.getEnumInfoValues()).to.be.ok;
-    expect(ct.getEnumInfoValues().length).eq(0);
+    const infoValues = await ct.getEnumInfoValues();
+    expect(infoValues).to.be.ok;
+    expect(infoValues.length).eq(0);
 
     const expected = {
       key: 'HighDensity',
@@ -84,8 +88,9 @@ describe('enums#azureResourceIdentityType', function () {
   it('Should load enum values', async function () {
     const ct = CoreType.get('azureResourceIdentityType');
     expect(ct.enumValues).to.be.ok;
-    expect(ct.getEnumInfoValues()).to.be.ok;
-    expect(ct.getEnumInfoValues().length).eq(0);
+    const infoValues = await ct.getEnumInfoValues();
+    expect(infoValues).to.be.ok;
+    expect(infoValues.length).eq(0);
     const expected = {
       key: 'SystemAssigned',
       value: 'system_assigned',

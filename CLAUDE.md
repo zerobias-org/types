@@ -97,15 +97,6 @@ import { CoreType } from './CoreType';
 import { UUID } from './types';
 ```
 
-#### JSON Imports
-JSON files are imported using `createRequire` for ESM compatibility:
-```typescript
-import { createRequire } from 'node:module';
-
-const require = createRequire(import.meta.url);
-const typeDefs = require('@zerobias-org/types-core/data/types/types.json');
-```
-
 #### Package Imports
 Cross-package dependencies use the new namespace:
 ```typescript

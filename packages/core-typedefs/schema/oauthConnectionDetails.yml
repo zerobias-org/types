@@ -1,0 +1,21 @@
+type: object
+description: Object containing all information necessary for connecting to an OAuth provider
+allOf:
+  - $ref: './oauthClientProfile.yml'
+  - type: object
+    required:
+      - name
+      - authorizationEndpoint
+      - tokenEndpoint
+    properties:
+      name:
+        type: string
+        description: Name of the OAuth provider
+      authorizationEndpoint:
+        description: The URL to begin OAuth authorization
+        type: string
+        format: url
+      tokenEndpoint:
+        description: The URL to provide OAuth tokens
+        type: string
+        format: url

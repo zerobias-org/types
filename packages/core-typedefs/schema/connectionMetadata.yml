@@ -4,7 +4,6 @@ required:
   - status
 properties:
   status:
-    description: The operational status of the Connection
     $ref: './connectionStatus.yml'
   connected:
     description: Timestamp when the Connection last connected
@@ -29,7 +28,7 @@ properties:
   moduleKey:
     description: The key of the module this Connection is using
     type: string
-    example: '@zerobias-org/github'
+    example: '@auditlogic/module-github-github'
   moduleVersion:
     description: The version of the module this Connection is using
     type: string
@@ -51,3 +50,8 @@ properties:
       version:
         description: The version of the software, API, etc. the remote system is running
         type: string
+  tags:
+    description: Any tags applied to either the Node, Deployment, or Connection
+    type: array
+    items:
+      $ref: './tag.yml'

@@ -20,8 +20,9 @@ describe('enums#accessPolicyAuditLogConfigType', function () {
   it('Should load enum values', async function () {
     const ct = CoreType.get('gcpAccessPolicyAuditLogConfigType');
     expect(ct.enumValues).to.be.ok;
-    expect(ct.getEnumInfoValues()).to.be.ok;
-    expect(ct.getEnumInfoValues().length).eq(0);
+    const infoValues = await ct.getEnumInfoValues();
+    expect(infoValues).to.be.ok;
+    expect(infoValues.length).eq(0);
 
     const expected = {
       key: 'AdminRead',

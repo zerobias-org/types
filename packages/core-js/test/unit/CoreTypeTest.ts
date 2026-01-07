@@ -198,7 +198,7 @@ describe('CoreType', function () {
 
   it('should return info objects for a keyed enum type', async function () {
     const type = CoreType.get('geoCountry');
-    const infoValues = type.getEnumInfoValues();
+    const infoValues = await type.getEnumInfoValues();
     expect(type).to.be.ok;
     expect(infoValues).to.be.ok;
     expect(infoValues.length).to.be.gt(0);
@@ -222,19 +222,20 @@ describe('CoreType', function () {
 
   it('should return info objects for all keyed enum types', async function () {
     const type = CoreType.get('geoCountry');
-    const infoValues = type.getEnumInfoValues();
+    const infoValues = await type.getEnumInfoValues();
     expect(type).to.be.ok;
     expect(infoValues).to.be.ok;
     expect(infoValues.length).to.be.gt(0);
 
-    CoreType.listTypes()
+    const enumTypesWithInfo = CoreType.listTypes()
       .map((type) => CoreType.get(type))
-      .filter((type) => type.isEnum && type.hasExtendedInfo)
-      .forEach((type) => {
-        const values = type.getEnumInfoValues();
-        expect(values).to.be.ok;
-        expect(values.length).to.be.gt(0);
-      });
+      .filter((type) => type.isEnum && type.hasExtendedInfo);
+
+    for (const enumType of enumTypesWithInfo) {
+      const values = await enumType.getEnumInfoValues();
+      expect(values).to.be.ok;
+      expect(values.length).to.be.gt(0);
+    }
   });
 
   it('should shadow string', async function () {

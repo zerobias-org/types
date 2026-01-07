@@ -1,0 +1,6 @@
+type: string
+description: Status indicator for module operations
+enum:
+  - yes
+  - no
+  - maybe

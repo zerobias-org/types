@@ -214,7 +214,7 @@ export class CoreType {
    * dereference Foo into FooInfo, the CoreType convention of keying a detailed info object by
    * an enumerated value.
    */
-  getEnumInfoValues<T>(): T[] {
+  async getEnumInfoValues<T>(): Promise<T[]> {
     if (!this.isEnum) {
       throw new IllegalArgumentError(`${this.name} is not an enum`);
     }

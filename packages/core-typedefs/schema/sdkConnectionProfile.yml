@@ -1,0 +1,20 @@
+type: object
+description: Connection profile for SDK API clients
+required:
+  - url
+properties:
+  url:
+    type: string
+    format: url
+    description: Service URL (full URL string including protocol, host, port, and path)
+    example: "https://api.zerobias.com"
+  apiKey:
+    type: string
+    description: API key for authentication
+  jwt:
+    type: string
+    description: JWT for authentication
+  orgId:
+    type: string
+    format: uuid
+    description: Organization ID
