@@ -1,9 +1,8 @@
 import { createRequire } from 'node:module';
 import { IllegalArgumentError } from './errors/IllegalArgumentError.js';
 import { ObjectSerializer, Type } from '../generated/model/index.js';
+import pluralize from 'pluralize';
 
-const require = createRequire(import.meta.url);
-const pluralize = require('pluralize');
 const { plural } = pluralize;
 
 export class TypeLibrary {
