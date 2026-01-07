@@ -3,9 +3,9 @@
   "version": "1.0.23",
   "description": "Redocly plugin ensuring any type format is using the type name and not alternative formats",
   "type": "module",
-  "main": "plugin.js",
+  "main": "dist/ruleset.mjs",
   "exports": {
-    ".": "./plugin.js"
+    ".": "./dist/ruleset.mjs"
   },
   "scripts": {
     "clean": "rimraf dist/ type-data.json",
