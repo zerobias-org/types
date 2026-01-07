@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.2](https://github.com/zerobias-org/types/compare/@zerobias-org/types-core-js@1.2.1...@zerobias-org/types-core-js@1.2.2) (2026-01-07)
+
+
+### Chores
+
+* **core-js:** removing commonjs import for pluralize ([ae90801](https://github.com/zerobias-org/types/commit/ae9080188a511a47fe94ac98ee47593eab01d9ba))
+
+
+
 ## [1.2.1](https://github.com/zerobias-org/types/compare/@zerobias-org/types-core-js@1.2.0...@zerobias-org/types-core-js@1.2.1) (2026-01-07)
 
 
