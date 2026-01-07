@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.24](https://github.com/zerobias-org/types/compare/@zerobias-org/types-format-spectral-ruleset@1.0.23...@zerobias-org/types-format-spectral-ruleset@1.0.24) (2026-01-07)
+
+
+### Chores
+
+* export generated ([38ba552](https://github.com/zerobias-org/types/commit/38ba552b4c5c0d10297cabc4e42e7569629728d7))
+
+
+
 ## [1.0.23](https://github.com/zerobias-org/types/compare/@zerobias-org/types-format-spectral-ruleset@1.0.22...@zerobias-org/types-format-spectral-ruleset@1.0.23) (2026-01-07)
 
 **Note:** Version bump only for package @zerobias-org/types-format-spectral-ruleset
