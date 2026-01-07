@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.21](https://github.com/zerobias-org/types/compare/@zerobias-org/types-amazon-js@1.0.20...@zerobias-org/types-amazon-js@1.0.21) (2026-01-07)
+
+
+### Bug Fixes
+
+* new types added, brought in new codegen, no requires should exist. ([4631231](https://github.com/zerobias-org/types/commit/463123107924f7f94eae3045b788ce974c01baae))
+
+
+
 ## [1.0.20](https://github.com/zerobias-org/types/compare/@zerobias-org/types-amazon-js@1.0.19...@zerobias-org/types-amazon-js@1.0.20) (2026-01-07)
 
 **Note:** Version bump only for package @zerobias-org/types-amazon-js
