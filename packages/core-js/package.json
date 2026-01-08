@@ -22,7 +22,7 @@
   "scripts": {
     "clean": "rimraf dist/ .docs/ generated/",
     "generate": "npm run generate:code",
-    "transpile": "tsc",
+    "transpile": "tsc -b",
     "build": "npm run generate && npm run transpile",
     "test": "mocha --inline-diffs --reporter=list 'test/unit/**/*.ts'",
     "test:unit": "mocha --inline-diffs --reporter=list test/unit/*.ts",

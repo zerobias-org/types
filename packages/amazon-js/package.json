@@ -16,7 +16,7 @@
   "scripts": {
     "clean": "rimraf dist/ .docs/ generated/",
     "generate": "npm run generate:code",
-    "transpile": "tsc",
+    "transpile": "tsc -b",
     "build": "npm run generate && npm run transpile",
     "test": "mocha --inline-diffs --reporter=list test/*.ts",
     "test:watch": "npm run test -- --watch --reporter=min",

@@ -84,7 +84,7 @@ export class ChangeEventImpl<T> extends EventImpl<T> implements ChangeEvent<T> {
     return EventKind.Change;
   }
 
-  static override from(data: Record<string, any>) : Event<any> {
+  static override from(data: Record<string, any>): ChangeEventImpl<any> {
     return new ChangeEventImpl(
       data.op,
       data.objectType,

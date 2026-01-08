@@ -58,7 +58,7 @@ export class CronEventImpl<T> extends EventImpl<T> implements CronEvent<T> {
     return this._cronType;
   }
 
-  static override from(data: Record<string, any>) : Event<any> {
+  static override from(data: Record<string, any>) : CronEventImpl<any> {
     return new CronEventImpl(
       data.data,
       data.cronType,

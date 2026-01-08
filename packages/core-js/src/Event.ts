@@ -118,7 +118,7 @@ export class EventImpl<T> implements Event<T> {
     return EventKind.Base;
   }
 
-  static from(data: Record<string, any>) : Event<any> {
+  static from(data: Record<string, any>): EventImpl<any> {
     return new EventImpl(
       data.type,
       data.data,
