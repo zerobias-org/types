@@ -1,6 +1,6 @@
 {
   "name": "@zerobias-org/types-format-spectral-ruleset",
-  "version": "1.0.24",
+  "version": "1.0.25",
   "description": "Redocly plugin ensuring any type format is using the type name and not alternative formats",
   "type": "module",
   "main": "dist/ruleset.mjs",
@@ -30,9 +30,9 @@
     "bom.json"
   ],
   "dependencies": {
-    "@zerobias-org/types-amazon-js": "^1.0.22",
-    "@zerobias-org/types-core-js": "^1.2.4",
-    "@zerobias-org/types-google-js": "^1.0.22",
-    "@zerobias-org/types-microsoft-js": "^1.0.21"
+    "@zerobias-org/types-amazon-js": "^1.0.23",
+    "@zerobias-org/types-core-js": "^1.2.5",
+    "@zerobias-org/types-google-js": "^1.0.23",
+    "@zerobias-org/types-microsoft-js": "^1.0.22"
   }
 }

@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.5](https://github.com/zerobias-org/types/compare/@zerobias-org/types-core-js@1.2.4...@zerobias-org/types-core-js@1.2.5) (2026-01-08)
+
+
+### Bug Fixes
+
+* we were returning a generic type when we should have returned the specific event ([1b04912](https://github.com/zerobias-org/types/commit/1b0491298041a134de8879560c21ace46e54ad13))
+
+
+
 ## [1.2.4](https://github.com/zerobias-org/types/compare/@zerobias-org/types-core-js@1.2.3...@zerobias-org/types-core-js@1.2.4) (2026-01-07)
 
 
