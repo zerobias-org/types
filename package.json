@@ -45,6 +45,16 @@
     "node": ">=22.0.0",
     "npm": ">=10.0.0"
   },
+  "overrides": {
+    "mocha": {
+      "diff": "^8.0.3"
+    },
+    "@rollup/plugin-commonjs": "^28.0.0",
+    "@stoplight/spectral-cli": {
+      "glob": "^10.0.0",
+      "magic-string": "^0.30.0"
+    }
+  },
   "devDependencies": {
     "@commitlint/cli": "^19.6.1",
     "@commitlint/config-conventional": "^19.6.0",
@@ -57,7 +67,6 @@
     "@types/node": "^22.10.0",
     "@types/pluralize": "^0.0.33",
     "@types/semver": "^7.7.1",
-    "@types/uuid": "^11.0.0",
     "@types/validator": "^13.15.10",
     "@zerobias-org/eslint-config": "^1.0.8",
     "@zerobias-org/util-codegen": "^2.0.2",
@@ -69,7 +78,6 @@
     "mocha": "^11.7.5",
     "nx": "^20.5.0",
     "rimraf": "^6.1.2",
-    "ts-node": "^10.9.2",
     "tsx": "^4.21.0",
     "typedoc": "^0.28.15",
     "typedoc-plugin-markdown": "^4.9.0",

@@ -1,3 +1,5 @@
+import stringify from 'safe-stable-stringify';
+
 import { ErrorLibrary } from '../ErrorLibrary.js';
 import { CoreErrorSpec } from './CoreErrorSpec.js';
 import { ErrorModel } from './ErrorModel.js';
@@ -84,7 +86,7 @@ export abstract class CoreError<T extends ErrorModel> extends Error implements C
     CoreError.ensureInitialized();
     const { key, template, statusCode, timestamp, stack } = data;
     if (!template || !statusCode || !key || !timestamp) {
-      throw new Error(data ? data.toString() : '');
+      throw new Error(data ? stringify(data) : '');
     }
 
     const library = CoreError.errorKeys.get(key);

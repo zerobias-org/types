@@ -66,6 +66,7 @@
     "cron-parser": "5.4.0",
     "ip-address": "10.1.0",
     "pluralize": "8.0.0",
+    "safe-stable-stringify": "2.5.0",
     "semver": "7.7.3",
     "tinyduration": "3.4.1",
     "uuid": "13.0.0",
