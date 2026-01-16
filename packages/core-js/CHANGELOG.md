@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.7](https://github.com/zerobias-org/types/compare/@zerobias-org/types-core-js@1.2.6...@zerobias-org/types-core-js@1.2.7) (2026-01-16)
+
+
+### Bug Fixes
+
+* bad object to string, and vuln fixes ([feee06c](https://github.com/zerobias-org/types/commit/feee06c1a7700d281c4f9a8e4219c770ba0b4c19))
+
+
+
 ## [1.2.6](https://github.com/zerobias-org/types/compare/@zerobias-org/types-core-js@1.2.5...@zerobias-org/types-core-js@1.2.6) (2026-01-16)
 
 
