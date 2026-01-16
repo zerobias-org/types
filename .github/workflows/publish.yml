@@ -86,13 +86,6 @@ jobs:
           NPM_TOKEN: ${{ env.READ_TOKEN }}
           ZB_TOKEN: ${{ env.ZB_TOKEN }}
 
-      - name: Lint affected packages
-        run: |
-          nx affected -t lint --base=${{ steps.base_ref.outputs.BASE_REF }}
-        env:
-          NPM_TOKEN: ${{ env.READ_TOKEN }}
-          ZB_TOKEN: ${{ env.ZB_TOKEN }}
-
       - name: Version affected packages, then commit
         run: |
           AFFECTED=$(nx show projects --affected --base=${{ steps.base_ref.outputs.BASE_REF }} 2>/dev/null || echo "")
@@ -157,4 +150,4 @@ jobs:
             }
 
       - name: Release Announcement
-        uses: zerobias-com/devops/actions/release-announcement@main
+        uses: zerobias-org/devops/actions/release-announcement@main
