@@ -15,7 +15,6 @@
     "generate": "npm run generate:api && npm run generate:inflate",
     "build": "npm run generate",
     "transpile": "echo 'No transpile needed for typedefs'",
-    "prepublishOnly": "npx nx run @zerobias-org/types-google:build",
     "nx:prepublish": "prepublish-standalone",
     "nx:publish": "publish",
     "version": "npm run sync:meta && npm run generate:badge && git add api.yml version.svg",

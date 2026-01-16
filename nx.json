@@ -55,6 +55,14 @@
       "dependsOn": ["transpile"],
       "inputs": ["default", "^production"],
       "cache": true
+    },
+    "nx:prepublish": {
+      "dependsOn": ["^nx:prepublish", "transpile"],
+      "cache": false
+    },
+    "nx:publish": {
+      "dependsOn": ["^nx:publish"],
+      "cache": false
     }
   }
 }

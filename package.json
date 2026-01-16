@@ -56,6 +56,21 @@
       "magic-string": "^0.30.0"
     }
   },
+  "dependencies": {
+    "@supercharge/promise-pool": "^3.2.0",
+    "awesome-phonenumber": "^7.6.0",
+    "axios": "^1.13.2",
+    "buffer": "^6.0.3",
+    "cron-parser": "^5.4.0",
+    "ip-address": "^10.1.0",
+    "pluralize": "^8.0.0",
+    "safe-stable-stringify": "^2.5.0",
+    "semver": "^7.7.3",
+    "tinyduration": "^3.4.1",
+    "uuid": "^13.0.0",
+    "validator": "^13.15.23",
+    "vuln-vects": "^1.1.0"
+  },
   "devDependencies": {
     "@commitlint/cli": "^19.6.1",
     "@commitlint/config-conventional": "^19.6.0",
@@ -84,20 +99,5 @@
     "typedoc": "^0.28.15",
     "typedoc-plugin-markdown": "^4.9.0",
     "typescript": "^5.9.3"
-  },
-  "dependencies": {
-    "@supercharge/promise-pool": "^3.2.0",
-    "awesome-phonenumber": "^7.6.0",
-    "axios": "^1.13.2",
-    "buffer": "^6.0.3",
-    "cron-parser": "^5.4.0",
-    "ip-address": "^10.1.0",
-    "pluralize": "^8.0.0",
-    "safe-stable-stringify": "^2.5.0",
-    "semver": "^7.7.3",
-    "tinyduration": "^3.4.1",
-    "uuid": "^13.0.0",
-    "validator": "^13.15.23",
-    "vuln-vects": "^1.1.0"
   }
 }
