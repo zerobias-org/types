@@ -71,6 +71,7 @@ export {
   X509Certificate as TlsX509Certificate,
   X509Subject as TlsX509Subject,
   TokenConnectionState,
+  ConnectionState,
   TokenProfile,
   Type,
   EventKind,
