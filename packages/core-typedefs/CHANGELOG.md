@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.11](https://github.com/zerobias-org/types/compare/@zerobias-org/types-core@1.0.10...@zerobias-org/types-core@1.0.11) (2026-01-16)
+
+
+### Bug Fixes
+
+* add connection state ([6d0c880](https://github.com/zerobias-org/types/commit/6d0c8800a9c8fd20d690a9b28c604ebb40714a88))
+
+
+
 ## [1.0.10](https://github.com/zerobias-org/types/compare/@zerobias-org/types-core@1.0.9...@zerobias-org/types-core@1.0.10) (2026-01-07)
 
 

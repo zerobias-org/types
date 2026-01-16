@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.6](https://github.com/zerobias-org/types/compare/@zerobias-org/types-core-js@1.2.5...@zerobias-org/types-core-js@1.2.6) (2026-01-16)
+
+
+### Bug Fixes
+
+* add connection state ([6d0c880](https://github.com/zerobias-org/types/commit/6d0c8800a9c8fd20d690a9b28c604ebb40714a88))
+
+
+
 ## [1.2.5](https://github.com/zerobias-org/types/compare/@zerobias-org/types-core-js@1.2.4...@zerobias-org/types-core-js@1.2.5) (2026-01-08)
 
 
