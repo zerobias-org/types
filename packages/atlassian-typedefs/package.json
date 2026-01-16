@@ -1,6 +1,6 @@
 {
   "name": "@zerobias-org/types-atlassian",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "description": "OpenAPI type definitions for Atlassian services",
   "type": "module",
   "dependencies": {
