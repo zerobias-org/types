@@ -17,6 +17,8 @@ export {
   ConnectionMetadata,
   ConnectionStatus,
   ConnectionStatusDef,
+  CloudAvailabilityZone,
+  CloudAvailabilityZoneDef,
   CloudMarket,
   CloudMarketDef,
   CloudMarketInfo,
