@@ -14,7 +14,8 @@
     "packages/microsoft-typedefs",
     "packages/microsoft-js",
     "packages/atlassian-typedefs",
-    "packages/format-spectral-ruleset"
+    "packages/format-spectral-ruleset",
+    "packages/hub-types"
   ],
   "scripts": {
     "build": "nx affected -t lint generate transpile",
