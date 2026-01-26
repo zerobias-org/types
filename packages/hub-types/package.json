@@ -1,0 +1,46 @@
+{
+  "name": "@zerobias-org/hub-types",
+  "version": "0.1.0",
+  "description": "Shared Hub types and interfaces for module development and testing",
+  "type": "module",
+  "main": "dist/src/index.js",
+  "types": "dist/src/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/src/index.d.ts",
+      "import": "./dist/src/index.js"
+    }
+  },
+  "scripts": {
+    "clean": "rimraf dist/",
+    "transpile": "tsc -b",
+    "build": "npm run transpile",
+    "test": "echo 'No tests needed for pure types package'",
+    "lint": "eslint 'src/**/*.ts'",
+    "lint:fix": "eslint --fix 'src/**/*.ts'",
+    "nx:prepublish": "prepublish-standalone",
+    "nx:publish": "publish"
+  },
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "author": "team@zerobias.com",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:zerobias-org/types.git",
+    "directory": "packages/hub-types"
+  },
+  "publishConfig": {
+    "registry": "https://pkg.zerobias.org/"
+  },
+  "files": [
+    "dist/src",
+    "*.md",
+    "bom.json"
+  ],
+  "dependencies": {},
+  "devDependencies": {
+    "typescript": "^5.0.0"
+  }
+}
