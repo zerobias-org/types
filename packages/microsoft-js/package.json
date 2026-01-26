@@ -1,6 +1,6 @@
 {
   "name": "@zerobias-org/types-microsoft-js",
-  "version": "1.0.27",
+  "version": "1.0.28",
   "description": "JS types for Microsoft services",
   "type": "module",
   "main": "dist/src/index.js",

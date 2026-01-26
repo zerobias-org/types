@@ -1,6 +1,6 @@
 {
   "name": "@zerobias-org/types-google",
-  "version": "1.0.14",
+  "version": "1.0.15",
   "description": "OpenAPI type definitions for Google services",
   "type": "module",
   "dependencies": {
