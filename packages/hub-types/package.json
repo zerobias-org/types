@@ -15,7 +15,7 @@
     "clean": "rimraf dist/",
     "transpile": "tsc -b",
     "build": "npm run transpile",
-    "test": "mocha --inline-diffs --reporter=list 'test/**/*.ts'",
+    "test": "echo 'No tests needed for pure types package'",
     "lint": "eslint 'src/**/*.ts'",
     "lint:fix": "eslint --fix 'src/**/*.ts'",
     "nx:prepublish": "prepublish-standalone",
