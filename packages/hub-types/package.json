@@ -13,6 +13,7 @@
   },
   "scripts": {
     "clean": "rimraf dist/",
+    "generate": "echo 'No generate needed for hub-types'",
     "transpile": "tsc -b",
     "build": "npm run transpile",
     "nx:build": "npm run transpile",

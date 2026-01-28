@@ -19,11 +19,16 @@
       "cache": false
     },
     "lint": {
-      "inputs": ["default", "{workspaceRoot}/.eslintrc.json"],
       "cache": true
     },
     "generate": {
-      "dependsOn": ["^nx:build"],
+      "dependsOn": ["^generate"],
+      "cache": true
+    },
+    "transpile": {
+      "dependsOn": [
+        "generate"
+      ],
       "cache": true
     },
     "nx:build": {

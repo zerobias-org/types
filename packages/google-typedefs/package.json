@@ -4,7 +4,7 @@
   "description": "OpenAPI type definitions for Google services",
   "type": "module",
   "dependencies": {
-    "@zerobias-org/types-core": "^1.0.11"
+    "@zerobias-org/types-core": "^1.0.15"
   },
   "scripts": {
     "clean": "rm -f models.yml",
