@@ -1,6 +1,6 @@
 {
   "name": "@zerobias-org/hub-types",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Shared Hub types and interfaces for module development and testing",
   "type": "module",
   "main": "dist/src/index.js",
@@ -39,7 +39,6 @@
     "*.md",
     "bom.json"
   ],
-  "dependencies": {},
   "devDependencies": {
     "typescript": "^5.0.0"
   }
