@@ -155,7 +155,8 @@ export class TypeLibrary {
     if (this.schemaLocator) {
       const b64 = this.schemaLocator(className);
       if (b64) {
-        const json = Buffer.from(b64, 'base64').toString();
+        // Use native atob() for browser compatibility (no polyfills needed)
+        const json = atob(b64);
         return JSON.parse(json);
       }
     }

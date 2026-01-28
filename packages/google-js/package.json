@@ -17,7 +17,8 @@
     "clean": "rimraf dist/ .docs/ generated/",
     "generate": "npm run generate:code",
     "transpile": "tsc -b",
-    "build": "npm run generate && npm run transpile",
+    "build": "npm run lint && npm run generate && npm run transpile",
+    "nx:build": "npm run transpile",
     "test": "mocha --inline-diffs --reporter=list test/*.ts",
     "test:watch": "npm run test -- --watch --reporter=min",
     "docs:tsdoc": "typedoc --plugin typedoc-plugin-markdown --out .docs",
@@ -28,9 +29,7 @@
     "generate:code": "JAVA_OPTS=\"${JAVA_OPTS} -DgoogleTypesSource=../../src\" hub-generator generate -g hub-module --additional-properties supportsES6=true -p skipHubImpl=true -i ../../node_modules/@zerobias-org/types-google/models.yml -o generated/",
     "get-version": "node --input-type=module -e \"import fs from 'node:fs'; console.log(JSON.parse(fs.readFileSync('./package.json', 'utf8')).version)\"",
     "lint": "eslint 'src/**/*.ts' 'test/**/*.ts'",
-    "lint:fix": "eslint --fix 'src/**/*.ts' 'test/**/*.ts'",
-    "nx:prepublish": "prepublish-standalone",
-    "nx:publish": "publish"
+    "lint:fix": "eslint --fix 'src/**/*.ts' 'test/**/*.ts'"
   },
   "engines": {
     "node": ">=22.0.0"

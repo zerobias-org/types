@@ -1,10 +1,9 @@
-import { Buffer } from 'node:buffer';
 import { StringFormat } from './StringFormat.js';
 import { InvalidInputError } from '../errors/index.js';
 import { CoreType } from '../CoreType.js';
 
 /**
- * Class representing a duration
+ * Class representing a base64-encoded byte string
  */
 export class Byte extends StringFormat<Byte> {
   private static _coreType: ReturnType<typeof CoreType.get> | null = null;
@@ -19,8 +18,10 @@ export class Byte extends StringFormat<Byte> {
   constructor(data: string) {
     super();
     try {
-      const value = Buffer.from(data, 'base64').toString('binary');
-      const encoded = Buffer.from(value, 'binary').toString('base64');
+      // Decode and re-encode to validate base64 format
+      // atob/btoa are native in browsers and Node.js 16+
+      const decoded = atob(data);
+      const encoded = btoa(decoded);
       if (encoded !== data) {
         throw new Error('Invalid base64 encoding');
       }

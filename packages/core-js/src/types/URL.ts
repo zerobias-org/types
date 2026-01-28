@@ -1,10 +1,13 @@
-import { parse as urlParse, type UrlWithStringQuery } from 'node:url';
 import { StringFormat } from './StringFormat.js';
 import { InvalidInputError } from '../errors/index.js';
 import { CoreType } from '../CoreType.js';
 
+// Dummy base for parsing relative URLs - only path/search/hash are used
+const RELATIVE_BASE = 'http://relative.invalid';
+
 /**
  * Class representing a URL
+ * Uses native URL API for browser compatibility (no polyfills needed)
  */
 export class URL extends StringFormat<URL> {
   private static _coreType: ReturnType<typeof CoreType.get> | null = null;
@@ -14,17 +17,33 @@ export class URL extends StringFormat<URL> {
     return URL._coreType;
   }
 
-  private url: UrlWithStringQuery;
+  private url: globalThis.URL;
 
   readonly relative: boolean;
 
   readonly _searchParams: URLSearchParams;
 
+  // Track if relative URL had leading slash (native URL normalizes by adding one)
+  private readonly _hadLeadingSlash: boolean;
+
   constructor(url: string) {
     super();
     try {
-      this.url = urlParse(url);
-      this.relative = !this.url.protocol;
+      // Check if URL has a protocol (absolute) or is relative
+      const hasProtocol = /^[a-z][a-z0-9+.-]*:/i.test(url);
+
+      if (hasProtocol) {
+        this.url = new globalThis.URL(url);
+        this.relative = false;
+        this._hadLeadingSlash = true;
+      } else {
+        // Track if original had leading slash before native URL normalizes it
+        this._hadLeadingSlash = url.startsWith('/');
+        // Use dummy base for relative URLs - we only need path/search/hash
+        this.url = new globalThis.URL(url, RELATIVE_BASE);
+        this.relative = true;
+      }
+
       this._searchParams = new URLSearchParams(this.url.search ?? undefined);
     } catch (_) {
       throw new InvalidInputError('url', url, URL.examples());
@@ -75,11 +94,11 @@ export class URL extends StringFormat<URL> {
   }
 
   get username(): string {
-    return this.relative ? '' : (this.url.auth?.split(':')[0] ?? '');
+    return this.relative ? '' : (this.url.username ?? '');
   }
 
   get password(): string {
-    return this.relative ? '' : (this.url.auth?.split(':')[1] ?? '');
+    return this.relative ? '' : (this.url.password ?? '');
   }
 
   get host(): string {
@@ -95,7 +114,12 @@ export class URL extends StringFormat<URL> {
   }
 
   get path(): string {
-    return this.url.pathname ?? '';
+    const pathname = this.url.pathname ?? '';
+    // Strip leading slash if original relative URL didn't have one
+    if (this.relative && !this._hadLeadingSlash && pathname.startsWith('/')) {
+      return pathname.slice(1);
+    }
+    return pathname;
   }
 
   get search(): string {
