@@ -218,7 +218,7 @@ export class PropertySelector {
   normalizeFieldName(field: string): string {
     return field
       .toLowerCase()
-      .replace(/[-_\s]/g, ''); // Remove hyphens, underscores, spaces
+      .replace(/[\s_-]/g, ''); // Remove hyphens, underscores, spaces
   }
 
   /**

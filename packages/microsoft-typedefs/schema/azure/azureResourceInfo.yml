@@ -3,7 +3,6 @@ allOf:
   - type: object
     properties:
       location:
-        type: string
         anyOf:
           - $ref: './azureRegion.yml'
           - $ref: './azureAdditionalLocations.yml'

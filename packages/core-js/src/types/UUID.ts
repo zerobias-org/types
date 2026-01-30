@@ -1,5 +1,4 @@
-import validator from 'validator';
-import * as uuid from 'uuid';
+import { v1, v3, v4, v5, validate as isUUID, version as uuidVersion } from 'uuid';
 import { StringFormat } from './StringFormat.js';
 import { InvalidInputError } from '../errors/index.js';
 import { CoreType } from '../CoreType.js';
@@ -26,7 +25,7 @@ export class UUID extends StringFormat<UUID> {
 
   constructor(id: string) {
     super();
-    if (validator.isUUID(id)) {
+    if (isUUID(id)) {
       this.id = id;
     } else {
       throw new InvalidInputError('UUID', id, UUID.examples());
@@ -42,26 +41,26 @@ export class UUID extends StringFormat<UUID> {
   }
 
   static async parse(input: string): Promise<UUID> {
-    if (validator.isUUID(input)) {
+    if (isUUID(input)) {
       return new UUID(input);
     }
     throw new InvalidInputError('UUID', input);
   }
 
   static generateV1(): UUID {
-    return new UUID(uuid.v1());
+    return new UUID(v1());
   }
 
   static generateV3(name: string, namespace: UUID): UUID {
-    return new UUID(uuid.v3(name, `${namespace}`));
+    return new UUID(v3(name, `${namespace}`));
   }
 
   static generateV4(): UUID {
-    return new UUID(uuid.v4());
+    return new UUID(v4());
   }
 
   static generateV5(name: string, namespace: UUID): UUID {
-    return new UUID(uuid.v5(name, `${namespace}`));
+    return new UUID(v5(name, `${namespace}`));
   }
 
   public toString(): string {
@@ -75,15 +74,22 @@ export class UUID extends StringFormat<UUID> {
   }
 
   version(): Version {
-    if (validator.isUUID(this.id, 3)) {
-      return Version.V3;
-    } if (validator.isUUID(this.id, 4)) {
-      return Version.V4;
-    } if (validator.isUUID(this.id, 5)) {
-      return Version.V5;
+    const ver = uuidVersion(this.id);
+    switch (ver) {
+      case 3: {
+        return Version.V3;
+      }
+      case 4: {
+        return Version.V4;
+      }
+      case 5: {
+        return Version.V5;
+      }
+      default: {
+        // Includes v1 and any other versions
+        return Version.V1;
+      }
     }
-    // XXX process of elimination for v1
-    return Version.V1;
   }
 }
 

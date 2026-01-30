@@ -1,4 +1,4 @@
-import { Address4, Address6 } from 'ip-address';
+import { IPv4, IPv6, Validator } from 'ip-num';
 import { StringFormat } from './StringFormat.js';
 import { InvalidInputError } from '../errors/index.js';
 
@@ -15,15 +15,18 @@ export class IpAddress extends StringFormat<IpAddress> {
     return IpAddress._coreType;
   }
 
-  ip: Address4 | Address6;
+  ip: IPv4 | IPv6;
+
+  private _isV4: boolean;
 
   constructor(ip: string) {
     super();
-    const myIp = IpAddress.toIp(ip);
-    if (!myIp) {
+    const result = IpAddress.toIp(ip);
+    if (!result) {
       throw new InvalidInputError('ip', ip, IpAddress.examples());
     }
-    this.ip = myIp;
+    this.ip = result.ip;
+    this._isV4 = result.isV4;
   }
 
   static description() {
@@ -40,33 +43,35 @@ export class IpAddress extends StringFormat<IpAddress> {
 
   /**
    * @param input - input to convert to an IP
-   * @returns an IPv4 or IPv6 address, if valid. Else, returns `null`
+   * @returns an IPv4 or IPv6 address with version flag, if valid. Else, returns `null`
    */
-  private static toIp(input: string): Address4 | Address6 | null {
-    if (Address4.isValid(input)) {
-      return new Address4(input);
+  private static toIp(input: string): { ip: IPv4 | IPv6; isV4: boolean } | null {
+    const [isValidV4] = Validator.isValidIPv4String(input);
+    if (isValidV4) {
+      return { ip: new IPv4(input), isV4: true };
     }
-    if (Address6.isValid(input)) {
-      return new Address6(input);
+    const [isValidV6] = Validator.isValidIPv6String(input);
+    if (isValidV6) {
+      return { ip: new IPv6(input), isV4: false };
     }
     return null;
   }
 
   toString(): string {
-    return this.ip.address;
+    return this.ip.toString();
   }
 
   equals(other?: any): boolean {
     return other && other instanceof IpAddress
-      ? other.ip.address === this.ip.address
+      ? other.ip.toString() === this.ip.toString()
       : false;
   }
 
   isV4(): boolean {
-    return this.ip instanceof Address4;
+    return this._isV4;
   }
 
   isV6(): boolean {
-    return this.ip instanceof Address6;
+    return !this._isV4;
   }
 }

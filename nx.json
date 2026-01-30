@@ -36,7 +36,8 @@
         "^nx:build",
         "lint",
         "generate"
-      ]
+      ],
+      "cache": true
     }
   }
 }

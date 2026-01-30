@@ -34,5 +34,12 @@
     "models.yml",
     "*.md",
     "bom.json"
-  ]
+  ],
+  "nx": {
+    "targets": {
+      "lint": {
+        "dependsOn": ["@zerobias-org/types-format-spectral-ruleset:transpile"]
+      }
+    }
+  }
 }
