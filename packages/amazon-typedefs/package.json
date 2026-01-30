@@ -1,6 +1,6 @@
 {
   "name": "@zerobias-org/types-amazon",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "description": "OpenAPI type definitions for Amazon services",
   "type": "module",
   "scripts": {
@@ -38,7 +38,9 @@
   "nx": {
     "targets": {
       "lint": {
-        "dependsOn": ["@zerobias-org/types-format-spectral-ruleset:transpile"]
+        "dependsOn": [
+          "@zerobias-org/types-format-spectral-ruleset:transpile"
+        ]
       }
     }
   }

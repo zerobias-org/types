@@ -1,6 +1,6 @@
 {
   "name": "@zerobias-org/types-core",
-  "version": "1.0.16",
+  "version": "1.0.17",
   "description": "A collection of OpenApi core type snippets",
   "type": "module",
   "scripts": {
@@ -38,7 +38,9 @@
   "nx": {
     "targets": {
       "lint": {
-        "dependsOn": ["@zerobias-org/types-format-spectral-ruleset:transpile"]
+        "dependsOn": [
+          "@zerobias-org/types-format-spectral-ruleset:transpile"
+        ]
       }
     }
   }
