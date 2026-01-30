@@ -31,6 +31,9 @@
   "publishConfig": {
     "registry": "https://pkg.zerobias.org/"
   },
+  "devDependencies": {
+    "@zerobias-org/types-format-spectral-ruleset": "^1.0.32"
+  },
   "files": [
     "data",
     "schema",
