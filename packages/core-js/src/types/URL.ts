@@ -30,7 +30,7 @@ export class URL extends StringFormat<URL> {
     super();
     try {
       // Check if URL has a protocol (absolute) or is relative
-      const hasProtocol = /^[a-z][a-z0-9+.-]*:/i.test(url);
+      const hasProtocol = /^[a-z][\d+.a-z-]*:/i.test(url);
 
       if (hasProtocol) {
         this.url = new globalThis.URL(url);

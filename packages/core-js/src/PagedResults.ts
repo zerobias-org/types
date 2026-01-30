@@ -1,4 +1,4 @@
-import { PromisePool } from '@supercharge/promise-pool';
+import pLimit from 'p-limit';
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import {
   IllegalArgumentError,
@@ -835,20 +835,16 @@ export class PagedResults<T> {
       throw new InvalidInputError('limit', limit);
     }
     const allItems: T[] = [];
-     
+
     for await (const item of this) {
       allItems.push(item);
       if (limit && allItems.length >= limit) {
         break;
       }
     }
-    return PromisePool
-      .withConcurrency(executors)
-      .for(allItems)
-      .handleError(async (err, data) => { throw err; })
-      .process(async (data, index) => {
-        await func(allItems[index]);
-      })
-      .then(() => {});
+
+    // Use p-limit for concurrency control - rejects on first error
+    const limiter = pLimit(executors);
+    await Promise.all(allItems.map((item) => limiter(() => func(item))));
   }
 }

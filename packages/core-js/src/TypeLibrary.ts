@@ -1,4 +1,4 @@
-import pluralize from 'pluralize';
+import pluralize from 'pluralize-esm';
 
 import { IllegalArgumentError } from './errors/IllegalArgumentError.js';
 import { ObjectSerializer, Type } from '../generated/model/index.js';

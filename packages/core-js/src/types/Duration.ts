@@ -1,12 +1,44 @@
-import {
-  parse as parseDuration,
-  serialize as serializeDuration,
-  Duration as TinyDuration
-} from 'tinyduration';
+import { parse as parseDuration } from 'iso8601-duration';
 import { StringFormat } from './StringFormat.js';
 import { IllegalArgumentError } from '../errors/IllegalArgumentError.js';
 import { InvalidInputError } from '../errors/InvalidInputError.js';
 import { CoreType } from '../CoreType.js';
+
+/**
+ * Represents a parsed ISO 8601 duration
+ */
+interface ParsedDuration {
+  years?: number;
+  months?: number;
+  weeks?: number;
+  days?: number;
+  hours?: number;
+  minutes?: number;
+  seconds?: number;
+}
+
+/**
+ * Serializes a parsed duration object back to ISO 8601 format
+ */
+function serializeDuration(duration: ParsedDuration): string {
+  let result = 'P';
+
+  if (duration.years) result += `${duration.years}Y`;
+  if (duration.months) result += `${duration.months}M`;
+  if (duration.weeks) result += `${duration.weeks}W`;
+  if (duration.days) result += `${duration.days}D`;
+
+  const hasTime = duration.hours || duration.minutes || duration.seconds;
+  if (hasTime) {
+    result += 'T';
+    if (duration.hours) result += `${duration.hours}H`;
+    if (duration.minutes) result += `${duration.minutes}M`;
+    if (duration.seconds) result += `${duration.seconds}S`;
+  }
+
+  // Handle empty duration
+  return result === 'P' ? 'PT0S' : result;
+}
 
 /**
  * Class representing a duration
@@ -19,7 +51,7 @@ export class Duration extends StringFormat<Duration> {
     return Duration._coreType;
   }
 
-  private duration: TinyDuration;
+  private duration: ParsedDuration;
 
   constructor(duration: string) {
     super();
