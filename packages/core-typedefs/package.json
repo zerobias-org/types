@@ -5,7 +5,6 @@
   "type": "module",
   "scripts": {
     "clean": "rm -f models.yml",
-    "generate:badge": "npx badge $(yq -oy e .name package.json) $(npm run -s get-version) :red @flat > version.svg",
     "generate:api": "./bin/gen_api.sh",
     "generate:inflate": "npx @redocly/cli bundle models.yml --output temp.yml && mv temp.yml models.yml",
     "sync:meta": "VERSION=$(npm run -s get-version) NAME=$(yq -oy e .name package.json) DESC=$(yq -oy e .description package.json) yq e -i '.info.version=strenv(VERSION) | .info.title=strenv(NAME) | .info.description=strenv(DESC)' api.yml",
@@ -13,7 +12,6 @@
     "build": "npm run generate",
     "transpile": "echo 'No transpile needed for typedefs'",
     "nx:build": "npm run lint && npm run generate",
-    "version": "npm run sync:meta && npm run generate:badge && git add api.yml version.svg",
     "get-version": "yq -oy e .version package.json",
     "lint": "npm run lint:api",
     "lint:api": "npx spectral lint ./schema/**/*.yml -v"

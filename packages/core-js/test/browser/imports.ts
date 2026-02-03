@@ -1,6 +1,6 @@
 /**
  * Browser import test - validates that all types can be bundled for browser use.
- * Tests all exported types from @zerobias-org/types-core-js
+ * Tests all exported types from this package
  */
 
 // Import everything from the main index to test full export chain
