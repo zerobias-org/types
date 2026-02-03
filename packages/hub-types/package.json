@@ -1,6 +1,6 @@
 {
   "name": "@zerobias-org/hub-types",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Shared Hub types and interfaces for module development and testing",
   "type": "module",
   "main": "dist/src/index.js",
