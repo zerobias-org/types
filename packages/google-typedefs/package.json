@@ -3,9 +3,6 @@
   "version": "1.0.17",
   "description": "OpenAPI type definitions for Google services",
   "type": "module",
-  "dependencies": {
-    "@zerobias-org/types-core": "^1.0.17"
-  },
   "scripts": {
     "clean": "rm -f models.yml",
     "generate:badge": "npx badge $(yq -oy e .name package.json) $(npm run -s get-version) :red @flat > version.svg",
@@ -46,5 +43,8 @@
         ]
       }
     }
+  },
+  "dependencies": {
+    "@zerobias-org/types-core": "^1.0.17"
   }
 }
