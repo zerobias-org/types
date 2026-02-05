@@ -42,18 +42,75 @@ export class IpAddress extends StringFormat<IpAddress> {
   }
 
   /**
+   * Extracts the embedded IPv4 address from various IPv6 formats.
+   * Handles:
+   * - ::ffff:127.0.0.1 (IPv4-mapped, dotted notation)
+   * - ::127.0.0.1 (IPv4-compatible, dotted notation)
+   * - 0:0:0:0:0:ffff:127.0.0.1 (IPv4-mapped, full form)
+   * - ::ffff:7f00:1 (IPv4-mapped, hex notation - 127.0.0.1)
+   * - 0:0:0:0:0:ffff:7f00:1 (IPv4-mapped, full hex form)
+   * @returns the IPv4 string if found, null otherwise
+   */
+  private static extractEmbeddedIPv4(input: string): string | null {
+    // Dotted notation: ::ffff:127.0.0.1 or ::127.0.0.1 or full form 0:0:0:0:0:ffff:127.0.0.1
+    const dottedMatch = input.match(/^(?:0:){0,5}(?:0:|ffff:)?(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})$/i)
+      || input.match(/^::(?:ffff:)?(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})$/i);
+    if (dottedMatch) {
+      return dottedMatch[1];
+    }
+
+    // Hex notation: ::ffff:7f00:1 or 0:0:0:0:0:ffff:7f00:1 (last two segments are IPv4 in hex)
+    const hexMappedMatch = input.match(/^(?:0:){0,5}ffff:([0-9a-f]{1,4}):([0-9a-f]{1,4})$/i)
+      || input.match(/^::ffff:([0-9a-f]{1,4}):([0-9a-f]{1,4})$/i);
+    if (hexMappedMatch) {
+      const high = parseInt(hexMappedMatch[1], 16);
+      const low = parseInt(hexMappedMatch[2], 16);
+      // Convert two 16-bit values to four 8-bit octets
+      const o1 = (high >> 8) & 0xff;
+      const o2 = high & 0xff;
+      const o3 = (low >> 8) & 0xff;
+      const o4 = low & 0xff;
+      return `${o1}.${o2}.${o3}.${o4}`;
+    }
+
+    return null;
+  }
+
+  /**
+   * Strips the zone ID from an IPv6 address (e.g., fe80::1%eth0 -> fe80::1)
+   */
+  private static stripZoneId(input: string): string {
+    const zoneIndex = input.indexOf('%');
+    return zoneIndex >= 0 ? input.substring(0, zoneIndex) : input;
+  }
+
+  /**
    * @param input - input to convert to an IP
    * @returns an IPv4 or IPv6 address with version flag, if valid. Else, returns `null`
    */
   private static toIp(input: string): { ip: IPv4 | IPv6; isV4: boolean } | null {
+    // First check for pure IPv4
     const [isValidV4] = Validator.isValidIPv4String(input);
     if (isValidV4) {
       return { ip: new IPv4(input), isV4: true };
     }
-    const [isValidV6] = Validator.isValidIPv6String(input);
-    if (isValidV6) {
-      return { ip: new IPv6(input), isV4: false };
+
+    // Check for embedded IPv4 in IPv6 format
+    const embeddedV4 = IpAddress.extractEmbeddedIPv4(input);
+    if (embeddedV4) {
+      const [isValidEmbedded] = Validator.isValidIPv4String(embeddedV4);
+      if (isValidEmbedded) {
+        return { ip: new IPv4(embeddedV4), isV4: true };
+      }
     }
+
+    // Strip zone ID for IPv6 validation (e.g., fe80::1%eth0)
+    const strippedInput = IpAddress.stripZoneId(input);
+    const [isValidV6] = Validator.isValidIPv6String(strippedInput);
+    if (isValidV6) {
+      return { ip: new IPv6(strippedInput), isV4: false };
+    }
+
     return null;
   }
 

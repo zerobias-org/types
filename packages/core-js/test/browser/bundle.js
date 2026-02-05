@@ -36405,6 +36405,40 @@ ${originalIndentation}`;
       return new _IpAddress(input);
     }
     /**
+     * Extracts the embedded IPv4 address from various IPv6 formats.
+     * Handles:
+     * - ::ffff:127.0.0.1 (IPv4-mapped, dotted notation)
+     * - ::127.0.0.1 (IPv4-compatible, dotted notation)
+     * - 0:0:0:0:0:ffff:127.0.0.1 (IPv4-mapped, full form)
+     * - ::ffff:7f00:1 (IPv4-mapped, hex notation - 127.0.0.1)
+     * - 0:0:0:0:0:ffff:7f00:1 (IPv4-mapped, full hex form)
+     * @returns the IPv4 string if found, null otherwise
+     */
+    static extractEmbeddedIPv4(input) {
+      const dottedMatch = input.match(/^(?:0:){0,5}(?:0:|ffff:)?(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})$/i) || input.match(/^::(?:ffff:)?(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})$/i);
+      if (dottedMatch) {
+        return dottedMatch[1];
+      }
+      const hexMappedMatch = input.match(/^(?:0:){0,5}ffff:([0-9a-f]{1,4}):([0-9a-f]{1,4})$/i) || input.match(/^::ffff:([0-9a-f]{1,4}):([0-9a-f]{1,4})$/i);
+      if (hexMappedMatch) {
+        const high = parseInt(hexMappedMatch[1], 16);
+        const low = parseInt(hexMappedMatch[2], 16);
+        const o1 = high >> 8 & 255;
+        const o2 = high & 255;
+        const o3 = low >> 8 & 255;
+        const o4 = low & 255;
+        return `${o1}.${o2}.${o3}.${o4}`;
+      }
+      return null;
+    }
+    /**
+     * Strips the zone ID from an IPv6 address (e.g., fe80::1%eth0 -> fe80::1)
+     */
+    static stripZoneId(input) {
+      const zoneIndex = input.indexOf("%");
+      return zoneIndex >= 0 ? input.substring(0, zoneIndex) : input;
+    }
+    /**
      * @param input - input to convert to an IP
      * @returns an IPv4 or IPv6 address with version flag, if valid. Else, returns `null`
      */
@@ -36413,9 +36447,17 @@ ${originalIndentation}`;
       if (isValidV4) {
         return { ip: new import_ip_num2.IPv4(input), isV4: true };
       }
-      const [isValidV6] = import_ip_num2.Validator.isValidIPv6String(input);
+      const embeddedV4 = _IpAddress.extractEmbeddedIPv4(input);
+      if (embeddedV4) {
+        const [isValidEmbedded] = import_ip_num2.Validator.isValidIPv4String(embeddedV4);
+        if (isValidEmbedded) {
+          return { ip: new import_ip_num2.IPv4(embeddedV4), isV4: true };
+        }
+      }
+      const strippedInput = _IpAddress.stripZoneId(input);
+      const [isValidV6] = import_ip_num2.Validator.isValidIPv6String(strippedInput);
       if (isValidV6) {
-        return { ip: new import_ip_num2.IPv6(input), isV4: false };
+        return { ip: new import_ip_num2.IPv6(strippedInput), isV4: false };
       }
       return null;
     }
