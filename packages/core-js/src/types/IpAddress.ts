@@ -53,23 +53,23 @@ export class IpAddress extends StringFormat<IpAddress> {
    */
   private static extractEmbeddedIPv4(input: string): string | null {
     // Dotted notation: ::ffff:127.0.0.1 or ::127.0.0.1 or full form 0:0:0:0:0:ffff:127.0.0.1
-    const dottedMatch = input.match(/^(?:0:){0,5}(?:0:|ffff:)?(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})$/i)
-      || input.match(/^::(?:ffff:)?(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})$/i);
+    const dottedMatch = input.match(/^(?:0:){0,5}(?:0:|f{4}:)?((?:\d{1,3}\.){3}\d{1,3})$/i)
+      || input.match(/^:{2}(?:f{4}:)?((?:\d{1,3}\.){3}\d{1,3})$/i);
     if (dottedMatch) {
       return dottedMatch[1];
     }
 
     // Hex notation: ::ffff:7f00:1 or 0:0:0:0:0:ffff:7f00:1 (last two segments are IPv4 in hex)
-    const hexMappedMatch = input.match(/^(?:0:){0,5}ffff:([0-9a-f]{1,4}):([0-9a-f]{1,4})$/i)
-      || input.match(/^::ffff:([0-9a-f]{1,4}):([0-9a-f]{1,4})$/i);
+    const hexMappedMatch = input.match(/^(?:0:){0,5}f{4}:([\da-f]{1,4}):([\da-f]{1,4})$/i)
+      || input.match(/^::ffff:([\da-f]{1,4}):([\da-f]{1,4})$/i);
     if (hexMappedMatch) {
-      const high = parseInt(hexMappedMatch[1], 16);
-      const low = parseInt(hexMappedMatch[2], 16);
+      const high = Number.parseInt(hexMappedMatch[1], 16);
+      const low = Number.parseInt(hexMappedMatch[2], 16);
       // Convert two 16-bit values to four 8-bit octets
-      const o1 = (high >> 8) & 0xff;
-      const o2 = high & 0xff;
-      const o3 = (low >> 8) & 0xff;
-      const o4 = low & 0xff;
+      const o1 = (high >> 8) & 0xFF;
+      const o2 = high & 0xFF;
+      const o3 = (low >> 8) & 0xFF;
+      const o4 = low & 0xFF;
       return `${o1}.${o2}.${o3}.${o4}`;
     }
 
@@ -81,7 +81,7 @@ export class IpAddress extends StringFormat<IpAddress> {
    */
   private static stripZoneId(input: string): string {
     const zoneIndex = input.indexOf('%');
-    return zoneIndex >= 0 ? input.substring(0, zoneIndex) : input;
+    return zoneIndex === -1 ? input : input.slice(0, Math.max(0, zoneIndex));
   }
 
   /**
