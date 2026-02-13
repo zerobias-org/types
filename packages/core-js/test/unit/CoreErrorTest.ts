@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { CoreError, NoSuchObjectError, ResultLimitExceededError } from "../../src/index.js";
+import { CoreError, NoSuchObjectError, ResultLimitExceededError, UnexpectedError, IllegalArgumentError } from "../../src/index.js";
 
 describe('CoreError', function () {
   it('should create an error from a JSON document', async function () {
@@ -47,6 +47,56 @@ describe('CoreError', function () {
     expect(narrowed.timestamp).to.be.deep.eq(orig.timestamp);
     expect(narrowed.type).to.be.eq(orig.type);
     expect(narrowed.id).to.be.eq(orig.id);
+  });
+
+  describe('cause support', function () {
+    it('should preserve the cause error', async function () {
+      const cause = new Error('original error');
+      const err = new NoSuchObjectError('Resource', '123', new Date(), cause);
+      expect(err.cause).to.be.eq(cause);
+      expect(err.cause?.message).to.be.eq('original error');
+    });
+
+    it('should append cause stack trace to error stack', async function () {
+      const cause = new Error('original error');
+      const err = new NoSuchObjectError('Resource', '123', new Date(), cause);
+      expect(err.stack).to.include('Caused by:');
+      expect(err.stack).to.include('original error');
+    });
+
+    it('should work without a cause', async function () {
+      const err = new NoSuchObjectError('Resource', '123');
+      expect(err.cause).to.be.undefined;
+      expect(err.stack).to.not.include('Caused by:');
+    });
+
+    it('should preserve cause in UnexpectedError', async function () {
+      const cause = new Error('database connection failed');
+      const err = new UnexpectedError('Operation failed', 500, new Date(), cause);
+      expect(err.cause).to.be.eq(cause);
+      expect(err.stack).to.include('Caused by:');
+      expect(err.stack).to.include('database connection failed');
+    });
+
+    it('should preserve cause in IllegalArgumentError', async function () {
+      const cause = new TypeError('Invalid type');
+      const err = new IllegalArgumentError('Invalid argument provided', new Date(), cause);
+      expect(err.cause).to.be.eq(cause);
+      expect(err.stack).to.include('Caused by:');
+      expect(err.stack).to.include('Invalid type');
+    });
+
+    it('should chain multiple errors', async function () {
+      const rootCause = new Error('root cause');
+      const middleError = new UnexpectedError('middle error', 500, new Date(), rootCause);
+      const topError = new NoSuchObjectError('Resource', '123', new Date(), middleError);
+
+      expect(topError.cause).to.be.eq(middleError);
+      expect(topError.stack).to.include('Caused by:');
+      expect(topError.stack).to.include('middle error');
+      // The middle error's stack should also contain the root cause
+      expect(middleError.stack).to.include('root cause');
+    });
   });
 
 });

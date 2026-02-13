@@ -16,22 +16,33 @@ export abstract class CoreError<T extends ErrorModel> extends Error implements C
 
   protected _model: T;
 
+  private _cause?: Error;
+
   /**
    * Constructs a new Error Object
    *
-   * @param message - the default message for this error
-   * @param key - a unique message key to allow l10n
-   * @param statusCode - an HTTP status code to use for this error if it is sent over HTTP
-   * @param args - a dictionary of values to interpolate into the message
+   * @param model - the error model containing message key, template, etc.
+   * @param cause - optional original error that caused this error (for stack trace preservation)
    */
-  constructor(model: T) {
+  constructor(model: T, cause?: Error) {
     super(model.template);
     this._model = model;
+    this._cause = cause;
     // Interpolate the template with model values
     this.message = this.interpolateTemplate(model);
+
     if (model.stack) {
       this.stack = model.stack;
     }
+
+    // Preserve the original error's stack trace by appending it
+    if (cause?.stack) {
+      this.stack = `${this.stack}\nCaused by: ${cause.stack}`;
+    }
+  }
+
+  get cause(): Error | undefined {
+    return this._cause;
   }
 
   /**

@@ -9,8 +9,10 @@ export class ResultLimitExceededError extends CoreError<Model> {
    *
    * @param requested - The number of results requested
    * @param returned - The number of results returned
+   * @param timestamp - optional timestamp for the error
+   * @param cause - optional original error that caused this error
    */
-  constructor(requested: number, returned: number, timestamp = new Date()) {
+  constructor(requested: number, returned: number, timestamp = new Date(), cause?: Error) {
     super({
       key: ResultLimitExceededError.MESSAGE_KEY,
       template: '{requested} results requested but {returned} results returned',
@@ -18,7 +20,7 @@ export class ResultLimitExceededError extends CoreError<Model> {
       timestamp,
       requested,
       returned,
-    });
+    }, cause);
     // Set prototype explicitly for proper instanceof checks
     Object.setPrototypeOf(this, ResultLimitExceededError.prototype);
   }

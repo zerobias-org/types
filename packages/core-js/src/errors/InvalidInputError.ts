@@ -10,12 +10,15 @@ export class InvalidInputError extends CoreError<Model> {
    * @param type - the type of the invalid input
    * @param value - the input value provided
    * @param examples - some examples of expected inputs
+   * @param timestamp - optional timestamp for the error
+   * @param cause - optional original error that caused this error
    */
   constructor(
     type: string,
     value: any,
     examples: Array<string | number> = [],
-    timestamp = new Date()
+    timestamp = new Date(),
+    cause?: Error
   ) {
     super({
       key: InvalidInputError.MESSAGE_KEY,
@@ -25,7 +28,7 @@ export class InvalidInputError extends CoreError<Model> {
       type,
       value,
       examples: examples.map((v: string | number) => v.toString()),
-    });
+    }, cause);
     // Set prototype explicitly for proper instanceof checks
     Object.setPrototypeOf(this, InvalidInputError.prototype);
   }

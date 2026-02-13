@@ -6,18 +6,20 @@ export class TimeoutError extends CoreError<Model> {
   static readonly MESSAGE_KEY = 'err.timeout';
 
   /**
-   * Generic error for illegal arguments
+   * Error indicating a timeout has occurred
    *
-   * @param msg - message describing the error
+   * @param timeout - the duration that was exceeded
+   * @param timestamp - optional timestamp for the error
+   * @param cause - optional original error that caused this error
    */
-  constructor(timeout: Duration, timestamp = new Date()) {
+  constructor(timeout: Duration, timestamp = new Date(), cause?: Error) {
     super({
       key: TimeoutError.MESSAGE_KEY,
       template: 'Timeout of {timeout} exceeded',
       statusCode: 500,
       timestamp,
       timeout,
-    });
+    }, cause);
     // Set prototype explicitly for proper instanceof checks
     Object.setPrototypeOf(this, TimeoutError.prototype);
   }

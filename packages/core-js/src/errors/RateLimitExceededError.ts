@@ -4,13 +4,21 @@ import { RateLimitExceededError as Model } from '../../generated/model/index.js'
 export class RateLimitExceededError extends CoreError<Model> {
   static readonly MESSAGE_KEY = 'err.rate.limit.exceeded';
 
-  constructor(timestamp = new Date(), callCount?: number, duration?: string) {
+  /**
+   * Error indicating rate limit has been exceeded
+   *
+   * @param timestamp - optional timestamp for the error
+   * @param callCount - optional number of calls made
+   * @param duration - optional duration string
+   * @param cause - optional original error that caused this error
+   */
+  constructor(timestamp = new Date(), callCount?: number, duration?: string, cause?: Error) {
     super({
       key: RateLimitExceededError.MESSAGE_KEY,
       template: 'Too many calls',
       statusCode: 429,
       timestamp,
-    });
+    }, cause);
     if (callCount && duration) {
       this.message = `Too many calls: ${callCount} calls performed in ${duration} duration`;
     }

@@ -5,18 +5,20 @@ export class InvalidStateError extends CoreError<Model> {
   static readonly MESSAGE_KEY = 'err.invalid.state';
 
   /**
-   * Generic error for illegal arguments
+   * Generic error for invalid state
    *
    * @param msg - message describing the error
+   * @param timestamp - optional timestamp for the error
+   * @param cause - optional original error that caused this error
    */
-  constructor(msg: string, timestamp = new Date()) {
+  constructor(msg: string, timestamp = new Date(), cause?: Error) {
     super({
       key: InvalidStateError.MESSAGE_KEY,
       template: '{msg}',
       statusCode: 500,
       timestamp,
       msg,
-    });
+    }, cause);
     // Set prototype explicitly for proper instanceof checks
     Object.setPrototypeOf(this, InvalidStateError.prototype);
   }

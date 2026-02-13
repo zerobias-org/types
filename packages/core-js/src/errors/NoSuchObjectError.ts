@@ -9,8 +9,10 @@ export class NoSuchObjectError extends CoreError<Model> {
    *
    * @param type - the type of object
    * @param id - the identifier for the object
+   * @param timestamp - optional timestamp for the error
+   * @param cause - optional original error that caused this error
    */
-  constructor(type: string, id: string, timestamp = new Date()) {
+  constructor(type: string, id: string, timestamp = new Date(), cause?: Error) {
     super({
       key: NoSuchObjectError.MESSAGE_KEY,
       template: 'No such {type}: {id}',
@@ -18,7 +20,7 @@ export class NoSuchObjectError extends CoreError<Model> {
       timestamp,
       type,
       id,
-    });
+    }, cause);
     // Set prototype explicitly for proper instanceof checks
     Object.setPrototypeOf(this, NoSuchObjectError.prototype);
   }

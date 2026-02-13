@@ -17553,19 +17553,26 @@ ${originalIndentation}`;
     /**
      * Constructs a new Error Object
      *
-     * @param message - the default message for this error
-     * @param key - a unique message key to allow l10n
-     * @param statusCode - an HTTP status code to use for this error if it is sent over HTTP
-     * @param args - a dictionary of values to interpolate into the message
+     * @param model - the error model containing message key, template, etc.
+     * @param cause - optional original error that caused this error (for stack trace preservation)
      */
-    constructor(model) {
+    constructor(model, cause) {
       super(model.template);
       __publicField(this, "_model");
+      __publicField(this, "_cause");
       this._model = model;
+      this._cause = cause;
       this.message = this.interpolateTemplate(model);
       if (model.stack) {
         this.stack = model.stack;
       }
+      if (cause?.stack) {
+        this.stack = `${this.stack}
+Caused by: ${cause.stack}`;
+      }
+    }
+    get cause() {
+      return this._cause;
     }
     /**
      * Interpolates the template string with values from the model.
@@ -17667,15 +17674,17 @@ ${originalIndentation}`;
      * Generic error for illegal arguments
      *
      * @param msg - message describing the error
+     * @param cause - optional original error that caused this error
+     * @param timestamp - optional timestamp for the error
      */
-    constructor(msg, timestamp = /* @__PURE__ */ new Date()) {
+    constructor(msg, cause, timestamp = /* @__PURE__ */ new Date()) {
       super({
         key: _IllegalArgumentError.MESSAGE_KEY,
         template: "{msg}",
         statusCode: 400,
         timestamp,
         msg
-      });
+      }, cause);
       Object.setPrototypeOf(this, _IllegalArgumentError.prototype);
     }
     get msg() {
@@ -17692,8 +17701,10 @@ ${originalIndentation}`;
      *
      * @param type - the type of object
      * @param id - the identifier for the object
+     * @param cause - optional original error that caused this error
+     * @param timestamp - optional timestamp for the error
      */
-    constructor(type, id, timestamp = /* @__PURE__ */ new Date()) {
+    constructor(type, id, cause, timestamp = /* @__PURE__ */ new Date()) {
       super({
         key: _NoSuchObjectError.MESSAGE_KEY,
         template: "No such {type}: {id}",
@@ -17701,7 +17712,7 @@ ${originalIndentation}`;
         timestamp,
         type,
         id
-      });
+      }, cause);
       Object.setPrototypeOf(this, _NoSuchObjectError.prototype);
     }
     get type() {
@@ -35547,15 +35558,17 @@ ${originalIndentation}`;
      * Constructs a new error for eula not accepted
      *
      * @param eulaId - ID of the eula that must be accepted
+     * @param cause - optional original error that caused this error
+     * @param timestamp - optional timestamp for the error
      */
-    constructor(eulaId, timestamp = /* @__PURE__ */ new Date()) {
+    constructor(eulaId, cause, timestamp = /* @__PURE__ */ new Date()) {
       super({
         key: _EulaNotAcceptedError2.MESSAGE_KEY,
         template: "EULA {eulaId} not accepted",
         statusCode: 403,
         timestamp,
         eulaId
-      });
+      }, cause);
       Object.setPrototypeOf(this, _EulaNotAcceptedError2.prototype);
     }
     get eulaId() {
@@ -35568,15 +35581,18 @@ ${originalIndentation}`;
   // src/errors/ForbiddenError.ts
   var _ForbiddenError2 = class _ForbiddenError2 extends CoreError {
     /**
-     * Generic error for illegal arguments
+     * Generic error for forbidden access
+     *
+     * @param cause - optional original error that caused this error
+     * @param timestamp - optional timestamp for the error
      */
-    constructor(timestamp = /* @__PURE__ */ new Date()) {
+    constructor(cause, timestamp = /* @__PURE__ */ new Date()) {
       super({
         key: _ForbiddenError2.MESSAGE_KEY,
         template: "Forbidden",
         statusCode: 403,
         timestamp
-      });
+      }, cause);
       Object.setPrototypeOf(this, _ForbiddenError2.prototype);
     }
   };
@@ -35586,15 +35602,18 @@ ${originalIndentation}`;
   // src/errors/InvalidCredentialsError.ts
   var _InvalidCredentialsError2 = class _InvalidCredentialsError2 extends CoreError {
     /**
-     * Generic error for illegal arguments
+     * Generic error for invalid credentials
+     *
+     * @param cause - optional original error that caused this error
+     * @param timestamp - optional timestamp for the error
      */
-    constructor(timestamp = /* @__PURE__ */ new Date()) {
+    constructor(cause, timestamp = /* @__PURE__ */ new Date()) {
       super({
         key: _InvalidCredentialsError2.MESSAGE_KEY,
         template: "Invalid credentials",
         statusCode: 401,
         timestamp
-      });
+      }, cause);
       Object.setPrototypeOf(this, _InvalidCredentialsError2.prototype);
     }
   };
@@ -35609,8 +35628,10 @@ ${originalIndentation}`;
      * @param type - the type of the invalid input
      * @param value - the input value provided
      * @param examples - some examples of expected inputs
+     * @param cause - optional original error that caused this error
+     * @param timestamp - optional timestamp for the error
      */
-    constructor(type, value, examples = [], timestamp = /* @__PURE__ */ new Date()) {
+    constructor(type, value, examples = [], cause, timestamp = /* @__PURE__ */ new Date()) {
       super({
         key: _InvalidInputError2.MESSAGE_KEY,
         template: "Invalid {type}: {value}",
@@ -35619,7 +35640,7 @@ ${originalIndentation}`;
         type,
         value,
         examples: examples.map((v) => v.toString())
-      });
+      }, cause);
       Object.setPrototypeOf(this, _InvalidInputError2.prototype);
     }
     get type() {
@@ -35635,18 +35656,20 @@ ${originalIndentation}`;
   // src/errors/InvalidStateError.ts
   var _InvalidStateError2 = class _InvalidStateError2 extends CoreError {
     /**
-     * Generic error for illegal arguments
+     * Generic error for invalid state
      *
      * @param msg - message describing the error
+     * @param cause - optional original error that caused this error
+     * @param timestamp - optional timestamp for the error
      */
-    constructor(msg, timestamp = /* @__PURE__ */ new Date()) {
+    constructor(msg, cause, timestamp = /* @__PURE__ */ new Date()) {
       super({
         key: _InvalidStateError2.MESSAGE_KEY,
         template: "{msg}",
         statusCode: 500,
         timestamp,
         msg
-      });
+      }, cause);
       Object.setPrototypeOf(this, _InvalidStateError2.prototype);
     }
     get msg() {
@@ -35660,14 +35683,17 @@ ${originalIndentation}`;
   var _NotConnectedError2 = class _NotConnectedError2 extends CoreError {
     /**
      * Error indicating a system is not currently connected
+     *
+     * @param cause - optional original error that caused this error
+     * @param timestamp - optional timestamp for the error
      */
-    constructor(timestamp = /* @__PURE__ */ new Date()) {
+    constructor(cause, timestamp = /* @__PURE__ */ new Date()) {
       super({
         key: _NotConnectedError2.MESSAGE_KEY,
         template: "Not connected",
         statusCode: 400,
         timestamp
-      });
+      }, cause);
       Object.setPrototypeOf(this, _NotConnectedError2.prototype);
     }
   };
@@ -35680,15 +35706,17 @@ ${originalIndentation}`;
      * Error indicating a specific thing cannot be located
      *
      * @param obj - the item which was not found
+     * @param cause - optional original error that caused this error
+     * @param timestamp - optional timestamp for the error
      */
-    constructor(obj, timestamp = /* @__PURE__ */ new Date()) {
+    constructor(obj, cause, timestamp = /* @__PURE__ */ new Date()) {
       super({
         key: _NotFoundError2.MESSAGE_KEY,
         template: "Not found: {obj}",
         statusCode: 404,
         timestamp,
         obj
-      });
+      }, cause);
       Object.setPrototypeOf(this, _NotFoundError2.prototype);
     }
     get obj() {
@@ -35704,15 +35732,17 @@ ${originalIndentation}`;
      * Constructs a new error indicating that a required parameter was not provided to a given operation.
      *
      * @param paramName - The name of the missing parameter
+     * @param cause - optional original error that caused this error
+     * @param timestamp - optional timestamp for the error
      */
-    constructor(paramName, timestamp = /* @__PURE__ */ new Date()) {
+    constructor(paramName, cause, timestamp = /* @__PURE__ */ new Date()) {
       super({
         key: _ParameterRequiredError2.MESSAGE_KEY,
         template: "{paramName} must be provided",
         statusCode: 400,
         timestamp,
         paramName
-      });
+      }, cause);
       Object.setPrototypeOf(this, _ParameterRequiredError2.prototype);
     }
     get paramName() {
@@ -35724,13 +35754,21 @@ ${originalIndentation}`;
 
   // src/errors/RateLimitExceededError.ts
   var _RateLimitExceededError2 = class _RateLimitExceededError2 extends CoreError {
-    constructor(timestamp = /* @__PURE__ */ new Date(), callCount, duration) {
+    /**
+     * Error indicating rate limit has been exceeded
+     *
+     * @param callCount - optional number of calls made
+     * @param duration - optional duration string
+     * @param cause - optional original error that caused this error
+     * @param timestamp - optional timestamp for the error
+     */
+    constructor(callCount, duration, cause, timestamp = /* @__PURE__ */ new Date()) {
       super({
         key: _RateLimitExceededError2.MESSAGE_KEY,
         template: "Too many calls",
         statusCode: 429,
         timestamp
-      });
+      }, cause);
       if (callCount && duration) {
         this.message = `Too many calls: ${callCount} calls performed in ${duration} duration`;
       }
@@ -35753,8 +35791,10 @@ ${originalIndentation}`;
      *
      * @param requested - The number of results requested
      * @param returned - The number of results returned
+     * @param cause - optional original error that caused this error
+     * @param timestamp - optional timestamp for the error
      */
-    constructor(requested, returned, timestamp = /* @__PURE__ */ new Date()) {
+    constructor(requested, returned, cause, timestamp = /* @__PURE__ */ new Date()) {
       super({
         key: _ResultLimitExceededError2.MESSAGE_KEY,
         template: "{requested} results requested but {returned} results returned",
@@ -35762,7 +35802,7 @@ ${originalIndentation}`;
         timestamp,
         requested,
         returned
-      });
+      }, cause);
       Object.setPrototypeOf(this, _ResultLimitExceededError2.prototype);
     }
     get requested() {
@@ -35778,18 +35818,20 @@ ${originalIndentation}`;
   // src/errors/TimeoutError.ts
   var _TimeoutError2 = class _TimeoutError2 extends CoreError {
     /**
-     * Generic error for illegal arguments
+     * Error indicating a timeout has occurred
      *
-     * @param msg - message describing the error
+     * @param timeout - the duration that was exceeded
+     * @param cause - optional original error that caused this error
+     * @param timestamp - optional timestamp for the error
      */
-    constructor(timeout, timestamp = /* @__PURE__ */ new Date()) {
+    constructor(timeout, cause, timestamp = /* @__PURE__ */ new Date()) {
       super({
         key: _TimeoutError2.MESSAGE_KEY,
         template: "Timeout of {timeout} exceeded",
         statusCode: 500,
         timestamp,
         timeout
-      });
+      }, cause);
       Object.setPrototypeOf(this, _TimeoutError2.prototype);
     }
     get timeout() {
@@ -35802,15 +35844,18 @@ ${originalIndentation}`;
   // src/errors/UnauthorizedError.ts
   var _UnauthorizedError2 = class _UnauthorizedError2 extends CoreError {
     /**
-     * Generic error for illegal arguments
+     * Generic error for unauthorized access
+     *
+     * @param cause - optional original error that caused this error
+     * @param timestamp - optional timestamp for the error
      */
-    constructor(timestamp = /* @__PURE__ */ new Date()) {
+    constructor(cause, timestamp = /* @__PURE__ */ new Date()) {
       super({
         key: _UnauthorizedError2.MESSAGE_KEY,
         template: "Not authorized",
         statusCode: 401,
         timestamp
-      });
+      }, cause);
       Object.setPrototypeOf(this, _UnauthorizedError2.prototype);
     }
   };
@@ -35821,14 +35866,17 @@ ${originalIndentation}`;
   var _UnauthenticatedError2 = class _UnauthenticatedError2 extends CoreError {
     /**
      * Generic error for unable to authenticate
+     *
+     * @param cause - optional original error that caused this error
+     * @param timestamp - optional timestamp for the error
      */
-    constructor(timestamp = /* @__PURE__ */ new Date()) {
+    constructor(cause, timestamp = /* @__PURE__ */ new Date()) {
       super({
         key: _UnauthenticatedError2.MESSAGE_KEY,
         template: "Unable to authenticate",
         statusCode: 401,
         timestamp
-      });
+      }, cause);
       Object.setPrototypeOf(this, _UnauthenticatedError2.prototype);
     }
   };
@@ -35841,15 +35889,18 @@ ${originalIndentation}`;
      * Constructs a new error for an unhandled error case
      *
      * @param msg - Generic error message
+     * @param statusCode - HTTP status code (default 500)
+     * @param cause - optional original error that caused this error
+     * @param timestamp - optional timestamp for the error
      */
-    constructor(msg, statusCode = 500, timestamp = /* @__PURE__ */ new Date()) {
+    constructor(msg, statusCode = 500, cause, timestamp = /* @__PURE__ */ new Date()) {
       super({
         key: _UnexpectedError2.MESSAGE_KEY,
         template: "Unexpected error: {msg}",
         statusCode,
         timestamp,
         msg
-      });
+      }, cause);
       Object.setPrototypeOf(this, _UnexpectedError2.prototype);
     }
     get msg() {
@@ -35865,15 +35916,17 @@ ${originalIndentation}`;
      * Generic error for conflicting requests.
      *
      * @param msg - message describing the error
+     * @param cause - optional original error that caused this error
+     * @param timestamp - optional timestamp for the error
      */
-    constructor(msg, timestamp = /* @__PURE__ */ new Date()) {
+    constructor(msg, cause, timestamp = /* @__PURE__ */ new Date()) {
       super({
         key: _ConflictError2.MESSAGE_KEY,
         template: "{msg}",
         statusCode: 409,
         timestamp,
         msg
-      });
+      }, cause);
       Object.setPrototypeOf(this, _ConflictError2.prototype);
     }
     get msg() {
@@ -36415,14 +36468,14 @@ ${originalIndentation}`;
      * @returns the IPv4 string if found, null otherwise
      */
     static extractEmbeddedIPv4(input) {
-      const dottedMatch = input.match(/^(?:0:){0,5}(?:0:|ffff:)?(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})$/i) || input.match(/^::(?:ffff:)?(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})$/i);
+      const dottedMatch = input.match(/^(?:0:){0,5}(?:0:|f{4}:)?((?:\d{1,3}\.){3}\d{1,3})$/i) || input.match(/^:{2}(?:f{4}:)?((?:\d{1,3}\.){3}\d{1,3})$/i);
       if (dottedMatch) {
         return dottedMatch[1];
       }
-      const hexMappedMatch = input.match(/^(?:0:){0,5}ffff:([0-9a-f]{1,4}):([0-9a-f]{1,4})$/i) || input.match(/^::ffff:([0-9a-f]{1,4}):([0-9a-f]{1,4})$/i);
+      const hexMappedMatch = input.match(/^(?:0:){0,5}f{4}:([\da-f]{1,4}):([\da-f]{1,4})$/i) || input.match(/^::ffff:([\da-f]{1,4}):([\da-f]{1,4})$/i);
       if (hexMappedMatch) {
-        const high = parseInt(hexMappedMatch[1], 16);
-        const low = parseInt(hexMappedMatch[2], 16);
+        const high = Number.parseInt(hexMappedMatch[1], 16);
+        const low = Number.parseInt(hexMappedMatch[2], 16);
         const o1 = high >> 8 & 255;
         const o2 = high & 255;
         const o3 = low >> 8 & 255;
@@ -36436,7 +36489,7 @@ ${originalIndentation}`;
      */
     static stripZoneId(input) {
       const zoneIndex = input.indexOf("%");
-      return zoneIndex >= 0 ? input.substring(0, zoneIndex) : input;
+      return zoneIndex === -1 ? input : input.slice(0, Math.max(0, zoneIndex));
     }
     /**
      * @param input - input to convert to an IP
