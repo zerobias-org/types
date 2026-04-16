@@ -93,7 +93,7 @@ export class CoreErrorLibrary implements ErrorLibrary {
         return new this.lib.InvalidInputError(model.type, model.value, model.examples, model.timestamp);
       }
       case this.lib.InvalidStateError.MESSAGE_KEY: {
-        return new this.lib.InvalidInputError(model.msg, model.timestamp);
+        return new this.lib.InvalidStateError(model.msg, model.timestamp);
       }
       case this.lib.NotConnectedError.MESSAGE_KEY: {
         return new this.lib.NotConnectedError(model.timestamp);
