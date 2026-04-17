@@ -90,6 +90,91 @@ export abstract class CoreError<T extends ErrorModel> extends Error implements C
   }
 
   /**
+   * Coerce any value into a CoreError. Never throws.
+   *
+   * - CoreError instance → returned unchanged
+   * - Object with a registered `key` → rebuilt as the matching subclass
+   * - Anything else → wrapped in UnexpectedError, extracting `.message`,
+   *   `.timestamp`, and `.stack` from the value when present
+   */
+  static from(value: unknown): Error & CoreErrorSpec {
+    CoreError.ensureInitialized();
+
+    if (value instanceof CoreError) {
+      return value as unknown as Error & CoreErrorSpec;
+    }
+
+    // If the value has a registered CoreError key, let the library build the subclass.
+    // Anything missing/malformed is handled by the try/catch falling through.
+    if (value && typeof value === 'object') {
+      const o = value as Record<string, unknown>;
+      if (typeof o.key === 'string') {
+        const keyLibrary = CoreError.errorKeys.get(o.key);
+        if (keyLibrary) {
+          try {
+            return keyLibrary.toError(o);
+          } catch {
+            // malformed — fall through to UnexpectedError
+          }
+        }
+      }
+    }
+
+    // Fallback — wrap in UnexpectedError via whichever library owns that key
+    const fallback = CoreError.errorKeys.get('err.unexpected');
+    if (!fallback) {
+      throw new Error('CoreError not initialized with a library providing UnexpectedError');
+    }
+
+    // Best-effort extraction of message/timestamp/stack from a partial error-shaped object
+    let msg: string;
+    let timestamp = new Date();
+    let causeStack: string | undefined;
+
+    if (value instanceof Error) {
+      msg = value.message;
+      causeStack = value.stack;
+    } else if (typeof value === 'string') {
+      msg = value;
+    } else if (value && typeof value === 'object') {
+      const o = value as Record<string, unknown>;
+      // Prefer standard .message field over stringifying the whole object
+      msg = typeof o.message === 'string'
+        ? o.message
+        : stringify(value) ?? String(value);
+      if (typeof o.timestamp === 'string' || typeof o.timestamp === 'number' || o.timestamp instanceof Date) {
+        try {
+          const parsed = new Date(o.timestamp);
+          if (!Number.isNaN(parsed.getTime())) {
+            timestamp = parsed;
+          }
+        } catch {
+          // ignore — keep default timestamp
+        }
+      }
+      if (typeof o.stack === 'string') {
+        causeStack = o.stack;
+      }
+    } else {
+      msg = stringify(value) ?? String(value);
+    }
+
+    const err = fallback.toError({
+      key: 'err.unexpected',
+      template: 'Unexpected error: {msg}',
+      statusCode: 500,
+      timestamp,
+      msg,
+    });
+
+    // toError() can't accept a cause, so manually chain the stack trace
+    if (causeStack) {
+      err.stack = `${err.stack}\nCaused by: ${causeStack}`;
+    }
+    return err;
+  }
+
+  /**
    * Deserializes an error out of data which should represent an `ErrorModel`
    * @param data an object which should represent an `ErrorModel`
    */

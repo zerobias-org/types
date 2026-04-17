@@ -17615,6 +17615,74 @@ Caused by: ${cause.stack}`;
       }
     }
     /**
+     * Coerce any value into a CoreError. Never throws.
+     *
+     * - CoreError instance → returned unchanged
+     * - Object with a registered `key` → rebuilt as the matching subclass
+     * - Anything else → wrapped in UnexpectedError, extracting `.message`,
+     *   `.timestamp`, and `.stack` from the value when present
+     */
+    static from(value) {
+      _CoreError.ensureInitialized();
+      if (value instanceof _CoreError) {
+        return value;
+      }
+      if (value && typeof value === "object") {
+        const o = value;
+        if (typeof o.key === "string") {
+          const keyLibrary = _CoreError.errorKeys.get(o.key);
+          if (keyLibrary) {
+            try {
+              return keyLibrary.toError(o);
+            } catch {
+            }
+          }
+        }
+      }
+      const fallback = _CoreError.errorKeys.get("err.unexpected");
+      if (!fallback) {
+        throw new Error("CoreError not initialized with a library providing UnexpectedError");
+      }
+      let msg;
+      let timestamp = /* @__PURE__ */ new Date();
+      let causeStack;
+      if (value instanceof Error) {
+        msg = value.message;
+        causeStack = value.stack;
+      } else if (typeof value === "string") {
+        msg = value;
+      } else if (value && typeof value === "object") {
+        const o = value;
+        msg = typeof o.message === "string" ? o.message : wrapper_default(value) ?? String(value);
+        if (typeof o.timestamp === "string" || typeof o.timestamp === "number" || o.timestamp instanceof Date) {
+          try {
+            const parsed = new Date(o.timestamp);
+            if (!Number.isNaN(parsed.getTime())) {
+              timestamp = parsed;
+            }
+          } catch {
+          }
+        }
+        if (typeof o.stack === "string") {
+          causeStack = o.stack;
+        }
+      } else {
+        msg = wrapper_default(value) ?? String(value);
+      }
+      const err = fallback.toError({
+        key: "err.unexpected",
+        template: "Unexpected error: {msg}",
+        statusCode: 500,
+        timestamp,
+        msg
+      });
+      if (causeStack) {
+        err.stack = `${err.stack}
+Caused by: ${causeStack}`;
+      }
+      return err;
+    }
+    /**
      * Deserializes an error out of data which should represent an `ErrorModel`
      * @param data an object which should represent an `ErrorModel`
      */
@@ -17674,10 +17742,10 @@ Caused by: ${cause.stack}`;
      * Generic error for illegal arguments
      *
      * @param msg - message describing the error
-     * @param cause - optional original error that caused this error
      * @param timestamp - optional timestamp for the error
+     * @param cause - optional original error that caused this error
      */
-    constructor(msg, cause, timestamp = /* @__PURE__ */ new Date()) {
+    constructor(msg, timestamp = /* @__PURE__ */ new Date(), cause) {
       super({
         key: _IllegalArgumentError.MESSAGE_KEY,
         template: "{msg}",
@@ -17701,10 +17769,10 @@ Caused by: ${cause.stack}`;
      *
      * @param type - the type of object
      * @param id - the identifier for the object
-     * @param cause - optional original error that caused this error
      * @param timestamp - optional timestamp for the error
+     * @param cause - optional original error that caused this error
      */
-    constructor(type, id, cause, timestamp = /* @__PURE__ */ new Date()) {
+    constructor(type, id, timestamp = /* @__PURE__ */ new Date(), cause) {
       super({
         key: _NoSuchObjectError.MESSAGE_KEY,
         template: "No such {type}: {id}",
@@ -35558,10 +35626,10 @@ Caused by: ${cause.stack}`;
      * Constructs a new error for eula not accepted
      *
      * @param eulaId - ID of the eula that must be accepted
-     * @param cause - optional original error that caused this error
      * @param timestamp - optional timestamp for the error
+     * @param cause - optional original error that caused this error
      */
-    constructor(eulaId, cause, timestamp = /* @__PURE__ */ new Date()) {
+    constructor(eulaId, timestamp = /* @__PURE__ */ new Date(), cause) {
       super({
         key: _EulaNotAcceptedError2.MESSAGE_KEY,
         template: "EULA {eulaId} not accepted",
@@ -35583,10 +35651,10 @@ Caused by: ${cause.stack}`;
     /**
      * Generic error for forbidden access
      *
-     * @param cause - optional original error that caused this error
      * @param timestamp - optional timestamp for the error
+     * @param cause - optional original error that caused this error
      */
-    constructor(cause, timestamp = /* @__PURE__ */ new Date()) {
+    constructor(timestamp = /* @__PURE__ */ new Date(), cause) {
       super({
         key: _ForbiddenError2.MESSAGE_KEY,
         template: "Forbidden",
@@ -35604,10 +35672,10 @@ Caused by: ${cause.stack}`;
     /**
      * Generic error for invalid credentials
      *
-     * @param cause - optional original error that caused this error
      * @param timestamp - optional timestamp for the error
+     * @param cause - optional original error that caused this error
      */
-    constructor(cause, timestamp = /* @__PURE__ */ new Date()) {
+    constructor(timestamp = /* @__PURE__ */ new Date(), cause) {
       super({
         key: _InvalidCredentialsError2.MESSAGE_KEY,
         template: "Invalid credentials",
@@ -35628,10 +35696,10 @@ Caused by: ${cause.stack}`;
      * @param type - the type of the invalid input
      * @param value - the input value provided
      * @param examples - some examples of expected inputs
-     * @param cause - optional original error that caused this error
      * @param timestamp - optional timestamp for the error
+     * @param cause - optional original error that caused this error
      */
-    constructor(type, value, examples = [], cause, timestamp = /* @__PURE__ */ new Date()) {
+    constructor(type, value, examples = [], timestamp = /* @__PURE__ */ new Date(), cause) {
       super({
         key: _InvalidInputError2.MESSAGE_KEY,
         template: "Invalid {type}: {value}",
@@ -35659,10 +35727,10 @@ Caused by: ${cause.stack}`;
      * Generic error for invalid state
      *
      * @param msg - message describing the error
-     * @param cause - optional original error that caused this error
      * @param timestamp - optional timestamp for the error
+     * @param cause - optional original error that caused this error
      */
-    constructor(msg, cause, timestamp = /* @__PURE__ */ new Date()) {
+    constructor(msg, timestamp = /* @__PURE__ */ new Date(), cause) {
       super({
         key: _InvalidStateError2.MESSAGE_KEY,
         template: "{msg}",
@@ -35684,10 +35752,10 @@ Caused by: ${cause.stack}`;
     /**
      * Error indicating a system is not currently connected
      *
-     * @param cause - optional original error that caused this error
      * @param timestamp - optional timestamp for the error
+     * @param cause - optional original error that caused this error
      */
-    constructor(cause, timestamp = /* @__PURE__ */ new Date()) {
+    constructor(timestamp = /* @__PURE__ */ new Date(), cause) {
       super({
         key: _NotConnectedError2.MESSAGE_KEY,
         template: "Not connected",
@@ -35706,10 +35774,10 @@ Caused by: ${cause.stack}`;
      * Error indicating a specific thing cannot be located
      *
      * @param obj - the item which was not found
-     * @param cause - optional original error that caused this error
      * @param timestamp - optional timestamp for the error
+     * @param cause - optional original error that caused this error
      */
-    constructor(obj, cause, timestamp = /* @__PURE__ */ new Date()) {
+    constructor(obj, timestamp = /* @__PURE__ */ new Date(), cause) {
       super({
         key: _NotFoundError2.MESSAGE_KEY,
         template: "Not found: {obj}",
@@ -35732,10 +35800,10 @@ Caused by: ${cause.stack}`;
      * Constructs a new error indicating that a required parameter was not provided to a given operation.
      *
      * @param paramName - The name of the missing parameter
-     * @param cause - optional original error that caused this error
      * @param timestamp - optional timestamp for the error
+     * @param cause - optional original error that caused this error
      */
-    constructor(paramName, cause, timestamp = /* @__PURE__ */ new Date()) {
+    constructor(paramName, timestamp = /* @__PURE__ */ new Date(), cause) {
       super({
         key: _ParameterRequiredError2.MESSAGE_KEY,
         template: "{paramName} must be provided",
@@ -35757,12 +35825,12 @@ Caused by: ${cause.stack}`;
     /**
      * Error indicating rate limit has been exceeded
      *
+     * @param timestamp - optional timestamp for the error
      * @param callCount - optional number of calls made
      * @param duration - optional duration string
      * @param cause - optional original error that caused this error
-     * @param timestamp - optional timestamp for the error
      */
-    constructor(callCount, duration, cause, timestamp = /* @__PURE__ */ new Date()) {
+    constructor(timestamp = /* @__PURE__ */ new Date(), callCount, duration, cause) {
       super({
         key: _RateLimitExceededError2.MESSAGE_KEY,
         template: "Too many calls",
@@ -35791,10 +35859,10 @@ Caused by: ${cause.stack}`;
      *
      * @param requested - The number of results requested
      * @param returned - The number of results returned
-     * @param cause - optional original error that caused this error
      * @param timestamp - optional timestamp for the error
+     * @param cause - optional original error that caused this error
      */
-    constructor(requested, returned, cause, timestamp = /* @__PURE__ */ new Date()) {
+    constructor(requested, returned, timestamp = /* @__PURE__ */ new Date(), cause) {
       super({
         key: _ResultLimitExceededError2.MESSAGE_KEY,
         template: "{requested} results requested but {returned} results returned",
@@ -35821,10 +35889,10 @@ Caused by: ${cause.stack}`;
      * Error indicating a timeout has occurred
      *
      * @param timeout - the duration that was exceeded
-     * @param cause - optional original error that caused this error
      * @param timestamp - optional timestamp for the error
+     * @param cause - optional original error that caused this error
      */
-    constructor(timeout, cause, timestamp = /* @__PURE__ */ new Date()) {
+    constructor(timeout, timestamp = /* @__PURE__ */ new Date(), cause) {
       super({
         key: _TimeoutError2.MESSAGE_KEY,
         template: "Timeout of {timeout} exceeded",
@@ -35846,10 +35914,10 @@ Caused by: ${cause.stack}`;
     /**
      * Generic error for unauthorized access
      *
-     * @param cause - optional original error that caused this error
      * @param timestamp - optional timestamp for the error
+     * @param cause - optional original error that caused this error
      */
-    constructor(cause, timestamp = /* @__PURE__ */ new Date()) {
+    constructor(timestamp = /* @__PURE__ */ new Date(), cause) {
       super({
         key: _UnauthorizedError2.MESSAGE_KEY,
         template: "Not authorized",
@@ -35867,10 +35935,10 @@ Caused by: ${cause.stack}`;
     /**
      * Generic error for unable to authenticate
      *
-     * @param cause - optional original error that caused this error
      * @param timestamp - optional timestamp for the error
+     * @param cause - optional original error that caused this error
      */
-    constructor(cause, timestamp = /* @__PURE__ */ new Date()) {
+    constructor(timestamp = /* @__PURE__ */ new Date(), cause) {
       super({
         key: _UnauthenticatedError2.MESSAGE_KEY,
         template: "Unable to authenticate",
@@ -35890,10 +35958,10 @@ Caused by: ${cause.stack}`;
      *
      * @param msg - Generic error message
      * @param statusCode - HTTP status code (default 500)
-     * @param cause - optional original error that caused this error
      * @param timestamp - optional timestamp for the error
+     * @param cause - optional original error that caused this error
      */
-    constructor(msg, statusCode = 500, cause, timestamp = /* @__PURE__ */ new Date()) {
+    constructor(msg, statusCode = 500, timestamp = /* @__PURE__ */ new Date(), cause) {
       super({
         key: _UnexpectedError2.MESSAGE_KEY,
         template: "Unexpected error: {msg}",
@@ -35916,10 +35984,10 @@ Caused by: ${cause.stack}`;
      * Generic error for conflicting requests.
      *
      * @param msg - message describing the error
-     * @param cause - optional original error that caused this error
      * @param timestamp - optional timestamp for the error
+     * @param cause - optional original error that caused this error
      */
-    constructor(msg, cause, timestamp = /* @__PURE__ */ new Date()) {
+    constructor(msg, timestamp = /* @__PURE__ */ new Date(), cause) {
       super({
         key: _ConflictError2.MESSAGE_KEY,
         template: "{msg}",
@@ -65811,7 +65879,7 @@ Caused by: ${cause.stack}`;
           return new this.lib.InvalidInputError(model.type, model.value, model.examples, model.timestamp);
         }
         case this.lib.InvalidStateError.MESSAGE_KEY: {
-          return new this.lib.InvalidInputError(model.msg, model.timestamp);
+          return new this.lib.InvalidStateError(model.msg, model.timestamp);
         }
         case this.lib.NotConnectedError.MESSAGE_KEY: {
           return new this.lib.NotConnectedError(model.timestamp);
