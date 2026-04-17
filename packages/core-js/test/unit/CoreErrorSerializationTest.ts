@@ -81,7 +81,7 @@ describe('CoreError.from', function () {
   });
 
   it('extracts .timestamp (epoch number) from a partial error-shaped object', function () {
-    const epoch = 1579089600000; // 2020-01-15T12:00:00Z
+    const epoch = 1_579_089_600_000; // 2020-01-15T12:00:00Z
     const result = CoreError.from({ message: 'x', timestamp: epoch });
     expect(result.timestamp.getTime()).to.equal(epoch);
   });
