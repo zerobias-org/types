@@ -14,6 +14,9 @@ properties:
   jwt:
     type: string
     description: JWT for authentication
+  session:
+    type: string
+    description: Session token for authentication (e.g., Dana session); takes precedence over jwt and apiKey
   orgId:
     type: string
     format: uuid
