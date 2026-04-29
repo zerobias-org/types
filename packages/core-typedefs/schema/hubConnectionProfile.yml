@@ -12,6 +12,10 @@ properties:
     type: string
     format: password
     description: The API key to use to execute operations against the Hub Server
+  session:
+    type: string
+    format: uuid
+    description: The session id to use to execute operations against the Hub Server
   targetId:
     type: string
     format: uuid
