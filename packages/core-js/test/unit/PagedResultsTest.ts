@@ -1097,8 +1097,10 @@ describe('PagedResults asyncGenerator guardrails', () => {
     }
     expect(err).to.be.instanceOf(UnexpectedError);
     expect(err.message).to.match(/duplicate page/i);
-    // Should detect on the very first fetched page (matches the prefilled items).
-    expect(counter.fetchCalls).to.equal(1);
+    // Detection compares remote-page-N against remote-page-(N-1), so the
+    // second fetch is when the duplicate is detected (the prefilled page is
+    // intentionally not used as a fingerprint baseline — see asyncGenerator).
+    expect(counter.fetchCalls).to.equal(2);
   });
 
   it('detects duplicates on AWS-style PascalCase Name id', async () => {

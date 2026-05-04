@@ -1150,7 +1150,11 @@ export class PagedResults<T> {
       }
 
       let pagesFetched = 0;
-      let prevFingerprint: string | undefined = pageFingerprint(this.items);
+      // Only compares remote pages against the immediately preceding remote
+      // page. The prefilled "current page" is intentionally not seeded here
+      // because callers commonly construct a pager from the first response
+      // and re-fetch it as page 1 of the loop, which is not a bug.
+      let prevFingerprint: string | undefined;
       const overLimit = (): boolean =>
         this.maxPages > 0 && pagesFetched >= this.maxPages;
       const dupCheck = (page: T[]): void => {
