@@ -342,6 +342,67 @@ describe('PagedResults', () => {
     expect.fail('expected to throw');
   });
 
+  it('should stream pages in forEach instead of pre-fetching all of them', async () => {
+    // Multi-page remote PagedResults: initial page is local, the rest are
+    // fetched lazily by asyncGenerator -> fetchPage. Stub fetchPage to avoid
+    // axios and to record exactly when each fetch happens relative to how
+    // many items the worker has finished.
+    const PAGE_SIZE = 5;
+    const REMOTE_PAGES = 6; // pages 2..7 carry data; page 8 is the empty terminator
+    const TOTAL_ITEMS = PAGE_SIZE * (1 + REMOTE_PAGES); // 35
+
+    const pr = new PagedResults<number>();
+    pr.baseUrl = new URL('http://localhost/streamtest');
+    pr.pageNumber = 1;
+    pr.pageSize = PAGE_SIZE;
+    pr.items = Array.from({ length: PAGE_SIZE }, (_, i) => i);
+
+    let processed = 0;
+    const fetchLog: { page: number; processedAt: number }[] = [];
+
+    (pr as any).fetchPage = async (pageNum: number): Promise<number[]> => {
+      fetchLog.push({ page: pageNum, processedAt: processed });
+      // Simulate I/O so the iterator yields the event loop, letting workers
+      // make progress between fetches.
+      await new Promise((r) => setTimeout(r, 1));
+      if (pageNum > 1 + REMOTE_PAGES) return [];
+      const start = (pageNum - 1) * PAGE_SIZE;
+      return Array.from({ length: PAGE_SIZE }, (_, i) => start + i);
+    };
+
+    await pr.forEach(async () => {
+      await new Promise((r) => setTimeout(r, 5));
+      processed += 1;
+    }, 2);
+
+    expect(processed).to.be.eq(TOTAL_ITEMS);
+    // Pages 2..7 carry data, plus one trailing empty fetch that signals end.
+    expect(fetchLog.length).to.be.eq(REMOTE_PAGES + 1);
+    expect(fetchLog[0].page).to.be.eq(2);
+
+    // Under the old buffer-then-process implementation the iterator was
+    // fully drained before any worker ran, so every fetchLog entry would
+    // have processedAt === 0. The streaming + backpressure fix means the
+    // last fetch only happens after workers have already drained most of
+    // the prior pages.
+    const lastFetch = fetchLog[fetchLog.length - 1];
+    expect(lastFetch.processedAt).to.be.greaterThan(0);
+
+    // Tighter bound: with executors=2 the iterator runs at most a small
+    // buffer ahead of the workers, so by the time the trailing empty fetch
+    // happens we should have processed nearly everything (allow ~1 page of
+    // slack for in-flight + queued items).
+    expect(lastFetch.processedAt).to.be.greaterThan(TOTAL_ITEMS - PAGE_SIZE * 2);
+
+    // No fetch should happen with the iterator more than ~1 page ahead of
+    // the worker. Each fetch for page N should occur after at least
+    // (N - 2) * PAGE_SIZE items have been processed, minus a buffer slack.
+    for (const entry of fetchLog) {
+      const expectedFloor = Math.max(0, (entry.page - 2) * PAGE_SIZE - PAGE_SIZE);
+      expect(entry.processedAt).to.be.gte(expectedFloor);
+    }
+  });
+
   it('should build initial paged results result columns and get', async () => {
     const pr = new PagedResults<TestType>();
     pr.buildInitialResultColumns(['id', 'name', 'description', 'test', 'testResource']);
