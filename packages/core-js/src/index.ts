@@ -7,7 +7,13 @@ export {
   PagedResultsColumnOptionsFilterDef,
   PagedResultsColumnOptionsFilterType,
   PagedResultsSearchColumnOptionsDef,
-  PaginationMode
+  PaginationContract,
+  PaginationMode,
+  extractCursorParam,
+  pageFingerprint,
+  parseLinkHeader,
+  readPath,
+  writePath
 } from './PagedResults.js';
 export { PropertySelector } from './PropertySelector.js';
 export {
