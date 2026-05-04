@@ -566,6 +566,27 @@ describe('extractCursorParam', () => {
   it('returns undefined for unparseable URL', () => {
     expect(extractCursorParam('not a url')).to.be.undefined;
   });
+
+  it('honors preferred param when present', () => {
+    // Vendor sends both `cursor` and `after`; contract prefers `cursor`.
+    expect(extractCursorParam('https://x.test/?after=A&cursor=C', 'cursor')).to.equal('C');
+  });
+
+  it('falls back to default order when preferred param absent', () => {
+    expect(extractCursorParam('https://x.test/?after=A', 'cursor')).to.equal('A');
+  });
+});
+
+describe('parseLinkHeader — comma in URL', () => {
+  it('does not split inside <> when URL contains a comma', () => {
+    // Some vendors include comma in query values; the URL between <> can
+    // legitimately contain commas. Naive split-by-comma would mis-parse.
+    const h = '<https://api.example.com/x?ids=1,2,3&page=2>; rel="next", '
+      + '<https://api.example.com/x?ids=1,2,3&page=10>; rel="last"';
+    const parsed = parseLinkHeader(h);
+    expect(parsed.next).to.equal('https://api.example.com/x?ids=1,2,3&page=2');
+    expect(parsed.last).to.equal('https://api.example.com/x?ids=1,2,3&page=10');
+  });
 });
 
 describe('readPath / writePath', () => {
@@ -595,10 +616,24 @@ describe('readPath / writePath', () => {
     expect(o.paging.next.after).to.equal('C1');
   });
 
-  it('overwrites a non-object intermediate', () => {
+  it('throws on non-object intermediate instead of silently overwriting', () => {
     const o: Record<string, any> = { paging: 'string' };
-    writePath(o, 'paging.next', 'X');
-    expect(o.paging.next).to.equal('X');
+    let err: any;
+    try {
+      writePath(o, 'paging.next', 'X');
+    } catch (e) {
+      err = e;
+    }
+    expect(err).to.be.ok;
+    expect(err.message).to.match(/cannot traverse/i);
+    // Original primitive must be preserved.
+    expect(o.paging).to.equal('string');
+  });
+
+  it('does not throw when no path provided', () => {
+    const o: Record<string, any> = { a: 1 };
+    writePath(o, '', 'X');
+    expect(o).to.deep.equal({ a: 1 });
   });
 });
 
@@ -622,12 +657,38 @@ describe('pageFingerprint', () => {
     expect(pageFingerprint([{ number: 1 }])).to.not.equal(pageFingerprint([{ number: 2 }]));
   });
 
-  it('falls back to JSON when no id key found', () => {
-    const a = pageFingerprint([{ misc: 'a' }]);
-    const b = pageFingerprint([{ misc: 'a' }]);
-    const c = pageFingerprint([{ misc: 'b' }]);
-    expect(a).to.equal(b);
-    expect(a).to.not.equal(c);
+  it('returns undefined for opaque object items (fail-safe, no JSON fallback)', () => {
+    // Items without any of id/number/uuid/_id/name produce undefined so that
+    // duplicate detection skips silently rather than risk a false positive
+    // on JSON-truncation collisions.
+    expect(pageFingerprint([{ misc: 'a' }])).to.be.undefined;
+    expect(pageFingerprint([{ id: 'A' }, { misc: 'b' }])).to.be.undefined;
+  });
+
+  it('fingerprints primitive items directly', () => {
+    expect(pageFingerprint([1, 2, 3])).to.equal(pageFingerprint([1, 2, 3]));
+    expect(pageFingerprint([1, 2, 3])).to.not.equal(pageFingerprint([1, 2, 4]));
+  });
+
+  it('handles null items in head', () => {
+    expect(pageFingerprint([null, null])).to.equal(pageFingerprint([null, null]));
+  });
+
+  it('matches AWS-style PascalCase id keys (Name / Id / Arn)', () => {
+    // AWS API responses use PascalCase. Without case-insensitive lookup,
+    // duplicate detection silently skips for the largest body-token target.
+    expect(pageFingerprint([{ Name: 'bucket-1' }])).to.equal(
+      pageFingerprint([{ Name: 'bucket-1' }])
+    );
+    expect(pageFingerprint([{ Name: 'bucket-1' }])).to.not.equal(
+      pageFingerprint([{ Name: 'bucket-2' }])
+    );
+    expect(pageFingerprint([{ Id: 'i-aaa' }])).to.equal(
+      pageFingerprint([{ Id: 'i-aaa' }])
+    );
+    expect(pageFingerprint([{ Arn: 'arn:aws:iam::1:role/x' }])).to.equal(
+      pageFingerprint([{ Arn: 'arn:aws:iam::1:role/x' }])
+    );
   });
 });
 
@@ -714,6 +775,95 @@ describe('PagedResults.applyToRequest / consumeResponse — link-header-next', (
     }, contract);
     expect(pr.count).to.equal(1000);
   });
+
+  it('offset mode: ignores non-numeric page in rel="last" (no NaN count)', () => {
+    const pr = new PagedResults<any>();
+    pr.paginationMode = 'offset';
+    pr.pageSize = 100;
+    pr.consumeResponse({
+      headers: { link: '<https://api.github.com/x?page=abc>; rel="last"' },
+    }, contract);
+    expect(pr.count).to.be.undefined;
+  });
+
+  it('offset mode: no Link header is a no-op', () => {
+    const pr = new PagedResults<any>();
+    pr.paginationMode = 'offset';
+    pr.pageSize = 100;
+    pr.count = 500;
+    pr.consumeResponse({ headers: {} }, contract);
+    // Pre-existing count is preserved; no Link header means nothing to extract.
+    expect(pr.count).to.equal(500);
+  });
+
+  it('cursor mode: respects non-standard cursorParam (e.g. starting_after)', () => {
+    const pr = new PagedResults<any>();
+    pr.paginationMode = 'cursor';
+    pr.consumeResponse({
+      headers: {
+        link: '<https://x.test/items?starting_after=SA_VAL>; rel="next"',
+      },
+    }, { kind: 'link-header-next', cursorParam: 'starting_after' });
+    expect(pr.pageToken).to.equal('SA_VAL');
+  });
+
+  it('cursor mode: contract cursorParam preference picked over default order', () => {
+    // Vendor's rel="next" URL has both `cursor` and `after`; contract says
+    // prefer `cursor`. Without honoring the contract's preference, default
+    // order would extract `after` first.
+    const pr = new PagedResults<any>();
+    pr.paginationMode = 'cursor';
+    pr.consumeResponse({
+      headers: {
+        link: '<https://x.test/items?after=AFTER_VAL&cursor=CURSOR_VAL>; rel="next"',
+      },
+    }, { kind: 'link-header-next', cursorParam: 'cursor' });
+    expect(pr.pageToken).to.equal('CURSOR_VAL');
+  });
+});
+
+describe('PagedResults.applyToRequest — page-number kind', () => {
+  it('sets options.page from pageNumber and per_page from pageSize', () => {
+    const pr = new PagedResults<any>();
+    pr.pageNumber = 7;
+    pr.pageSize = 25;
+    const opts: Record<string, any> = {};
+    pr.applyToRequest(opts, { kind: 'page-number' });
+    expect(opts.page).to.equal(7);
+    expect(opts.per_page).to.equal(25);
+  });
+
+  it('consumeResponse leaves pageToken untouched (offset semantics)', () => {
+    const pr = new PagedResults<any>();
+    // Pre-set a token to confirm it's not cleared by consumeResponse.
+    pr.pageToken = 'PRESERVE';
+    pr.consumeResponse(
+      { headers: { 'x-ignored': 'value' }, data: { items: [] } },
+      { kind: 'page-number' }
+    );
+    expect(pr.pageToken).to.equal('PRESERVE');
+  });
+});
+
+describe('PagedResults.applyToRequest — pageSizeParam override', () => {
+  it('uses configured pageSizeParam name in place of per_page', () => {
+    const pr = new PagedResults<any>();
+    pr.pageSize = 25;
+    const opts: Record<string, any> = {};
+    pr.applyToRequest(opts, { kind: 'page-number', pageSizeParam: 'limit' });
+    expect(opts.limit).to.equal(25);
+    expect(opts).to.not.have.property('per_page');
+  });
+
+  it('omits page size entirely when pageSizeParam is empty string', () => {
+    const pr = new PagedResults<any>();
+    pr.pageSize = 25;
+    const opts: Record<string, any> = {};
+    pr.applyToRequest(opts, { kind: 'page-number', pageSizeParam: '' });
+    expect(opts).to.not.have.property('per_page');
+    expect(opts).to.not.have.property('limit');
+    expect(opts.page).to.equal(1);
+  });
 });
 
 describe('PagedResults.applyToRequest / consumeResponse — body-token', () => {
@@ -774,6 +924,13 @@ describe('PagedResults.applyToRequest / consumeResponse — body-url', () => {
     expect(opts.url).to.equal('https://graph.microsoft.com/v1.0/users?$skiptoken=ABC');
   });
 
+  it('leaves caller-supplied url intact on first request (no pageToken)', () => {
+    const pr = new PagedResults<any>();
+    const opts: Record<string, any> = { url: 'https://graph.microsoft.com/v1.0/users' };
+    pr.applyToRequest(opts, contract);
+    expect(opts.url).to.equal('https://graph.microsoft.com/v1.0/users');
+  });
+
   it('reads next URL from response body', () => {
     const pr = new PagedResults<any>();
     pr.consumeResponse({
@@ -820,6 +977,28 @@ describe('PagedResults.applyToRequest / consumeResponse — header-token', () =>
     pr.pageToken = 'STALE';
     pr.consumeResponse({ headers: {} }, contract);
     expect(pr.pageToken).to.be.undefined;
+  });
+});
+
+describe('PagedResults.applyToRequest / consumeResponse — defensive', () => {
+  it('throws InvalidStateError for an unknown contract kind (runtime guard)', () => {
+    const pr = new PagedResults<any>();
+    let applyErr: any;
+    let consumeErr: any;
+    try {
+      pr.applyToRequest({}, { kind: 'made-up' as any });
+    } catch (e) {
+      applyErr = e;
+    }
+    try {
+      pr.consumeResponse({}, { kind: 'made-up' as any });
+    } catch (e) {
+      consumeErr = e;
+    }
+    expect(applyErr).to.be.ok;
+    expect(applyErr.message).to.match(/Unhandled PaginationContract kind/i);
+    expect(consumeErr).to.be.ok;
+    expect(consumeErr.message).to.match(/Unhandled PaginationContract kind/i);
   });
 });
 
@@ -920,6 +1099,43 @@ describe('PagedResults asyncGenerator guardrails', () => {
     expect(err.message).to.match(/duplicate page/i);
     // Should detect on the very first fetched page (matches the prefilled items).
     expect(counter.fetchCalls).to.equal(1);
+  });
+
+  it('detects duplicates on AWS-style PascalCase Name id', async () => {
+    // Real-world: AWS S3 buckets, IAM roles. PascalCase keys must be
+    // recognized by the case-insensitive id-key lookup or duplicate
+    // detection silently does nothing for the largest body-token target.
+    const { pr, counter } = makeStubOffset([{ Name: 'b1' }, { Name: 'b2' }]);
+    pr.maxPages = 5;
+
+    let err: any;
+    try {
+      for await (const _ of pr) { /* drain */ }
+    } catch (e) {
+      err = e;
+    }
+    expect(err).to.be.instanceOf(UnexpectedError);
+    expect(err.message).to.match(/duplicate page/i);
+    expect(counter.fetchCalls).to.equal(1);
+  });
+
+  it('does not throw on opaque items even when pages repeat (fail-safe)', async () => {
+    // Items have no recognizable id key, so pageFingerprint returns
+    // undefined and duplicate detection silently skips. maxPages still
+    // bounds the iteration so the loop is not infinite.
+    const { pr, counter } = makeStubOffset([{ misc: 'a' }, { misc: 'b' }]);
+    pr.maxPages = 4;
+
+    let err: any;
+    try {
+      for await (const _ of pr) { /* drain */ }
+    } catch (e) {
+      err = e;
+    }
+    // No duplicate-page throw; maxPages is the only safety net.
+    expect(err).to.be.instanceOf(UnexpectedError);
+    expect(err.message).to.match(/maxPages/i);
+    expect(counter.fetchCalls).to.equal(4);
   });
 
   it('respects detectDuplicatePages=false (still bounded by maxPages)', async () => {

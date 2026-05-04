@@ -242,7 +242,11 @@ describe('PagedResults Cursor-Based Pagination', () => {
         res.setHeader('pagetoken', `token-${requestCount + 1}`);
       }
       res.writeHead(200);
-      res.end(JSON.stringify([{ id: requestCount }]));
+      // IDs need to differ from the locally-seeded initial page (id=1)
+      // and from each other; otherwise asyncGenerator's duplicate-page
+      // guardrail aborts the iteration. This mock is just exercising the
+      // pageToken plumbing — the actual id values are arbitrary.
+      res.end(JSON.stringify([{ id: requestCount + 100 }]));
     });
 
     await new Promise<void>(resolve => testServer.listen(cursorPort + 100, () => resolve()));
