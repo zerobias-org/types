@@ -83,24 +83,6 @@ const axiosReal = axios.create({
  */
 export type PaginationMode = 'auto' | 'cursor' | 'offset';
 
-/**
- * Vendor-pagination contract describing how to translate between a vendor API
- * and a PagedResults instance. Used by `applyToRequest` and `consumeResponse`
- * so each module declares its pagination shape once instead of hand-writing
- * Link-header / cursor-extraction logic per call site.
- *
- * Variants:
- * - `link-header-next`: vendor returns Link header with rel="next"; cursor is
- *   a query param on the next URL (GitHub Dependabot, GitLab, Atlassian).
- * - `body-token`: vendor returns next-page cursor as a field in the response
- *   body, addressed by dotted path (AWS NextToken, HubSpot paging.next.after,
- *   Slack response_metadata.next_cursor, Box next_marker).
- * - `body-url`: vendor returns full next-page URL in the response body
- *   (Microsoft Graph @odata.nextLink). Caller is expected to re-issue against
- *   the URL directly; cursor is the URL itself stored in pageToken.
- * - `header-token`: vendor returns next-page cursor in a custom HTTP header.
- * - `page-number`: legacy offset pagination via numeric page param.
- */
 type PaginationContractCommon = {
   /**
    * Param name used for page size in the outgoing request. Defaults to
@@ -121,6 +103,24 @@ type PaginationContractCommon = {
  */
 export type CursorParamHint = 'after' | 'before' | 'cursor' | (string & Record<never, never>);
 
+/**
+ * Vendor-pagination contract describing how to translate between a vendor API
+ * and a PagedResults instance. Used by `applyToRequest` and `consumeResponse`
+ * so each module declares its pagination shape once instead of hand-writing
+ * Link-header / cursor-extraction logic per call site.
+ *
+ * Variants:
+ * - `link-header-next`: vendor returns Link header with rel="next"; cursor is
+ *   a query param on the next URL (GitHub Dependabot, GitLab, Atlassian).
+ * - `body-token`: vendor returns next-page cursor as a field in the response
+ *   body, addressed by dotted path (AWS NextToken, HubSpot paging.next.after,
+ *   Slack response_metadata.next_cursor, Box next_marker).
+ * - `body-url`: vendor returns full next-page URL in the response body
+ *   (Microsoft Graph @odata.nextLink). Caller is expected to re-issue against
+ *   the URL directly; cursor is the URL itself stored in pageToken.
+ * - `header-token`: vendor returns next-page cursor in a custom HTTP header.
+ * - `page-number`: legacy offset pagination via numeric page param.
+ */
 export type PaginationContract = PaginationContractCommon & (
   | { kind: 'link-header-next', cursorParam?: CursorParamHint }
   | { kind: 'body-token', tokenPath: string }

@@ -1107,6 +1107,9 @@ describe('PagedResults asyncGenerator guardrails', () => {
     // Real-world: AWS S3 buckets, IAM roles. PascalCase keys must be
     // recognized by the case-insensitive id-key lookup or duplicate
     // detection silently does nothing for the largest body-token target.
+    // Detection compares remote-page-N against remote-page-(N-1) (prefilled
+    // page is intentionally not seeded), so the duplicate trips on the
+    // second remote fetch.
     const { pr, counter } = makeStubOffset([{ Name: 'b1' }, { Name: 'b2' }]);
     pr.maxPages = 5;
 
@@ -1118,7 +1121,7 @@ describe('PagedResults asyncGenerator guardrails', () => {
     }
     expect(err).to.be.instanceOf(UnexpectedError);
     expect(err.message).to.match(/duplicate page/i);
-    expect(counter.fetchCalls).to.equal(1);
+    expect(counter.fetchCalls).to.equal(2);
   });
 
   it('does not throw on opaque items even when pages repeat (fail-safe)', async () => {
