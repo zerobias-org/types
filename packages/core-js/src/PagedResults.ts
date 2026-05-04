@@ -4,7 +4,8 @@ import {
   IllegalArgumentError,
   InvalidInputError,
   InvalidStateError,
-  ResultLimitExceededError
+  ResultLimitExceededError,
+  UnexpectedError
 } from './errors/index.js';
 import { URL } from './types/URL.js';
 import { Nmtoken } from './types/Nmtoken.js';
@@ -81,6 +82,195 @@ const axiosReal = axios.create({
  * - 'offset': Use offset-based pagination with pageNumber
  */
 export type PaginationMode = 'auto' | 'cursor' | 'offset';
+
+type PaginationContractCommon = {
+  /**
+   * Param name used for page size in the outgoing request. Defaults to
+   * 'per_page'. Override for vendors that use a different name (e.g. 'limit',
+   * 'page_size'). Set to empty string to omit page-size entirely.
+   */
+  pageSizeParam?: string,
+};
+
+/**
+ * Cursor query-param hint for `link-header-next`. Common values are listed
+ * for autocomplete; any string is accepted at runtime.
+ *
+ * Note: when using `link-header-next`, callers must set
+ * `paginationMode = 'cursor'` explicitly (not the default 'auto') for
+ * `consumeResponse` to extract the next-page cursor. Auto/offset mode skips
+ * cursor extraction and parses rel="last" for a count estimate instead.
+ */
+export type CursorParamHint = 'after' | 'before' | 'cursor' | (string & Record<never, never>);
+
+/**
+ * Vendor-pagination contract describing how to translate between a vendor API
+ * and a PagedResults instance. Used by `applyToRequest` and `consumeResponse`
+ * so each module declares its pagination shape once instead of hand-writing
+ * Link-header / cursor-extraction logic per call site.
+ *
+ * Variants:
+ * - `link-header-next`: vendor returns Link header with rel="next"; cursor is
+ *   a query param on the next URL (GitHub Dependabot, GitLab, Atlassian).
+ * - `body-token`: vendor returns next-page cursor as a field in the response
+ *   body, addressed by dotted path (AWS NextToken, HubSpot paging.next.after,
+ *   Slack response_metadata.next_cursor, Box next_marker).
+ * - `body-url`: vendor returns full next-page URL in the response body
+ *   (Microsoft Graph @odata.nextLink). Caller is expected to re-issue against
+ *   the URL directly; cursor is the URL itself stored in pageToken.
+ * - `header-token`: vendor returns next-page cursor in a custom HTTP header.
+ * - `page-number`: legacy offset pagination via numeric page param.
+ */
+export type PaginationContract = PaginationContractCommon & (
+  | { kind: 'link-header-next', cursorParam?: CursorParamHint }
+  | { kind: 'body-token', tokenPath: string }
+  | { kind: 'body-url', urlPath: string }
+  | { kind: 'header-token', headerName: string }
+  | { kind: 'page-number' }
+);
+
+/**
+ * Parses an RFC 5988 Link header into a `{ rel: url }` map. Tolerates extra
+ * whitespace, missing rel, malformed segments (skipped silently). The URL
+ * inside `<>` can legitimately contain commas, so we match link-values
+ * directly with a global regex rather than splitting on `,` first.
+ */
+export function parseLinkHeader(header: string): Record<string, string> {
+  const out: Record<string, string> = {};
+  if (!header) return out;
+  const re = /<([^>]+)>\s*;\s*rel\s*=\s*"?([^\s",;]+)"?/g;
+  let match: RegExpExecArray | null = re.exec(header);
+  while (match !== null) {
+    out[match[2]] = match[1];
+    match = re.exec(header);
+  }
+  return out;
+}
+
+/**
+ * Extracts a cursor query param from a paginated next-page URL. If
+ * `preferred` is supplied and present in the URL, returns its value. Otherwise
+ * falls back to `after`, `before`, then `cursor` (in that order). Returns
+ * undefined for unparseable URLs or when no candidate is present.
+ */
+export function extractCursorParam(url: string, preferred?: string): string | undefined {
+  try {
+    const u = new globalThis.URL(url);
+    if (preferred) {
+      const direct = u.searchParams.get(preferred);
+      if (direct != null) return direct;
+    }
+    return (
+      u.searchParams.get('after')
+      ?? u.searchParams.get('before')
+      ?? u.searchParams.get('cursor')
+      ?? undefined
+    );
+  } catch {
+    return undefined;
+  }
+}
+
+/**
+ * Reads a value from a nested object via a dotted path. Tries the literal
+ * key first (e.g. Microsoft Graph's `@odata.nextLink` is one key with a dot
+ * in the name), then falls back to dotted-path traversal. Returns undefined
+ * if neither resolves.
+ */
+export function readPath(obj: any, path: string): any {
+  if (!obj || !path) return undefined;
+  if (typeof obj === 'object' && obj[path] !== undefined) {
+    return obj[path];
+  }
+  const segments = path.split('.');
+  let cur: any = obj;
+  for (const seg of segments) {
+    if (cur == null || typeof cur !== 'object') return undefined;
+    cur = cur[seg];
+  }
+  return cur;
+}
+
+/**
+ * Builds a stable, low-cost fingerprint for an array of items so two
+ * consecutive pages can be compared for equality without deep-stringifying
+ * the whole payload. Uses up to the first 3 items and looks for common
+ * stable id keys (`id`, `number`, `uuid`, `_id`, `name`) on object items;
+ * primitive items are fingerprinted directly. Returns undefined when the
+ * array is empty OR when any object item lacks a recognizable id — in that
+ * case duplicate detection silently skips this comparison rather than risk a
+ * false positive from a brittle JSON-truncation fallback. Callers that need
+ * detection on opaque items should add a stable id field to their items.
+ */
+export function pageFingerprint(items: any[]): string | undefined {
+  if (!items || items.length === 0) return undefined;
+  // Case-insensitive lookup so we catch AWS-style `Name`/`Id`/`Arn` and
+  // PascalCase variants without forcing callers to lowercase keys.
+  const idKeys = ['id', 'number', 'uuid', '_id', 'name', 'arn'];
+  const head = items.slice(0, 3);
+  const ids: string[] = [];
+  let anyStamped = false;
+  for (const item of head) {
+    if (item == null) {
+      ids.push('null');
+      continue;
+    }
+    if (typeof item !== 'object') {
+      ids.push(`p:${String(item)}`);
+      anyStamped = true;
+      continue;
+    }
+    const lowerKeyMap: Record<string, string> = {};
+    for (const k of Object.keys(item)) {
+      lowerKeyMap[k.toLowerCase()] = k;
+    }
+    let stamped = false;
+    for (const target of idKeys) {
+      const realKey = lowerKeyMap[target];
+      if (realKey === undefined) continue;
+      const v = item[realKey];
+      if (v !== undefined && v !== null) {
+        ids.push(`${target}:${String(v)}`);
+        stamped = true;
+        anyStamped = true;
+        break;
+      }
+    }
+    if (!stamped) {
+      // Opaque object — bail out rather than risk a false positive.
+      return undefined;
+    }
+  }
+  if (!anyStamped) return undefined;
+  return `${items.length}|${ids.join('|')}`;
+}
+
+/**
+ * Writes a value to a nested object via a dotted path, creating intermediate
+ * objects as needed. Throws InvalidStateError if a path segment encounters a
+ * pre-existing non-null primitive (so callers don't silently destroy adjacent
+ * data when a path conflicts with caller-supplied options).
+ */
+export function writePath(obj: Record<string, any>, path: string, value: any): void {
+  if (!path) return;
+  const segments = path.split('.');
+  let cur: Record<string, any> = obj;
+  for (let i = 0; i < segments.length - 1; i++) {
+    const seg = segments[i];
+    if (cur[seg] == null) {
+      cur[seg] = {};
+    } else if (typeof cur[seg] !== 'object') {
+      throw new InvalidStateError(
+        `writePath: cannot traverse path '${path}' — segment '${seg}' is a ${typeof cur[seg]}, not an object`
+      );
+    }
+    cur = cur[seg];
+  }
+  const tail = segments.at(-1);
+  if (tail !== undefined) {
+    cur[tail] = value;
+  }
+}
 
 /**
 * Wrapper for a response with a paged result set.
@@ -176,6 +366,21 @@ export class PagedResults<T> {
 
   /** An object mapper for the type of objects in this collection */
   mapper?: (obj: any) => T;
+
+  /**
+   * Maximum number of remote pages `asyncGenerator()` will fetch before
+   * aborting with `UnexpectedError`. Defends against infinite-loop bugs where
+   * a vendor returns the same page repeatedly (e.g. cursor not advancing).
+   * Defaults to 1000; set to 0 to disable.
+   */
+  maxPages = 1000;
+
+  /**
+   * When true (default), `asyncGenerator()` aborts with `UnexpectedError` if
+   * two consecutive remote pages return identical first-item shallow-keys,
+   * which indicates a stuck cursor / non-advancing offset.
+   */
+  detectDuplicatePages = true;
 
   get count(): number | undefined {
     return this._count;
@@ -632,6 +837,160 @@ export class PagedResults<T> {
   }
 
   /**
+   * Applies pager state to an outgoing vendor request, mutating `options`
+   * in place. Modules wire this into their HTTP client's request-prep hook
+   * to thread cursor/page state without reinventing per-vendor glue.
+   *
+   * Behavior by contract:
+   * - `link-header-next`: in cursor mode injects `options.after` (or
+   *   `before`/`cursor` per `cursorParam`) from `pageToken`; deletes `page`.
+   *   In offset mode falls through to numeric `page`.
+   * - `body-token`: writes `pageToken` to `options.body[tokenPath]` (dotted)
+   *   when set; otherwise leaves body unchanged.
+   * - `body-url`: when `pageToken` is a full URL, sets `options.url` to it
+   *   so the next request goes there directly (Microsoft Graph nextLink).
+   * - `header-token`: sets the configured header from `pageToken`.
+   * - `page-number`: sets `options.page` from `pageNumber` (offset only).
+   *
+   * Page size is written to `options[contract.pageSizeParam ?? 'per_page']`.
+   * Set `pageSizeParam: ''` on the contract to omit page-size entirely.
+   */
+  applyToRequest(options: Record<string, any>, contract: PaginationContract): void {
+    const sizeKey = contract.pageSizeParam ?? 'per_page';
+    if (sizeKey) {
+      options[sizeKey] = this.pageSize;
+    }
+    switch (contract.kind) {
+      case 'link-header-next': {
+        if (this.paginationMode === 'cursor') {
+          const param = contract.cursorParam ?? 'after';
+          delete options.page;
+          if (this.pageToken) {
+            options[param] = this.pageToken;
+          } else {
+            delete options[param];
+          }
+        } else {
+          options.page = this.pageNumber;
+        }
+        return;
+      }
+      case 'body-token': {
+        if (this.pageToken) {
+          options.body = options.body ?? {};
+          writePath(options.body, contract.tokenPath, this.pageToken);
+        }
+        return;
+      }
+      case 'body-url': {
+        if (this.pageToken) {
+          options.url = this.pageToken;
+        }
+        return;
+      }
+      case 'header-token': {
+        // axios normalizes outgoing header names; we write at the configured
+        // casing on the request side, but consumeResponse checks both
+        // configured + lowercased on the response side.
+        options.headers = options.headers ?? {};
+        if (this.pageToken) {
+          options.headers[contract.headerName] = this.pageToken;
+        } else {
+          delete options.headers[contract.headerName];
+        }
+        return;
+      }
+      case 'page-number': {
+        options.page = this.pageNumber;
+        return;
+      }
+      default: {
+        const _exhaustive: never = contract;
+        throw new InvalidStateError(
+          `Unhandled PaginationContract kind: ${(contract as { kind: string }).kind}`
+        );
+      }
+    }
+  }
+
+  /**
+   * Reads a vendor response and updates pager state (pageToken, count) per
+   * the contract. Modules wire this into their HTTP client's response hook.
+   * Always populates `pageToken` to the next-page cursor when available, and
+   * clears it when the response signals no more pages — so the client-side
+   * `asyncGenerator` cursor branch terminates correctly.
+   */
+  consumeResponse(
+    response: { headers?: Record<string, any>, data?: any },
+    contract: PaginationContract
+  ): void {
+    const headers = response.headers ?? {};
+    const data = response.data;
+    switch (contract.kind) {
+      case 'link-header-next': {
+        // Cursor mode is the common case for this contract; in offset mode
+        // we still parse rel="last" to estimate count (legacy behavior).
+        if (this.paginationMode === 'cursor') {
+          this.pageToken = undefined;
+          const linkHeader = headers.link;
+          if (linkHeader) {
+            const parsed = parseLinkHeader(linkHeader);
+            const nextUrl = parsed.next;
+            if (nextUrl) {
+              const cursor = extractCursorParam(nextUrl, contract.cursorParam);
+              if (cursor) this.pageToken = cursor;
+            }
+          }
+        } else {
+          const linkHeader = headers.link;
+          if (linkHeader) {
+            const parsed = parseLinkHeader(linkHeader);
+            if (parsed.last) {
+              try {
+                const u = new globalThis.URL(parsed.last);
+                const page = u.searchParams.get('page');
+                const pageNum = page ? Number(page) : Number.NaN;
+                if (Number.isFinite(pageNum) && pageNum > 0) {
+                  this.count = pageNum * this.pageSize;
+                }
+              } catch {
+                // ignore unparseable URL
+              }
+            }
+          }
+        }
+        return;
+      }
+      case 'body-token': {
+        const token = readPath(data, contract.tokenPath);
+        this.pageToken = (typeof token === 'string' && token) ? token : undefined;
+        return;
+      }
+      case 'body-url': {
+        const url = readPath(data, contract.urlPath);
+        this.pageToken = (typeof url === 'string' && url) ? url : undefined;
+        return;
+      }
+      case 'header-token': {
+        const token = headers[contract.headerName] ?? headers[contract.headerName.toLowerCase()];
+        this.pageToken = (typeof token === 'string' && token) ? token : undefined;
+        return;
+      }
+      case 'page-number': {
+        // Offset only: pageToken stays untouched. Caller uses
+        // page.length < pageSize to detect the last page.
+        return;
+      }
+      default: {
+        const _exhaustive: never = contract;
+        throw new InvalidStateError(
+          `Unhandled PaginationContract kind: ${(contract as { kind: string }).kind}`
+        );
+      }
+    }
+  }
+
+  /**
    * Ingests the content of the given array into this instance
    * @param arr the array to ingest
    * @param pageNumber the page number to display
@@ -790,14 +1149,42 @@ export class PagedResults<T> {
         yield item;
       }
 
+      let pagesFetched = 0;
+      // Only compares remote pages against the immediately preceding remote
+      // page. The prefilled "current page" is intentionally not seeded here
+      // because callers commonly construct a pager from the first response
+      // and re-fetch it as page 1 of the loop, which is not a bug.
+      let prevFingerprint: string | undefined;
+      const overLimit = (): boolean =>
+        this.maxPages > 0 && pagesFetched >= this.maxPages;
+      const dupCheck = (page: T[]): void => {
+        if (!this.detectDuplicatePages || page.length === 0) return;
+        const fp = pageFingerprint(page);
+        if (fp && prevFingerprint && fp === prevFingerprint) {
+          throw new UnexpectedError(
+            'PagedResults: duplicate page detected (consecutive pages match) — '
+            + 'likely pagination bug in source (cursor not advancing or page param ignored)'
+          );
+        }
+        prevFingerprint = fp;
+      };
+
       if (mode === 'cursor') {
         // Cursor-based pagination: follow pageToken chain
         // pageToken is updated by doFetch() via extractPageToken()
         while (this.pageToken) {
+          if (overLimit()) {
+            throw new UnexpectedError(
+              `PagedResults: maxPages (${this.maxPages}) exceeded in cursor mode — `
+              + 'aborting to avoid runaway pagination'
+            );
+          }
           const page = await this.fetchPage(0); // pageNumber ignored in cursor mode
+          pagesFetched += 1;
           if (page.length === 0) {
             break;
           }
+          dupCheck(page);
           for (const item of page) {
             yield item;
           }
@@ -809,10 +1196,18 @@ export class PagedResults<T> {
         let hasMore = this.items.length === this.pageSize;
 
         while (hasMore) {
+          if (overLimit()) {
+            throw new UnexpectedError(
+              `PagedResults: maxPages (${this.maxPages}) exceeded in offset mode — `
+              + 'aborting to avoid runaway pagination'
+            );
+          }
           const page = await this.fetchPage(pageNum);
+          pagesFetched += 1;
           if (page.length === 0) {
             break;
           }
+          dupCheck(page);
           for (const item of page) {
             yield item;
           }
