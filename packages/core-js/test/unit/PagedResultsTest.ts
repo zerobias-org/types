@@ -280,6 +280,68 @@ describe('PagedResults', () => {
     expect.fail('expected to throw error');
   });
 
+  it('should process every item in forEach', async () => {
+    const pr = PagedResults.fromArray(CHARACTERS, 1, CHARACTERS.length);
+    const seen: any[] = [];
+    await pr.forEach(async (item) => {
+      seen.push(item);
+    });
+    expect(seen.length).to.be.eq(CHARACTERS.length);
+    expect(seen).to.have.deep.members(CHARACTERS);
+  });
+
+  it('should respect the limit arg in forEach', async () => {
+    const pr = PagedResults.fromArray(CHARACTERS, 1, CHARACTERS.length);
+    let processed = 0;
+    await pr.forEach(async () => { processed += 1; }, 5, 7);
+    expect(processed).to.be.eq(7);
+  });
+
+  it('should reject limit < 1 in forEach', async () => {
+    const pr = PagedResults.fromArray([1, 2, 3], 1, 3);
+    try {
+      await pr.forEach(async () => { /* noop */ }, 2, 0);
+    } catch (e) {
+      expect(e).to.be.instanceOf(InvalidInputError);
+      return;
+    }
+    expect.fail('expected to throw');
+  });
+
+  it('should cap concurrency at executors in forEach', async () => {
+    const pr = PagedResults.fromArray(CHARACTERS, 1, CHARACTERS.length);
+    const EXECUTORS = 4;
+    let inflight = 0;
+    let peak = 0;
+    await pr.forEach(async () => {
+      inflight += 1;
+      peak = Math.max(peak, inflight);
+      await new Promise((r) => setTimeout(r, 5));
+      inflight -= 1;
+    }, EXECUTORS);
+    expect(peak).to.be.lte(EXECUTORS);
+    expect(peak).to.be.gte(1);
+  });
+
+  it('should stop pulling items after first error in forEach', async () => {
+    const pr = PagedResults.fromArray([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 1, 10);
+    let started = 0;
+    try {
+      await pr.forEach(async (item) => {
+        started += 1;
+        if (item === 2) throw new Error('boom');
+        await new Promise((r) => setTimeout(r, 20));
+      }, 2);
+    } catch (e: any) {
+      expect(e.message).to.be.eq('boom');
+      // With executors=2 and a fail-fast loop, we should not have started
+      // every item — the iterator stops pulling once the error is seen.
+      expect(started).to.be.lt(10);
+      return;
+    }
+    expect.fail('expected to throw');
+  });
+
   it('should build initial paged results result columns and get', async () => {
     const pr = new PagedResults<TestType>();
     pr.buildInitialResultColumns(['id', 'name', 'description', 'test', 'testResource']);
