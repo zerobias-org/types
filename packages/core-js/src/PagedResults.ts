@@ -834,17 +834,39 @@ export class PagedResults<T> {
     if (limit !== undefined && limit < 1) {
       throw new InvalidInputError('limit', limit);
     }
-    const allItems: T[] = [];
+
+    const limiter = pLimit(executors);
+    const inflight = new Set<Promise<void>>();
+    let count = 0;
+    let firstError: unknown;
 
     for await (const item of this) {
-      allItems.push(item);
-      if (limit && allItems.length >= limit) {
-        break;
+      if (firstError) break;
+      if (limit && count >= limit) break;
+      count += 1;
+
+      // Per-task .then/.catch swallows the rejection so inflight promises
+      // never reject — this avoids unhandled-rejection warnings in the
+      // window between failure and the next await point.
+      const task: Promise<void> = limiter(() => func(item)).then(
+        () => { inflight.delete(task); },
+        (err: unknown) => {
+          inflight.delete(task);
+          if (!firstError) firstError = err;
+        }
+      );
+      inflight.add(task);
+
+      // Backpressure: when the limiter's queue is saturated, pause pulling
+      // from the iterator until a slot frees up. This caps the limiter
+      // queue at ~executors items instead of letting the entire current
+      // page (and the next, and the next) pile up ahead of the workers.
+      if (limiter.pendingCount >= executors) {
+        await Promise.race(inflight);
       }
     }
 
-    // Use p-limit for concurrency control - rejects on first error
-    const limiter = pLimit(executors);
-    await Promise.all(allItems.map((item) => limiter(() => func(item))));
+    await Promise.all(inflight);
+    if (firstError) throw firstError;
   }
 }
