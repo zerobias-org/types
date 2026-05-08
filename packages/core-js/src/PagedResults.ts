@@ -804,6 +804,34 @@ export class PagedResults<T> {
   }
 
   /**
+   * Extracts the items array from a response body. Supports two shapes:
+   *   - Raw array body (typical for GET-paginated endpoints)
+   *   - Wrapped object with `items`, `results`, or `data` array
+   *     (typical for POST/PUT-paginated endpoints that carry pagination
+   *     metadata alongside the items)
+   * Throws UnexpectedError if neither shape is present so the caller gets
+   * a clear diagnostic instead of `resp.data.map is not a function`.
+   */
+  private extractItems(data: unknown): unknown[] {
+    if (Array.isArray(data)) {
+      return data;
+    }
+    if (data && typeof data === 'object') {
+      const obj = data as Record<string, unknown>;
+      if (Array.isArray(obj.items)) return obj.items as unknown[];
+      if (Array.isArray(obj.results)) return obj.results as unknown[];
+      if (Array.isArray(obj.data)) return obj.data as unknown[];
+    }
+    const preview = typeof data === 'string'
+      ? `string(${(data as string).slice(0, 80)}${(data as string).length > 80 ? '...' : ''})`
+      : typeof data;
+    throw new UnexpectedError(
+      `PagedResults: response body is not paginatable — expected an array or `
+      + `an object with items/results/data array, got ${preview}`
+    );
+  }
+
+  /**
    * Detects pagination mode from API response headers and updates internal state.
    * @param resp The Axios response to analyze
    */
@@ -1072,7 +1100,8 @@ export class PagedResults<T> {
       const nextToken = this.extractPageToken(resp);
       this.pageToken = nextToken || undefined;
 
-      resolve(resp.data.map((obj: any) => (this.mapper ? this.mapper(obj) : obj)));
+      const items = this.extractItems(resp.data);
+      resolve(items.map((obj: any) => (this.mapper ? this.mapper(obj) : obj)));
     } catch (e: any) {
       if (e.response && (e.response.status < 500 && e.response.status !== 408)) {
         // don't retry for 4xx except for a 408 which is a client timeout

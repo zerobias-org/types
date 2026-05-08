@@ -5,7 +5,7 @@ import axios from 'axios';
 import path from 'path';
 import { readFileSync } from 'fs';
 import { URL as NodeURL } from 'url';
-import { URL, PagedResults, InvalidInputError, PaginationMode } from '../../src/index.js';
+import { URL, PagedResults, InvalidInputError, PaginationMode, HttpMethod, UnexpectedError } from '../../src/index.js';
 
 let server: Server;
 let cursorServer: Server;
@@ -296,5 +296,100 @@ describe('PagedResults Cursor-Based Pagination', () => {
     if (cursorServer) {
       cursorServer.close();
     }
+  });
+});
+
+describe('PagedResults Wrapped Response Body', () => {
+  let wrappedServer: Server;
+  const wrappedPort = Number(port) + 50;
+  let badShapeServer: Server;
+  const badShapePort = Number(port) + 51;
+
+  before('setup wrapped response server', async () => {
+    // Mimics PUT/POST-paginated endpoints (e.g. AWS Inspector searchFindings)
+    // that return a wrapped body {items, pageToken} instead of a raw array.
+    const handler = (req, res) => {
+      let raw = '';
+      req.on('data', (chunk) => { raw += chunk; });
+      req.on('end', () => {
+        const body = raw ? JSON.parse(raw) : {};
+        const pageSize = Number(body.pageSize || 20);
+        const startIndex = body.pageToken
+          ? parseInt(Buffer.from(body.pageToken, 'base64').toString(), 10)
+          : 0;
+        const endIndex = Math.min(startIndex + pageSize, CHARACTERS.length);
+        const nextToken = endIndex < CHARACTERS.length
+          ? Buffer.from(endIndex.toString()).toString('base64')
+          : undefined;
+
+        res.setHeader('Content-Type', 'application/json');
+        res.writeHead(200);
+        res.end(JSON.stringify({
+          items: CHARACTERS.slice(startIndex, endIndex),
+          pageToken: nextToken,
+        }));
+      });
+    };
+    wrappedServer = http.createServer(handler);
+    await new Promise<void>((resolve) => wrappedServer.listen(wrappedPort, () => resolve()));
+
+    const badHandler = (_req, res) => {
+      res.setHeader('Content-Type', 'text/html');
+      res.writeHead(200);
+      res.end('<html><body>not json</body></html>');
+    };
+    badShapeServer = http.createServer(badHandler);
+    await new Promise<void>((resolve) => badShapeServer.listen(badShapePort, () => resolve()));
+
+    await delay(100);
+  });
+
+  it('iterates over a PUT-paginated wrapped response body', async () => {
+    // Simulate what a hub-impl does after the first page lands: it
+    // already extracted items + pageToken from the first response and
+    // primes the pager for follow-up fetches.
+    const firstResp = await axios.put(
+      `http://localhost:${wrappedPort}`,
+      { pageSize: 20 }
+    );
+    const pr = new PagedResults<any>();
+    pr.items = firstResp.data.items;
+    pr.pageToken = firstResp.data.pageToken;
+    pr.pageSize = 20;
+    pr.baseUrl = new URL(`http://localhost:${wrappedPort}`);
+    pr.httpMethod = HttpMethod.Put;
+    pr.body = {};
+    pr.paginationMode = 'cursor';
+
+    let count = 0;
+    for await (const char of pr) {
+      expect(char).to.be.deep.eq(CHARACTERS[count++]);
+    }
+    expect(count).to.be.eq(CHARACTERS.length);
+  }).timeout(30000);
+
+  it('throws a clear error when response is neither array nor wrapped', async () => {
+    const pr = new PagedResults<any>();
+    pr.items = [{ stub: true }];
+    pr.pageToken = 'continue';
+    pr.pageSize = 20;
+    pr.baseUrl = new URL(`http://localhost:${badShapePort}`);
+    pr.httpMethod = HttpMethod.Put;
+    pr.body = {};
+    pr.paginationMode = 'cursor';
+
+    let caught: unknown;
+    try {
+      for await (const _ of pr) { /* consume */ }
+    } catch (e) {
+      caught = e;
+    }
+    expect(caught).to.be.instanceOf(UnexpectedError);
+    expect((caught as Error).message).to.match(/not paginatable/);
+  }).timeout(30000);
+
+  after('teardown', () => {
+    if (wrappedServer) wrappedServer.close();
+    if (badShapeServer) badShapeServer.close();
   });
 });
