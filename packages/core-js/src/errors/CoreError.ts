@@ -5,6 +5,43 @@ import { CoreErrorSpec } from './CoreErrorSpec.js';
 import { ErrorModel } from './ErrorModel.js';
 
 /**
+ * Best-effort parse of a serialized timestamp (ISO string, epoch number, or
+ * Date) into a valid Date, or undefined when it can't be parsed.
+ */
+function parseSerializedTimestamp(value: unknown): Date | undefined {
+  if (value instanceof Date) {
+    return Number.isNaN(value.getTime()) ? undefined : value;
+  }
+  if (typeof value === 'string' || typeof value === 'number') {
+    const parsed = new Date(value);
+    return Number.isNaN(parsed.getTime()) ? undefined : parsed;
+  }
+  return undefined;
+}
+
+/**
+ * If `value` looks like a serialized `ErrorModel` (string `key` and `template`,
+ * numeric `statusCode`, parseable `timestamp`), returns a normalized
+ * `ErrorModel` preserving every field; otherwise undefined.
+ */
+function asSerializedErrorModel(value: unknown): ErrorModel | undefined {
+  if (!value || typeof value !== 'object') {
+    return undefined;
+  }
+  const o = value as Record<string, unknown>;
+  const timestamp = parseSerializedTimestamp(o.timestamp);
+  if (
+    typeof o.key === 'string'
+    && typeof o.template === 'string'
+    && typeof o.statusCode === 'number'
+    && timestamp
+  ) {
+    return { ...o, timestamp } as unknown as ErrorModel;
+  }
+  return undefined;
+}
+
+/**
  * Base class for well-formed, internationalizable error types.
  * Message keys and interpolation are provided by default.
  * The `message` should be interpolated using arguments wrapped in curlies (i.e. - `{foo}`).
@@ -53,7 +90,8 @@ export abstract class CoreError<T extends ErrorModel> extends Error implements C
     let message = model.template;
     for (const [key, value] of Object.entries(model)) {
       if (key !== 'template' && key !== 'stack' && value !== undefined) {
-        message = message.replace(`{${key}}`, String(value));
+        // replaceAll, not replace — a token may appear more than once in a template
+        message = message.replaceAll(`{${key}}`, String(value));
       }
     }
     return message;
@@ -94,6 +132,8 @@ export abstract class CoreError<T extends ErrorModel> extends Error implements C
    *
    * - CoreError instance → returned unchanged
    * - Object with a registered `key` → rebuilt as the matching subclass
+   * - Well-formed serialized error whose `key` isn't registered → preserved
+   *   verbatim as a {@link GenericCoreError}
    * - Anything else → wrapped in UnexpectedError, extracting `.message`,
    *   `.timestamp`, and `.stack` from the value when present
    */
@@ -114,9 +154,16 @@ export abstract class CoreError<T extends ErrorModel> extends Error implements C
           try {
             return keyLibrary.toError(o);
           } catch {
-            // malformed — fall through to UnexpectedError
+            // malformed for that library — fall through
           }
         }
+      }
+      // No library could rebuild it (key unregistered, or its toError threw),
+      // but if the value is a well-formed serialized error, preserve it verbatim
+      // rather than collapsing to UnexpectedError and losing key/template/status.
+      const model = asSerializedErrorModel(o);
+      if (model) {
+        return new GenericCoreError(model) as unknown as Error & CoreErrorSpec;
       }
     }
 
@@ -187,6 +234,13 @@ export abstract class CoreError<T extends ErrorModel> extends Error implements C
 
     const library = CoreError.errorKeys.get(key);
     if (!library) {
+      // No library for this key in this process — preserve the serialized error
+      // as a generic CoreError rather than throwing an internal error that masks
+      // the real one. Shape was validated above.
+      const model = asSerializedErrorModel(data);
+      if (model) {
+        return new GenericCoreError(model) as unknown as Error & CoreErrorSpec;
+      }
       throw new Error(`No ErrorLibrary located for ${key}`);
     }
     const err = library.toError(data);
@@ -216,11 +270,13 @@ export abstract class CoreError<T extends ErrorModel> extends Error implements C
   toJSON(): any {
     CoreError.ensureInitialized();
     const library = CoreError.errorKeys.get(this.key.toString());
-    if (!library) {
-      throw new Error(`No ErrorLibrary located for ${this.key}`);
-    }
+    // If no library is registered for this key, fall back to a generic
+    // serialisation of the model rather than throwing — toJSON() is typically
+    // called from inside an error handler, and a forgotten ErrorLibrary
+    // registration shouldn't escalate to a crashed (bodyless 500) response.
+    const serialized = library ? library.serialize(this._model) : { ...this._model };
     return {
-      ...library.serialize(this._model),
+      ...serialized,
       stack: this.stack,
     };
   }
@@ -231,5 +287,21 @@ export abstract class CoreError<T extends ErrorModel> extends Error implements C
 
   toDebugString(): string {
     return JSON.stringify(this.toJSON(), null, 2);
+  }
+}
+
+/**
+ * Concrete {@link CoreError} used when a serialized error's `key` isn't
+ * registered with any {@link ErrorLibrary} in the current process. It carries
+ * the wire fields (`key`, `template`, `statusCode`, `timestamp`, plus any extra
+ * model fields) verbatim, so the error still round-trips with the right status
+ * and interpolated message — it just doesn't get a typed subclass's accessors.
+ * Produced by {@link CoreError.from} and {@link CoreError.deserialize}.
+ */
+export class GenericCoreError extends CoreError<ErrorModel> {
+  constructor(model: ErrorModel) {
+    super(model);
+    // Set prototype explicitly for proper instanceof checks
+    Object.setPrototypeOf(this, GenericCoreError.prototype);
   }
 }

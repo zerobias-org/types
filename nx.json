@@ -4,7 +4,10 @@
   "parallel": 4,
   "cacheDirectory": ".nx/cache",
   "namedInputs": {
-    "default": ["{projectRoot}/**/*", "sharedGlobals"],
+    "default": [
+      "{projectRoot}/**/*",
+      "sharedGlobals"
+    ],
     "production": [
       "default",
       "!{projectRoot}/**/?(*.)+(spec|test).[jt]s?(x)?(.snap)",
@@ -12,7 +15,9 @@
       "!{projectRoot}/.eslintrc.json",
       "!{projectRoot}/eslint.config.js"
     ],
-    "sharedGlobals": ["{workspaceRoot}/.github/workflows/publish.yml"]
+    "sharedGlobals": [
+      "{workspaceRoot}/.github/workflows/publish.yml"
+    ]
   },
   "targetDefaults": {
     "clean": {
@@ -22,7 +27,9 @@
       "cache": true
     },
     "generate": {
-      "dependsOn": ["^generate"],
+      "dependsOn": [
+        "^generate"
+      ],
       "cache": true
     },
     "transpile": {
@@ -39,5 +46,6 @@
       ],
       "cache": true
     }
-  }
+  },
+  "analytics": false
 }

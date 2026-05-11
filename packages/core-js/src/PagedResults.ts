@@ -569,7 +569,6 @@ export class PagedResults<T> {
       headers: this.headers,
       timeout: 60_871,
       url,
-      // eslint-disable-next-line unicorn/prefer-structured-clone -- need mutable copy
       params: JSON.parse(JSON.stringify(this.params)),
     };
     return new Promise((resolve: (value: Record<string, PagedResultsColumnOptionsDef>)
@@ -645,7 +644,6 @@ export class PagedResults<T> {
       throw new InvalidStateError('Cannot fetch search column options without baseUrl set');
     }
 
-    // eslint-disable-next-line unicorn/prefer-structured-clone -- need mutable copy with new properties
     const params = JSON.parse(JSON.stringify(this.params));
     params.columnName = columnName;
     params.search = search;
@@ -720,7 +718,6 @@ export class PagedResults<T> {
         throw new InvalidStateError('Cannot compute links without base URL being set');
       }
       const base = `${this.baseUrl.protocol}://${this.baseUrl.host}${this.baseUrl.path}`;
-      // eslint-disable-next-line unicorn/prefer-structured-clone -- need mutable copy with new properties
       const params = JSON.parse(JSON.stringify(this.baseUrl.searchParams));
       params.pageSize = `${this.pageSize}`;
       if (this.pageNumber !== 1) {
@@ -1069,7 +1066,6 @@ export class PagedResults<T> {
     results.pageSize = pageSize;
     results.pageNumber = pageNumber;
     results.pageToken = pageToken;
-    // eslint-disable-next-line unicorn/explicit-length-check -- length is used as value, not boolean
     results.count = count || arr.length;
     results.items = arr.slice(beg, end);
     return results;

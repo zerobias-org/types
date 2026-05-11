@@ -242,7 +242,6 @@ export class CoreType {
 
   private static dereference(ref: string): { name: string, schema: unknown; } | null {
     try {
-      // eslint-disable-next-line unicorn/no-array-callback-reference -- CoreType.find is not Array.find
       const ct = CoreType.find(ref);
       const prop: { name: string, schema: unknown; } = {
         name: ct.name,

@@ -1,4 +1,4 @@
-export { CoreError } from './CoreError.js';
+export { CoreError, GenericCoreError } from './CoreError.js';
 export { CoreErrorSpec } from './CoreErrorSpec.js';
 export { ErrorModel } from './ErrorModel.js';
 export { ErrorLibrary } from '../ErrorLibrary.js';
