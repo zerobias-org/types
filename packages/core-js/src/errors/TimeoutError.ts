@@ -1,4 +1,5 @@
 import { CoreError } from './CoreError.js';
+import { DateTime } from '../types/DateTime.js';
 import { TimeoutError as Model } from '../../generated/model/index.js';
 import { Duration } from '../types/Duration.js';
 
@@ -12,7 +13,7 @@ export class TimeoutError extends CoreError<Model> {
    * @param timestamp - optional timestamp for the error
    * @param cause - optional original error that caused this error
    */
-  constructor(timeout: Duration, timestamp = new Date(), cause?: Error) {
+  constructor(timeout: Duration, timestamp: DateTime = new DateTime(new Date()), cause?: Error) {
     super({
       key: TimeoutError.MESSAGE_KEY,
       template: 'Timeout of {timeout} exceeded',

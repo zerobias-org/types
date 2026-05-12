@@ -1,4 +1,5 @@
 import { CoreError } from './CoreError.js';
+import { DateTime } from '../types/DateTime.js';
 import { NoSuchObjectError as Model } from '../../generated/model/index.js';
 
 export class NoSuchObjectError extends CoreError<Model> {
@@ -12,7 +13,7 @@ export class NoSuchObjectError extends CoreError<Model> {
    * @param timestamp - optional timestamp for the error
    * @param cause - optional original error that caused this error
    */
-  constructor(type: string, id: string, timestamp = new Date(), cause?: Error) {
+  constructor(type: string, id: string, timestamp: DateTime = new DateTime(new Date()), cause?: Error) {
     super({
       key: NoSuchObjectError.MESSAGE_KEY,
       template: 'No such {type}: {id}',

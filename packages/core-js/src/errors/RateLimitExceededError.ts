@@ -1,4 +1,5 @@
 import { CoreError } from './CoreError.js';
+import { DateTime } from '../types/DateTime.js';
 import { RateLimitExceededError as Model } from '../../generated/model/index.js';
 
 export class RateLimitExceededError extends CoreError<Model> {
@@ -12,7 +13,7 @@ export class RateLimitExceededError extends CoreError<Model> {
    * @param duration - optional duration string
    * @param cause - optional original error that caused this error
    */
-  constructor(timestamp = new Date(), callCount?: number, duration?: string, cause?: Error) {
+  constructor(timestamp: DateTime = new DateTime(new Date()), callCount?: number, duration?: string, cause?: Error) {
     super({
       key: RateLimitExceededError.MESSAGE_KEY,
       template: 'Too many calls',

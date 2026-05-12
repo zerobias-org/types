@@ -1,4 +1,5 @@
 import { CoreError } from './CoreError.js';
+import { DateTime } from '../types/DateTime.js';
 import { UnexpectedError as Model } from '../../generated/model/index.js';
 
 export class UnexpectedError extends CoreError<Model> {
@@ -12,7 +13,7 @@ export class UnexpectedError extends CoreError<Model> {
    * @param timestamp - optional timestamp for the error
    * @param cause - optional original error that caused this error
    */
-  constructor(msg: string, statusCode = 500, timestamp = new Date(), cause?: Error) {
+  constructor(msg: string, statusCode = 500, timestamp: DateTime = new DateTime(new Date()), cause?: Error) {
     super({
       key: UnexpectedError.MESSAGE_KEY,
       template: 'Unexpected error: {msg}',

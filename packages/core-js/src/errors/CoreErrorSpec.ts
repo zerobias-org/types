@@ -1,10 +1,12 @@
+import type { DateTime } from '../types/DateTime.js';
+
 /**
  * Interface describing a CoreError
  */
 export interface CoreErrorSpec {
 
   readonly template: string;
-  readonly timestamp: Date;
+  readonly timestamp: DateTime;
   readonly key: string;
   readonly statusCode: number
 

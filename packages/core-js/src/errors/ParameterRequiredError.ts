@@ -1,4 +1,5 @@
 import { CoreError } from './CoreError.js';
+import { DateTime } from '../types/DateTime.js';
 import { ParameterRequiredError as Model } from '../../generated/model/index.js';
 
 export class ParameterRequiredError extends CoreError<Model> {
@@ -11,7 +12,7 @@ export class ParameterRequiredError extends CoreError<Model> {
    * @param timestamp - optional timestamp for the error
    * @param cause - optional original error that caused this error
    */
-  constructor(paramName: string, timestamp = new Date(), cause?: Error) {
+  constructor(paramName: string, timestamp: DateTime = new DateTime(new Date()), cause?: Error) {
     super({
       key: ParameterRequiredError.MESSAGE_KEY,
       template: '{paramName} must be provided',

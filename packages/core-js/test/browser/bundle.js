@@ -7284,6 +7284,47 @@ ${originalIndentation}`;
     }
   });
 
+  // ../../node_modules/semver/functions/truncate.js
+  var require_truncate = __commonJS({
+    "../../node_modules/semver/functions/truncate.js"(exports, module) {
+      "use strict";
+      var parse2 = require_parse();
+      var constants = require_constants();
+      var SemVer = require_semver();
+      var truncate = (version2, truncation, options) => {
+        if (!constants.RELEASE_TYPES.includes(truncation)) {
+          return null;
+        }
+        const clonedVersion = cloneInputVersion(version2, options);
+        return clonedVersion && doTruncation(clonedVersion, truncation);
+      };
+      var cloneInputVersion = (version2, options) => {
+        const versionStringToParse = version2 instanceof SemVer ? version2.version : version2;
+        return parse2(versionStringToParse, options);
+      };
+      var doTruncation = (version2, truncation) => {
+        if (isPrerelease(truncation)) {
+          return version2.version;
+        }
+        version2.prerelease = [];
+        switch (truncation) {
+          case "major":
+            version2.minor = 0;
+            version2.patch = 0;
+            break;
+          case "minor":
+            version2.patch = 0;
+            break;
+        }
+        return version2.format();
+      };
+      var isPrerelease = (type) => {
+        return type.startsWith("pre");
+      };
+      module.exports = truncate;
+    }
+  });
+
   // ../../node_modules/semver/internal/lrucache.js
   var require_lrucache = __commonJS({
     "../../node_modules/semver/internal/lrucache.js"(exports, module) {
@@ -8318,6 +8359,7 @@ ${originalIndentation}`;
       var lte2 = require_lte();
       var cmp = require_cmp();
       var coerce = require_coerce();
+      var truncate = require_truncate();
       var Comparator = require_comparator();
       var Range2 = require_range();
       var satisfies2 = require_satisfies();
@@ -8356,6 +8398,7 @@ ${originalIndentation}`;
         lte: lte2,
         cmp,
         coerce,
+        truncate,
         Comparator,
         Range: Range2,
         satisfies: satisfies2,
@@ -11948,17 +11991,17 @@ ${originalIndentation}`;
           for (const k of orderedUnits$1) {
             if (units.indexOf(k) >= 0) {
               lastUnit = k;
-              let own = 0;
+              let own2 = 0;
               for (const ak in accumulated) {
-                own += this.matrix[ak][k] * accumulated[ak];
+                own2 += this.matrix[ak][k] * accumulated[ak];
                 accumulated[ak] = 0;
               }
               if (isNumber2(vals[k])) {
-                own += vals[k];
+                own2 += vals[k];
               }
-              const i = Math.trunc(own);
+              const i = Math.trunc(own2);
               built[k] = i;
-              accumulated[k] = (own * 1e3 - i * 1e3) / 1e3;
+              accumulated[k] = (own2 * 1e3 - i * 1e3) / 1e3;
             } else if (isNumber2(vals[k])) {
               accumulated[k] = vals[k];
             }
@@ -17549,6 +17592,32 @@ ${originalIndentation}`;
   var wrapper_default = import__.default;
 
   // src/errors/CoreError.ts
+  function parseSerializedTimestamp(value) {
+    if (value instanceof Date) {
+      return Number.isNaN(value.getTime()) ? void 0 : value;
+    }
+    if (typeof value === "string" || typeof value === "number") {
+      const parsed = new Date(value);
+      return Number.isNaN(parsed.getTime()) ? void 0 : parsed;
+    }
+    if (value && typeof value === "object" && typeof value.toString === "function") {
+      const s = value.toString();
+      const parsed = new Date(s);
+      return Number.isNaN(parsed.getTime()) ? void 0 : parsed;
+    }
+    return void 0;
+  }
+  function asSerializedErrorModel(value) {
+    if (!value || typeof value !== "object") {
+      return void 0;
+    }
+    const o = value;
+    const timestamp = parseSerializedTimestamp(o.timestamp);
+    if (typeof o.key === "string" && typeof o.template === "string" && typeof o.statusCode === "number" && timestamp) {
+      return { ...o, timestamp };
+    }
+    return void 0;
+  }
   var _CoreError = class _CoreError extends Error {
     /**
      * Constructs a new Error Object
@@ -17582,7 +17651,7 @@ Caused by: ${cause.stack}`;
       let message = model.template;
       for (const [key, value] of Object.entries(model)) {
         if (key !== "template" && key !== "stack" && value !== void 0) {
-          message = message.replace(`{${key}}`, String(value));
+          message = message.replaceAll(`{${key}}`, String(value));
         }
       }
       return message;
@@ -17619,6 +17688,8 @@ Caused by: ${cause.stack}`;
      *
      * - CoreError instance → returned unchanged
      * - Object with a registered `key` → rebuilt as the matching subclass
+     * - Well-formed serialized error whose `key` isn't registered → preserved
+     *   verbatim as a {@link GenericCoreError}
      * - Anything else → wrapped in UnexpectedError, extracting `.message`,
      *   `.timestamp`, and `.stack` from the value when present
      */
@@ -17638,6 +17709,10 @@ Caused by: ${cause.stack}`;
             }
           }
         }
+        const model = asSerializedErrorModel(o);
+        if (model) {
+          return new GenericCoreError(model);
+        }
       }
       const fallback = _CoreError.errorKeys.get("err.unexpected");
       if (!fallback) {
@@ -17654,14 +17729,9 @@ Caused by: ${cause.stack}`;
       } else if (value && typeof value === "object") {
         const o = value;
         msg = typeof o.message === "string" ? o.message : wrapper_default(value) ?? String(value);
-        if (typeof o.timestamp === "string" || typeof o.timestamp === "number" || o.timestamp instanceof Date) {
-          try {
-            const parsed = new Date(o.timestamp);
-            if (!Number.isNaN(parsed.getTime())) {
-              timestamp = parsed;
-            }
-          } catch {
-          }
+        const parsedTs = parseSerializedTimestamp(o.timestamp);
+        if (parsedTs) {
+          timestamp = parsedTs;
         }
         if (typeof o.stack === "string") {
           causeStack = o.stack;
@@ -17694,6 +17764,10 @@ Caused by: ${causeStack}`;
       }
       const library = _CoreError.errorKeys.get(key);
       if (!library) {
+        const model = asSerializedErrorModel(data);
+        if (model) {
+          return new GenericCoreError(model);
+        }
         throw new Error(`No ErrorLibrary located for ${key}`);
       }
       const err = library.toError(data);
@@ -17717,11 +17791,9 @@ Caused by: ${causeStack}`;
     toJSON() {
       _CoreError.ensureInitialized();
       const library = _CoreError.errorKeys.get(this.key.toString());
-      if (!library) {
-        throw new Error(`No ErrorLibrary located for ${this.key}`);
-      }
+      const serialized = library ? library.serialize(this._model) : { ...this._model };
       return {
-        ...library.serialize(this._model),
+        ...serialized,
         stack: this.stack
       };
     }
@@ -17735,32 +17807,228 @@ Caused by: ${causeStack}`;
   __publicField(_CoreError, "initialized", false);
   __publicField(_CoreError, "errorKeys", /* @__PURE__ */ new Map());
   var CoreError = _CoreError;
+  var GenericCoreError = class _GenericCoreError extends CoreError {
+    constructor(model) {
+      super(model);
+      Object.setPrototypeOf(this, _GenericCoreError.prototype);
+    }
+  };
 
-  // src/errors/IllegalArgumentError.ts
-  var _IllegalArgumentError = class _IllegalArgumentError extends CoreError {
+  // src/types/StringFormat.ts
+  var StringFormat = class {
     /**
-     * Generic error for illegal arguments
+     * @returns a description of this type
+     */
+    static description() {
+      return "Data type that can be represented as a string";
+    }
+    /**
+     * @returns an array of example inputs for this type
+     */
+    static examples() {
+      return ["foo", "bar", "baz"];
+    }
+    /**
+     * @param input - the input value to parse into an object
+     * @returns the given input represented as this type
+     */
+    static async parse(input) {
+      throw new Error("unimplemented");
+    }
+    toJSON() {
+      return this.toString();
+    }
+    /**
+     * Matches this string format against the given value.
+     * `value`'s form is up to the implementation but generally should be a pattern we can match this instance against.
+     * * This does not need to be a valid instance of the type it is matched again, though may be.
+     * @param value
+     * @returns
+     */
+    matches(value) {
+      throw new Error("unimplemented");
+    }
+    /**
+     * @returns Method supporting CTF for pg-promise custom type formatting
+     */
+    toPostgres(self2) {
+      return self2.toString();
+    }
+  };
+
+  // src/errors/EulaNotAcceptedError.ts
+  var _EulaNotAcceptedError = class _EulaNotAcceptedError extends CoreError {
+    /**
+     * Constructs a new error for eula not accepted
+     *
+     * @param eulaId - ID of the eula that must be accepted
+     * @param timestamp - optional timestamp for the error
+     * @param cause - optional original error that caused this error
+     */
+    constructor(eulaId, timestamp = new DateTime(/* @__PURE__ */ new Date()), cause) {
+      super({
+        key: _EulaNotAcceptedError.MESSAGE_KEY,
+        template: "EULA {eulaId} not accepted",
+        statusCode: 403,
+        timestamp,
+        eulaId
+      }, cause);
+      Object.setPrototypeOf(this, _EulaNotAcceptedError.prototype);
+    }
+    get eulaId() {
+      return this._model.eulaId;
+    }
+  };
+  __publicField(_EulaNotAcceptedError, "MESSAGE_KEY", "err.eula.not.accepted");
+  var EulaNotAcceptedError = _EulaNotAcceptedError;
+
+  // src/errors/ForbiddenError.ts
+  var _ForbiddenError = class _ForbiddenError extends CoreError {
+    /**
+     * Generic error for forbidden access
+     *
+     * @param timestamp - optional timestamp for the error
+     * @param cause - optional original error that caused this error
+     */
+    constructor(timestamp = new DateTime(/* @__PURE__ */ new Date()), cause) {
+      super({
+        key: _ForbiddenError.MESSAGE_KEY,
+        template: "Forbidden",
+        statusCode: 403,
+        timestamp
+      }, cause);
+      Object.setPrototypeOf(this, _ForbiddenError.prototype);
+    }
+  };
+  __publicField(_ForbiddenError, "MESSAGE_KEY", "err.forbidden");
+  var ForbiddenError = _ForbiddenError;
+
+  // src/errors/InvalidCredentialsError.ts
+  var _InvalidCredentialsError = class _InvalidCredentialsError extends CoreError {
+    /**
+     * Generic error for invalid credentials
+     *
+     * @param timestamp - optional timestamp for the error
+     * @param cause - optional original error that caused this error
+     */
+    constructor(timestamp = new DateTime(/* @__PURE__ */ new Date()), cause) {
+      super({
+        key: _InvalidCredentialsError.MESSAGE_KEY,
+        template: "Invalid credentials",
+        statusCode: 401,
+        timestamp
+      }, cause);
+      Object.setPrototypeOf(this, _InvalidCredentialsError.prototype);
+    }
+  };
+  __publicField(_InvalidCredentialsError, "MESSAGE_KEY", "err.invalid.credentials");
+  var InvalidCredentialsError = _InvalidCredentialsError;
+
+  // src/errors/InvalidInputError.ts
+  var _InvalidInputError = class _InvalidInputError extends CoreError {
+    /**
+     * Constructs a new error indicating that a given input is invalid
+     *
+     * @param type - the type of the invalid input
+     * @param value - the input value provided
+     * @param examples - some examples of expected inputs
+     * @param timestamp - optional timestamp for the error
+     * @param cause - optional original error that caused this error
+     */
+    constructor(type, value, examples = [], timestamp = new DateTime(/* @__PURE__ */ new Date()), cause) {
+      super({
+        key: _InvalidInputError.MESSAGE_KEY,
+        template: "Invalid {type}: {value}",
+        statusCode: 400,
+        timestamp,
+        type,
+        value,
+        examples: examples.map((v) => v.toString())
+      }, cause);
+      Object.setPrototypeOf(this, _InvalidInputError.prototype);
+    }
+    get type() {
+      return this._model.type;
+    }
+    get value() {
+      return this._model.value;
+    }
+  };
+  __publicField(_InvalidInputError, "MESSAGE_KEY", "err.invalid.input");
+  var InvalidInputError = _InvalidInputError;
+
+  // src/errors/InvalidStateError.ts
+  var _InvalidStateError = class _InvalidStateError extends CoreError {
+    /**
+     * Generic error for invalid state
      *
      * @param msg - message describing the error
      * @param timestamp - optional timestamp for the error
      * @param cause - optional original error that caused this error
      */
-    constructor(msg, timestamp = /* @__PURE__ */ new Date(), cause) {
+    constructor(msg, timestamp = new DateTime(/* @__PURE__ */ new Date()), cause) {
       super({
-        key: _IllegalArgumentError.MESSAGE_KEY,
+        key: _InvalidStateError.MESSAGE_KEY,
         template: "{msg}",
-        statusCode: 400,
+        statusCode: 500,
         timestamp,
         msg
       }, cause);
-      Object.setPrototypeOf(this, _IllegalArgumentError.prototype);
+      Object.setPrototypeOf(this, _InvalidStateError.prototype);
     }
     get msg() {
       return this._model.msg;
     }
   };
-  __publicField(_IllegalArgumentError, "MESSAGE_KEY", "err.illegal.argument");
-  var IllegalArgumentError = _IllegalArgumentError;
+  __publicField(_InvalidStateError, "MESSAGE_KEY", "err.invalid.state");
+  var InvalidStateError = _InvalidStateError;
+
+  // src/errors/NotConnectedError.ts
+  var _NotConnectedError = class _NotConnectedError extends CoreError {
+    /**
+     * Error indicating a system is not currently connected
+     *
+     * @param timestamp - optional timestamp for the error
+     * @param cause - optional original error that caused this error
+     */
+    constructor(timestamp = new DateTime(/* @__PURE__ */ new Date()), cause) {
+      super({
+        key: _NotConnectedError.MESSAGE_KEY,
+        template: "Not connected",
+        statusCode: 400,
+        timestamp
+      }, cause);
+      Object.setPrototypeOf(this, _NotConnectedError.prototype);
+    }
+  };
+  __publicField(_NotConnectedError, "MESSAGE_KEY", "err.not.connected");
+  var NotConnectedError = _NotConnectedError;
+
+  // src/errors/NotFoundError.ts
+  var _NotFoundError = class _NotFoundError extends CoreError {
+    /**
+     * Error indicating a specific thing cannot be located
+     *
+     * @param obj - the item which was not found
+     * @param timestamp - optional timestamp for the error
+     * @param cause - optional original error that caused this error
+     */
+    constructor(obj, timestamp = new DateTime(/* @__PURE__ */ new Date()), cause) {
+      super({
+        key: _NotFoundError.MESSAGE_KEY,
+        template: "Not found: {obj}",
+        statusCode: 404,
+        timestamp,
+        obj
+      }, cause);
+      Object.setPrototypeOf(this, _NotFoundError.prototype);
+    }
+    get obj() {
+      return this._model.obj;
+    }
+  };
+  __publicField(_NotFoundError, "MESSAGE_KEY", "err.not.found");
+  var NotFoundError = _NotFoundError;
 
   // src/errors/NoSuchObjectError.ts
   var _NoSuchObjectError = class _NoSuchObjectError extends CoreError {
@@ -17772,7 +18040,7 @@ Caused by: ${causeStack}`;
      * @param timestamp - optional timestamp for the error
      * @param cause - optional original error that caused this error
      */
-    constructor(type, id, timestamp = /* @__PURE__ */ new Date(), cause) {
+    constructor(type, id, timestamp = new DateTime(/* @__PURE__ */ new Date()), cause) {
       super({
         key: _NoSuchObjectError.MESSAGE_KEY,
         template: "No such {type}: {id}",
@@ -17792,6 +18060,291 @@ Caused by: ${causeStack}`;
   };
   __publicField(_NoSuchObjectError, "MESSAGE_KEY", "err.no.such.object");
   var NoSuchObjectError = _NoSuchObjectError;
+
+  // src/errors/ParameterRequiredError.ts
+  var _ParameterRequiredError = class _ParameterRequiredError extends CoreError {
+    /**
+     * Constructs a new error indicating that a required parameter was not provided to a given operation.
+     *
+     * @param paramName - The name of the missing parameter
+     * @param timestamp - optional timestamp for the error
+     * @param cause - optional original error that caused this error
+     */
+    constructor(paramName, timestamp = new DateTime(/* @__PURE__ */ new Date()), cause) {
+      super({
+        key: _ParameterRequiredError.MESSAGE_KEY,
+        template: "{paramName} must be provided",
+        statusCode: 400,
+        timestamp,
+        paramName
+      }, cause);
+      Object.setPrototypeOf(this, _ParameterRequiredError.prototype);
+    }
+    get paramName() {
+      return this._model.paramName;
+    }
+  };
+  __publicField(_ParameterRequiredError, "MESSAGE_KEY", "err.param.required");
+  var ParameterRequiredError = _ParameterRequiredError;
+
+  // src/errors/RateLimitExceededError.ts
+  var _RateLimitExceededError = class _RateLimitExceededError extends CoreError {
+    /**
+     * Error indicating rate limit has been exceeded
+     *
+     * @param timestamp - optional timestamp for the error
+     * @param callCount - optional number of calls made
+     * @param duration - optional duration string
+     * @param cause - optional original error that caused this error
+     */
+    constructor(timestamp = new DateTime(/* @__PURE__ */ new Date()), callCount, duration, cause) {
+      super({
+        key: _RateLimitExceededError.MESSAGE_KEY,
+        template: "Too many calls",
+        statusCode: 429,
+        timestamp
+      }, cause);
+      if (callCount && duration) {
+        this.message = `Too many calls: ${callCount} calls performed in ${duration} duration`;
+      }
+      Object.setPrototypeOf(this, _RateLimitExceededError.prototype);
+    }
+    get callCount() {
+      return this._model.callCount;
+    }
+    get duration() {
+      return this._model.duration;
+    }
+  };
+  __publicField(_RateLimitExceededError, "MESSAGE_KEY", "err.rate.limit.exceeded");
+  var RateLimitExceededError = _RateLimitExceededError;
+
+  // src/errors/ResultLimitExceededError.ts
+  var _ResultLimitExceededError = class _ResultLimitExceededError extends CoreError {
+    /**
+     * Constructs a new error indicating more results were returned than were requested
+     *
+     * @param requested - The number of results requested
+     * @param returned - The number of results returned
+     * @param timestamp - optional timestamp for the error
+     * @param cause - optional original error that caused this error
+     */
+    constructor(requested, returned, timestamp = new DateTime(/* @__PURE__ */ new Date()), cause) {
+      super({
+        key: _ResultLimitExceededError.MESSAGE_KEY,
+        template: "{requested} results requested but {returned} results returned",
+        statusCode: 500,
+        timestamp,
+        requested,
+        returned
+      }, cause);
+      Object.setPrototypeOf(this, _ResultLimitExceededError.prototype);
+    }
+    get requested() {
+      return this._model.requested;
+    }
+    get returned() {
+      return this._model.returned;
+    }
+  };
+  __publicField(_ResultLimitExceededError, "MESSAGE_KEY", "err.result.limit.exceeded");
+  var ResultLimitExceededError = _ResultLimitExceededError;
+
+  // src/errors/TimeoutError.ts
+  var _TimeoutError = class _TimeoutError extends CoreError {
+    /**
+     * Error indicating a timeout has occurred
+     *
+     * @param timeout - the duration that was exceeded
+     * @param timestamp - optional timestamp for the error
+     * @param cause - optional original error that caused this error
+     */
+    constructor(timeout, timestamp = new DateTime(/* @__PURE__ */ new Date()), cause) {
+      super({
+        key: _TimeoutError.MESSAGE_KEY,
+        template: "Timeout of {timeout} exceeded",
+        statusCode: 500,
+        timestamp,
+        timeout
+      }, cause);
+      Object.setPrototypeOf(this, _TimeoutError.prototype);
+    }
+    get timeout() {
+      return this._model.timeout;
+    }
+  };
+  __publicField(_TimeoutError, "MESSAGE_KEY", "err.timeout");
+  var TimeoutError = _TimeoutError;
+
+  // src/errors/UnauthorizedError.ts
+  var _UnauthorizedError = class _UnauthorizedError extends CoreError {
+    /**
+     * Generic error for unauthorized access
+     *
+     * @param timestamp - optional timestamp for the error
+     * @param cause - optional original error that caused this error
+     */
+    constructor(timestamp = new DateTime(/* @__PURE__ */ new Date()), cause) {
+      super({
+        key: _UnauthorizedError.MESSAGE_KEY,
+        template: "Not authorized",
+        statusCode: 401,
+        timestamp
+      }, cause);
+      Object.setPrototypeOf(this, _UnauthorizedError.prototype);
+    }
+  };
+  __publicField(_UnauthorizedError, "MESSAGE_KEY", "err.not.authorized");
+  var UnauthorizedError = _UnauthorizedError;
+
+  // src/errors/UnauthenticatedError.ts
+  var _UnauthenticatedError = class _UnauthenticatedError extends CoreError {
+    /**
+     * Generic error for unable to authenticate
+     *
+     * @param timestamp - optional timestamp for the error
+     * @param cause - optional original error that caused this error
+     */
+    constructor(timestamp = new DateTime(/* @__PURE__ */ new Date()), cause) {
+      super({
+        key: _UnauthenticatedError.MESSAGE_KEY,
+        template: "Unable to authenticate",
+        statusCode: 401,
+        timestamp
+      }, cause);
+      Object.setPrototypeOf(this, _UnauthenticatedError.prototype);
+    }
+  };
+  __publicField(_UnauthenticatedError, "MESSAGE_KEY", "err.unable.to.authenticate");
+  var UnauthenticatedError = _UnauthenticatedError;
+
+  // src/errors/UnexpectedError.ts
+  var _UnexpectedError = class _UnexpectedError extends CoreError {
+    /**
+     * Constructs a new error for an unhandled error case
+     *
+     * @param msg - Generic error message
+     * @param statusCode - HTTP status code (default 500)
+     * @param timestamp - optional timestamp for the error
+     * @param cause - optional original error that caused this error
+     */
+    constructor(msg, statusCode = 500, timestamp = new DateTime(/* @__PURE__ */ new Date()), cause) {
+      super({
+        key: _UnexpectedError.MESSAGE_KEY,
+        template: "Unexpected error: {msg}",
+        statusCode,
+        timestamp,
+        msg
+      }, cause);
+      Object.setPrototypeOf(this, _UnexpectedError.prototype);
+    }
+    get msg() {
+      return this._model.msg;
+    }
+  };
+  __publicField(_UnexpectedError, "MESSAGE_KEY", "err.unexpected");
+  var UnexpectedError = _UnexpectedError;
+
+  // src/errors/ConflictError.ts
+  var _ConflictError = class _ConflictError extends CoreError {
+    /**
+     * Generic error for conflicting requests.
+     *
+     * @param msg - message describing the error
+     * @param timestamp - optional timestamp for the error
+     * @param cause - optional original error that caused this error
+     */
+    constructor(msg, timestamp = new DateTime(/* @__PURE__ */ new Date()), cause) {
+      super({
+        key: _ConflictError.MESSAGE_KEY,
+        template: "{msg}",
+        statusCode: 409,
+        timestamp,
+        msg
+      }, cause);
+      Object.setPrototypeOf(this, _ConflictError.prototype);
+    }
+    get msg() {
+      return this._model.msg;
+    }
+  };
+  __publicField(_ConflictError, "MESSAGE_KEY", "err.conflict");
+  var ConflictError = _ConflictError;
+
+  // src/types/DateTime.ts
+  var _DateTime = class _DateTime extends StringFormat {
+    constructor(date) {
+      super();
+      __publicField(this, "date");
+      if (date instanceof Date) {
+        this.date = date;
+      } else {
+        if (!_DateTime.pattern.test(date)) {
+          throw new InvalidInputError("date-time", date, _DateTime.examples());
+        }
+        try {
+          this.date = new Date(date);
+        } catch (e) {
+          throw new InvalidInputError("date-time", date, _DateTime.examples());
+        }
+      }
+    }
+    static get coreType() {
+      if (!_DateTime._coreType) _DateTime._coreType = CoreType.get("date-time");
+      return _DateTime._coreType;
+    }
+    static get pattern() {
+      if (!_DateTime._pattern) _DateTime._pattern = new RegExp(_DateTime.coreType.pattern);
+      return _DateTime._pattern;
+    }
+    static description() {
+      return this.coreType.description;
+    }
+    static examples() {
+      return this.coreType.examples.map((example) => example.toString());
+    }
+    static async parse(input) {
+      return new _DateTime(input);
+    }
+    toString() {
+      return this.date.toISOString();
+    }
+    equals(other) {
+      return other && other instanceof _DateTime && other.date === this.date;
+    }
+    toDate() {
+      return this.date;
+    }
+  };
+  __publicField(_DateTime, "_coreType", null);
+  __publicField(_DateTime, "_pattern", null);
+  var DateTime = _DateTime;
+
+  // src/errors/IllegalArgumentError.ts
+  var _IllegalArgumentError = class _IllegalArgumentError extends CoreError {
+    /**
+     * Generic error for illegal arguments
+     *
+     * @param msg - message describing the error
+     * @param timestamp - optional timestamp for the error
+     * @param cause - optional original error that caused this error
+     */
+    constructor(msg, timestamp = new DateTime(/* @__PURE__ */ new Date()), cause) {
+      super({
+        key: _IllegalArgumentError.MESSAGE_KEY,
+        template: "{msg}",
+        statusCode: 400,
+        timestamp,
+        msg
+      }, cause);
+      Object.setPrototypeOf(this, _IllegalArgumentError.prototype);
+    }
+    get msg() {
+      return this._model.msg;
+    }
+  };
+  __publicField(_IllegalArgumentError, "MESSAGE_KEY", "err.illegal.argument");
+  var IllegalArgumentError = _IllegalArgumentError;
 
   // ../../node_modules/pluralize-esm/dist/index.js
   var pluralRules = [];
@@ -20305,7 +20858,7 @@ Caused by: ${causeStack}`;
   var CloudRegionInfo = _CloudRegionInfo;
 
   // generated/model/ConflictError.ts
-  var _ConflictError = class _ConflictError {
+  var _ConflictError2 = class _ConflictError2 {
     constructor(key, template, timestamp, statusCode, msg, stack) {
       /**
       * A unique message key for this error. This is used both for discrimination and i18n
@@ -20339,14 +20892,14 @@ Caused by: ${causeStack}`;
       this.stack = stack;
     }
     static getAttributeTypeMap() {
-      return _ConflictError.attributeTypeMap;
+      return _ConflictError2.attributeTypeMap;
     }
     static newInstance(obj) {
       return ObjectSerializer.deserialize(obj, "ConflictError");
     }
   };
-  __publicField(_ConflictError, "discriminator");
-  __publicField(_ConflictError, "attributeTypeMap", [
+  __publicField(_ConflictError2, "discriminator");
+  __publicField(_ConflictError2, "attributeTypeMap", [
     {
       "name": "key",
       "baseName": "key",
@@ -20369,9 +20922,9 @@ Caused by: ${causeStack}`;
       "name": "timestamp",
       "baseName": "timestamp",
       // false
-      // Date
-      // Date
-      "type": "Date",
+      // DateTime
+      // DateTime
+      "type": "DateTime",
       "format": "date-time"
     },
     {
@@ -20402,7 +20955,7 @@ Caused by: ${causeStack}`;
       "format": ""
     }
   ]);
-  var ConflictError = _ConflictError;
+  var ConflictError2 = _ConflictError2;
 
   // generated/model/ConflictErrorAllOf.ts
   var _ConflictErrorAllOf = class _ConflictErrorAllOf {
@@ -20517,27 +21070,27 @@ Caused by: ${causeStack}`;
       "name": "connected",
       "baseName": "connected",
       // false
-      // Date
-      // Date
-      "type": "Date",
+      // DateTime
+      // DateTime
+      "type": "DateTime",
       "format": "date-time"
     },
     {
       "name": "lastActivity",
       "baseName": "lastActivity",
       // false
-      // Date
-      // Date
-      "type": "Date",
+      // DateTime
+      // DateTime
+      "type": "DateTime",
       "format": "date-time"
     },
     {
       "name": "disconnected",
       "baseName": "disconnected",
       // false
-      // Date
-      // Date
-      "type": "Date",
+      // DateTime
+      // DateTime
+      "type": "DateTime",
       "format": "date-time"
     },
     {
@@ -21104,9 +21657,9 @@ Caused by: ${causeStack}`;
       "name": "timestamp",
       "baseName": "timestamp",
       // false
-      // Date
-      // Date
-      "type": "Date",
+      // DateTime
+      // DateTime
+      "type": "DateTime",
       "format": "date-time"
     },
     {
@@ -21131,7 +21684,7 @@ Caused by: ${causeStack}`;
   var ErrorModelBase = _ErrorModelBase;
 
   // generated/model/EulaNotAcceptedError.ts
-  var _EulaNotAcceptedError = class _EulaNotAcceptedError {
+  var _EulaNotAcceptedError2 = class _EulaNotAcceptedError2 {
     constructor(key, template, timestamp, statusCode, eulaId, stack) {
       /**
       * A unique message key for this error. This is used both for discrimination and i18n
@@ -21165,14 +21718,14 @@ Caused by: ${causeStack}`;
       this.stack = stack;
     }
     static getAttributeTypeMap() {
-      return _EulaNotAcceptedError.attributeTypeMap;
+      return _EulaNotAcceptedError2.attributeTypeMap;
     }
     static newInstance(obj) {
       return ObjectSerializer.deserialize(obj, "EulaNotAcceptedError");
     }
   };
-  __publicField(_EulaNotAcceptedError, "discriminator");
-  __publicField(_EulaNotAcceptedError, "attributeTypeMap", [
+  __publicField(_EulaNotAcceptedError2, "discriminator");
+  __publicField(_EulaNotAcceptedError2, "attributeTypeMap", [
     {
       "name": "key",
       "baseName": "key",
@@ -21195,9 +21748,9 @@ Caused by: ${causeStack}`;
       "name": "timestamp",
       "baseName": "timestamp",
       // false
-      // Date
-      // Date
-      "type": "Date",
+      // DateTime
+      // DateTime
+      "type": "DateTime",
       "format": "date-time"
     },
     {
@@ -21228,7 +21781,7 @@ Caused by: ${causeStack}`;
       "format": ""
     }
   ]);
-  var EulaNotAcceptedError = _EulaNotAcceptedError;
+  var EulaNotAcceptedError2 = _EulaNotAcceptedError2;
 
   // generated/model/EulaNotAcceptedErrorAllOf.ts
   var _EulaNotAcceptedErrorAllOf = class _EulaNotAcceptedErrorAllOf {
@@ -21386,7 +21939,7 @@ Caused by: ${causeStack}`;
   };
 
   // generated/model/ForbiddenError.ts
-  var _ForbiddenError = class _ForbiddenError {
+  var _ForbiddenError2 = class _ForbiddenError2 {
     constructor(key, template, timestamp, statusCode, stack) {
       /**
       * A unique message key for this error. This is used both for discrimination and i18n
@@ -21415,14 +21968,14 @@ Caused by: ${causeStack}`;
       this.stack = stack;
     }
     static getAttributeTypeMap() {
-      return _ForbiddenError.attributeTypeMap;
+      return _ForbiddenError2.attributeTypeMap;
     }
     static newInstance(obj) {
       return ObjectSerializer.deserialize(obj, "ForbiddenError");
     }
   };
-  __publicField(_ForbiddenError, "discriminator");
-  __publicField(_ForbiddenError, "attributeTypeMap", [
+  __publicField(_ForbiddenError2, "discriminator");
+  __publicField(_ForbiddenError2, "attributeTypeMap", [
     {
       "name": "key",
       "baseName": "key",
@@ -21445,9 +21998,9 @@ Caused by: ${causeStack}`;
       "name": "timestamp",
       "baseName": "timestamp",
       // false
-      // Date
-      // Date
-      "type": "Date",
+      // DateTime
+      // DateTime
+      "type": "DateTime",
       "format": "date-time"
     },
     {
@@ -21469,7 +22022,7 @@ Caused by: ${causeStack}`;
       "format": ""
     }
   ]);
-  var ForbiddenError = _ForbiddenError;
+  var ForbiddenError2 = _ForbiddenError2;
 
   // generated/model/GeoCountry.ts
   var GeoCountry = {
@@ -29278,9 +29831,9 @@ Caused by: ${causeStack}`;
       "name": "timestamp",
       "baseName": "timestamp",
       // false
-      // Date
-      // Date
-      "type": "Date",
+      // DateTime
+      // DateTime
+      "type": "DateTime",
       "format": "date-time"
     },
     {
@@ -29344,7 +29897,7 @@ Caused by: ${causeStack}`;
   var IllegalArgumentErrorAllOf = _IllegalArgumentErrorAllOf;
 
   // generated/model/InvalidCredentialsError.ts
-  var _InvalidCredentialsError = class _InvalidCredentialsError {
+  var _InvalidCredentialsError2 = class _InvalidCredentialsError2 {
     constructor(key, template, timestamp, statusCode, stack) {
       /**
       * A unique message key for this error. This is used both for discrimination and i18n
@@ -29373,14 +29926,14 @@ Caused by: ${causeStack}`;
       this.stack = stack;
     }
     static getAttributeTypeMap() {
-      return _InvalidCredentialsError.attributeTypeMap;
+      return _InvalidCredentialsError2.attributeTypeMap;
     }
     static newInstance(obj) {
       return ObjectSerializer.deserialize(obj, "InvalidCredentialsError");
     }
   };
-  __publicField(_InvalidCredentialsError, "discriminator");
-  __publicField(_InvalidCredentialsError, "attributeTypeMap", [
+  __publicField(_InvalidCredentialsError2, "discriminator");
+  __publicField(_InvalidCredentialsError2, "attributeTypeMap", [
     {
       "name": "key",
       "baseName": "key",
@@ -29403,9 +29956,9 @@ Caused by: ${causeStack}`;
       "name": "timestamp",
       "baseName": "timestamp",
       // false
-      // Date
-      // Date
-      "type": "Date",
+      // DateTime
+      // DateTime
+      "type": "DateTime",
       "format": "date-time"
     },
     {
@@ -29427,10 +29980,10 @@ Caused by: ${causeStack}`;
       "format": ""
     }
   ]);
-  var InvalidCredentialsError = _InvalidCredentialsError;
+  var InvalidCredentialsError2 = _InvalidCredentialsError2;
 
   // generated/model/InvalidInputError.ts
-  var _InvalidInputError = class _InvalidInputError {
+  var _InvalidInputError2 = class _InvalidInputError2 {
     constructor(key, template, timestamp, statusCode, type, value, stack, examples) {
       /**
       * A unique message key for this error. This is used both for discrimination and i18n
@@ -29474,14 +30027,14 @@ Caused by: ${causeStack}`;
       this.examples = examples;
     }
     static getAttributeTypeMap() {
-      return _InvalidInputError.attributeTypeMap;
+      return _InvalidInputError2.attributeTypeMap;
     }
     static newInstance(obj) {
       return ObjectSerializer.deserialize(obj, "InvalidInputError");
     }
   };
-  __publicField(_InvalidInputError, "discriminator");
-  __publicField(_InvalidInputError, "attributeTypeMap", [
+  __publicField(_InvalidInputError2, "discriminator");
+  __publicField(_InvalidInputError2, "attributeTypeMap", [
     {
       "name": "key",
       "baseName": "key",
@@ -29504,9 +30057,9 @@ Caused by: ${causeStack}`;
       "name": "timestamp",
       "baseName": "timestamp",
       // false
-      // Date
-      // Date
-      "type": "Date",
+      // DateTime
+      // DateTime
+      "type": "DateTime",
       "format": "date-time"
     },
     {
@@ -29555,7 +30108,7 @@ Caused by: ${causeStack}`;
       "format": ""
     }
   ]);
-  var InvalidInputError = _InvalidInputError;
+  var InvalidInputError2 = _InvalidInputError2;
 
   // generated/model/InvalidInputErrorAllOf.ts
   var _InvalidInputErrorAllOf = class _InvalidInputErrorAllOf {
@@ -29616,7 +30169,7 @@ Caused by: ${causeStack}`;
   var InvalidInputErrorAllOf = _InvalidInputErrorAllOf;
 
   // generated/model/InvalidStateError.ts
-  var _InvalidStateError = class _InvalidStateError {
+  var _InvalidStateError2 = class _InvalidStateError2 {
     constructor(key, template, timestamp, statusCode, msg, stack) {
       /**
       * A unique message key for this error. This is used both for discrimination and i18n
@@ -29650,14 +30203,14 @@ Caused by: ${causeStack}`;
       this.stack = stack;
     }
     static getAttributeTypeMap() {
-      return _InvalidStateError.attributeTypeMap;
+      return _InvalidStateError2.attributeTypeMap;
     }
     static newInstance(obj) {
       return ObjectSerializer.deserialize(obj, "InvalidStateError");
     }
   };
-  __publicField(_InvalidStateError, "discriminator");
-  __publicField(_InvalidStateError, "attributeTypeMap", [
+  __publicField(_InvalidStateError2, "discriminator");
+  __publicField(_InvalidStateError2, "attributeTypeMap", [
     {
       "name": "key",
       "baseName": "key",
@@ -29680,9 +30233,9 @@ Caused by: ${causeStack}`;
       "name": "timestamp",
       "baseName": "timestamp",
       // false
-      // Date
-      // Date
-      "type": "Date",
+      // DateTime
+      // DateTime
+      "type": "DateTime",
       "format": "date-time"
     },
     {
@@ -29713,7 +30266,7 @@ Caused by: ${causeStack}`;
       "format": ""
     }
   ]);
-  var InvalidStateError = _InvalidStateError;
+  var InvalidStateError2 = _InvalidStateError2;
 
   // generated/model/Language.ts
   var Language = {
@@ -31158,9 +31711,9 @@ Caused by: ${causeStack}`;
       "name": "timestamp",
       "baseName": "timestamp",
       // false
-      // Date
-      // Date
-      "type": "Date",
+      // DateTime
+      // DateTime
+      "type": "DateTime",
       "format": "date-time"
     },
     {
@@ -31247,7 +31800,7 @@ Caused by: ${causeStack}`;
   var NoSuchObjectErrorAllOf = _NoSuchObjectErrorAllOf;
 
   // generated/model/NotConnectedError.ts
-  var _NotConnectedError = class _NotConnectedError {
+  var _NotConnectedError2 = class _NotConnectedError2 {
     constructor(key, template, timestamp, statusCode, stack) {
       /**
       * A unique message key for this error. This is used both for discrimination and i18n
@@ -31276,14 +31829,14 @@ Caused by: ${causeStack}`;
       this.stack = stack;
     }
     static getAttributeTypeMap() {
-      return _NotConnectedError.attributeTypeMap;
+      return _NotConnectedError2.attributeTypeMap;
     }
     static newInstance(obj) {
       return ObjectSerializer.deserialize(obj, "NotConnectedError");
     }
   };
-  __publicField(_NotConnectedError, "discriminator");
-  __publicField(_NotConnectedError, "attributeTypeMap", [
+  __publicField(_NotConnectedError2, "discriminator");
+  __publicField(_NotConnectedError2, "attributeTypeMap", [
     {
       "name": "key",
       "baseName": "key",
@@ -31306,9 +31859,9 @@ Caused by: ${causeStack}`;
       "name": "timestamp",
       "baseName": "timestamp",
       // false
-      // Date
-      // Date
-      "type": "Date",
+      // DateTime
+      // DateTime
+      "type": "DateTime",
       "format": "date-time"
     },
     {
@@ -31330,10 +31883,10 @@ Caused by: ${causeStack}`;
       "format": ""
     }
   ]);
-  var NotConnectedError = _NotConnectedError;
+  var NotConnectedError2 = _NotConnectedError2;
 
   // generated/model/NotFoundError.ts
-  var _NotFoundError = class _NotFoundError {
+  var _NotFoundError2 = class _NotFoundError2 {
     constructor(key, template, timestamp, statusCode, obj, stack) {
       /**
       * A unique message key for this error. This is used both for discrimination and i18n
@@ -31367,14 +31920,14 @@ Caused by: ${causeStack}`;
       this.stack = stack;
     }
     static getAttributeTypeMap() {
-      return _NotFoundError.attributeTypeMap;
+      return _NotFoundError2.attributeTypeMap;
     }
     static newInstance(obj) {
       return ObjectSerializer.deserialize(obj, "NotFoundError");
     }
   };
-  __publicField(_NotFoundError, "discriminator");
-  __publicField(_NotFoundError, "attributeTypeMap", [
+  __publicField(_NotFoundError2, "discriminator");
+  __publicField(_NotFoundError2, "attributeTypeMap", [
     {
       "name": "key",
       "baseName": "key",
@@ -31397,9 +31950,9 @@ Caused by: ${causeStack}`;
       "name": "timestamp",
       "baseName": "timestamp",
       // false
-      // Date
-      // Date
-      "type": "Date",
+      // DateTime
+      // DateTime
+      "type": "DateTime",
       "format": "date-time"
     },
     {
@@ -31430,7 +31983,7 @@ Caused by: ${causeStack}`;
       "format": ""
     }
   ]);
-  var NotFoundError = _NotFoundError;
+  var NotFoundError2 = _NotFoundError2;
 
   // generated/model/NotFoundErrorAllOf.ts
   var _NotFoundErrorAllOf = class _NotFoundErrorAllOf {
@@ -31979,7 +32532,7 @@ Caused by: ${causeStack}`;
   };
 
   // generated/model/ParameterRequiredError.ts
-  var _ParameterRequiredError = class _ParameterRequiredError {
+  var _ParameterRequiredError2 = class _ParameterRequiredError2 {
     constructor(key, template, timestamp, statusCode, paramName, stack) {
       /**
       * A unique message key for this error. This is used both for discrimination and i18n
@@ -32013,14 +32566,14 @@ Caused by: ${causeStack}`;
       this.stack = stack;
     }
     static getAttributeTypeMap() {
-      return _ParameterRequiredError.attributeTypeMap;
+      return _ParameterRequiredError2.attributeTypeMap;
     }
     static newInstance(obj) {
       return ObjectSerializer.deserialize(obj, "ParameterRequiredError");
     }
   };
-  __publicField(_ParameterRequiredError, "discriminator");
-  __publicField(_ParameterRequiredError, "attributeTypeMap", [
+  __publicField(_ParameterRequiredError2, "discriminator");
+  __publicField(_ParameterRequiredError2, "attributeTypeMap", [
     {
       "name": "key",
       "baseName": "key",
@@ -32043,9 +32596,9 @@ Caused by: ${causeStack}`;
       "name": "timestamp",
       "baseName": "timestamp",
       // false
-      // Date
-      // Date
-      "type": "Date",
+      // DateTime
+      // DateTime
+      "type": "DateTime",
       "format": "date-time"
     },
     {
@@ -32076,7 +32629,7 @@ Caused by: ${causeStack}`;
       "format": ""
     }
   ]);
-  var ParameterRequiredError = _ParameterRequiredError;
+  var ParameterRequiredError2 = _ParameterRequiredError2;
 
   // generated/model/ParameterRequiredErrorAllOf.ts
   var _ParameterRequiredErrorAllOf = class _ParameterRequiredErrorAllOf {
@@ -32109,7 +32662,7 @@ Caused by: ${causeStack}`;
   var ParameterRequiredErrorAllOf = _ParameterRequiredErrorAllOf;
 
   // generated/model/RateLimitExceededError.ts
-  var _RateLimitExceededError = class _RateLimitExceededError {
+  var _RateLimitExceededError2 = class _RateLimitExceededError2 {
     constructor(key, template, timestamp, statusCode, stack, callCount, duration) {
       /**
       * A unique message key for this error. This is used both for discrimination and i18n
@@ -32148,14 +32701,14 @@ Caused by: ${causeStack}`;
       this.duration = duration;
     }
     static getAttributeTypeMap() {
-      return _RateLimitExceededError.attributeTypeMap;
+      return _RateLimitExceededError2.attributeTypeMap;
     }
     static newInstance(obj) {
       return ObjectSerializer.deserialize(obj, "RateLimitExceededError");
     }
   };
-  __publicField(_RateLimitExceededError, "discriminator");
-  __publicField(_RateLimitExceededError, "attributeTypeMap", [
+  __publicField(_RateLimitExceededError2, "discriminator");
+  __publicField(_RateLimitExceededError2, "attributeTypeMap", [
     {
       "name": "key",
       "baseName": "key",
@@ -32178,9 +32731,9 @@ Caused by: ${causeStack}`;
       "name": "timestamp",
       "baseName": "timestamp",
       // false
-      // Date
-      // Date
-      "type": "Date",
+      // DateTime
+      // DateTime
+      "type": "DateTime",
       "format": "date-time"
     },
     {
@@ -32220,7 +32773,7 @@ Caused by: ${causeStack}`;
       "format": ""
     }
   ]);
-  var RateLimitExceededError = _RateLimitExceededError;
+  var RateLimitExceededError2 = _RateLimitExceededError2;
 
   // generated/model/RateLimitExceededErrorAllOf.ts
   var _RateLimitExceededErrorAllOf = class _RateLimitExceededErrorAllOf {
@@ -32267,7 +32820,7 @@ Caused by: ${causeStack}`;
   var RateLimitExceededErrorAllOf = _RateLimitExceededErrorAllOf;
 
   // generated/model/ResultLimitExceededError.ts
-  var _ResultLimitExceededError = class _ResultLimitExceededError {
+  var _ResultLimitExceededError2 = class _ResultLimitExceededError2 {
     constructor(key, template, timestamp, statusCode, requested, returned, stack) {
       /**
       * A unique message key for this error. This is used both for discrimination and i18n
@@ -32306,14 +32859,14 @@ Caused by: ${causeStack}`;
       this.stack = stack;
     }
     static getAttributeTypeMap() {
-      return _ResultLimitExceededError.attributeTypeMap;
+      return _ResultLimitExceededError2.attributeTypeMap;
     }
     static newInstance(obj) {
       return ObjectSerializer.deserialize(obj, "ResultLimitExceededError");
     }
   };
-  __publicField(_ResultLimitExceededError, "discriminator");
-  __publicField(_ResultLimitExceededError, "attributeTypeMap", [
+  __publicField(_ResultLimitExceededError2, "discriminator");
+  __publicField(_ResultLimitExceededError2, "attributeTypeMap", [
     {
       "name": "key",
       "baseName": "key",
@@ -32336,9 +32889,9 @@ Caused by: ${causeStack}`;
       "name": "timestamp",
       "baseName": "timestamp",
       // false
-      // Date
-      // Date
-      "type": "Date",
+      // DateTime
+      // DateTime
+      "type": "DateTime",
       "format": "date-time"
     },
     {
@@ -32378,7 +32931,7 @@ Caused by: ${causeStack}`;
       "format": ""
     }
   ]);
-  var ResultLimitExceededError = _ResultLimitExceededError;
+  var ResultLimitExceededError2 = _ResultLimitExceededError2;
 
   // generated/model/ResultLimitExceededErrorAllOf.ts
   var _ResultLimitExceededErrorAllOf = class _ResultLimitExceededErrorAllOf {
@@ -32710,27 +33263,27 @@ Caused by: ${causeStack}`;
       "name": "created",
       "baseName": "created",
       // false
-      // Date
-      // Date
-      "type": "Date",
+      // DateTime
+      // DateTime
+      "type": "DateTime",
       "format": "date-time"
     },
     {
       "name": "deleted",
       "baseName": "deleted",
       // false
-      // Date
-      // Date
-      "type": "Date",
+      // DateTime
+      // DateTime
+      "type": "DateTime",
       "format": "date-time"
     },
     {
       "name": "updated",
       "baseName": "updated",
       // false
-      // Date
-      // Date
-      "type": "Date",
+      // DateTime
+      // DateTime
+      "type": "DateTime",
       "format": "date-time"
     }
   ]);
@@ -34006,7 +34559,7 @@ Caused by: ${causeStack}`;
   };
 
   // generated/model/TimeoutError.ts
-  var _TimeoutError = class _TimeoutError {
+  var _TimeoutError2 = class _TimeoutError2 {
     constructor(key, template, timestamp, statusCode, timeout, stack) {
       /**
       * A unique message key for this error. This is used both for discrimination and i18n
@@ -34040,14 +34593,14 @@ Caused by: ${causeStack}`;
       this.stack = stack;
     }
     static getAttributeTypeMap() {
-      return _TimeoutError.attributeTypeMap;
+      return _TimeoutError2.attributeTypeMap;
     }
     static newInstance(obj) {
       return ObjectSerializer.deserialize(obj, "TimeoutError");
     }
   };
-  __publicField(_TimeoutError, "discriminator");
-  __publicField(_TimeoutError, "attributeTypeMap", [
+  __publicField(_TimeoutError2, "discriminator");
+  __publicField(_TimeoutError2, "attributeTypeMap", [
     {
       "name": "key",
       "baseName": "key",
@@ -34070,9 +34623,9 @@ Caused by: ${causeStack}`;
       "name": "timestamp",
       "baseName": "timestamp",
       // false
-      // Date
-      // Date
-      "type": "Date",
+      // DateTime
+      // DateTime
+      "type": "DateTime",
       "format": "date-time"
     },
     {
@@ -34103,7 +34656,7 @@ Caused by: ${causeStack}`;
       "format": ""
     }
   ]);
-  var TimeoutError = _TimeoutError;
+  var TimeoutError2 = _TimeoutError2;
 
   // generated/model/TimeoutErrorAllOf.ts
   var _TimeoutErrorAllOf = class _TimeoutErrorAllOf {
@@ -34491,7 +35044,7 @@ Caused by: ${causeStack}`;
   })(Type || (Type = {}));
 
   // generated/model/UnauthenticatedError.ts
-  var _UnauthenticatedError = class _UnauthenticatedError {
+  var _UnauthenticatedError2 = class _UnauthenticatedError2 {
     constructor(key, template, timestamp, statusCode, stack) {
       /**
       * A unique message key for this error. This is used both for discrimination and i18n
@@ -34520,14 +35073,14 @@ Caused by: ${causeStack}`;
       this.stack = stack;
     }
     static getAttributeTypeMap() {
-      return _UnauthenticatedError.attributeTypeMap;
+      return _UnauthenticatedError2.attributeTypeMap;
     }
     static newInstance(obj) {
       return ObjectSerializer.deserialize(obj, "UnauthenticatedError");
     }
   };
-  __publicField(_UnauthenticatedError, "discriminator");
-  __publicField(_UnauthenticatedError, "attributeTypeMap", [
+  __publicField(_UnauthenticatedError2, "discriminator");
+  __publicField(_UnauthenticatedError2, "attributeTypeMap", [
     {
       "name": "key",
       "baseName": "key",
@@ -34550,9 +35103,9 @@ Caused by: ${causeStack}`;
       "name": "timestamp",
       "baseName": "timestamp",
       // false
-      // Date
-      // Date
-      "type": "Date",
+      // DateTime
+      // DateTime
+      "type": "DateTime",
       "format": "date-time"
     },
     {
@@ -34574,10 +35127,10 @@ Caused by: ${causeStack}`;
       "format": ""
     }
   ]);
-  var UnauthenticatedError = _UnauthenticatedError;
+  var UnauthenticatedError2 = _UnauthenticatedError2;
 
   // generated/model/UnauthorizedError.ts
-  var _UnauthorizedError = class _UnauthorizedError {
+  var _UnauthorizedError2 = class _UnauthorizedError2 {
     constructor(key, template, timestamp, statusCode, stack) {
       /**
       * A unique message key for this error. This is used both for discrimination and i18n
@@ -34606,14 +35159,14 @@ Caused by: ${causeStack}`;
       this.stack = stack;
     }
     static getAttributeTypeMap() {
-      return _UnauthorizedError.attributeTypeMap;
+      return _UnauthorizedError2.attributeTypeMap;
     }
     static newInstance(obj) {
       return ObjectSerializer.deserialize(obj, "UnauthorizedError");
     }
   };
-  __publicField(_UnauthorizedError, "discriminator");
-  __publicField(_UnauthorizedError, "attributeTypeMap", [
+  __publicField(_UnauthorizedError2, "discriminator");
+  __publicField(_UnauthorizedError2, "attributeTypeMap", [
     {
       "name": "key",
       "baseName": "key",
@@ -34636,9 +35189,9 @@ Caused by: ${causeStack}`;
       "name": "timestamp",
       "baseName": "timestamp",
       // false
-      // Date
-      // Date
-      "type": "Date",
+      // DateTime
+      // DateTime
+      "type": "DateTime",
       "format": "date-time"
     },
     {
@@ -34660,10 +35213,10 @@ Caused by: ${causeStack}`;
       "format": ""
     }
   ]);
-  var UnauthorizedError = _UnauthorizedError;
+  var UnauthorizedError2 = _UnauthorizedError2;
 
   // generated/model/UnexpectedError.ts
-  var _UnexpectedError = class _UnexpectedError {
+  var _UnexpectedError2 = class _UnexpectedError2 {
     constructor(key, template, timestamp, statusCode, msg, stack) {
       /**
       * A unique message key for this error. This is used both for discrimination and i18n
@@ -34697,14 +35250,14 @@ Caused by: ${causeStack}`;
       this.stack = stack;
     }
     static getAttributeTypeMap() {
-      return _UnexpectedError.attributeTypeMap;
+      return _UnexpectedError2.attributeTypeMap;
     }
     static newInstance(obj) {
       return ObjectSerializer.deserialize(obj, "UnexpectedError");
     }
   };
-  __publicField(_UnexpectedError, "discriminator");
-  __publicField(_UnexpectedError, "attributeTypeMap", [
+  __publicField(_UnexpectedError2, "discriminator");
+  __publicField(_UnexpectedError2, "attributeTypeMap", [
     {
       "name": "key",
       "baseName": "key",
@@ -34727,9 +35280,9 @@ Caused by: ${causeStack}`;
       "name": "timestamp",
       "baseName": "timestamp",
       // false
-      // Date
-      // Date
-      "type": "Date",
+      // DateTime
+      // DateTime
+      "type": "DateTime",
       "format": "date-time"
     },
     {
@@ -34760,7 +35313,7 @@ Caused by: ${causeStack}`;
       "format": ""
     }
   ]);
-  var UnexpectedError = _UnexpectedError;
+  var UnexpectedError2 = _UnexpectedError2;
 
   // generated/model/UnexpectedErrorAllOf.ts
   var _UnexpectedErrorAllOf = class _UnexpectedErrorAllOf {
@@ -34898,18 +35451,18 @@ Caused by: ${causeStack}`;
       "name": "validFrom",
       "baseName": "validFrom",
       // false
-      // Date
-      // Date
-      "type": "Date",
+      // DateTime
+      // DateTime
+      "type": "DateTime",
       "format": "date-time"
     },
     {
       "name": "validTo",
       "baseName": "validTo",
       // false
-      // Date
-      // Date
-      "type": "Date",
+      // DateTime
+      // DateTime
+      "type": "DateTime",
       "format": "date-time"
     },
     {
@@ -35099,7 +35652,7 @@ Caused by: ${causeStack}`;
     "CipherSuiteInfo": CipherSuiteInfo,
     "CloudMarketInfo": CloudMarketInfo,
     "CloudRegionInfo": CloudRegionInfo,
-    "ConflictError": ConflictError,
+    "ConflictError": ConflictError2,
     "ConflictErrorAllOf": ConflictErrorAllOf,
     "ConnectionMetadata": ConnectionMetadata,
     "ConnectionState": ConnectionState,
@@ -35108,24 +35661,24 @@ Caused by: ${causeStack}`;
     "CronEventAllOf": CronEventAllOf,
     "CronExpression": CronExpression,
     "ErrorModelBase": ErrorModelBase,
-    "EulaNotAcceptedError": EulaNotAcceptedError,
+    "EulaNotAcceptedError": EulaNotAcceptedError2,
     "EulaNotAcceptedErrorAllOf": EulaNotAcceptedErrorAllOf,
     "Event": Event,
-    "ForbiddenError": ForbiddenError,
+    "ForbiddenError": ForbiddenError2,
     "GeoCountryInfo": GeoCountryInfo,
     "GeoPoint": GeoPoint,
     "HubConnectionProfile": HubConnectionProfile,
     "IllegalArgumentError": IllegalArgumentError2,
     "IllegalArgumentErrorAllOf": IllegalArgumentErrorAllOf,
-    "InvalidCredentialsError": InvalidCredentialsError,
-    "InvalidInputError": InvalidInputError,
+    "InvalidCredentialsError": InvalidCredentialsError2,
+    "InvalidInputError": InvalidInputError2,
     "InvalidInputErrorAllOf": InvalidInputErrorAllOf,
-    "InvalidStateError": InvalidStateError,
+    "InvalidStateError": InvalidStateError2,
     "LanguageInfo": LanguageInfo,
     "NoSuchObjectError": NoSuchObjectError2,
     "NoSuchObjectErrorAllOf": NoSuchObjectErrorAllOf,
-    "NotConnectedError": NotConnectedError,
-    "NotFoundError": NotFoundError,
+    "NotConnectedError": NotConnectedError2,
+    "NotFoundError": NotFoundError2,
     "NotFoundErrorAllOf": NotFoundErrorAllOf,
     "OauthClientProfile": OauthClientProfile,
     "OauthConnectionDetails": OauthConnectionDetails,
@@ -35133,23 +35686,23 @@ Caused by: ${causeStack}`;
     "OauthTokenProfile": OauthTokenProfile,
     "OauthTokenState": OauthTokenState,
     "OauthTokenStateAllOf": OauthTokenStateAllOf,
-    "ParameterRequiredError": ParameterRequiredError,
+    "ParameterRequiredError": ParameterRequiredError2,
     "ParameterRequiredErrorAllOf": ParameterRequiredErrorAllOf,
-    "RateLimitExceededError": RateLimitExceededError,
+    "RateLimitExceededError": RateLimitExceededError2,
     "RateLimitExceededErrorAllOf": RateLimitExceededErrorAllOf,
-    "ResultLimitExceededError": ResultLimitExceededError,
+    "ResultLimitExceededError": ResultLimitExceededError2,
     "ResultLimitExceededErrorAllOf": ResultLimitExceededErrorAllOf,
     "SdkConnectionProfile": SdkConnectionProfile,
     "Tag": Tag,
     "TimeZoneInfo": TimeZoneInfo,
-    "TimeoutError": TimeoutError,
+    "TimeoutError": TimeoutError2,
     "TimeoutErrorAllOf": TimeoutErrorAllOf,
     "TokenConnectionState": TokenConnectionState,
     "TokenProfile": TokenProfile,
     "Type": Type,
-    "UnauthenticatedError": UnauthenticatedError,
-    "UnauthorizedError": UnauthorizedError,
-    "UnexpectedError": UnexpectedError,
+    "UnauthenticatedError": UnauthenticatedError2,
+    "UnauthorizedError": UnauthorizedError2,
+    "UnexpectedError": UnexpectedError2,
     "UnexpectedErrorAllOf": UnexpectedErrorAllOf,
     "X509Certificate": X509Certificate,
     "X509Subject": X509Subject
@@ -35270,14 +35823,14 @@ Caused by: ${causeStack}`;
   };
   var ObjectSerializer = class _ObjectSerializer {
     static hasType(type) {
-      return type === "Date" || enumsMap[type] || typeMap[type] || unionMap[type];
+      return type === "DateTime" || type === "DateFormat" || enumsMap[type] || typeMap[type] || unionMap[type];
     }
     static findCorrectType(data, expectedType) {
       if (data == void 0) {
         return expectedType;
       } else if (primitives.indexOf(expectedType.toLowerCase()) !== -1) {
         return expectedType;
-      } else if (expectedType === "Date") {
+      } else if (expectedType === "DateTime" || expectedType === "DateFormat") {
         return expectedType;
       } else {
         if (enumsMap[expectedType]) {
@@ -35320,8 +35873,6 @@ Caused by: ${causeStack}`;
     static serialize(data, type, format) {
       if (data == void 0) {
         return data;
-      } else if (type === "Date") {
-        return data.toISOString();
       } else if (format && CoreType.allFormats().includes(format)) {
         return Object.prototype.hasOwnProperty.call(data, "toJSON") ? data.toJSON() : data.toString();
       } else if (primitives.indexOf(type.toLowerCase()) !== -1) {
@@ -35369,8 +35920,6 @@ Caused by: ${causeStack}`;
         let subType = type.replace("PagedResults<", "");
         subType = subType.substring(0, subType.length - 1);
         return PagedResults.newInstance(data, ((obj) => _ObjectSerializer.deserialize(obj, subType, format)));
-      } else if (type === "Date" && typeof data === "string") {
-        return new Date(data);
       } else if (format && CoreType.allFormats().includes(format)) {
         let sanitizedData = data;
         if (data instanceof Date) {
@@ -35393,7 +35942,7 @@ Caused by: ${causeStack}`;
         if (ctInstance instanceof NumberFormat) {
           return ctInstance.toNumber();
         } else if (ctInstance instanceof DateTime || ctInstance instanceof DateFormat) {
-          return ctInstance.toDate();
+          return ctInstance;
         }
         return ctInstance;
       } else if (primitives.indexOf(type.toLowerCase()) !== -1) {
@@ -35606,432 +36155,6 @@ Caused by: ${causeStack}`;
     getNilUUID: () => getNilUUID
   });
 
-  // src/types/StringFormat.ts
-  var StringFormat = class {
-    /**
-     * @returns a description of this type
-     */
-    static description() {
-      return "Data type that can be represented as a string";
-    }
-    /**
-     * @returns an array of example inputs for this type
-     */
-    static examples() {
-      return ["foo", "bar", "baz"];
-    }
-    /**
-     * @param input - the input value to parse into an object
-     * @returns the given input represented as this type
-     */
-    static async parse(input) {
-      throw new Error("unimplemented");
-    }
-    toJSON() {
-      return this.toString();
-    }
-    /**
-     * Matches this string format against the given value.
-     * `value`'s form is up to the implementation but generally should be a pattern we can match this instance against.
-     * * This does not need to be a valid instance of the type it is matched again, though may be.
-     * @param value
-     * @returns
-     */
-    matches(value) {
-      throw new Error("unimplemented");
-    }
-    /**
-     * @returns Method supporting CTF for pg-promise custom type formatting
-     */
-    toPostgres(self2) {
-      return self2.toString();
-    }
-  };
-
-  // src/errors/EulaNotAcceptedError.ts
-  var _EulaNotAcceptedError2 = class _EulaNotAcceptedError2 extends CoreError {
-    /**
-     * Constructs a new error for eula not accepted
-     *
-     * @param eulaId - ID of the eula that must be accepted
-     * @param timestamp - optional timestamp for the error
-     * @param cause - optional original error that caused this error
-     */
-    constructor(eulaId, timestamp = /* @__PURE__ */ new Date(), cause) {
-      super({
-        key: _EulaNotAcceptedError2.MESSAGE_KEY,
-        template: "EULA {eulaId} not accepted",
-        statusCode: 403,
-        timestamp,
-        eulaId
-      }, cause);
-      Object.setPrototypeOf(this, _EulaNotAcceptedError2.prototype);
-    }
-    get eulaId() {
-      return this._model.eulaId;
-    }
-  };
-  __publicField(_EulaNotAcceptedError2, "MESSAGE_KEY", "err.eula.not.accepted");
-  var EulaNotAcceptedError2 = _EulaNotAcceptedError2;
-
-  // src/errors/ForbiddenError.ts
-  var _ForbiddenError2 = class _ForbiddenError2 extends CoreError {
-    /**
-     * Generic error for forbidden access
-     *
-     * @param timestamp - optional timestamp for the error
-     * @param cause - optional original error that caused this error
-     */
-    constructor(timestamp = /* @__PURE__ */ new Date(), cause) {
-      super({
-        key: _ForbiddenError2.MESSAGE_KEY,
-        template: "Forbidden",
-        statusCode: 403,
-        timestamp
-      }, cause);
-      Object.setPrototypeOf(this, _ForbiddenError2.prototype);
-    }
-  };
-  __publicField(_ForbiddenError2, "MESSAGE_KEY", "err.forbidden");
-  var ForbiddenError2 = _ForbiddenError2;
-
-  // src/errors/InvalidCredentialsError.ts
-  var _InvalidCredentialsError2 = class _InvalidCredentialsError2 extends CoreError {
-    /**
-     * Generic error for invalid credentials
-     *
-     * @param timestamp - optional timestamp for the error
-     * @param cause - optional original error that caused this error
-     */
-    constructor(timestamp = /* @__PURE__ */ new Date(), cause) {
-      super({
-        key: _InvalidCredentialsError2.MESSAGE_KEY,
-        template: "Invalid credentials",
-        statusCode: 401,
-        timestamp
-      }, cause);
-      Object.setPrototypeOf(this, _InvalidCredentialsError2.prototype);
-    }
-  };
-  __publicField(_InvalidCredentialsError2, "MESSAGE_KEY", "err.invalid.credentials");
-  var InvalidCredentialsError2 = _InvalidCredentialsError2;
-
-  // src/errors/InvalidInputError.ts
-  var _InvalidInputError2 = class _InvalidInputError2 extends CoreError {
-    /**
-     * Constructs a new error indicating that a given input is invalid
-     *
-     * @param type - the type of the invalid input
-     * @param value - the input value provided
-     * @param examples - some examples of expected inputs
-     * @param timestamp - optional timestamp for the error
-     * @param cause - optional original error that caused this error
-     */
-    constructor(type, value, examples = [], timestamp = /* @__PURE__ */ new Date(), cause) {
-      super({
-        key: _InvalidInputError2.MESSAGE_KEY,
-        template: "Invalid {type}: {value}",
-        statusCode: 400,
-        timestamp,
-        type,
-        value,
-        examples: examples.map((v) => v.toString())
-      }, cause);
-      Object.setPrototypeOf(this, _InvalidInputError2.prototype);
-    }
-    get type() {
-      return this._model.type;
-    }
-    get value() {
-      return this._model.value;
-    }
-  };
-  __publicField(_InvalidInputError2, "MESSAGE_KEY", "err.invalid.input");
-  var InvalidInputError2 = _InvalidInputError2;
-
-  // src/errors/InvalidStateError.ts
-  var _InvalidStateError2 = class _InvalidStateError2 extends CoreError {
-    /**
-     * Generic error for invalid state
-     *
-     * @param msg - message describing the error
-     * @param timestamp - optional timestamp for the error
-     * @param cause - optional original error that caused this error
-     */
-    constructor(msg, timestamp = /* @__PURE__ */ new Date(), cause) {
-      super({
-        key: _InvalidStateError2.MESSAGE_KEY,
-        template: "{msg}",
-        statusCode: 500,
-        timestamp,
-        msg
-      }, cause);
-      Object.setPrototypeOf(this, _InvalidStateError2.prototype);
-    }
-    get msg() {
-      return this._model.msg;
-    }
-  };
-  __publicField(_InvalidStateError2, "MESSAGE_KEY", "err.invalid.state");
-  var InvalidStateError2 = _InvalidStateError2;
-
-  // src/errors/NotConnectedError.ts
-  var _NotConnectedError2 = class _NotConnectedError2 extends CoreError {
-    /**
-     * Error indicating a system is not currently connected
-     *
-     * @param timestamp - optional timestamp for the error
-     * @param cause - optional original error that caused this error
-     */
-    constructor(timestamp = /* @__PURE__ */ new Date(), cause) {
-      super({
-        key: _NotConnectedError2.MESSAGE_KEY,
-        template: "Not connected",
-        statusCode: 400,
-        timestamp
-      }, cause);
-      Object.setPrototypeOf(this, _NotConnectedError2.prototype);
-    }
-  };
-  __publicField(_NotConnectedError2, "MESSAGE_KEY", "err.not.connected");
-  var NotConnectedError2 = _NotConnectedError2;
-
-  // src/errors/NotFoundError.ts
-  var _NotFoundError2 = class _NotFoundError2 extends CoreError {
-    /**
-     * Error indicating a specific thing cannot be located
-     *
-     * @param obj - the item which was not found
-     * @param timestamp - optional timestamp for the error
-     * @param cause - optional original error that caused this error
-     */
-    constructor(obj, timestamp = /* @__PURE__ */ new Date(), cause) {
-      super({
-        key: _NotFoundError2.MESSAGE_KEY,
-        template: "Not found: {obj}",
-        statusCode: 404,
-        timestamp,
-        obj
-      }, cause);
-      Object.setPrototypeOf(this, _NotFoundError2.prototype);
-    }
-    get obj() {
-      return this._model.obj;
-    }
-  };
-  __publicField(_NotFoundError2, "MESSAGE_KEY", "err.not.found");
-  var NotFoundError2 = _NotFoundError2;
-
-  // src/errors/ParameterRequiredError.ts
-  var _ParameterRequiredError2 = class _ParameterRequiredError2 extends CoreError {
-    /**
-     * Constructs a new error indicating that a required parameter was not provided to a given operation.
-     *
-     * @param paramName - The name of the missing parameter
-     * @param timestamp - optional timestamp for the error
-     * @param cause - optional original error that caused this error
-     */
-    constructor(paramName, timestamp = /* @__PURE__ */ new Date(), cause) {
-      super({
-        key: _ParameterRequiredError2.MESSAGE_KEY,
-        template: "{paramName} must be provided",
-        statusCode: 400,
-        timestamp,
-        paramName
-      }, cause);
-      Object.setPrototypeOf(this, _ParameterRequiredError2.prototype);
-    }
-    get paramName() {
-      return this._model.paramName;
-    }
-  };
-  __publicField(_ParameterRequiredError2, "MESSAGE_KEY", "err.param.required");
-  var ParameterRequiredError2 = _ParameterRequiredError2;
-
-  // src/errors/RateLimitExceededError.ts
-  var _RateLimitExceededError2 = class _RateLimitExceededError2 extends CoreError {
-    /**
-     * Error indicating rate limit has been exceeded
-     *
-     * @param timestamp - optional timestamp for the error
-     * @param callCount - optional number of calls made
-     * @param duration - optional duration string
-     * @param cause - optional original error that caused this error
-     */
-    constructor(timestamp = /* @__PURE__ */ new Date(), callCount, duration, cause) {
-      super({
-        key: _RateLimitExceededError2.MESSAGE_KEY,
-        template: "Too many calls",
-        statusCode: 429,
-        timestamp
-      }, cause);
-      if (callCount && duration) {
-        this.message = `Too many calls: ${callCount} calls performed in ${duration} duration`;
-      }
-      Object.setPrototypeOf(this, _RateLimitExceededError2.prototype);
-    }
-    get callCount() {
-      return this._model.callCount;
-    }
-    get duration() {
-      return this._model.duration;
-    }
-  };
-  __publicField(_RateLimitExceededError2, "MESSAGE_KEY", "err.rate.limit.exceeded");
-  var RateLimitExceededError2 = _RateLimitExceededError2;
-
-  // src/errors/ResultLimitExceededError.ts
-  var _ResultLimitExceededError2 = class _ResultLimitExceededError2 extends CoreError {
-    /**
-     * Constructs a new error indicating more results were returned than were requested
-     *
-     * @param requested - The number of results requested
-     * @param returned - The number of results returned
-     * @param timestamp - optional timestamp for the error
-     * @param cause - optional original error that caused this error
-     */
-    constructor(requested, returned, timestamp = /* @__PURE__ */ new Date(), cause) {
-      super({
-        key: _ResultLimitExceededError2.MESSAGE_KEY,
-        template: "{requested} results requested but {returned} results returned",
-        statusCode: 500,
-        timestamp,
-        requested,
-        returned
-      }, cause);
-      Object.setPrototypeOf(this, _ResultLimitExceededError2.prototype);
-    }
-    get requested() {
-      return this._model.requested;
-    }
-    get returned() {
-      return this._model.returned;
-    }
-  };
-  __publicField(_ResultLimitExceededError2, "MESSAGE_KEY", "err.result.limit.exceeded");
-  var ResultLimitExceededError2 = _ResultLimitExceededError2;
-
-  // src/errors/TimeoutError.ts
-  var _TimeoutError2 = class _TimeoutError2 extends CoreError {
-    /**
-     * Error indicating a timeout has occurred
-     *
-     * @param timeout - the duration that was exceeded
-     * @param timestamp - optional timestamp for the error
-     * @param cause - optional original error that caused this error
-     */
-    constructor(timeout, timestamp = /* @__PURE__ */ new Date(), cause) {
-      super({
-        key: _TimeoutError2.MESSAGE_KEY,
-        template: "Timeout of {timeout} exceeded",
-        statusCode: 500,
-        timestamp,
-        timeout
-      }, cause);
-      Object.setPrototypeOf(this, _TimeoutError2.prototype);
-    }
-    get timeout() {
-      return this._model.timeout;
-    }
-  };
-  __publicField(_TimeoutError2, "MESSAGE_KEY", "err.timeout");
-  var TimeoutError2 = _TimeoutError2;
-
-  // src/errors/UnauthorizedError.ts
-  var _UnauthorizedError2 = class _UnauthorizedError2 extends CoreError {
-    /**
-     * Generic error for unauthorized access
-     *
-     * @param timestamp - optional timestamp for the error
-     * @param cause - optional original error that caused this error
-     */
-    constructor(timestamp = /* @__PURE__ */ new Date(), cause) {
-      super({
-        key: _UnauthorizedError2.MESSAGE_KEY,
-        template: "Not authorized",
-        statusCode: 401,
-        timestamp
-      }, cause);
-      Object.setPrototypeOf(this, _UnauthorizedError2.prototype);
-    }
-  };
-  __publicField(_UnauthorizedError2, "MESSAGE_KEY", "err.not.authorized");
-  var UnauthorizedError2 = _UnauthorizedError2;
-
-  // src/errors/UnauthenticatedError.ts
-  var _UnauthenticatedError2 = class _UnauthenticatedError2 extends CoreError {
-    /**
-     * Generic error for unable to authenticate
-     *
-     * @param timestamp - optional timestamp for the error
-     * @param cause - optional original error that caused this error
-     */
-    constructor(timestamp = /* @__PURE__ */ new Date(), cause) {
-      super({
-        key: _UnauthenticatedError2.MESSAGE_KEY,
-        template: "Unable to authenticate",
-        statusCode: 401,
-        timestamp
-      }, cause);
-      Object.setPrototypeOf(this, _UnauthenticatedError2.prototype);
-    }
-  };
-  __publicField(_UnauthenticatedError2, "MESSAGE_KEY", "err.unable.to.authenticate");
-  var UnauthenticatedError2 = _UnauthenticatedError2;
-
-  // src/errors/UnexpectedError.ts
-  var _UnexpectedError2 = class _UnexpectedError2 extends CoreError {
-    /**
-     * Constructs a new error for an unhandled error case
-     *
-     * @param msg - Generic error message
-     * @param statusCode - HTTP status code (default 500)
-     * @param timestamp - optional timestamp for the error
-     * @param cause - optional original error that caused this error
-     */
-    constructor(msg, statusCode = 500, timestamp = /* @__PURE__ */ new Date(), cause) {
-      super({
-        key: _UnexpectedError2.MESSAGE_KEY,
-        template: "Unexpected error: {msg}",
-        statusCode,
-        timestamp,
-        msg
-      }, cause);
-      Object.setPrototypeOf(this, _UnexpectedError2.prototype);
-    }
-    get msg() {
-      return this._model.msg;
-    }
-  };
-  __publicField(_UnexpectedError2, "MESSAGE_KEY", "err.unexpected");
-  var UnexpectedError2 = _UnexpectedError2;
-
-  // src/errors/ConflictError.ts
-  var _ConflictError2 = class _ConflictError2 extends CoreError {
-    /**
-     * Generic error for conflicting requests.
-     *
-     * @param msg - message describing the error
-     * @param timestamp - optional timestamp for the error
-     * @param cause - optional original error that caused this error
-     */
-    constructor(msg, timestamp = /* @__PURE__ */ new Date(), cause) {
-      super({
-        key: _ConflictError2.MESSAGE_KEY,
-        template: "{msg}",
-        statusCode: 409,
-        timestamp,
-        msg
-      }, cause);
-      Object.setPrototypeOf(this, _ConflictError2.prototype);
-    }
-    get msg() {
-      return this._model.msg;
-    }
-  };
-  __publicField(_ConflictError2, "MESSAGE_KEY", "err.conflict");
-  var ConflictError2 = _ConflictError2;
-
   // src/types/Byte.ts
   var _Byte = class _Byte extends StringFormat {
     constructor(data) {
@@ -36045,7 +36168,7 @@ Caused by: ${causeStack}`;
         }
         this.data = data;
       } catch (e) {
-        throw new InvalidInputError2("byte", data, _Byte.examples());
+        throw new InvalidInputError("byte", data, _Byte.examples());
       }
     }
     static get coreType() {
@@ -36091,7 +36214,7 @@ Caused by: ${causeStack}`;
     }
     static toCidr(input) {
       if (!input.includes("/")) {
-        throw new InvalidInputError2(CIDR, "Subnet was not provided", _Cidr.examples());
+        throw new InvalidInputError(CIDR, "Subnet was not provided", _Cidr.examples());
       }
       const [isValidV4] = import_ip_num.Validator.isValidIPv4CidrNotation(input);
       if (isValidV4) {
@@ -36101,7 +36224,7 @@ Caused by: ${causeStack}`;
       if (isValidV6) {
         return { range: import_ip_num.IPv6CidrRange.fromCidr(input), isV4: false };
       }
-      throw new InvalidInputError2(
+      throw new InvalidInputError(
         CIDR,
         "Provided value is neither a valid ipv4 or ipv6 CIDR",
         _Cidr.examples()
@@ -36173,7 +36296,7 @@ Caused by: ${causeStack}`;
         this.score = (0, import_vuln_vects.parseCvssVector)(input);
         this.cvss = input;
       } catch (e) {
-        throw new InvalidInputError2("cvssVector", input, _CvssVector.coreType.examples);
+        throw new InvalidInputError("cvssVector", input, _CvssVector.coreType.examples);
       }
     }
     static get coreType() {
@@ -36215,13 +36338,13 @@ Caused by: ${causeStack}`;
         this.date = date;
       } else {
         if (!_DateFormat.pattern.test(date)) {
-          throw new InvalidInputError2("date", date, _DateFormat.examples());
+          throw new InvalidInputError("date", date, _DateFormat.examples());
         }
         try {
           this.date = new Date(date);
           this.date.setUTCHours(0, 0, 0, 0);
         } catch (e) {
-          throw new InvalidInputError2("date", date, _DateFormat.examples());
+          throw new InvalidInputError("date", date, _DateFormat.examples());
         }
       }
     }
@@ -36255,55 +36378,6 @@ Caused by: ${causeStack}`;
   __publicField(_DateFormat, "_coreType", null);
   __publicField(_DateFormat, "_pattern", null);
   var DateFormat = _DateFormat;
-
-  // src/types/DateTime.ts
-  var _DateTime = class _DateTime extends StringFormat {
-    constructor(date) {
-      super();
-      __publicField(this, "date");
-      if (date instanceof Date) {
-        this.date = date;
-      } else {
-        if (!_DateTime.pattern.test(date)) {
-          throw new InvalidInputError2("date-time", date, _DateTime.examples());
-        }
-        try {
-          this.date = new Date(date);
-        } catch (e) {
-          throw new InvalidInputError2("date-time", date, _DateTime.examples());
-        }
-      }
-    }
-    static get coreType() {
-      if (!_DateTime._coreType) _DateTime._coreType = CoreType.get("date-time");
-      return _DateTime._coreType;
-    }
-    static get pattern() {
-      if (!_DateTime._pattern) _DateTime._pattern = new RegExp(_DateTime.coreType.pattern);
-      return _DateTime._pattern;
-    }
-    static description() {
-      return this.coreType.description;
-    }
-    static examples() {
-      return this.coreType.examples.map((example) => example.toString());
-    }
-    static async parse(input) {
-      return new _DateTime(input);
-    }
-    toString() {
-      return this.date.toISOString();
-    }
-    equals(other) {
-      return other && other instanceof _DateTime && other.date === this.date;
-    }
-    toDate() {
-      return this.date;
-    }
-  };
-  __publicField(_DateTime, "_coreType", null);
-  __publicField(_DateTime, "_pattern", null);
-  var DateTime = _DateTime;
 
   // src/types/NumberFormat.ts
   var NumberFormat = class {
@@ -36343,7 +36417,7 @@ Caused by: ${causeStack}`;
       super();
       __publicField(this, "value");
       if (Number.isNaN(Number(value))) {
-        throw new InvalidInputError2("double", value, _Double.examples());
+        throw new InvalidInputError("double", value, _Double.examples());
       }
       this.value = value;
     }
@@ -36397,7 +36471,7 @@ Caused by: ${causeStack}`;
       try {
         this.duration = (0, import_iso8601_duration.parse)(duration);
       } catch (e) {
-        throw new InvalidInputError2("duration", duration, _Duration.examples());
+        throw new InvalidInputError("duration", duration, _Duration.examples());
       }
     }
     static get coreType() {
@@ -36458,7 +36532,7 @@ Caused by: ${causeStack}`;
       super();
       __publicField(this, "email");
       if (!_Email.pattern.test(email.toLowerCase())) {
-        throw new InvalidInputError2("email", email, _Email.examples());
+        throw new InvalidInputError("email", email, _Email.examples());
       }
       this.email = email.toLowerCase();
     }
@@ -36496,7 +36570,7 @@ Caused by: ${causeStack}`;
       super();
       __publicField(this, "value");
       if (Number.isNaN(Number(value))) {
-        throw new InvalidInputError2("float", value, _Float.examples());
+        throw new InvalidInputError("float", value, _Float.examples());
       }
       this.value = value;
     }
@@ -36535,7 +36609,7 @@ Caused by: ${causeStack}`;
       __publicField(this, "_isV4");
       const result = _IpAddress.toIp(ip);
       if (!result) {
-        throw new InvalidInputError2("ip", ip, _IpAddress.examples());
+        throw new InvalidInputError("ip", ip, _IpAddress.examples());
       }
       this.ip = result.ip;
       this._isV4 = result.isV4;
@@ -36633,11 +36707,11 @@ Caused by: ${causeStack}`;
       __publicField(this, "hostname");
       try {
         new IpAddress(hostname);
-        throw new InvalidInputError2("hostname", hostname, _Hostname.examples());
+        throw new InvalidInputError("hostname", hostname, _Hostname.examples());
       } catch (e) {
       }
       if (!_Hostname.pattern.test(hostname)) {
-        throw new InvalidInputError2("hostname", hostname, _Hostname.examples());
+        throw new InvalidInputError("hostname", hostname, _Hostname.examples());
       }
       this.hostname = hostname;
     }
@@ -36675,17 +36749,17 @@ Caused by: ${causeStack}`;
       super();
       __publicField(this, "oid");
       if (!oid) {
-        throw new InvalidInputError2("oid", oid, _OID.examples());
+        throw new InvalidInputError("oid", oid, _OID.examples());
       }
       this.oid = [];
       if (Array.isArray(oid)) {
         if (oid.length === 0) {
-          throw new InvalidInputError2("oid", oid, _OID.examples());
+          throw new InvalidInputError("oid", oid, _OID.examples());
         }
         for (let i = 0; i < oid.length; i++) {
           const value = Number.parseInt(oid[i].toString(), 10);
           if (Number.isNaN(value) || value < 0) {
-            throw new InvalidInputError2("oid", oid, _OID.examples());
+            throw new InvalidInputError("oid", oid, _OID.examples());
           }
           this.oid.push(value);
         }
@@ -36696,7 +36770,7 @@ Caused by: ${causeStack}`;
           for (const part of parts) {
             const value = Number.parseInt(part, 10);
             if (Number.isNaN(value) || value < 0) {
-              throw new InvalidInputError2("oid", oid, _OID.examples());
+              throw new InvalidInputError("oid", oid, _OID.examples());
             }
             this.oid.push(value);
           }
@@ -36704,13 +36778,13 @@ Caused by: ${causeStack}`;
       } else {
         const s = oid.toString().trim();
         if (s.length === 0) {
-          throw new InvalidInputError2("oid", oid, _OID.examples());
+          throw new InvalidInputError("oid", oid, _OID.examples());
         }
         const parts = s.split(".");
         for (const part of parts) {
           const value = Number.parseInt(part, 10);
           if (Number.isNaN(value)) {
-            throw new InvalidInputError2("oid", oid, _OID.examples());
+            throw new InvalidInputError("oid", oid, _OID.examples());
           }
           this.oid.push(value);
         }
@@ -36816,10 +36890,10 @@ Caused by: ${causeStack}`;
       const int32Str = String(value);
       const int32 = Number.parseInt(int32Str, 10);
       if (Number.isNaN(int32) || String(int32) !== int32Str) {
-        throw new InvalidInputError2("int32", int32, _Int32.examples());
+        throw new InvalidInputError("int32", int32, _Int32.examples());
       }
       if (int32 < -MAX_VALUE || int32 > MAX_VALUE) {
-        throw new InvalidInputError2("int32", int32, _Int32.examples());
+        throw new InvalidInputError("int32", int32, _Int32.examples());
       }
       this.value = int32;
     }
@@ -36857,10 +36931,10 @@ Caused by: ${causeStack}`;
       const int64Str = String(value);
       const int64 = Number.parseInt(int64Str, 10);
       if (Number.isNaN(int64) || String(int64) !== int64Str) {
-        throw new InvalidInputError2("int64", int64, _Int64.examples());
+        throw new InvalidInputError("int64", int64, _Int64.examples());
       }
       if (int64 < Number.MIN_SAFE_INTEGER || int64 > Number.MAX_SAFE_INTEGER) {
-        throw new InvalidInputError2("int64", int64, _Int64.examples());
+        throw new InvalidInputError("int64", int64, _Int64.examples());
       }
       this.value = int64;
     }
@@ -36898,7 +36972,7 @@ Caused by: ${causeStack}`;
       const intStr = String(value);
       const int = Number.parseInt(intStr, 10);
       if (Number.isNaN(int) || String(int) !== intStr) {
-        throw new InvalidInputError2("integer", int, _Integer.examples());
+        throw new InvalidInputError("integer", int, _Integer.examples());
       }
       this.value = int;
     }
@@ -36934,7 +37008,7 @@ Caused by: ${causeStack}`;
       super();
       __publicField(this, "token");
       if (!_MacAddress.pattern.test(token)) {
-        throw new InvalidInputError2("macAddress", token, _MacAddress.examples());
+        throw new InvalidInputError("macAddress", token, _MacAddress.examples());
       }
       this.token = token;
     }
@@ -44455,7 +44529,7 @@ Caused by: ${causeStack}`;
       __publicField(this, "_name");
       const isValid = _MimeType.isValid(mimeType);
       if (!isValid) {
-        throw new InvalidInputError2("mimeType", mimeType, _MimeType.examples());
+        throw new InvalidInputError("mimeType", mimeType, _MimeType.examples());
       }
       this.mimeType = mimeType;
       this._name = mimeTypes_default.find((type) => type.template === this.mimeType)?.name;
@@ -44509,7 +44583,7 @@ Caused by: ${causeStack}`;
     }
     static toNetmask(input) {
       if (!input) {
-        throw new InvalidInputError2("Netmask", input, _Netmask.examples());
+        throw new InvalidInputError("Netmask", input, _Netmask.examples());
       }
       if (input.startsWith("/")) {
         return _Netmask.fromSlashNotation(input);
@@ -44526,26 +44600,26 @@ Caused by: ${causeStack}`;
     static validate(input) {
       const split = input.split(".");
       if (split.length !== 4) {
-        throw new InvalidInputError2("Netmask", input, _Netmask.examples());
+        throw new InvalidInputError("Netmask", input, _Netmask.examples());
       }
       for (const group of split) {
         const groupNumValue = Number(group);
         if (Number.isNaN(groupNumValue) || groupNumValue < 0 || groupNumValue > 255) {
-          throw new InvalidInputError2("Netmask", input, _Netmask.examples());
+          throw new InvalidInputError("Netmask", input, _Netmask.examples());
         }
       }
       const binValue = split.map((group) => Number(group).toString(2).padStart(8, "0")).join(".");
       if (binValue.indexOf("0") < binValue.lastIndexOf("1")) {
-        throw new InvalidInputError2("Netmask", input, _Netmask.examples());
+        throw new InvalidInputError("Netmask", input, _Netmask.examples());
       }
     }
     static fromSlashNotation(input) {
       if (!input.startsWith("/")) {
-        throw new InvalidInputError2("Netmask", input, _Netmask.examples());
+        throw new InvalidInputError("Netmask", input, _Netmask.examples());
       }
       const numValue = Number(input.replace("/", ""));
       if (Number.isNaN(numValue) || numValue < 0 || numValue > 24) {
-        throw new InvalidInputError2("Netmask", input, _Netmask.examples());
+        throw new InvalidInputError("Netmask", input, _Netmask.examples());
       }
       let binValue = "00000000.00000000.00000000.00000000";
       for (let i = 0; i < numValue; i++) {
@@ -44579,7 +44653,7 @@ Caused by: ${causeStack}`;
       super();
       __publicField(this, "token");
       if (!_Nmtoken.pattern.test(token)) {
-        throw new InvalidInputError2("nmtoken", token, _Nmtoken.examples());
+        throw new InvalidInputError("nmtoken", token, _Nmtoken.examples());
       }
       this.token = token;
     }
@@ -46096,7 +46170,37 @@ Caused by: ${causeStack}`;
             ["[89]"],
             "0$1"
           ], [, "(\\d{2})(\\d{2})(\\d{3})(\\d{3})", "$1 $2 $3 $4", ["5"], "0$1"]], , [, , , , , , , , , [-1]], , , [, , , , , , , , , [-1]], [, , , , , , , , , [-1]], , , [, , , , , , , , , [-1]]],
-          CF: [, [, , "(?:[27]\\d{3}|8776)\\d{4}", , , , , , , [8]], [, , "2[12]\\d{6}", , , , "21612345"], [, , "7[02-7]\\d{6}", , , , "70012345"], [, , , , , , , , , [-1]], [, , "8776\\d{4}", , , , "87761234"], [, , , , , , , , , [-1]], [, , , , , , , , , [-1]], [, , , , , , , , , [-1]], "CF", 236, "00", , , , , , , , [[, "(\\d{2})(\\d{2})(\\d{2})(\\d{2})", "$1 $2 $3 $4", ["[278]"]]], , [, , , , , , , , , [-1]], , , [, , , , , , , , , [-1]], [, , , , , , , , , [-1]], , , [, , , , , , , , , [-1]]],
+          CF: [
+            ,
+            [, , "8776\\d{4}|(?:[27]\\d|61)\\d{6}", , , , , , , [8]],
+            [, , "(?:2[12]|61)\\d{6}", , , , "21612345"],
+            [, , "7[02-7]\\d{6}", , , , "70012345"],
+            [, , , , , , , , , [-1]],
+            [, , "8776\\d{4}", , , , "87761234"],
+            [, , , , , , , , , [-1]],
+            [, , , , , , , , , [-1]],
+            [, , , , , , , , , [-1]],
+            "CF",
+            236,
+            "00",
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            [[, "(\\d{2})(\\d{2})(\\d{2})(\\d{2})", "$1 $2 $3 $4", ["[26-8]"]]],
+            ,
+            [, , , , , , , , , [-1]],
+            ,
+            ,
+            [, , , , , , , , , [-1]],
+            [, , , , , , , , , [-1]],
+            ,
+            ,
+            [, , , , , , , , , [-1]]
+          ],
           CG: [, [, , "222\\d{6}|(?:0\\d|80)\\d{7}", , , , , , , [9]], [, , "222[1-589]\\d{5}", , , , "222123456"], [, , "026(?:1[0-5]|6[6-9])\\d{4}|0(?:[14-6]\\d\\d|2(?:40|5[5-8]|6[07-9]))\\d{5}", , , , "061234567"], [, , , , , , , , , [-1]], [, , "80[0-2]\\d{6}", , , , "800123456"], [, , , , , , , , , [-1]], [, , , , , , , , , [-1]], [, , , , , , , , , [-1]], "CG", 242, "00", , , , , , , , [[, "(\\d)(\\d{4})(\\d{4})", "$1 $2 $3", ["8"]], [, "(\\d{2})(\\d{3})(\\d{4})", "$1 $2 $3", ["[02]"]]], , [, , , , , , , , , [-1]], , , [, , , , , , , , , [-1]], [, , , , , , , , , [-1]], , , [, , , , , , , , , [-1]]],
           CH: [, [
             ,
@@ -47255,7 +47359,7 @@ Caused by: ${causeStack}`;
             ["6|7[245]"],
             "0$1"
           ], [, "(\\d{2})(\\d{3})(\\d{3,4})", "$1 $2 $3", ["9"], "0$1"], [, "(\\d{2})(\\d{3})(\\d{3,4})", "$1 $2 $3", ["[2-57]"], "0$1"], [, "(\\d{3})(\\d{3})(\\d{3})", "$1 $2 $3", ["8"], "0$1"]], , [, , , , , , , , , [-1]], , , [, , , , , , , , , [-1]], [, , "62\\d{6,7}|72\\d{6}", , , , "62123456", , , [8, 9]], , , [, , , , , , , , , [-1]]],
-          HT: [, [, , "[2-589]\\d{7}", , , , , , , [8]], [, , "2(?:2\\d|5[1-5]|81|9[149])\\d{5}", , , , "22453300"], [, , "(?:[34]\\d|5[56])\\d{6}", , , , "34101234"], [, , "8\\d{7}", , , , "80012345"], [
+          HT: [, [, , "[2-589]\\d{7}", , , , , , , [8]], [, , "2(?:2\\d|5[1-5]|81|9[149])\\d{5}", , , , "22453300"], [, , "(?:[34]\\d|5[568])\\d{6}", , , , "34101234"], [, , "8\\d{7}", , , , "80012345"], [
             ,
             ,
             ,
@@ -47925,10 +48029,10 @@ Caused by: ${causeStack}`;
             ,
             "5002345678"
           ], [, , , , , , , , , [-1]], "KY", 1, "011", "1", , , "([2-9]\\d{6})$|1", "345$1", , , , , [, , , , , , , , , [-1]], , "345", [, , , , , , , , , [-1]], [, , , , , , , , , [-1]], , , [, , , , , , , , , [-1]]],
-          KZ: [, [, , "(?:33622|8\\d{8})\\d{5}|[78]\\d{9}", , , , , , , [10, 14], [5, 6, 7]], [
+          KZ: [, [, , "8\\d{13}|[78]\\d{9}", , , , , , , [10, 14], [5, 6, 7]], [
             ,
             ,
-            "(?:33622|7(?:1(?:0(?:[23]\\d|4[0-3]|59|63)|1(?:[23]\\d|4[0-79]|59)|2(?:[23]\\d|59)|3(?:2\\d|3[0-79]|4[0-35-9]|59)|4(?:[24]\\d|3[013-9]|5[1-9]|97)|5(?:2\\d|3[1-9]|4[0-7]|59)|6(?:[2-4]\\d|5[19]|61)|72\\d|8(?:[27]\\d|3[1-46-9]|4[0-5]|59))|2(?:1(?:[23]\\d|4[46-9]|5[3469])|2(?:2\\d|3[0679]|46|5[12679])|3(?:[2-4]\\d|5[139])|4(?:2\\d|3[1-35-9]|59)|5(?:[23]\\d|4[0-8]|59|61)|6(?:2\\d|3[1-9]|4[0-4]|59)|7(?:[2379]\\d|40|5[279])|8(?:[23]\\d|4[0-3]|59)|9(?:2\\d|3[124578]|59))))\\d{5}",
+            "7(?:1(?:0(?:[23]\\d|4[0-3]|59|63)|1(?:[23]\\d|4[0-79]|59)|2(?:[23]\\d|59)|3(?:2\\d|3[0-79]|4[0-35-9]|59)|4(?:[24]\\d|3[013-9]|5[1-9]|97)|5(?:2\\d|3[1-9]|4[0-7]|59)|6(?:[2-4]\\d|5[19]|61)|72\\d|8(?:[27]\\d|3[1-46-9]|4[0-5]|59))|2(?:1(?:[23]\\d|4[46-9]|5[3469])|2(?:2\\d|3[0679]|46|5[12679])|3(?:[2-4]\\d|5[139])|4(?:2\\d|3[1-35-9]|59)|5(?:[23]\\d|4[0-8]|59|61)|6(?:2\\d|3[1-9]|4[0-4]|59)|7(?:[2379]\\d|40|5[279])|8(?:[23]\\d|4[0-3]|59)|9(?:2\\d|3[124578]|59)))\\d{5}",
             ,
             ,
             ,
@@ -47937,7 +48041,7 @@ Caused by: ${causeStack}`;
             ,
             [10],
             [5, 6, 7]
-          ], [, , "7(?:0[0-25-8]|47|6[0-4]|7[15-8]|85)\\d{7}", , , , "7710009998", , , [10]], [, , "8(?:00|108\\d{3})\\d{7}", , , , "8001234567"], [, , "809\\d{7}", , , , "8091234567", , , [10]], [, , , , , , , , , [-1]], [, , "808\\d{7}", , , , "8081234567", , , [10]], [, , "751\\d{7}", , , , "7511234567", , , [10]], "KZ", 7, "810", "8", , , "8", , "8~10", , , , [, , , , , , , , , [-1]], , "33622|7", [, , "751\\d{7}", , , , , , , [10]], [, , , , , , , , , [-1]], , , [, , , , , , , , , [-1]]],
+          ], [, , "7(?:0[0-25-8]|47|6[0-4]|7[15-8]|85)\\d{7}", , , , "7710009998", , , [10]], [, , "8(?:00|108\\d{3})\\d{7}", , , , "8001234567"], [, , "809\\d{7}", , , , "8091234567", , , [10]], [, , , , , , , , , [-1]], [, , "808\\d{7}", , , , "8081234567", , , [10]], [, , "751\\d{7}", , , , "7511234567", , , [10]], "KZ", 7, "810", "8", , , "8", , "8~10", , , , [, , , , , , , , , [-1]], , "7", [, , "751\\d{7}", , , , , , , [10]], [, , , , , , , , , [-1]], , , [, , , , , , , , , [-1]]],
           LA: [, [, , "[23]\\d{9}|3\\d{8}|(?:[235-8]\\d|41)\\d{6}", , , , , , , [8, 9, 10], [6]], [
             ,
             ,
@@ -48073,7 +48177,7 @@ Caused by: ${causeStack}`;
             ,
             [, , , , , , , , , [-1]]
           ],
-          LU: [, [, , "35[013-9]\\d{4,8}|6\\d{8}|35\\d{2,4}|(?:[2457-9]\\d|3[0-46-9])\\d{2,9}", , , , , , , [4, 5, 6, 7, 8, 9, 10, 11]], [, , "(?:35[013-9]|80[2-9]|90[89])\\d{1,8}|(?:2[2-9]|3[0-46-9]|[457]\\d|8[13-9]|9[2-579])\\d{2,9}", , , , "27123456"], [, , "6(?:[269][18]|5[1568]|7[189]|81)\\d{6}", , , , "628123456", , , [9]], [, , "800\\d{5}", , , , "80012345", , , [8]], [, , "90[015]\\d{5}", , , , "90012345", , , [8]], [, , "801\\d{5}", , , , "80112345", , , [8]], [, , , , , , , , , [-1]], [
+          LU: [, [, , "35[013-9]\\d{4,8}|6\\d{8}|35\\d{2,4}|(?:[2457-9]\\d|3[0-46-9])\\d{2,9}", , , , , , , [4, 5, 6, 7, 8, 9, 10, 11]], [, , "(?:35[013-9]|80[2-9]|90[89])\\d{1,8}|(?:2[2-9]|3[0-46-9]|[457]\\d|8[13-9]|9[2-579])\\d{2,9}", , , , "27123456"], [, , "6(?:[26][18]|5[1568]|7[189]|81|9[128])\\d{6}", , , , "628123456", , , [9]], [, , "800\\d{5}", , , , "80012345", , , [8]], [, , "90[015]\\d{5}", , , , "90012345", , , [8]], [, , "801\\d{5}", , , , "80112345", , , [8]], [, , , , , , , , , [-1]], [
             ,
             ,
             "20(?:1\\d{5}|[2-689]\\d{1,7})",
@@ -48084,23 +48188,23 @@ Caused by: ${causeStack}`;
             ,
             ,
             [4, 5, 6, 7, 8, 9, 10]
-          ], "LU", 352, "00", , , , "(15(?:0[06]|1[12]|[35]5|4[04]|6[26]|77|88|99)\\d)", , , , [[, "(\\d{2})(\\d{3})", "$1 $2", ["2(?:0[2-689]|[2-9])|[3-57]|8(?:0[2-9]|[13-9])|9(?:0[89]|[2-579])"], , "$CC $1"], [, "(\\d{2})(\\d{2})(\\d{2})", "$1 $2 $3", ["2(?:0[2-689]|[2-9])|[3-57]|8(?:0[2-9]|[13-9])|9(?:0[89]|[2-579])"], , "$CC $1"], [, "(\\d{2})(\\d{2})(\\d{3})", "$1 $2 $3", ["20[2-689]"], , "$CC $1"], [, "(\\d{2})(\\d{2})(\\d{2})(\\d{1,2})", "$1 $2 $3 $4", ["2(?:[0367]|4[3-8])"], , "$CC $1"], [
+          ], "LU", 352, "00", , , , "(15(?:0[06]|1[12]|[35]5|4[04]|6[26]|77|88|99)\\d)", , , , [[, "(\\d{2})(\\d{3})", "$1 $2", ["2(?:0[2-689]|[2-9])|[3-57]|8(?:0[2-9]|[13-9])|9(?:0[89]|[2-579])"], , "$CC $1"], [, "(\\d{2})(\\d{2})(\\d{2})", "$1 $2 $3", ["2(?:0[2-689]|[2-9])|[3-57]|8(?:0[2-9]|[13-9])|9(?:0[89]|[2-579])"], , "$CC $1"], [, "(\\d{2})(\\d{2})(\\d{3})", "$1 $2 $3", ["20[2-689]"], , "$CC $1"], [, "(\\d{2})(\\d{2})(\\d{2})(\\d{1,2})", "$1 $2 $3 $4", ["20"], , "$CC $1"], [
             ,
-            "(\\d{3})(\\d{2})(\\d{3})",
-            "$1 $2 $3",
-            ["80[01]|90[015]"],
+            "(\\d{2})(\\d{2})(\\d{2})(\\d{1,5})",
+            "$1 $2 $3 $4",
+            ["[3-57]|8[13-9]|9(?:0[89]|[2-579])|(?:2|80)[2-9]"],
             ,
             "$CC $1"
-          ], [, "(\\d{2})(\\d{2})(\\d{2})(\\d{3})", "$1 $2 $3 $4", ["20"], , "$CC $1"], [, "(\\d{3})(\\d{3})(\\d{3})", "$1 $2 $3", ["6"], , "$CC $1"], [, "(\\d{2})(\\d{2})(\\d{2})(\\d{2})(\\d{1,2})", "$1 $2 $3 $4 $5", ["2(?:[0367]|4[3-8])"], , "$CC $1"], [, "(\\d{2})(\\d{2})(\\d{2})(\\d{1,5})", "$1 $2 $3 $4", ["[3-57]|8[13-9]|9(?:0[89]|[2-579])|(?:2|80)[2-9]"], , "$CC $1"]], , [, , , , , , , , , [-1]], , , [, , , , , , , , , [-1]], [, , , , , , , , , [-1]], , , [, , , , , , , , , [-1]]],
-          LV: [, [, , "(?:[268]\\d|78|90)\\d{6}", , , , , , , [8]], [
+          ], [, "(\\d{3})(\\d{2})(\\d{3})", "$1 $2 $3", ["80[01]|90[015]"], , "$CC $1"], [, "(\\d{2})(\\d{2})(\\d{2})(\\d{3})", "$1 $2 $3 $4", ["20"], , "$CC $1"], [, "(\\d{3})(\\d{3})(\\d{3})", "$1 $2 $3", ["6"], , "$CC $1"], [, "(\\d{2})(\\d{2})(\\d{2})(\\d{2})(\\d{1,2})", "$1 $2 $3 $4 $5", ["20"], , "$CC $1"]], , [, , , , , , , , , [-1]], , , [, , , , , , , , , [-1]], [, , , , , , , , , [-1]], , , [, , , , , , , , , [-1]]],
+          LV: [, [, , "(?:[268]\\d|78|90)\\d{6}", , , , , , , [8]], [, , "6\\d{7}", , , , "63123456"], [
             ,
             ,
-            "6\\d{7}",
+            "2333[0-8]\\d{3}|2(?:[0-24-9]\\d\\d|3(?:0[07]|[14-9]\\d|2[02-9]|3[0-24-9]))\\d{4}",
             ,
             ,
             ,
-            "63123456"
-          ], [, , "2333[0-8]\\d{3}|2(?:[0-24-9]\\d\\d|3(?:0[07]|[14-9]\\d|2[02-9]|3[0-24-9]))\\d{4}", , , , "21234567"], [, , "80\\d{6}", , , , "80123456"], [, , "90\\d{6}", , , , "90123456"], [, , "81\\d{6}", , , , "81123456"], [, , , , , , , , , [-1]], [, , , , , , , , , [-1]], "LV", 371, "00", , , , , , , , [[, "(\\d{2})(\\d{3})(\\d{3})", "$1 $2 $3", ["[2679]|8[01]"]]], , [, , , , , , , , , [-1]], , , [, , , , , , , , , [-1]], [, , , , , , , , , [-1]], , , [, , , , , , , , , [-1]]],
+            "21234567"
+          ], [, , "80\\d{6}", , , , "80123456"], [, , "90\\d{6}", , , , "90123456"], [, , "81\\d{6}", , , , "81123456"], [, , , , , , , , , [-1]], [, , , , , , , , , [-1]], "LV", 371, "00", , , , , , , , [[, "(\\d{2})(\\d{3})(\\d{3})", "$1 $2 $3", ["[2679]|8[01]"]]], , [, , , , , , , , , [-1]], , , [, , , , , , , , , [-1]], [, , , , , , , , , [-1]], , , [, , , , , , , , , [-1]]],
           LY: [, [, , "[2-9]\\d{8}", , , , , , , [9], [7]], [
             ,
             ,
@@ -48947,7 +49051,7 @@ Caused by: ${causeStack}`;
             ,
             [11, 12]
           ], , , [, , , , , , , , , [-1]]],
-          PL: [, [, , "(?:6|8\\d\\d)\\d{7}|[1-9]\\d{6}(?:\\d{2})?|[26]\\d{5}", , , , , , , [6, 7, 8, 9, 10]], [, , "47\\d{7}|(?:1[2-8]|2[2-69]|3[2-4]|4[1-468]|5[24-689]|6[1-3578]|7[14-7]|8[1-79]|9[145])(?:[02-9]\\d{6}|1(?:[0-8]\\d{5}|9\\d{3}(?:\\d{2})?))", , , , "123456789", , , [7, 9]], [, , "2131[89]\\d{4}|21(?:1[013-5]|2\\d|3[2-9])\\d{5}|(?:45|5[0137]|6[069]|7[2389]|88)\\d{7}", , , , "512345678", , , [9]], [, , "800\\d{6,7}", , , , "800123456", , , [9, 10]], [, , "70[01346-8]\\d{6}", , , , "701234567", , , [9]], [
+          PL: [, [, , "(?:6|8\\d\\d)\\d{7}|[1-9]\\d{6}(?:\\d{2})?|[26]\\d{5}", , , , , , , [6, 7, 8, 9, 10]], [, , "47\\d{7}|(?:1[2-8]|2[2-69]|3[2-4]|4[1-468]|5[24-689]|6[1-3578]|7[14-7]|8[1-79]|9[145])(?:[02-9]\\d{6}|1(?:[0-8]\\d{5}|9\\d{3}(?:\\d{2})?))", , , , "123456789", , , [7, 9]], [, , "21(?:1[013-5]|2\\d|3[1-9])\\d{5}|(?:45|5[0137]|6[069]|7[2389]|88)\\d{7}", , , , "512345678", , , [9]], [, , "800\\d{6,7}", , , , "800123456", , , [9, 10]], [, , "70[01346-8]\\d{6}", , , , "701234567", , , [9]], [
             ,
             ,
             "801\\d{6}",
@@ -49133,20 +49237,22 @@ Caused by: ${causeStack}`;
             ,
             [10, 14],
             [7]
-          ], [, , "336(?:[013-9]\\d|2[013-9])\\d{5}|(?:3(?:0[12]|4[1-35-79]|5[1-3]|65|8[1-58]|9[0145])|4(?:01|1[1356]|2[13467]|7[1-5]|8[1-7]|9[1-689])|8(?:1[1-8]|2[01]|3[13-6]|4[0-8]|5[15-7]|6[0-35-79]|7[1-37-9]))\\d{7}", , , , "3011234567", , , [10], [7]], [, , "9\\d{9}", , , , "9123456789", , , [10]], [, , "8(?:0[04]|108\\d{3})\\d{7}", , , , "8001234567"], [, , "80[39]\\d{7}", , , , "8091234567", , , [10]], [, , , , , , , , , [-1]], [, , "808\\d{7}", , , , "8081234567", , , [10]], [, , , , , , , , , [-1]], "RU", 7, "810", "8", , , "8", , "8~10", , [[
-            ,
-            "(\\d{3})(\\d{2})(\\d{2})",
-            "$1-$2-$3",
-            ["[0-79]"]
-          ], [, "(\\d{4})(\\d{2})(\\d{2})(\\d{2})", "$1 $2 $3 $4", ["7(?:1[0-8]|2[1-9])", "7(?:1(?:[0-356]2|4[29]|7|8[27])|2(?:1[23]|[2-9]2))", "7(?:1(?:[0-356]2|4[29]|7|8[27])|2(?:13[03-69]|62[013-9]))|72[1-57-9]2"], "8 ($1)", , 1], [
-            ,
-            "(\\d{5})(\\d)(\\d{2})(\\d{2})",
-            "$1 $2 $3 $4",
-            ["7(?:1[0-68]|2[1-9])", "7(?:1(?:[06][3-6]|[18]|2[35]|[3-5][3-5])|2(?:[13][3-5]|[24-689]|7[457]))", "7(?:1(?:0(?:[356]|4[023])|[18]|2(?:3[013-9]|5)|3[45]|43[013-79]|5(?:3[1-8]|4[1-7]|5)|6(?:3[0-35-9]|[4-6]))|2(?:1(?:3[178]|[45])|[24-689]|3[35]|7[457]))|7(?:14|23)4[0-8]|71(?:33|45)[1-79]"],
-            "8 ($1)",
-            ,
-            1
-          ], [, "(\\d{3})(\\d{3})(\\d{4})", "$1 $2 $3", ["7"], "8 ($1)", , 1], [, "(\\d{3})(\\d{3})(\\d{2})(\\d{2})", "$1 $2-$3-$4", ["[349]|8(?:[02-7]|1[1-8])"], "8 ($1)", , 1], [, "(\\d{4})(\\d{4})(\\d{3})(\\d{3})", "$1 $2 $3 $4", ["8"], "8 ($1)"]], [[, "(\\d{4})(\\d{2})(\\d{2})(\\d{2})", "$1 $2 $3 $4", ["7(?:1[0-8]|2[1-9])", "7(?:1(?:[0-356]2|4[29]|7|8[27])|2(?:1[23]|[2-9]2))", "7(?:1(?:[0-356]2|4[29]|7|8[27])|2(?:13[03-69]|62[013-9]))|72[1-57-9]2"], "8 ($1)", , 1], [, "(\\d{5})(\\d)(\\d{2})(\\d{2})", "$1 $2 $3 $4", [
+          ], [, , "(?:3(?:0[12]|36|4[1-35-79]|5[1-3]|65|8[1-58]|9[0145])|4(?:01|1[1356]|2[13467]|7[1-5]|8[1-7]|9[1-689])|8(?:1[1-8]|2[01]|3[13-6]|4[0-8]|5[15-7]|6[0-35-79]|7[1-37-9]))\\d{7}", , , , "3011234567", , , [10], [7]], [, , "9\\d{9}", , , , "9123456789", , , [10]], [, , "8(?:0[04]|108\\d{3})\\d{7}", , , , "8001234567"], [, , "80[39]\\d{7}", , , , "8091234567", , , [10]], [, , , , , , , , , [-1]], [, , "808\\d{7}", , , , "8081234567", , , [10]], [, , , , , , , , , [-1]], "RU", 7, "810", "8", , , "8", , "8~10", , [
+            [, "(\\d{3})(\\d{2})(\\d{2})", "$1-$2-$3", ["[0-79]"]],
+            [, "(\\d{4})(\\d{2})(\\d{2})(\\d{2})", "$1 $2 $3 $4", ["7(?:1[0-8]|2[1-9])", "7(?:1(?:[0-356]2|4[29]|7|8[27])|2(?:1[23]|[2-9]2))", "7(?:1(?:[0-356]2|4[29]|7|8[27])|2(?:13[03-69]|62[013-9]))|72[1-57-9]2"], "8 ($1)", , 1],
+            [
+              ,
+              "(\\d{5})(\\d)(\\d{2})(\\d{2})",
+              "$1 $2 $3 $4",
+              ["7(?:1[0-68]|2[1-9])", "7(?:1(?:[06][3-6]|[18]|2[35]|[3-5][3-5])|2(?:[13][3-5]|[24-689]|7[457]))", "7(?:1(?:0(?:[356]|4[023])|[18]|2(?:3[013-9]|5)|3[45]|43[013-79]|5(?:3[1-8]|4[1-7]|5)|6(?:3[0-35-9]|[4-6]))|2(?:1(?:3[178]|[45])|[24-689]|3[35]|7[457]))|7(?:14|23)4[0-8]|71(?:33|45)[1-79]"],
+              "8 ($1)",
+              ,
+              1
+            ],
+            [, "(\\d{3})(\\d{3})(\\d{4})", "$1 $2 $3", ["7"], "8 ($1)", , 1],
+            [, "(\\d{3})(\\d{3})(\\d{2})(\\d{2})", "$1 $2-$3-$4", ["[349]|8(?:[02-7]|1[1-8])"], "8 ($1)", , 1],
+            [, "(\\d{4})(\\d{4})(\\d{3})(\\d{3})", "$1 $2 $3 $4", ["8"], "8 ($1)"]
+          ], [[, "(\\d{4})(\\d{2})(\\d{2})(\\d{2})", "$1 $2 $3 $4", ["7(?:1[0-8]|2[1-9])", "7(?:1(?:[0-356]2|4[29]|7|8[27])|2(?:1[23]|[2-9]2))", "7(?:1(?:[0-356]2|4[29]|7|8[27])|2(?:13[03-69]|62[013-9]))|72[1-57-9]2"], "8 ($1)", , 1], [, "(\\d{5})(\\d)(\\d{2})(\\d{2})", "$1 $2 $3 $4", [
             "7(?:1[0-68]|2[1-9])",
             "7(?:1(?:[06][3-6]|[18]|2[35]|[3-5][3-5])|2(?:[13][3-5]|[24-689]|7[457]))",
             "7(?:1(?:0(?:[356]|4[023])|[18]|2(?:3[013-9]|5)|3[45]|43[013-79]|5(?:3[1-8]|4[1-7]|5)|6(?:3[0-35-9]|[4-6]))|2(?:1(?:3[178]|[45])|[24-689]|3[35]|7[457]))|7(?:14|23)4[0-8]|71(?:33|45)[1-79]"
@@ -49161,7 +49267,7 @@ Caused by: ${causeStack}`;
             ,
             ,
             [-1]
-          ], 1, , [, , , , , , , , , [-1]], [, , , , , , , , , [-1]], , , [, , , , , , , , , [-1]]],
+          ], 1, "[3489]", [, , , , , , , , , [-1]], [, , , , , , , , , [-1]], , , [, , , , , , , , , [-1]]],
           RW: [, [, , "(?:06|[27]\\d\\d|[89]00)\\d{6}", , , , , , , [8, 9]], [, , "(?:06|2[23568]\\d)\\d{6}", , , , "250123456"], [, , "7[237-9]\\d{7}", , , , "720123456", , , [9]], [, , "800\\d{6}", , , , "800123456", , , [9]], [, , "900\\d{6}", , , , "900123456", , , [9]], [, , , , , , , , , [-1]], [, , , , , , , , , [-1]], [, , , , , , , , , [-1]], "RW", 250, "00", "0", , , "0", , , , [[, "(\\d{2})(\\d{2})(\\d{2})(\\d{2})", "$1 $2 $3 $4", ["0"]], [, "(\\d{3})(\\d{3})(\\d{3})", "$1 $2 $3", ["2"]], [
             ,
             "(\\d{3})(\\d{3})(\\d{3})",
@@ -49253,7 +49359,7 @@ Caused by: ${causeStack}`;
             ,
             ,
             [8]
-          ], [, , "89(?:8[02-9]|9[0-5])\\d{4}|(?:8(?:0[1-9]|[1-8]\\d|9[0-7])|9[0-8]\\d)\\d{5}", , , , "81234567", , , [8]], [, , "(?:18|8)00\\d{7}", , , , "18001234567", , , [10, 11]], [, , "1900\\d{7}", , , , "19001234567", , , [11]], [, , , , , , , , , [-1]], [, , , , , , , , , [-1]], [, , "(?:3[12]\\d|666)\\d{5}", , , , "31234567", , , [8]], "SG", 65, "0[0-3]\\d", , , , , , , , [[, "(\\d{4,5})", "$1", ["1[013-9]|77", "1(?:[013-8]|9(?:0[1-9]|[1-9]))|77"]], [, "(\\d{4})(\\d{4})", "$1 $2", ["[369]|8(?:0[1-9]|[1-9])"]], [, "(\\d{3})(\\d{3})(\\d{4})", "$1 $2 $3", ["8"]], [
+          ], [, , "89(?:8[02-9]|9[0-6])\\d{4}|(?:8(?:0[1-9]|[1-8]\\d|9[0-7])|9[0-8]\\d)\\d{5}", , , , "81234567", , , [8]], [, , "(?:18|8)00\\d{7}", , , , "18001234567", , , [10, 11]], [, , "1900\\d{7}", , , , "19001234567", , , [11]], [, , , , , , , , , [-1]], [, , , , , , , , , [-1]], [, , "(?:3[12]\\d|666)\\d{5}", , , , "31234567", , , [8]], "SG", 65, "0[0-3]\\d", , , , , , , , [[, "(\\d{4,5})", "$1", ["1[013-9]|77", "1(?:[013-8]|9(?:0[1-9]|[1-9]))|77"]], [, "(\\d{4})(\\d{4})", "$1 $2", ["[369]|8(?:0[1-9]|[1-9])"]], [, "(\\d{3})(\\d{3})(\\d{4})", "$1 $2 $3", ["8"]], [
             ,
             "(\\d{4})(\\d{4})(\\d{3})",
             "$1 $2 $3",
@@ -49675,7 +49781,7 @@ Caused by: ${causeStack}`;
             ,
             ,
             [7]
-          ], [, , "868(?:(?:2[5-9]|3\\d)\\d|4(?:3[0-6]|[6-9]\\d)|6(?:20|78|8\\d)|7(?:0[1-9]|1[02-9]|[2-9]\\d))\\d{4}", , , , "8682911234", , , , [7]], [, , "8(?:00|33|44|55|66|77|88)[2-9]\\d{6}", , , , "8002345678"], [, , "900[2-9]\\d{6}", , , , "9002345678"], [, , , , , , , , , [-1]], [
+          ], [, , "868(?:(?:2[5-9]|3\\d)\\d|4(?:3[0-6]|[6-9]\\d)|6(?:20|78|8\\d)|7(?:0[1-9]|1[02-9]|[2-9]\\d))\\d{4}", , , , "8682911234", , , , [7]], [, , "868800\\d{4}|8(?:00|33|44|55|66|77|88)[2-9]\\d{6}", , , , "8002345678"], [, , "900[2-9]\\d{6}", , , , "9002345678"], [, , , , , , , , , [-1]], [
             ,
             ,
             "52(?:3(?:[2-46-9][02-9]\\d|5(?:[02-46-9]\\d|5[0-46-9]))|4(?:[2-478][02-9]\\d|5(?:[034]\\d|2[024-9]|5[0-46-9])|6(?:0[1-9]|[2-9]\\d)|9(?:[05-9]\\d|2[0-5]|49)))\\d{4}|52[34][2-9]1[02-9]\\d{4}|5(?:00|2[125-9]|3[23]|44|66|77|88)[2-9]\\d{6}",
@@ -49712,7 +49818,7 @@ Caused by: ${causeStack}`;
             ,
             [, , "(?:[25-8]\\d|41|90)\\d{7}", , , , , , , [9]],
             [, , "2[2-8]\\d{7}", , , , "222345678"],
-            [, , "(?:6[1-35-9]|7[13-9])\\d{7}", , , , "621234567"],
+            [, , "(?:6[1-35-9]|7[013-9])\\d{7}", , , , "621234567"],
             [, , "80[08]\\d{6}", , , , "800123456"],
             [, , "90\\d{7}", , , , "900123456"],
             [, , "8(?:40|6[01])\\d{6}", , , , "840123456"],
@@ -50276,10 +50382,10 @@ Caused by: ${causeStack}`;
           ], [, , , , , , , , , [-1]], [, , , , , , , , , [-1]], "001", 888, , , , , , , , 1, [[, "(\\d{3})(\\d{3})(\\d{5})", "$1 $2 $3"]], , [, , , , , , , , , [-1]], , , [, , , , , , , , , [-1]], [, , "\\d{11}", , , , "12345678901"], , , [, , , , , , , , , [-1]]],
           979: [, [, , "[1359]\\d{8}", , , , , , , [9], [8]], [, , , , , , , , , [-1]], [, , , , , , , , , [-1]], [, , , , , , , , , [-1]], [, , "[1359]\\d{8}", , , , "123456789", , , , [8]], [, , , , , , , , , [-1]], [, , , , , , , , , [-1]], [, , , , , , , , , [-1]], "001", 979, , , , , , , , 1, [[, "(\\d)(\\d{4})(\\d{4})", "$1 $2 $3", ["[1359]"]]], , [, , , , , , , , , [-1]], , , [, , , , , , , , , [-1]], [, , , , , , , , , [-1]], , , [, , , , , , , , , [-1]]]
         };
-        function G() {
+        function G2() {
           this.g = {};
         }
-        ba(G);
+        ba(G2);
         var Ha = { 0: "0", 1: "1", 2: "2", 3: "3", 4: "4", 5: "5", 6: "6", 7: "7", 8: "8", 9: "9", "\uFF10": "0", "\uFF11": "1", "\uFF12": "2", "\uFF13": "3", "\uFF14": "4", "\uFF15": "5", "\uFF16": "6", "\uFF17": "7", "\uFF18": "8", "\uFF19": "9", "\u0660": "0", "\u0661": "1", "\u0662": "2", "\u0663": "3", "\u0664": "4", "\u0665": "5", "\u0666": "6", "\u0667": "7", "\u0668": "8", "\u0669": "9", "\u06F0": "0", "\u06F1": "1", "\u06F2": "2", "\u06F3": "3", "\u06F4": "4", "\u06F5": "5", "\u06F6": "6", "\u06F7": "7", "\u06F8": "8", "\u06F9": "9" }, Ia = {
           0: "0",
           1: "1",
@@ -50408,7 +50514,7 @@ Caused by: ${causeStack}`;
         function K(a) {
           return a != null && isNaN(a) && a.toUpperCase() in Ga;
         }
-        G.prototype.format = function(a, b) {
+        G2.prototype.format = function(a, b) {
           if (p(a, 2) == 0 && n(a, 5)) {
             var c = t(a, 5);
             if (c.length > 0) return c;
@@ -50719,7 +50825,7 @@ Caused by: ${causeStack}`;
           q(b, 2, parseInt(a, 10));
           return b;
         }
-        G.prototype.ja = function(a) {
+        G2.prototype.ja = function(a) {
           var b = O(this, S(this, a));
           if (b == null) return true;
           a = L(a);
@@ -50737,7 +50843,7 @@ Caused by: ${causeStack}`;
           this.da = new y();
           this.v = true;
           this.fa = this.ba = this.pa = false;
-          this.qa = G.oa();
+          this.qa = G2.oa();
           this.ca = 0;
           this.h = new y();
           this.ha = false;
@@ -53552,7 +53658,7 @@ Caused by: ${causeStack}`;
         function Tb(a, b) {
           return C(b).length > 0 && !C(b).includes(a.length) ? false : J(t(b, 2), a.toString());
         }
-        var P = G.oa(), Qb = Nb.oa();
+        var P = G2.oa(), Qb = Nb.oa();
         function Vb(a) {
           var b = P, c = S(b, a);
           b = M(b, t(a, 1), c);
@@ -60291,7 +60397,7 @@ Caused by: ${causeStack}`;
       __publicField(this, "phoneNumber");
       const parsed = _PhoneNumber.toPhoneNumber(phoneNumber);
       if (!parsed) {
-        throw new InvalidInputError2("phone", phoneNumber, _PhoneNumber.examples());
+        throw new InvalidInputError("phone", phoneNumber, _PhoneNumber.examples());
       }
       this.phoneNumber = parsed.number?.e164 ?? phoneNumber;
     }
@@ -60318,7 +60424,7 @@ Caused by: ${causeStack}`;
         (country) => country.alpha2?.toLowerCase() === parsed?.regionCode?.toLowerCase()
       );
       if (!countryObject) {
-        throw new NotFoundError2(`Cannot find country code for ${this.phoneNumber}`);
+        throw new NotFoundError(`Cannot find country code for ${this.phoneNumber}`);
       }
       return countryObject;
     }
@@ -60341,7 +60447,7 @@ Caused by: ${causeStack}`;
       __publicField(this, "semver");
       const cleanSemver = semver.clean(input, { loose: true });
       if (!cleanSemver) {
-        throw new InvalidInputError2(SEMVER_TYPE, input, _Semver.examples());
+        throw new InvalidInputError(SEMVER_TYPE, input, _Semver.examples());
       }
       this.semver = cleanSemver;
     }
@@ -60428,7 +60534,7 @@ Caused by: ${causeStack}`;
         }
         this._searchParams = new URLSearchParams(this.url.search ?? void 0);
       } catch (_) {
-        throw new InvalidInputError2("url", url, _URL.examples());
+        throw new InvalidInputError("url", url, _URL.examples());
       }
     }
     static get coreType() {
@@ -60786,6 +60892,9 @@ Caused by: ${causeStack}`;
     bytes[8] = bytes[8] & 63 | 128;
     if (buf) {
       offset = offset || 0;
+      if (offset < 0 || offset + 16 > buf.length) {
+        throw new RangeError(`UUID byte range ${offset}:${offset + 15} is out of buffer bounds`);
+      }
       for (let i = 0; i < 16; ++i) {
         buf[offset + i] = bytes[i];
       }
@@ -60928,7 +61037,7 @@ Caused by: ${causeStack}`;
       if (validate_default(id)) {
         this.id = id;
       } else {
-        throw new InvalidInputError2("UUID", id, _UUID.examples());
+        throw new InvalidInputError("UUID", id, _UUID.examples());
       }
     }
     static get coreType() {
@@ -60945,7 +61054,7 @@ Caused by: ${causeStack}`;
       if (validate_default(input)) {
         return new _UUID(input);
       }
-      throw new InvalidInputError2("UUID", input);
+      throw new InvalidInputError("UUID", input);
     }
     static generateV1() {
       return new _UUID(v1_default());
@@ -61001,7 +61110,7 @@ Caused by: ${causeStack}`;
       __publicField(this, "orig");
       const r = semver2.validRange(range);
       if (!r) {
-        throw new InvalidInputError2(RANGE_TYPE, range, _VersionRange.examples());
+        throw new InvalidInputError(RANGE_TYPE, range, _VersionRange.examples());
       }
       this.range = new semver2.Range(r);
       this.orig = range;
@@ -62272,7 +62381,7 @@ Caused by: ${causeStack}`;
           this.dereferenceSchema(subschema);
           const derefed = subschema.schema || subschema;
           if (derefed.type !== "object") {
-            throw new UnexpectedError2(
+            throw new UnexpectedError(
               `Unsupported schema ${subschema.type || JSON.stringify(subschema)}`
             );
           }
@@ -62592,17 +62701,42 @@ Caused by: ${causeStack}`;
   };
   var isDate = kindOfTest("Date");
   var isFile = kindOfTest("File");
+  var isReactNativeBlob = (value) => {
+    return !!(value && typeof value.uri !== "undefined");
+  };
+  var isReactNative = (formData) => formData && typeof formData.getParts !== "undefined";
   var isBlob = kindOfTest("Blob");
   var isFileList = kindOfTest("FileList");
   var isStream = (val) => isObject(val) && isFunction(val.pipe);
+  function getGlobal() {
+    if (typeof globalThis !== "undefined") return globalThis;
+    if (typeof self !== "undefined") return self;
+    if (typeof window !== "undefined") return window;
+    if (typeof global !== "undefined") return global;
+    return {};
+  }
+  var G = getGlobal();
+  var FormDataCtor = typeof G.FormData !== "undefined" ? G.FormData : void 0;
   var isFormData = (thing) => {
-    let kind;
-    return thing && (typeof FormData === "function" && thing instanceof FormData || isFunction(thing.append) && ((kind = kindOf(thing)) === "formdata" || // detect form-data instance
-    kind === "object" && isFunction(thing.toString) && thing.toString() === "[object FormData]"));
+    if (!thing) return false;
+    if (FormDataCtor && thing instanceof FormDataCtor) return true;
+    const proto = getPrototypeOf(thing);
+    if (!proto || proto === Object.prototype) return false;
+    if (!isFunction(thing.append)) return false;
+    const kind = kindOf(thing);
+    return kind === "formdata" || // detect form-data instance
+    kind === "object" && isFunction(thing.toString) && thing.toString() === "[object FormData]";
   };
   var isURLSearchParams = kindOfTest("URLSearchParams");
-  var [isReadableStream, isRequest, isResponse, isHeaders] = ["ReadableStream", "Request", "Response", "Headers"].map(kindOfTest);
-  var trim = (str) => str.trim ? str.trim() : str.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, "");
+  var [isReadableStream, isRequest, isResponse, isHeaders] = [
+    "ReadableStream",
+    "Request",
+    "Response",
+    "Headers"
+  ].map(kindOfTest);
+  var trim = (str) => {
+    return str.trim ? str.trim() : str.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, "");
+  };
   function forEach(obj, fn, { allOwnKeys = false } = {}) {
     if (obj === null || typeof obj === "undefined") {
       return;
@@ -62650,13 +62784,17 @@ Caused by: ${causeStack}`;
     return typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : global;
   })();
   var isContextDefined = (context) => !isUndefined(context) && context !== _global;
-  function merge() {
+  function merge(...objs) {
     const { caseless, skipUndefined } = isContextDefined(this) && this || {};
     const result = {};
     const assignValue = (val, key) => {
+      if (key === "__proto__" || key === "constructor" || key === "prototype") {
+        return;
+      }
       const targetKey = caseless && findKey(result, key) || key;
-      if (isPlainObject(result[targetKey]) && isPlainObject(val)) {
-        result[targetKey] = merge(result[targetKey], val);
+      const existing = hasOwnProperty(result, targetKey) ? result[targetKey] : void 0;
+      if (isPlainObject(existing) && isPlainObject(val)) {
+        result[targetKey] = merge(existing, val);
       } else if (isPlainObject(val)) {
         result[targetKey] = merge({}, val);
       } else if (isArray(val)) {
@@ -62665,29 +62803,37 @@ Caused by: ${causeStack}`;
         result[targetKey] = val;
       }
     };
-    for (let i = 0, l = arguments.length; i < l; i++) {
-      arguments[i] && forEach(arguments[i], assignValue);
+    for (let i = 0, l = objs.length; i < l; i++) {
+      objs[i] && forEach(objs[i], assignValue);
     }
     return result;
   }
   var extend = (a, b, thisArg, { allOwnKeys } = {}) => {
-    forEach(b, (val, key) => {
-      if (thisArg && isFunction(val)) {
-        Object.defineProperty(a, key, {
-          value: bind(val, thisArg),
-          writable: true,
-          enumerable: true,
-          configurable: true
-        });
-      } else {
-        Object.defineProperty(a, key, {
-          value: val,
-          writable: true,
-          enumerable: true,
-          configurable: true
-        });
-      }
-    }, { allOwnKeys });
+    forEach(
+      b,
+      (val, key) => {
+        if (thisArg && isFunction(val)) {
+          Object.defineProperty(a, key, {
+            // Null-proto descriptor so a polluted Object.prototype.get cannot
+            // hijack defineProperty's accessor-vs-data resolution.
+            __proto__: null,
+            value: bind(val, thisArg),
+            writable: true,
+            enumerable: true,
+            configurable: true
+          });
+        } else {
+          Object.defineProperty(a, key, {
+            __proto__: null,
+            value: val,
+            writable: true,
+            enumerable: true,
+            configurable: true
+          });
+        }
+      },
+      { allOwnKeys }
+    );
     return a;
   };
   var stripBOM = (content) => {
@@ -62699,12 +62845,14 @@ Caused by: ${causeStack}`;
   var inherits = (constructor, superConstructor, props, descriptors) => {
     constructor.prototype = Object.create(superConstructor.prototype, descriptors);
     Object.defineProperty(constructor.prototype, "constructor", {
+      __proto__: null,
       value: constructor,
       writable: true,
       enumerable: false,
       configurable: true
     });
     Object.defineProperty(constructor, "super", {
+      __proto__: null,
       value: superConstructor.prototype
     });
     props && Object.assign(constructor.prototype, props);
@@ -62774,12 +62922,9 @@ Caused by: ${causeStack}`;
   };
   var isHTMLForm = kindOfTest("HTMLFormElement");
   var toCamelCase = (str) => {
-    return str.toLowerCase().replace(
-      /[-_\s]([a-z\d])(\w*)/g,
-      function replacer(m, p1, p2) {
-        return p1.toUpperCase() + p2;
-      }
-    );
+    return str.toLowerCase().replace(/[-_\s]([a-z\d])(\w*)/g, function replacer(m, p1, p2) {
+      return p1.toUpperCase() + p2;
+    });
   };
   var hasOwnProperty = (({ hasOwnProperty: hasOwnProperty2 }) => (obj, prop) => hasOwnProperty2.call(obj, prop))(Object.prototype);
   var isRegExp = kindOfTest("RegExp");
@@ -62796,7 +62941,7 @@ Caused by: ${causeStack}`;
   };
   var freezeMethods = (obj) => {
     reduceDescriptors(obj, (descriptor, name) => {
-      if (isFunction(obj) && ["arguments", "caller", "callee"].indexOf(name) !== -1) {
+      if (isFunction(obj) && ["arguments", "caller", "callee"].includes(name)) {
         return false;
       }
       const value = obj[name];
@@ -62863,20 +63008,21 @@ Caused by: ${causeStack}`;
       return setImmediate;
     }
     return postMessageSupported ? ((token, callbacks) => {
-      _global.addEventListener("message", ({ source, data }) => {
-        if (source === _global && data === token) {
-          callbacks.length && callbacks.shift()();
-        }
-      }, false);
+      _global.addEventListener(
+        "message",
+        ({ source, data }) => {
+          if (source === _global && data === token) {
+            callbacks.length && callbacks.shift()();
+          }
+        },
+        false
+      );
       return (cb) => {
         callbacks.push(cb);
         _global.postMessage(token, "*");
       };
     })(`axios@${Math.random()}`, []) : (cb) => setTimeout(cb);
-  })(
-    typeof setImmediate === "function",
-    isFunction(_global.postMessage)
-  );
+  })(typeof setImmediate === "function", isFunction(_global.postMessage));
   var asap = typeof queueMicrotask !== "undefined" ? queueMicrotask.bind(_global) : typeof process !== "undefined" && process.nextTick || _setImmediate;
   var isIterable = (thing) => thing != null && isFunction(thing[iterator]);
   var utils_default = {
@@ -62898,6 +63044,8 @@ Caused by: ${causeStack}`;
     isUndefined,
     isDate,
     isFile,
+    isReactNativeBlob,
+    isReactNative,
     isBlob,
     isRegExp,
     isFunction,
@@ -62939,544 +63087,6 @@ Caused by: ${causeStack}`;
     asap,
     isIterable
   };
-
-  // ../../node_modules/axios/lib/core/AxiosError.js
-  var AxiosError = class _AxiosError extends Error {
-    static from(error, code, config, request, response, customProps) {
-      const axiosError = new _AxiosError(error.message, code || error.code, config, request, response);
-      axiosError.cause = error;
-      axiosError.name = error.name;
-      customProps && Object.assign(axiosError, customProps);
-      return axiosError;
-    }
-    /**
-     * Create an Error with the specified message, config, error code, request and response.
-     *
-     * @param {string} message The error message.
-     * @param {string} [code] The error code (for example, 'ECONNABORTED').
-     * @param {Object} [config] The config.
-     * @param {Object} [request] The request.
-     * @param {Object} [response] The response.
-     *
-     * @returns {Error} The created error.
-     */
-    constructor(message, code, config, request, response) {
-      super(message);
-      this.name = "AxiosError";
-      this.isAxiosError = true;
-      code && (this.code = code);
-      config && (this.config = config);
-      request && (this.request = request);
-      if (response) {
-        this.response = response;
-        this.status = response.status;
-      }
-    }
-    toJSON() {
-      return {
-        // Standard
-        message: this.message,
-        name: this.name,
-        // Microsoft
-        description: this.description,
-        number: this.number,
-        // Mozilla
-        fileName: this.fileName,
-        lineNumber: this.lineNumber,
-        columnNumber: this.columnNumber,
-        stack: this.stack,
-        // Axios
-        config: utils_default.toJSONObject(this.config),
-        code: this.code,
-        status: this.status
-      };
-    }
-  };
-  AxiosError.ERR_BAD_OPTION_VALUE = "ERR_BAD_OPTION_VALUE";
-  AxiosError.ERR_BAD_OPTION = "ERR_BAD_OPTION";
-  AxiosError.ECONNABORTED = "ECONNABORTED";
-  AxiosError.ETIMEDOUT = "ETIMEDOUT";
-  AxiosError.ERR_NETWORK = "ERR_NETWORK";
-  AxiosError.ERR_FR_TOO_MANY_REDIRECTS = "ERR_FR_TOO_MANY_REDIRECTS";
-  AxiosError.ERR_DEPRECATED = "ERR_DEPRECATED";
-  AxiosError.ERR_BAD_RESPONSE = "ERR_BAD_RESPONSE";
-  AxiosError.ERR_BAD_REQUEST = "ERR_BAD_REQUEST";
-  AxiosError.ERR_CANCELED = "ERR_CANCELED";
-  AxiosError.ERR_NOT_SUPPORT = "ERR_NOT_SUPPORT";
-  AxiosError.ERR_INVALID_URL = "ERR_INVALID_URL";
-  var AxiosError_default = AxiosError;
-
-  // ../../node_modules/axios/lib/helpers/null.js
-  var null_default = null;
-
-  // ../../node_modules/axios/lib/helpers/toFormData.js
-  function isVisitable(thing) {
-    return utils_default.isPlainObject(thing) || utils_default.isArray(thing);
-  }
-  function removeBrackets(key) {
-    return utils_default.endsWith(key, "[]") ? key.slice(0, -2) : key;
-  }
-  function renderKey(path, key, dots) {
-    if (!path) return key;
-    return path.concat(key).map(function each(token, i) {
-      token = removeBrackets(token);
-      return !dots && i ? "[" + token + "]" : token;
-    }).join(dots ? "." : "");
-  }
-  function isFlatArray(arr) {
-    return utils_default.isArray(arr) && !arr.some(isVisitable);
-  }
-  var predicates = utils_default.toFlatObject(utils_default, {}, null, function filter(prop) {
-    return /^is[A-Z]/.test(prop);
-  });
-  function toFormData(obj, formData, options) {
-    if (!utils_default.isObject(obj)) {
-      throw new TypeError("target must be an object");
-    }
-    formData = formData || new (null_default || FormData)();
-    options = utils_default.toFlatObject(options, {
-      metaTokens: true,
-      dots: false,
-      indexes: false
-    }, false, function defined(option, source) {
-      return !utils_default.isUndefined(source[option]);
-    });
-    const metaTokens = options.metaTokens;
-    const visitor = options.visitor || defaultVisitor;
-    const dots = options.dots;
-    const indexes = options.indexes;
-    const _Blob = options.Blob || typeof Blob !== "undefined" && Blob;
-    const useBlob = _Blob && utils_default.isSpecCompliantForm(formData);
-    if (!utils_default.isFunction(visitor)) {
-      throw new TypeError("visitor must be a function");
-    }
-    function convertValue(value) {
-      if (value === null) return "";
-      if (utils_default.isDate(value)) {
-        return value.toISOString();
-      }
-      if (utils_default.isBoolean(value)) {
-        return value.toString();
-      }
-      if (!useBlob && utils_default.isBlob(value)) {
-        throw new AxiosError_default("Blob is not supported. Use a Buffer instead.");
-      }
-      if (utils_default.isArrayBuffer(value) || utils_default.isTypedArray(value)) {
-        return useBlob && typeof Blob === "function" ? new Blob([value]) : Buffer.from(value);
-      }
-      return value;
-    }
-    function defaultVisitor(value, key, path) {
-      let arr = value;
-      if (value && !path && typeof value === "object") {
-        if (utils_default.endsWith(key, "{}")) {
-          key = metaTokens ? key : key.slice(0, -2);
-          value = JSON.stringify(value);
-        } else if (utils_default.isArray(value) && isFlatArray(value) || (utils_default.isFileList(value) || utils_default.endsWith(key, "[]")) && (arr = utils_default.toArray(value))) {
-          key = removeBrackets(key);
-          arr.forEach(function each(el, index2) {
-            !(utils_default.isUndefined(el) || el === null) && formData.append(
-              // eslint-disable-next-line no-nested-ternary
-              indexes === true ? renderKey([key], index2, dots) : indexes === null ? key : key + "[]",
-              convertValue(el)
-            );
-          });
-          return false;
-        }
-      }
-      if (isVisitable(value)) {
-        return true;
-      }
-      formData.append(renderKey(path, key, dots), convertValue(value));
-      return false;
-    }
-    const stack = [];
-    const exposedHelpers = Object.assign(predicates, {
-      defaultVisitor,
-      convertValue,
-      isVisitable
-    });
-    function build(value, path) {
-      if (utils_default.isUndefined(value)) return;
-      if (stack.indexOf(value) !== -1) {
-        throw Error("Circular reference detected in " + path.join("."));
-      }
-      stack.push(value);
-      utils_default.forEach(value, function each(el, key) {
-        const result = !(utils_default.isUndefined(el) || el === null) && visitor.call(
-          formData,
-          el,
-          utils_default.isString(key) ? key.trim() : key,
-          path,
-          exposedHelpers
-        );
-        if (result === true) {
-          build(el, path ? path.concat(key) : [key]);
-        }
-      });
-      stack.pop();
-    }
-    if (!utils_default.isObject(obj)) {
-      throw new TypeError("data must be an object");
-    }
-    build(obj);
-    return formData;
-  }
-  var toFormData_default = toFormData;
-
-  // ../../node_modules/axios/lib/helpers/AxiosURLSearchParams.js
-  function encode(str) {
-    const charMap = {
-      "!": "%21",
-      "'": "%27",
-      "(": "%28",
-      ")": "%29",
-      "~": "%7E",
-      "%20": "+",
-      "%00": "\0"
-    };
-    return encodeURIComponent(str).replace(/[!'()~]|%20|%00/g, function replacer(match) {
-      return charMap[match];
-    });
-  }
-  function AxiosURLSearchParams(params, options) {
-    this._pairs = [];
-    params && toFormData_default(params, this, options);
-  }
-  var prototype = AxiosURLSearchParams.prototype;
-  prototype.append = function append(name, value) {
-    this._pairs.push([name, value]);
-  };
-  prototype.toString = function toString2(encoder) {
-    const _encode = encoder ? function(value) {
-      return encoder.call(this, value, encode);
-    } : encode;
-    return this._pairs.map(function each(pair) {
-      return _encode(pair[0]) + "=" + _encode(pair[1]);
-    }, "").join("&");
-  };
-  var AxiosURLSearchParams_default = AxiosURLSearchParams;
-
-  // ../../node_modules/axios/lib/helpers/buildURL.js
-  function encode2(val) {
-    return encodeURIComponent(val).replace(/%3A/gi, ":").replace(/%24/g, "$").replace(/%2C/gi, ",").replace(/%20/g, "+");
-  }
-  function buildURL(url, params, options) {
-    if (!params) {
-      return url;
-    }
-    const _encode = options && options.encode || encode2;
-    const _options = utils_default.isFunction(options) ? {
-      serialize: options
-    } : options;
-    const serializeFn = _options && _options.serialize;
-    let serializedParams;
-    if (serializeFn) {
-      serializedParams = serializeFn(params, _options);
-    } else {
-      serializedParams = utils_default.isURLSearchParams(params) ? params.toString() : new AxiosURLSearchParams_default(params, _options).toString(_encode);
-    }
-    if (serializedParams) {
-      const hashmarkIndex = url.indexOf("#");
-      if (hashmarkIndex !== -1) {
-        url = url.slice(0, hashmarkIndex);
-      }
-      url += (url.indexOf("?") === -1 ? "?" : "&") + serializedParams;
-    }
-    return url;
-  }
-
-  // ../../node_modules/axios/lib/core/InterceptorManager.js
-  var InterceptorManager = class {
-    constructor() {
-      this.handlers = [];
-    }
-    /**
-     * Add a new interceptor to the stack
-     *
-     * @param {Function} fulfilled The function to handle `then` for a `Promise`
-     * @param {Function} rejected The function to handle `reject` for a `Promise`
-     * @param {Object} options The options for the interceptor, synchronous and runWhen
-     *
-     * @return {Number} An ID used to remove interceptor later
-     */
-    use(fulfilled, rejected, options) {
-      this.handlers.push({
-        fulfilled,
-        rejected,
-        synchronous: options ? options.synchronous : false,
-        runWhen: options ? options.runWhen : null
-      });
-      return this.handlers.length - 1;
-    }
-    /**
-     * Remove an interceptor from the stack
-     *
-     * @param {Number} id The ID that was returned by `use`
-     *
-     * @returns {void}
-     */
-    eject(id) {
-      if (this.handlers[id]) {
-        this.handlers[id] = null;
-      }
-    }
-    /**
-     * Clear all interceptors from the stack
-     *
-     * @returns {void}
-     */
-    clear() {
-      if (this.handlers) {
-        this.handlers = [];
-      }
-    }
-    /**
-     * Iterate over all the registered interceptors
-     *
-     * This method is particularly useful for skipping over any
-     * interceptors that may have become `null` calling `eject`.
-     *
-     * @param {Function} fn The function to call for each interceptor
-     *
-     * @returns {void}
-     */
-    forEach(fn) {
-      utils_default.forEach(this.handlers, function forEachHandler(h) {
-        if (h !== null) {
-          fn(h);
-        }
-      });
-    }
-  };
-  var InterceptorManager_default = InterceptorManager;
-
-  // ../../node_modules/axios/lib/defaults/transitional.js
-  var transitional_default = {
-    silentJSONParsing: true,
-    forcedJSONParsing: true,
-    clarifyTimeoutError: false
-  };
-
-  // ../../node_modules/axios/lib/platform/browser/classes/URLSearchParams.js
-  var URLSearchParams_default = typeof URLSearchParams !== "undefined" ? URLSearchParams : AxiosURLSearchParams_default;
-
-  // ../../node_modules/axios/lib/platform/browser/classes/FormData.js
-  var FormData_default = typeof FormData !== "undefined" ? FormData : null;
-
-  // ../../node_modules/axios/lib/platform/browser/classes/Blob.js
-  var Blob_default = typeof Blob !== "undefined" ? Blob : null;
-
-  // ../../node_modules/axios/lib/platform/browser/index.js
-  var browser_default = {
-    isBrowser: true,
-    classes: {
-      URLSearchParams: URLSearchParams_default,
-      FormData: FormData_default,
-      Blob: Blob_default
-    },
-    protocols: ["http", "https", "file", "blob", "url", "data"]
-  };
-
-  // ../../node_modules/axios/lib/platform/common/utils.js
-  var utils_exports = {};
-  __export(utils_exports, {
-    hasBrowserEnv: () => hasBrowserEnv,
-    hasStandardBrowserEnv: () => hasStandardBrowserEnv,
-    hasStandardBrowserWebWorkerEnv: () => hasStandardBrowserWebWorkerEnv,
-    navigator: () => _navigator,
-    origin: () => origin
-  });
-  var hasBrowserEnv = typeof window !== "undefined" && typeof document !== "undefined";
-  var _navigator = typeof navigator === "object" && navigator || void 0;
-  var hasStandardBrowserEnv = hasBrowserEnv && (!_navigator || ["ReactNative", "NativeScript", "NS"].indexOf(_navigator.product) < 0);
-  var hasStandardBrowserWebWorkerEnv = (() => {
-    return typeof WorkerGlobalScope !== "undefined" && // eslint-disable-next-line no-undef
-    self instanceof WorkerGlobalScope && typeof self.importScripts === "function";
-  })();
-  var origin = hasBrowserEnv && window.location.href || "http://localhost";
-
-  // ../../node_modules/axios/lib/platform/index.js
-  var platform_default = {
-    ...utils_exports,
-    ...browser_default
-  };
-
-  // ../../node_modules/axios/lib/helpers/toURLEncodedForm.js
-  function toURLEncodedForm(data, options) {
-    return toFormData_default(data, new platform_default.classes.URLSearchParams(), {
-      visitor: function(value, key, path, helpers) {
-        if (platform_default.isNode && utils_default.isBuffer(value)) {
-          this.append(key, value.toString("base64"));
-          return false;
-        }
-        return helpers.defaultVisitor.apply(this, arguments);
-      },
-      ...options
-    });
-  }
-
-  // ../../node_modules/axios/lib/helpers/formDataToJSON.js
-  function parsePropPath(name) {
-    return utils_default.matchAll(/\w+|\[(\w*)]/g, name).map((match) => {
-      return match[0] === "[]" ? "" : match[1] || match[0];
-    });
-  }
-  function arrayToObject(arr) {
-    const obj = {};
-    const keys = Object.keys(arr);
-    let i;
-    const len = keys.length;
-    let key;
-    for (i = 0; i < len; i++) {
-      key = keys[i];
-      obj[key] = arr[key];
-    }
-    return obj;
-  }
-  function formDataToJSON(formData) {
-    function buildPath(path, value, target, index2) {
-      let name = path[index2++];
-      if (name === "__proto__") return true;
-      const isNumericKey = Number.isFinite(+name);
-      const isLast = index2 >= path.length;
-      name = !name && utils_default.isArray(target) ? target.length : name;
-      if (isLast) {
-        if (utils_default.hasOwnProp(target, name)) {
-          target[name] = [target[name], value];
-        } else {
-          target[name] = value;
-        }
-        return !isNumericKey;
-      }
-      if (!target[name] || !utils_default.isObject(target[name])) {
-        target[name] = [];
-      }
-      const result = buildPath(path, value, target[name], index2);
-      if (result && utils_default.isArray(target[name])) {
-        target[name] = arrayToObject(target[name]);
-      }
-      return !isNumericKey;
-    }
-    if (utils_default.isFormData(formData) && utils_default.isFunction(formData.entries)) {
-      const obj = {};
-      utils_default.forEachEntry(formData, (name, value) => {
-        buildPath(parsePropPath(name), value, obj, 0);
-      });
-      return obj;
-    }
-    return null;
-  }
-  var formDataToJSON_default = formDataToJSON;
-
-  // ../../node_modules/axios/lib/defaults/index.js
-  function stringifySafely(rawValue, parser, encoder) {
-    if (utils_default.isString(rawValue)) {
-      try {
-        (parser || JSON.parse)(rawValue);
-        return utils_default.trim(rawValue);
-      } catch (e) {
-        if (e.name !== "SyntaxError") {
-          throw e;
-        }
-      }
-    }
-    return (encoder || JSON.stringify)(rawValue);
-  }
-  var defaults = {
-    transitional: transitional_default,
-    adapter: ["xhr", "http", "fetch"],
-    transformRequest: [function transformRequest(data, headers) {
-      const contentType = headers.getContentType() || "";
-      const hasJSONContentType = contentType.indexOf("application/json") > -1;
-      const isObjectPayload = utils_default.isObject(data);
-      if (isObjectPayload && utils_default.isHTMLForm(data)) {
-        data = new FormData(data);
-      }
-      const isFormData2 = utils_default.isFormData(data);
-      if (isFormData2) {
-        return hasJSONContentType ? JSON.stringify(formDataToJSON_default(data)) : data;
-      }
-      if (utils_default.isArrayBuffer(data) || utils_default.isBuffer(data) || utils_default.isStream(data) || utils_default.isFile(data) || utils_default.isBlob(data) || utils_default.isReadableStream(data)) {
-        return data;
-      }
-      if (utils_default.isArrayBufferView(data)) {
-        return data.buffer;
-      }
-      if (utils_default.isURLSearchParams(data)) {
-        headers.setContentType("application/x-www-form-urlencoded;charset=utf-8", false);
-        return data.toString();
-      }
-      let isFileList2;
-      if (isObjectPayload) {
-        if (contentType.indexOf("application/x-www-form-urlencoded") > -1) {
-          return toURLEncodedForm(data, this.formSerializer).toString();
-        }
-        if ((isFileList2 = utils_default.isFileList(data)) || contentType.indexOf("multipart/form-data") > -1) {
-          const _FormData = this.env && this.env.FormData;
-          return toFormData_default(
-            isFileList2 ? { "files[]": data } : data,
-            _FormData && new _FormData(),
-            this.formSerializer
-          );
-        }
-      }
-      if (isObjectPayload || hasJSONContentType) {
-        headers.setContentType("application/json", false);
-        return stringifySafely(data);
-      }
-      return data;
-    }],
-    transformResponse: [function transformResponse(data) {
-      const transitional2 = this.transitional || defaults.transitional;
-      const forcedJSONParsing = transitional2 && transitional2.forcedJSONParsing;
-      const JSONRequested = this.responseType === "json";
-      if (utils_default.isResponse(data) || utils_default.isReadableStream(data)) {
-        return data;
-      }
-      if (data && utils_default.isString(data) && (forcedJSONParsing && !this.responseType || JSONRequested)) {
-        const silentJSONParsing = transitional2 && transitional2.silentJSONParsing;
-        const strictJSONParsing = !silentJSONParsing && JSONRequested;
-        try {
-          return JSON.parse(data, this.parseReviver);
-        } catch (e) {
-          if (strictJSONParsing) {
-            if (e.name === "SyntaxError") {
-              throw AxiosError_default.from(e, AxiosError_default.ERR_BAD_RESPONSE, this, null, this.response);
-            }
-            throw e;
-          }
-        }
-      }
-      return data;
-    }],
-    /**
-     * A timeout in milliseconds to abort a request. If set to 0 (default) a
-     * timeout is not created.
-     */
-    timeout: 0,
-    xsrfCookieName: "XSRF-TOKEN",
-    xsrfHeaderName: "X-XSRF-TOKEN",
-    maxContentLength: -1,
-    maxBodyLength: -1,
-    env: {
-      FormData: platform_default.classes.FormData,
-      Blob: platform_default.classes.Blob
-    },
-    validateStatus: function validateStatus(status) {
-      return status >= 200 && status < 300;
-    },
-    headers: {
-      common: {
-        "Accept": "application/json, text/plain, */*",
-        "Content-Type": void 0
-      }
-    }
-  };
-  utils_default.forEach(["delete", "get", "head", "post", "put", "patch"], (method) => {
-    defaults.headers[method] = {};
-  });
-  var defaults_default = defaults;
 
   // ../../node_modules/axios/lib/helpers/parseHeaders.js
   var ignoreDuplicateOf = utils_default.toObjectSet([
@@ -63525,14 +63135,37 @@ Caused by: ${causeStack}`;
 
   // ../../node_modules/axios/lib/core/AxiosHeaders.js
   var $internals = /* @__PURE__ */ Symbol("internals");
+  var INVALID_HEADER_VALUE_CHARS_RE = /[^\x09\x20-\x7E\x80-\xFF]/g;
+  function trimSPorHTAB(str) {
+    let start = 0;
+    let end = str.length;
+    while (start < end) {
+      const code = str.charCodeAt(start);
+      if (code !== 9 && code !== 32) {
+        break;
+      }
+      start += 1;
+    }
+    while (end > start) {
+      const code = str.charCodeAt(end - 1);
+      if (code !== 9 && code !== 32) {
+        break;
+      }
+      end -= 1;
+    }
+    return start === 0 && end === str.length ? str : str.slice(start, end);
+  }
   function normalizeHeader(header) {
     return header && String(header).trim().toLowerCase();
+  }
+  function sanitizeHeaderValue(str) {
+    return trimSPorHTAB(str.replace(INVALID_HEADER_VALUE_CHARS_RE, ""));
   }
   function normalizeValue(value) {
     if (value === false || value == null) {
       return value;
     }
-    return utils_default.isArray(value) ? value.map(normalizeValue) : String(value);
+    return utils_default.isArray(value) ? value.map(normalizeValue) : sanitizeHeaderValue(String(value));
   }
   function parseTokens(str) {
     const tokens = /* @__PURE__ */ Object.create(null);
@@ -63568,6 +63201,9 @@ Caused by: ${causeStack}`;
     const accessorName = utils_default.toCamelCase(" " + header);
     ["get", "set", "has"].forEach((methodName) => {
       Object.defineProperty(obj, methodName + accessorName, {
+        // Null-proto descriptor so a polluted Object.prototype.get cannot turn
+        // this data descriptor into an accessor descriptor on the way in.
+        __proto__: null,
         value: function(arg1, arg2, arg3) {
           return this[methodName].call(this, header, arg1, arg2, arg3);
         },
@@ -63739,7 +63375,14 @@ Caused by: ${causeStack}`;
       return this;
     }
   };
-  AxiosHeaders.accessor(["Content-Type", "Content-Length", "Accept", "Accept-Encoding", "User-Agent", "Authorization"]);
+  AxiosHeaders.accessor([
+    "Content-Type",
+    "Content-Length",
+    "Accept",
+    "Accept-Encoding",
+    "User-Agent",
+    "Authorization"
+  ]);
   utils_default.reduceDescriptors(AxiosHeaders.prototype, ({ value }, key) => {
     let mapped = key[0].toUpperCase() + key.slice(1);
     return {
@@ -63751,6 +63394,631 @@ Caused by: ${causeStack}`;
   });
   utils_default.freezeMethods(AxiosHeaders);
   var AxiosHeaders_default = AxiosHeaders;
+
+  // ../../node_modules/axios/lib/core/AxiosError.js
+  var REDACTED = "[REDACTED ****]";
+  function hasOwnOrPrototypeToJSON(source) {
+    if (utils_default.hasOwnProp(source, "toJSON")) {
+      return true;
+    }
+    let prototype2 = Object.getPrototypeOf(source);
+    while (prototype2 && prototype2 !== Object.prototype) {
+      if (utils_default.hasOwnProp(prototype2, "toJSON")) {
+        return true;
+      }
+      prototype2 = Object.getPrototypeOf(prototype2);
+    }
+    return false;
+  }
+  function redactConfig(config, redactKeys) {
+    const lowerKeys = new Set(redactKeys.map((k) => String(k).toLowerCase()));
+    const seen = [];
+    const visit = (source) => {
+      if (source === null || typeof source !== "object") return source;
+      if (utils_default.isBuffer(source)) return source;
+      if (seen.indexOf(source) !== -1) return void 0;
+      if (source instanceof AxiosHeaders_default) {
+        source = source.toJSON();
+      }
+      seen.push(source);
+      let result;
+      if (utils_default.isArray(source)) {
+        result = [];
+        source.forEach((v, i) => {
+          const reducedValue = visit(v);
+          if (!utils_default.isUndefined(reducedValue)) {
+            result[i] = reducedValue;
+          }
+        });
+      } else {
+        if (!utils_default.isPlainObject(source) && hasOwnOrPrototypeToJSON(source)) {
+          seen.pop();
+          return source;
+        }
+        result = /* @__PURE__ */ Object.create(null);
+        for (const [key, value] of Object.entries(source)) {
+          const reducedValue = lowerKeys.has(key.toLowerCase()) ? REDACTED : visit(value);
+          if (!utils_default.isUndefined(reducedValue)) {
+            result[key] = reducedValue;
+          }
+        }
+      }
+      seen.pop();
+      return result;
+    };
+    return visit(config);
+  }
+  var AxiosError = class _AxiosError extends Error {
+    static from(error, code, config, request, response, customProps) {
+      const axiosError = new _AxiosError(error.message, code || error.code, config, request, response);
+      axiosError.cause = error;
+      axiosError.name = error.name;
+      if (error.status != null && axiosError.status == null) {
+        axiosError.status = error.status;
+      }
+      customProps && Object.assign(axiosError, customProps);
+      return axiosError;
+    }
+    /**
+     * Create an Error with the specified message, config, error code, request and response.
+     *
+     * @param {string} message The error message.
+     * @param {string} [code] The error code (for example, 'ECONNABORTED').
+     * @param {Object} [config] The config.
+     * @param {Object} [request] The request.
+     * @param {Object} [response] The response.
+     *
+     * @returns {Error} The created error.
+     */
+    constructor(message, code, config, request, response) {
+      super(message);
+      Object.defineProperty(this, "message", {
+        // Null-proto descriptor so a polluted Object.prototype.get cannot turn
+        // this data descriptor into an accessor descriptor on the way in.
+        __proto__: null,
+        value: message,
+        enumerable: true,
+        writable: true,
+        configurable: true
+      });
+      this.name = "AxiosError";
+      this.isAxiosError = true;
+      code && (this.code = code);
+      config && (this.config = config);
+      request && (this.request = request);
+      if (response) {
+        this.response = response;
+        this.status = response.status;
+      }
+    }
+    toJSON() {
+      const config = this.config;
+      const redactKeys = config && utils_default.hasOwnProp(config, "redact") ? config.redact : void 0;
+      const serializedConfig = utils_default.isArray(redactKeys) && redactKeys.length > 0 ? redactConfig(config, redactKeys) : utils_default.toJSONObject(config);
+      return {
+        // Standard
+        message: this.message,
+        name: this.name,
+        // Microsoft
+        description: this.description,
+        number: this.number,
+        // Mozilla
+        fileName: this.fileName,
+        lineNumber: this.lineNumber,
+        columnNumber: this.columnNumber,
+        stack: this.stack,
+        // Axios
+        config: serializedConfig,
+        code: this.code,
+        status: this.status
+      };
+    }
+  };
+  AxiosError.ERR_BAD_OPTION_VALUE = "ERR_BAD_OPTION_VALUE";
+  AxiosError.ERR_BAD_OPTION = "ERR_BAD_OPTION";
+  AxiosError.ECONNABORTED = "ECONNABORTED";
+  AxiosError.ETIMEDOUT = "ETIMEDOUT";
+  AxiosError.ECONNREFUSED = "ECONNREFUSED";
+  AxiosError.ERR_NETWORK = "ERR_NETWORK";
+  AxiosError.ERR_FR_TOO_MANY_REDIRECTS = "ERR_FR_TOO_MANY_REDIRECTS";
+  AxiosError.ERR_DEPRECATED = "ERR_DEPRECATED";
+  AxiosError.ERR_BAD_RESPONSE = "ERR_BAD_RESPONSE";
+  AxiosError.ERR_BAD_REQUEST = "ERR_BAD_REQUEST";
+  AxiosError.ERR_CANCELED = "ERR_CANCELED";
+  AxiosError.ERR_NOT_SUPPORT = "ERR_NOT_SUPPORT";
+  AxiosError.ERR_INVALID_URL = "ERR_INVALID_URL";
+  AxiosError.ERR_FORM_DATA_DEPTH_EXCEEDED = "ERR_FORM_DATA_DEPTH_EXCEEDED";
+  var AxiosError_default = AxiosError;
+
+  // ../../node_modules/axios/lib/helpers/null.js
+  var null_default = null;
+
+  // ../../node_modules/axios/lib/helpers/toFormData.js
+  function isVisitable(thing) {
+    return utils_default.isPlainObject(thing) || utils_default.isArray(thing);
+  }
+  function removeBrackets(key) {
+    return utils_default.endsWith(key, "[]") ? key.slice(0, -2) : key;
+  }
+  function renderKey(path, key, dots) {
+    if (!path) return key;
+    return path.concat(key).map(function each(token, i) {
+      token = removeBrackets(token);
+      return !dots && i ? "[" + token + "]" : token;
+    }).join(dots ? "." : "");
+  }
+  function isFlatArray(arr) {
+    return utils_default.isArray(arr) && !arr.some(isVisitable);
+  }
+  var predicates = utils_default.toFlatObject(utils_default, {}, null, function filter(prop) {
+    return /^is[A-Z]/.test(prop);
+  });
+  function toFormData(obj, formData, options) {
+    if (!utils_default.isObject(obj)) {
+      throw new TypeError("target must be an object");
+    }
+    formData = formData || new (null_default || FormData)();
+    options = utils_default.toFlatObject(
+      options,
+      {
+        metaTokens: true,
+        dots: false,
+        indexes: false
+      },
+      false,
+      function defined(option, source) {
+        return !utils_default.isUndefined(source[option]);
+      }
+    );
+    const metaTokens = options.metaTokens;
+    const visitor = options.visitor || defaultVisitor;
+    const dots = options.dots;
+    const indexes = options.indexes;
+    const _Blob = options.Blob || typeof Blob !== "undefined" && Blob;
+    const maxDepth = options.maxDepth === void 0 ? 100 : options.maxDepth;
+    const useBlob = _Blob && utils_default.isSpecCompliantForm(formData);
+    if (!utils_default.isFunction(visitor)) {
+      throw new TypeError("visitor must be a function");
+    }
+    function convertValue(value) {
+      if (value === null) return "";
+      if (utils_default.isDate(value)) {
+        return value.toISOString();
+      }
+      if (utils_default.isBoolean(value)) {
+        return value.toString();
+      }
+      if (!useBlob && utils_default.isBlob(value)) {
+        throw new AxiosError_default("Blob is not supported. Use a Buffer instead.");
+      }
+      if (utils_default.isArrayBuffer(value) || utils_default.isTypedArray(value)) {
+        return useBlob && typeof Blob === "function" ? new Blob([value]) : Buffer.from(value);
+      }
+      return value;
+    }
+    function defaultVisitor(value, key, path) {
+      let arr = value;
+      if (utils_default.isReactNative(formData) && utils_default.isReactNativeBlob(value)) {
+        formData.append(renderKey(path, key, dots), convertValue(value));
+        return false;
+      }
+      if (value && !path && typeof value === "object") {
+        if (utils_default.endsWith(key, "{}")) {
+          key = metaTokens ? key : key.slice(0, -2);
+          value = JSON.stringify(value);
+        } else if (utils_default.isArray(value) && isFlatArray(value) || (utils_default.isFileList(value) || utils_default.endsWith(key, "[]")) && (arr = utils_default.toArray(value))) {
+          key = removeBrackets(key);
+          arr.forEach(function each(el, index2) {
+            !(utils_default.isUndefined(el) || el === null) && formData.append(
+              // eslint-disable-next-line no-nested-ternary
+              indexes === true ? renderKey([key], index2, dots) : indexes === null ? key : key + "[]",
+              convertValue(el)
+            );
+          });
+          return false;
+        }
+      }
+      if (isVisitable(value)) {
+        return true;
+      }
+      formData.append(renderKey(path, key, dots), convertValue(value));
+      return false;
+    }
+    const stack = [];
+    const exposedHelpers = Object.assign(predicates, {
+      defaultVisitor,
+      convertValue,
+      isVisitable
+    });
+    function build(value, path, depth = 0) {
+      if (utils_default.isUndefined(value)) return;
+      if (depth > maxDepth) {
+        throw new AxiosError_default(
+          "Object is too deeply nested (" + depth + " levels). Max depth: " + maxDepth,
+          AxiosError_default.ERR_FORM_DATA_DEPTH_EXCEEDED
+        );
+      }
+      if (stack.indexOf(value) !== -1) {
+        throw Error("Circular reference detected in " + path.join("."));
+      }
+      stack.push(value);
+      utils_default.forEach(value, function each(el, key) {
+        const result = !(utils_default.isUndefined(el) || el === null) && visitor.call(formData, el, utils_default.isString(key) ? key.trim() : key, path, exposedHelpers);
+        if (result === true) {
+          build(el, path ? path.concat(key) : [key], depth + 1);
+        }
+      });
+      stack.pop();
+    }
+    if (!utils_default.isObject(obj)) {
+      throw new TypeError("data must be an object");
+    }
+    build(obj);
+    return formData;
+  }
+  var toFormData_default = toFormData;
+
+  // ../../node_modules/axios/lib/helpers/AxiosURLSearchParams.js
+  function encode(str) {
+    const charMap = {
+      "!": "%21",
+      "'": "%27",
+      "(": "%28",
+      ")": "%29",
+      "~": "%7E",
+      "%20": "+"
+    };
+    return encodeURIComponent(str).replace(/[!'()~]|%20/g, function replacer(match) {
+      return charMap[match];
+    });
+  }
+  function AxiosURLSearchParams(params, options) {
+    this._pairs = [];
+    params && toFormData_default(params, this, options);
+  }
+  var prototype = AxiosURLSearchParams.prototype;
+  prototype.append = function append(name, value) {
+    this._pairs.push([name, value]);
+  };
+  prototype.toString = function toString2(encoder) {
+    const _encode = encoder ? function(value) {
+      return encoder.call(this, value, encode);
+    } : encode;
+    return this._pairs.map(function each(pair) {
+      return _encode(pair[0]) + "=" + _encode(pair[1]);
+    }, "").join("&");
+  };
+  var AxiosURLSearchParams_default = AxiosURLSearchParams;
+
+  // ../../node_modules/axios/lib/helpers/buildURL.js
+  function encode2(val) {
+    return encodeURIComponent(val).replace(/%3A/gi, ":").replace(/%24/g, "$").replace(/%2C/gi, ",").replace(/%20/g, "+");
+  }
+  function buildURL(url, params, options) {
+    if (!params) {
+      return url;
+    }
+    const _encode = options && options.encode || encode2;
+    const _options = utils_default.isFunction(options) ? {
+      serialize: options
+    } : options;
+    const serializeFn = _options && _options.serialize;
+    let serializedParams;
+    if (serializeFn) {
+      serializedParams = serializeFn(params, _options);
+    } else {
+      serializedParams = utils_default.isURLSearchParams(params) ? params.toString() : new AxiosURLSearchParams_default(params, _options).toString(_encode);
+    }
+    if (serializedParams) {
+      const hashmarkIndex = url.indexOf("#");
+      if (hashmarkIndex !== -1) {
+        url = url.slice(0, hashmarkIndex);
+      }
+      url += (url.indexOf("?") === -1 ? "?" : "&") + serializedParams;
+    }
+    return url;
+  }
+
+  // ../../node_modules/axios/lib/core/InterceptorManager.js
+  var InterceptorManager = class {
+    constructor() {
+      this.handlers = [];
+    }
+    /**
+     * Add a new interceptor to the stack
+     *
+     * @param {Function} fulfilled The function to handle `then` for a `Promise`
+     * @param {Function} rejected The function to handle `reject` for a `Promise`
+     * @param {Object} options The options for the interceptor, synchronous and runWhen
+     *
+     * @return {Number} An ID used to remove interceptor later
+     */
+    use(fulfilled, rejected, options) {
+      this.handlers.push({
+        fulfilled,
+        rejected,
+        synchronous: options ? options.synchronous : false,
+        runWhen: options ? options.runWhen : null
+      });
+      return this.handlers.length - 1;
+    }
+    /**
+     * Remove an interceptor from the stack
+     *
+     * @param {Number} id The ID that was returned by `use`
+     *
+     * @returns {void}
+     */
+    eject(id) {
+      if (this.handlers[id]) {
+        this.handlers[id] = null;
+      }
+    }
+    /**
+     * Clear all interceptors from the stack
+     *
+     * @returns {void}
+     */
+    clear() {
+      if (this.handlers) {
+        this.handlers = [];
+      }
+    }
+    /**
+     * Iterate over all the registered interceptors
+     *
+     * This method is particularly useful for skipping over any
+     * interceptors that may have become `null` calling `eject`.
+     *
+     * @param {Function} fn The function to call for each interceptor
+     *
+     * @returns {void}
+     */
+    forEach(fn) {
+      utils_default.forEach(this.handlers, function forEachHandler(h) {
+        if (h !== null) {
+          fn(h);
+        }
+      });
+    }
+  };
+  var InterceptorManager_default = InterceptorManager;
+
+  // ../../node_modules/axios/lib/defaults/transitional.js
+  var transitional_default = {
+    silentJSONParsing: true,
+    forcedJSONParsing: true,
+    clarifyTimeoutError: false,
+    legacyInterceptorReqResOrdering: true
+  };
+
+  // ../../node_modules/axios/lib/platform/browser/classes/URLSearchParams.js
+  var URLSearchParams_default = typeof URLSearchParams !== "undefined" ? URLSearchParams : AxiosURLSearchParams_default;
+
+  // ../../node_modules/axios/lib/platform/browser/classes/FormData.js
+  var FormData_default = typeof FormData !== "undefined" ? FormData : null;
+
+  // ../../node_modules/axios/lib/platform/browser/classes/Blob.js
+  var Blob_default = typeof Blob !== "undefined" ? Blob : null;
+
+  // ../../node_modules/axios/lib/platform/browser/index.js
+  var browser_default = {
+    isBrowser: true,
+    classes: {
+      URLSearchParams: URLSearchParams_default,
+      FormData: FormData_default,
+      Blob: Blob_default
+    },
+    protocols: ["http", "https", "file", "blob", "url", "data"]
+  };
+
+  // ../../node_modules/axios/lib/platform/common/utils.js
+  var utils_exports = {};
+  __export(utils_exports, {
+    hasBrowserEnv: () => hasBrowserEnv,
+    hasStandardBrowserEnv: () => hasStandardBrowserEnv,
+    hasStandardBrowserWebWorkerEnv: () => hasStandardBrowserWebWorkerEnv,
+    navigator: () => _navigator,
+    origin: () => origin
+  });
+  var hasBrowserEnv = typeof window !== "undefined" && typeof document !== "undefined";
+  var _navigator = typeof navigator === "object" && navigator || void 0;
+  var hasStandardBrowserEnv = hasBrowserEnv && (!_navigator || ["ReactNative", "NativeScript", "NS"].indexOf(_navigator.product) < 0);
+  var hasStandardBrowserWebWorkerEnv = (() => {
+    return typeof WorkerGlobalScope !== "undefined" && // eslint-disable-next-line no-undef
+    self instanceof WorkerGlobalScope && typeof self.importScripts === "function";
+  })();
+  var origin = hasBrowserEnv && window.location.href || "http://localhost";
+
+  // ../../node_modules/axios/lib/platform/index.js
+  var platform_default = {
+    ...utils_exports,
+    ...browser_default
+  };
+
+  // ../../node_modules/axios/lib/helpers/toURLEncodedForm.js
+  function toURLEncodedForm(data, options) {
+    return toFormData_default(data, new platform_default.classes.URLSearchParams(), {
+      visitor: function(value, key, path, helpers) {
+        if (platform_default.isNode && utils_default.isBuffer(value)) {
+          this.append(key, value.toString("base64"));
+          return false;
+        }
+        return helpers.defaultVisitor.apply(this, arguments);
+      },
+      ...options
+    });
+  }
+
+  // ../../node_modules/axios/lib/helpers/formDataToJSON.js
+  function parsePropPath(name) {
+    return utils_default.matchAll(/\w+|\[(\w*)]/g, name).map((match) => {
+      return match[0] === "[]" ? "" : match[1] || match[0];
+    });
+  }
+  function arrayToObject(arr) {
+    const obj = {};
+    const keys = Object.keys(arr);
+    let i;
+    const len = keys.length;
+    let key;
+    for (i = 0; i < len; i++) {
+      key = keys[i];
+      obj[key] = arr[key];
+    }
+    return obj;
+  }
+  function formDataToJSON(formData) {
+    function buildPath(path, value, target, index2) {
+      let name = path[index2++];
+      if (name === "__proto__") return true;
+      const isNumericKey = Number.isFinite(+name);
+      const isLast = index2 >= path.length;
+      name = !name && utils_default.isArray(target) ? target.length : name;
+      if (isLast) {
+        if (utils_default.hasOwnProp(target, name)) {
+          target[name] = utils_default.isArray(target[name]) ? target[name].concat(value) : [target[name], value];
+        } else {
+          target[name] = value;
+        }
+        return !isNumericKey;
+      }
+      if (!target[name] || !utils_default.isObject(target[name])) {
+        target[name] = [];
+      }
+      const result = buildPath(path, value, target[name], index2);
+      if (result && utils_default.isArray(target[name])) {
+        target[name] = arrayToObject(target[name]);
+      }
+      return !isNumericKey;
+    }
+    if (utils_default.isFormData(formData) && utils_default.isFunction(formData.entries)) {
+      const obj = {};
+      utils_default.forEachEntry(formData, (name, value) => {
+        buildPath(parsePropPath(name), value, obj, 0);
+      });
+      return obj;
+    }
+    return null;
+  }
+  var formDataToJSON_default = formDataToJSON;
+
+  // ../../node_modules/axios/lib/defaults/index.js
+  var own = (obj, key) => obj != null && utils_default.hasOwnProp(obj, key) ? obj[key] : void 0;
+  function stringifySafely(rawValue, parser, encoder) {
+    if (utils_default.isString(rawValue)) {
+      try {
+        (parser || JSON.parse)(rawValue);
+        return utils_default.trim(rawValue);
+      } catch (e) {
+        if (e.name !== "SyntaxError") {
+          throw e;
+        }
+      }
+    }
+    return (encoder || JSON.stringify)(rawValue);
+  }
+  var defaults = {
+    transitional: transitional_default,
+    adapter: ["xhr", "http", "fetch"],
+    transformRequest: [
+      function transformRequest(data, headers) {
+        const contentType = headers.getContentType() || "";
+        const hasJSONContentType = contentType.indexOf("application/json") > -1;
+        const isObjectPayload = utils_default.isObject(data);
+        if (isObjectPayload && utils_default.isHTMLForm(data)) {
+          data = new FormData(data);
+        }
+        const isFormData2 = utils_default.isFormData(data);
+        if (isFormData2) {
+          return hasJSONContentType ? JSON.stringify(formDataToJSON_default(data)) : data;
+        }
+        if (utils_default.isArrayBuffer(data) || utils_default.isBuffer(data) || utils_default.isStream(data) || utils_default.isFile(data) || utils_default.isBlob(data) || utils_default.isReadableStream(data)) {
+          return data;
+        }
+        if (utils_default.isArrayBufferView(data)) {
+          return data.buffer;
+        }
+        if (utils_default.isURLSearchParams(data)) {
+          headers.setContentType("application/x-www-form-urlencoded;charset=utf-8", false);
+          return data.toString();
+        }
+        let isFileList2;
+        if (isObjectPayload) {
+          const formSerializer = own(this, "formSerializer");
+          if (contentType.indexOf("application/x-www-form-urlencoded") > -1) {
+            return toURLEncodedForm(data, formSerializer).toString();
+          }
+          if ((isFileList2 = utils_default.isFileList(data)) || contentType.indexOf("multipart/form-data") > -1) {
+            const env = own(this, "env");
+            const _FormData = env && env.FormData;
+            return toFormData_default(
+              isFileList2 ? { "files[]": data } : data,
+              _FormData && new _FormData(),
+              formSerializer
+            );
+          }
+        }
+        if (isObjectPayload || hasJSONContentType) {
+          headers.setContentType("application/json", false);
+          return stringifySafely(data);
+        }
+        return data;
+      }
+    ],
+    transformResponse: [
+      function transformResponse(data) {
+        const transitional2 = own(this, "transitional") || defaults.transitional;
+        const forcedJSONParsing = transitional2 && transitional2.forcedJSONParsing;
+        const responseType = own(this, "responseType");
+        const JSONRequested = responseType === "json";
+        if (utils_default.isResponse(data) || utils_default.isReadableStream(data)) {
+          return data;
+        }
+        if (data && utils_default.isString(data) && (forcedJSONParsing && !responseType || JSONRequested)) {
+          const silentJSONParsing = transitional2 && transitional2.silentJSONParsing;
+          const strictJSONParsing = !silentJSONParsing && JSONRequested;
+          try {
+            return JSON.parse(data, own(this, "parseReviver"));
+          } catch (e) {
+            if (strictJSONParsing) {
+              if (e.name === "SyntaxError") {
+                throw AxiosError_default.from(e, AxiosError_default.ERR_BAD_RESPONSE, this, null, own(this, "response"));
+              }
+              throw e;
+            }
+          }
+        }
+        return data;
+      }
+    ],
+    /**
+     * A timeout in milliseconds to abort a request. If set to 0 (default) a
+     * timeout is not created.
+     */
+    timeout: 0,
+    xsrfCookieName: "XSRF-TOKEN",
+    xsrfHeaderName: "X-XSRF-TOKEN",
+    maxContentLength: -1,
+    maxBodyLength: -1,
+    env: {
+      FormData: platform_default.classes.FormData,
+      Blob: platform_default.classes.Blob
+    },
+    validateStatus: function validateStatus(status) {
+      return status >= 200 && status < 300;
+    },
+    headers: {
+      common: {
+        Accept: "application/json, text/plain, */*",
+        "Content-Type": void 0
+      }
+    }
+  };
+  utils_default.forEach(["delete", "get", "head", "post", "put", "patch", "query"], (method) => {
+    defaults.headers[method] = {};
+  });
+  var defaults_default = defaults;
 
   // ../../node_modules/axios/lib/core/transformData.js
   function transformData(fns, response) {
@@ -63797,7 +64065,7 @@ Caused by: ${causeStack}`;
     } else {
       reject(new AxiosError_default(
         "Request failed with status code " + response.status,
-        [AxiosError_default.ERR_BAD_REQUEST, AxiosError_default.ERR_BAD_RESPONSE][Math.floor(response.status / 100) - 4],
+        response.status >= 400 && response.status < 500 ? AxiosError_default.ERR_BAD_REQUEST : AxiosError_default.ERR_BAD_RESPONSE,
         response.config,
         response.request,
         response
@@ -63807,7 +64075,7 @@ Caused by: ${causeStack}`;
 
   // ../../node_modules/axios/lib/helpers/parseProtocol.js
   function parseProtocol(url) {
-    const match = /^([-+\w]{1,25})(:?\/\/|:)/.exec(url);
+    const match = /^([-+\w]{1,25}):(?:\/\/)?/.exec(url);
     return match && match[1] || "";
   }
 
@@ -63887,19 +64155,19 @@ Caused by: ${causeStack}`;
     let bytesNotified = 0;
     const _speedometer = speedometer_default(50, 250);
     return throttle_default((e) => {
-      const loaded = e.loaded;
+      const rawLoaded = e.loaded;
       const total = e.lengthComputable ? e.total : void 0;
-      const progressBytes = loaded - bytesNotified;
+      const loaded = total != null ? Math.min(rawLoaded, total) : rawLoaded;
+      const progressBytes = Math.max(0, loaded - bytesNotified);
       const rate = _speedometer(progressBytes);
-      const inRange = loaded <= total;
-      bytesNotified = loaded;
+      bytesNotified = Math.max(bytesNotified, loaded);
       const data = {
         loaded,
         total,
         progress: total ? loaded / total : void 0,
         bytes: progressBytes,
         rate: rate ? rate : void 0,
-        estimated: rate && total && inRange ? (total - loaded) / rate : void 0,
+        estimated: rate && total ? (total - loaded) / rate : void 0,
         event: e,
         lengthComputable: total != null,
         [isDownloadStream ? "download" : "upload"]: true
@@ -63909,11 +64177,14 @@ Caused by: ${causeStack}`;
   };
   var progressEventDecorator = (total, throttled) => {
     const lengthComputable = total != null;
-    return [(loaded) => throttled[0]({
-      lengthComputable,
-      total,
-      loaded
-    }), throttled[1]];
+    return [
+      (loaded) => throttled[0]({
+        lengthComputable,
+        total,
+        loaded
+      }),
+      throttled[1]
+    ];
   };
   var asyncDecorator = (fn) => (...args) => utils_default.asap(() => fn(...args));
 
@@ -63952,8 +64223,15 @@ Caused by: ${causeStack}`;
       },
       read(name) {
         if (typeof document === "undefined") return null;
-        const match = document.cookie.match(new RegExp("(?:^|; )" + name + "=([^;]*)"));
-        return match ? decodeURIComponent(match[1]) : null;
+        const cookies = document.cookie.split(";");
+        for (let i = 0; i < cookies.length; i++) {
+          const cookie = cookies[i].replace(/^\s+/, "");
+          const eq = cookie.indexOf("=");
+          if (eq !== -1 && cookie.slice(0, eq) === name) {
+            return decodeURIComponent(cookie.slice(eq + 1));
+          }
+        }
+        return null;
       },
       remove(name) {
         this.write(name, "", Date.now() - 864e5, "/");
@@ -63974,6 +64252,9 @@ Caused by: ${causeStack}`;
 
   // ../../node_modules/axios/lib/helpers/isAbsoluteURL.js
   function isAbsoluteURL(url) {
+    if (typeof url !== "string") {
+      return false;
+    }
     return /^([a-z][a-z\d+\-.]*:)?\/\//i.test(url);
   }
 
@@ -63985,7 +64266,7 @@ Caused by: ${causeStack}`;
   // ../../node_modules/axios/lib/core/buildFullPath.js
   function buildFullPath(baseURL, requestedURL, allowAbsoluteUrls) {
     let isRelativeUrl = !isAbsoluteURL(requestedURL);
-    if (baseURL && (isRelativeUrl || allowAbsoluteUrls == false)) {
+    if (baseURL && (isRelativeUrl || allowAbsoluteUrls === false)) {
       return combineURLs(baseURL, requestedURL);
     }
     return requestedURL;
@@ -63995,7 +64276,16 @@ Caused by: ${causeStack}`;
   var headersToObject = (thing) => thing instanceof AxiosHeaders_default ? { ...thing } : thing;
   function mergeConfig(config1, config2) {
     config2 = config2 || {};
-    const config = {};
+    const config = /* @__PURE__ */ Object.create(null);
+    Object.defineProperty(config, "hasOwnProperty", {
+      // Null-proto descriptor so a polluted Object.prototype.get cannot turn
+      // this data descriptor into an accessor descriptor on the way in.
+      __proto__: null,
+      value: Object.prototype.hasOwnProperty,
+      enumerable: false,
+      writable: true,
+      configurable: true
+    });
     function getMergedValue(target, source, prop, caseless) {
       if (utils_default.isPlainObject(target) && utils_default.isPlainObject(source)) {
         return utils_default.merge.call({ caseless }, target, source);
@@ -64026,9 +64316,9 @@ Caused by: ${causeStack}`;
       }
     }
     function mergeDirectKeys(a, b, prop) {
-      if (prop in config2) {
+      if (utils_default.hasOwnProp(config2, prop)) {
         return getMergedValue(a, b);
-      } else if (prop in config1) {
+      } else if (utils_default.hasOwnProp(config1, prop)) {
         return getMergedValue(void 0, a);
       }
     }
@@ -64059,46 +64349,76 @@ Caused by: ${causeStack}`;
       httpsAgent: defaultToConfig2,
       cancelToken: defaultToConfig2,
       socketPath: defaultToConfig2,
+      allowedSocketPaths: defaultToConfig2,
       responseEncoding: defaultToConfig2,
       validateStatus: mergeDirectKeys,
       headers: (a, b, prop) => mergeDeepProperties(headersToObject(a), headersToObject(b), prop, true)
     };
     utils_default.forEach(Object.keys({ ...config1, ...config2 }), function computeConfigValue(prop) {
-      const merge2 = mergeMap[prop] || mergeDeepProperties;
-      const configValue = merge2(config1[prop], config2[prop], prop);
+      if (prop === "__proto__" || prop === "constructor" || prop === "prototype") return;
+      const merge2 = utils_default.hasOwnProp(mergeMap, prop) ? mergeMap[prop] : mergeDeepProperties;
+      const a = utils_default.hasOwnProp(config1, prop) ? config1[prop] : void 0;
+      const b = utils_default.hasOwnProp(config2, prop) ? config2[prop] : void 0;
+      const configValue = merge2(a, b, prop);
       utils_default.isUndefined(configValue) && merge2 !== mergeDirectKeys || (config[prop] = configValue);
     });
     return config;
   }
 
   // ../../node_modules/axios/lib/helpers/resolveConfig.js
+  var FORM_DATA_CONTENT_HEADERS = ["content-type", "content-length"];
+  function setFormDataHeaders(headers, formHeaders, policy) {
+    if (policy !== "content-only") {
+      headers.set(formHeaders);
+      return;
+    }
+    Object.entries(formHeaders).forEach(([key, val]) => {
+      if (FORM_DATA_CONTENT_HEADERS.includes(key.toLowerCase())) {
+        headers.set(key, val);
+      }
+    });
+  }
+  var encodeUTF8 = (str) => encodeURIComponent(str).replace(
+    /%([0-9A-F]{2})/gi,
+    (_, hex) => String.fromCharCode(parseInt(hex, 16))
+  );
   var resolveConfig_default = (config) => {
     const newConfig = mergeConfig({}, config);
-    let { data, withXSRFToken, xsrfHeaderName, xsrfCookieName, headers, auth } = newConfig;
+    const own2 = (key) => utils_default.hasOwnProp(newConfig, key) ? newConfig[key] : void 0;
+    const data = own2("data");
+    let withXSRFToken = own2("withXSRFToken");
+    const xsrfHeaderName = own2("xsrfHeaderName");
+    const xsrfCookieName = own2("xsrfCookieName");
+    let headers = own2("headers");
+    const auth = own2("auth");
+    const baseURL = own2("baseURL");
+    const allowAbsoluteUrls = own2("allowAbsoluteUrls");
+    const url = own2("url");
     newConfig.headers = headers = AxiosHeaders_default.from(headers);
-    newConfig.url = buildURL(buildFullPath(newConfig.baseURL, newConfig.url, newConfig.allowAbsoluteUrls), config.params, config.paramsSerializer);
+    newConfig.url = buildURL(
+      buildFullPath(baseURL, url, allowAbsoluteUrls),
+      config.params,
+      config.paramsSerializer
+    );
     if (auth) {
       headers.set(
         "Authorization",
-        "Basic " + btoa((auth.username || "") + ":" + (auth.password ? unescape(encodeURIComponent(auth.password)) : ""))
+        "Basic " + btoa((auth.username || "") + ":" + (auth.password ? encodeUTF8(auth.password) : ""))
       );
     }
     if (utils_default.isFormData(data)) {
       if (platform_default.hasStandardBrowserEnv || platform_default.hasStandardBrowserWebWorkerEnv) {
         headers.setContentType(void 0);
       } else if (utils_default.isFunction(data.getHeaders)) {
-        const formHeaders = data.getHeaders();
-        const allowedHeaders = ["content-type", "content-length"];
-        Object.entries(formHeaders).forEach(([key, val]) => {
-          if (allowedHeaders.includes(key.toLowerCase())) {
-            headers.set(key, val);
-          }
-        });
+        setFormDataHeaders(headers, data.getHeaders(), own2("formDataHeaderPolicy"));
       }
     }
     if (platform_default.hasStandardBrowserEnv) {
-      withXSRFToken && utils_default.isFunction(withXSRFToken) && (withXSRFToken = withXSRFToken(newConfig));
-      if (withXSRFToken || withXSRFToken !== false && isURLSameOrigin_default(newConfig.url)) {
+      if (utils_default.isFunction(withXSRFToken)) {
+        withXSRFToken = withXSRFToken(newConfig);
+      }
+      const shouldSendXSRF = withXSRFToken === true || withXSRFToken == null && isURLSameOrigin_default(newConfig.url);
+      if (shouldSendXSRF) {
         const xsrfValue = xsrfHeaderName && xsrfCookieName && cookies_default.read(xsrfCookieName);
         if (xsrfValue) {
           headers.set(xsrfHeaderName, xsrfValue);
@@ -64144,13 +64464,17 @@ Caused by: ${causeStack}`;
           config,
           request
         };
-        settle(function _resolve(value) {
-          resolve(value);
-          done();
-        }, function _reject(err) {
-          reject(err);
-          done();
-        }, response);
+        settle(
+          function _resolve(value) {
+            resolve(value);
+            done();
+          },
+          function _reject(err) {
+            reject(err);
+            done();
+          },
+          response
+        );
         request = null;
       }
       if ("onloadend" in request) {
@@ -64160,7 +64484,7 @@ Caused by: ${causeStack}`;
           if (!request || request.readyState !== 4) {
             return;
           }
-          if (request.status === 0 && !(request.responseURL && request.responseURL.indexOf("file:") === 0)) {
+          if (request.status === 0 && !(request.responseURL && request.responseURL.startsWith("file:"))) {
             return;
           }
           setTimeout(onloadend);
@@ -64171,6 +64495,7 @@ Caused by: ${causeStack}`;
           return;
         }
         reject(new AxiosError_default("Request aborted", AxiosError_default.ECONNABORTED, config, request));
+        done();
         request = null;
       };
       request.onerror = function handleError(event) {
@@ -64178,6 +64503,7 @@ Caused by: ${causeStack}`;
         const err = new AxiosError_default(msg, AxiosError_default.ERR_NETWORK, config, request);
         err.event = event || null;
         reject(err);
+        done();
         request = null;
       };
       request.ontimeout = function handleTimeout() {
@@ -64186,12 +64512,15 @@ Caused by: ${causeStack}`;
         if (_config.timeoutErrorMessage) {
           timeoutErrorMessage = _config.timeoutErrorMessage;
         }
-        reject(new AxiosError_default(
-          timeoutErrorMessage,
-          transitional2.clarifyTimeoutError ? AxiosError_default.ETIMEDOUT : AxiosError_default.ECONNABORTED,
-          config,
-          request
-        ));
+        reject(
+          new AxiosError_default(
+            timeoutErrorMessage,
+            transitional2.clarifyTimeoutError ? AxiosError_default.ETIMEDOUT : AxiosError_default.ECONNABORTED,
+            config,
+            request
+          )
+        );
+        done();
         request = null;
       };
       requestData === void 0 && requestHeaders.setContentType(null);
@@ -64222,6 +64551,7 @@ Caused by: ${causeStack}`;
           }
           reject(!cancel || cancel.type ? new CanceledError_default(null, config, request) : cancel);
           request.abort();
+          done();
           request = null;
         };
         _config.cancelToken && _config.cancelToken.subscribe(onCanceled);
@@ -64230,8 +64560,14 @@ Caused by: ${causeStack}`;
         }
       }
       const protocol = parseProtocol(_config.url);
-      if (protocol && platform_default.protocols.indexOf(protocol) === -1) {
-        reject(new AxiosError_default("Unsupported protocol " + protocol + ":", AxiosError_default.ERR_BAD_REQUEST, config));
+      if (protocol && !platform_default.protocols.includes(protocol)) {
+        reject(
+          new AxiosError_default(
+            "Unsupported protocol " + protocol + ":",
+            AxiosError_default.ERR_BAD_REQUEST,
+            config
+          )
+        );
         return;
       }
       request.send(requestData || null);
@@ -64249,7 +64585,9 @@ Caused by: ${causeStack}`;
           aborted = true;
           unsubscribe();
           const err = reason instanceof Error ? reason : this.reason;
-          controller.abort(err instanceof AxiosError_default ? err : new CanceledError_default(err instanceof Error ? err.message : err));
+          controller.abort(
+            err instanceof AxiosError_default ? err : new CanceledError_default(err instanceof Error ? err.message : err)
+          );
         }
       };
       let timer = timeout && setTimeout(() => {
@@ -64322,46 +64660,117 @@ Caused by: ${causeStack}`;
         onFinish && onFinish(e);
       }
     };
-    return new ReadableStream({
-      async pull(controller) {
-        try {
-          const { done: done2, value } = await iterator2.next();
-          if (done2) {
-            _onFinish();
-            controller.close();
-            return;
+    return new ReadableStream(
+      {
+        async pull(controller) {
+          try {
+            const { done: done2, value } = await iterator2.next();
+            if (done2) {
+              _onFinish();
+              controller.close();
+              return;
+            }
+            let len = value.byteLength;
+            if (onProgress) {
+              let loadedBytes = bytes += len;
+              onProgress(loadedBytes);
+            }
+            controller.enqueue(new Uint8Array(value));
+          } catch (err) {
+            _onFinish(err);
+            throw err;
           }
-          let len = value.byteLength;
-          if (onProgress) {
-            let loadedBytes = bytes += len;
-            onProgress(loadedBytes);
-          }
-          controller.enqueue(new Uint8Array(value));
-        } catch (err) {
-          _onFinish(err);
-          throw err;
+        },
+        cancel(reason) {
+          _onFinish(reason);
+          return iterator2.return();
         }
       },
-      cancel(reason) {
-        _onFinish(reason);
-        return iterator2.return();
+      {
+        highWaterMark: 2
       }
-    }, {
-      highWaterMark: 2
-    });
+    );
   };
+
+  // ../../node_modules/axios/lib/helpers/estimateDataURLDecodedBytes.js
+  function estimateDataURLDecodedBytes(url) {
+    if (!url || typeof url !== "string") return 0;
+    if (!url.startsWith("data:")) return 0;
+    const comma = url.indexOf(",");
+    if (comma < 0) return 0;
+    const meta = url.slice(5, comma);
+    const body = url.slice(comma + 1);
+    const isBase64 = /;base64/i.test(meta);
+    if (isBase64) {
+      let effectiveLen = body.length;
+      const len = body.length;
+      for (let i = 0; i < len; i++) {
+        if (body.charCodeAt(i) === 37 && i + 2 < len) {
+          const a = body.charCodeAt(i + 1);
+          const b = body.charCodeAt(i + 2);
+          const isHex = (a >= 48 && a <= 57 || a >= 65 && a <= 70 || a >= 97 && a <= 102) && (b >= 48 && b <= 57 || b >= 65 && b <= 70 || b >= 97 && b <= 102);
+          if (isHex) {
+            effectiveLen -= 2;
+            i += 2;
+          }
+        }
+      }
+      let pad = 0;
+      let idx = len - 1;
+      const tailIsPct3D = (j) => j >= 2 && body.charCodeAt(j - 2) === 37 && // '%'
+      body.charCodeAt(j - 1) === 51 && // '3'
+      (body.charCodeAt(j) === 68 || body.charCodeAt(j) === 100);
+      if (idx >= 0) {
+        if (body.charCodeAt(idx) === 61) {
+          pad++;
+          idx--;
+        } else if (tailIsPct3D(idx)) {
+          pad++;
+          idx -= 3;
+        }
+      }
+      if (pad === 1 && idx >= 0) {
+        if (body.charCodeAt(idx) === 61) {
+          pad++;
+        } else if (tailIsPct3D(idx)) {
+          pad++;
+        }
+      }
+      const groups = Math.floor(effectiveLen / 4);
+      const bytes2 = groups * 3 - (pad || 0);
+      return bytes2 > 0 ? bytes2 : 0;
+    }
+    if (typeof Buffer !== "undefined" && typeof Buffer.byteLength === "function") {
+      return Buffer.byteLength(body, "utf8");
+    }
+    let bytes = 0;
+    for (let i = 0, len = body.length; i < len; i++) {
+      const c = body.charCodeAt(i);
+      if (c < 128) {
+        bytes += 1;
+      } else if (c < 2048) {
+        bytes += 2;
+      } else if (c >= 55296 && c <= 56319 && i + 1 < len) {
+        const next = body.charCodeAt(i + 1);
+        if (next >= 56320 && next <= 57343) {
+          bytes += 4;
+          i++;
+        } else {
+          bytes += 3;
+        }
+      } else {
+        bytes += 3;
+      }
+    }
+    return bytes;
+  }
+
+  // ../../node_modules/axios/lib/env/data.js
+  var VERSION = "1.16.0";
 
   // ../../node_modules/axios/lib/adapters/fetch.js
   var DEFAULT_CHUNK_SIZE = 64 * 1024;
   var { isFunction: isFunction2 } = utils_default;
-  var globalFetchAPI = (({ Request, Response }) => ({
-    Request,
-    Response
-  }))(utils_default.global);
-  var {
-    ReadableStream: ReadableStream2,
-    TextEncoder
-  } = utils_default.global;
   var test = (fn, ...args) => {
     try {
       return !!fn(...args);
@@ -64370,9 +64779,18 @@ Caused by: ${causeStack}`;
     }
   };
   var factory = (env) => {
-    env = utils_default.merge.call({
-      skipUndefined: true
-    }, globalFetchAPI, env);
+    const globalObject = utils_default.global ?? globalThis;
+    const { ReadableStream: ReadableStream2, TextEncoder } = globalObject;
+    env = utils_default.merge.call(
+      {
+        skipUndefined: true
+      },
+      {
+        Request: globalObject.Request,
+        Response: globalObject.Response
+      },
+      env
+    );
     const { fetch: envFetch, Request, Response } = env;
     const isFetchSupported = envFetch ? isFunction2(envFetch) : typeof fetch === "function";
     const isRequestSupported = isFunction2(Request);
@@ -64384,14 +64802,18 @@ Caused by: ${causeStack}`;
     const encodeText = isFetchSupported && (typeof TextEncoder === "function" ? /* @__PURE__ */ ((encoder) => (str) => encoder.encode(str))(new TextEncoder()) : async (str) => new Uint8Array(await new Request(str).arrayBuffer()));
     const supportsRequestStream = isRequestSupported && isReadableStreamSupported && test(() => {
       let duplexAccessed = false;
-      const hasContentType = new Request(platform_default.origin, {
+      const request = new Request(platform_default.origin, {
         body: new ReadableStream2(),
         method: "POST",
         get duplex() {
           duplexAccessed = true;
           return "half";
         }
-      }).headers.has("Content-Type");
+      });
+      const hasContentType = request.headers.has("Content-Type");
+      if (request.body != null) {
+        request.body.cancel();
+      }
       return duplexAccessed && !hasContentType;
     });
     const supportsResponseStream = isResponseSupported && isReadableStreamSupported && test(() => utils_default.isReadableStream(new Response("").body));
@@ -64405,7 +64827,11 @@ Caused by: ${causeStack}`;
           if (method) {
             return method.call(res);
           }
-          throw new AxiosError_default(`Response type '${type}' is not supported`, AxiosError_default.ERR_NOT_SUPPORT, config);
+          throw new AxiosError_default(
+            `Response type '${type}' is not supported`,
+            AxiosError_default.ERR_NOT_SUPPORT,
+            config
+          );
         });
       });
     })();
@@ -64450,17 +64876,46 @@ Caused by: ${causeStack}`;
         responseType,
         headers,
         withCredentials = "same-origin",
-        fetchOptions
+        fetchOptions,
+        maxContentLength,
+        maxBodyLength
       } = resolveConfig_default(config);
+      const hasMaxContentLength = utils_default.isNumber(maxContentLength) && maxContentLength > -1;
+      const hasMaxBodyLength = utils_default.isNumber(maxBodyLength) && maxBodyLength > -1;
       let _fetch = envFetch || fetch;
       responseType = responseType ? (responseType + "").toLowerCase() : "text";
-      let composedSignal = composeSignals_default([signal, cancelToken && cancelToken.toAbortSignal()], timeout);
+      let composedSignal = composeSignals_default(
+        [signal, cancelToken && cancelToken.toAbortSignal()],
+        timeout
+      );
       let request = null;
       const unsubscribe = composedSignal && composedSignal.unsubscribe && (() => {
         composedSignal.unsubscribe();
       });
       let requestContentLength;
       try {
+        if (hasMaxContentLength && typeof url === "string" && url.startsWith("data:")) {
+          const estimated = estimateDataURLDecodedBytes(url);
+          if (estimated > maxContentLength) {
+            throw new AxiosError_default(
+              "maxContentLength size of " + maxContentLength + " exceeded",
+              AxiosError_default.ERR_BAD_RESPONSE,
+              config,
+              request
+            );
+          }
+        }
+        if (hasMaxBodyLength && method !== "get" && method !== "head") {
+          const outboundLength = await resolveBodyLength(headers, data);
+          if (typeof outboundLength === "number" && isFinite(outboundLength) && outboundLength > maxBodyLength) {
+            throw new AxiosError_default(
+              "Request body larger than maxBodyLength limit",
+              AxiosError_default.ERR_BAD_REQUEST,
+              config,
+              request
+            );
+          }
+        }
         if (onUploadProgress && supportsRequestStream && method !== "get" && method !== "head" && (requestContentLength = await resolveBodyLength(headers, data)) !== 0) {
           let _request = new Request(url, {
             method: "POST",
@@ -64483,6 +64938,13 @@ Caused by: ${causeStack}`;
           withCredentials = withCredentials ? "include" : "omit";
         }
         const isCredentialsSupported = isRequestSupported && "credentials" in Request.prototype;
+        if (utils_default.isFormData(data)) {
+          const contentType = headers.getContentType();
+          if (contentType && /^multipart\/form-data/i.test(contentType) && !/boundary=/i.test(contentType)) {
+            headers.delete("content-type");
+          }
+        }
+        headers.set("User-Agent", "axios/" + VERSION, false);
         const resolvedOptions = {
           ...fetchOptions,
           signal: composedSignal,
@@ -64494,8 +64956,19 @@ Caused by: ${causeStack}`;
         };
         request = isRequestSupported && new Request(url, resolvedOptions);
         let response = await (isRequestSupported ? _fetch(request, fetchOptions) : _fetch(url, resolvedOptions));
+        if (hasMaxContentLength) {
+          const declaredLength = utils_default.toFiniteNumber(response.headers.get("content-length"));
+          if (declaredLength != null && declaredLength > maxContentLength) {
+            throw new AxiosError_default(
+              "maxContentLength size of " + maxContentLength + " exceeded",
+              AxiosError_default.ERR_BAD_RESPONSE,
+              config,
+              request
+            );
+          }
+        }
         const isStreamResponse = supportsResponseStream && (responseType === "stream" || responseType === "response");
-        if (supportsResponseStream && (onDownloadProgress || isStreamResponse && unsubscribe)) {
+        if (supportsResponseStream && response.body && (onDownloadProgress || hasMaxContentLength || isStreamResponse && unsubscribe)) {
           const options = {};
           ["status", "statusText", "headers"].forEach((prop) => {
             options[prop] = response[prop];
@@ -64505,8 +64978,23 @@ Caused by: ${causeStack}`;
             responseContentLength,
             progressEventReducer(asyncDecorator(onDownloadProgress), true)
           ) || [];
+          let bytesRead = 0;
+          const onChunkProgress = (loadedBytes) => {
+            if (hasMaxContentLength) {
+              bytesRead = loadedBytes;
+              if (bytesRead > maxContentLength) {
+                throw new AxiosError_default(
+                  "maxContentLength size of " + maxContentLength + " exceeded",
+                  AxiosError_default.ERR_BAD_RESPONSE,
+                  config,
+                  request
+                );
+              }
+            }
+            onProgress && onProgress(loadedBytes);
+          };
           response = new Response(
-            trackStream(response.body, DEFAULT_CHUNK_SIZE, onProgress, () => {
+            trackStream(response.body, DEFAULT_CHUNK_SIZE, onChunkProgress, () => {
               flush && flush();
               unsubscribe && unsubscribe();
             }),
@@ -64514,7 +65002,30 @@ Caused by: ${causeStack}`;
           );
         }
         responseType = responseType || "text";
-        let responseData = await resolvers[utils_default.findKey(resolvers, responseType) || "text"](response, config);
+        let responseData = await resolvers[utils_default.findKey(resolvers, responseType) || "text"](
+          response,
+          config
+        );
+        if (hasMaxContentLength && !supportsResponseStream && !isStreamResponse) {
+          let materializedSize;
+          if (responseData != null) {
+            if (typeof responseData.byteLength === "number") {
+              materializedSize = responseData.byteLength;
+            } else if (typeof responseData.size === "number") {
+              materializedSize = responseData.size;
+            } else if (typeof responseData === "string") {
+              materializedSize = typeof TextEncoder === "function" ? new TextEncoder().encode(responseData).byteLength : responseData.length;
+            }
+          }
+          if (typeof materializedSize === "number" && materializedSize > maxContentLength) {
+            throw new AxiosError_default(
+              "maxContentLength size of " + maxContentLength + " exceeded",
+              AxiosError_default.ERR_BAD_RESPONSE,
+              config,
+              request
+            );
+          }
+        }
         !isStreamResponse && unsubscribe && unsubscribe();
         return await new Promise((resolve, reject) => {
           settle(resolve, reject, {
@@ -64528,15 +65039,28 @@ Caused by: ${causeStack}`;
         });
       } catch (err) {
         unsubscribe && unsubscribe();
+        if (composedSignal && composedSignal.aborted && composedSignal.reason instanceof AxiosError_default) {
+          const canceledError = composedSignal.reason;
+          canceledError.config = config;
+          request && (canceledError.request = request);
+          err !== canceledError && (canceledError.cause = err);
+          throw canceledError;
+        }
         if (err && err.name === "TypeError" && /Load failed|fetch/i.test(err.message)) {
           throw Object.assign(
-            new AxiosError_default("Network Error", AxiosError_default.ERR_NETWORK, config, request),
+            new AxiosError_default(
+              "Network Error",
+              AxiosError_default.ERR_NETWORK,
+              config,
+              request,
+              err && err.response
+            ),
             {
               cause: err.cause || err
             }
           );
         }
-        throw AxiosError_default.from(err, err && err.code, config, request);
+        throw AxiosError_default.from(err, err && err.code, config, request, err && err.response);
       }
     };
   };
@@ -64544,11 +65068,7 @@ Caused by: ${causeStack}`;
   var getFetch = (config) => {
     let env = config && config.env || {};
     const { fetch: fetch2, Request, Response } = env;
-    const seeds = [
-      Request,
-      Response,
-      fetch2
-    ];
+    const seeds = [Request, Response, fetch2];
     let len = seeds.length, i = len, seed, target, map = seedCache;
     while (i--) {
       seed = seeds[i];
@@ -64571,10 +65091,10 @@ Caused by: ${causeStack}`;
   utils_default.forEach(knownAdapters, (fn, value) => {
     if (fn) {
       try {
-        Object.defineProperty(fn, "name", { value });
+        Object.defineProperty(fn, "name", { __proto__: null, value });
       } catch (e) {
       }
-      Object.defineProperty(fn, "adapterName", { value });
+      Object.defineProperty(fn, "adapterName", { __proto__: null, value });
     }
   });
   var renderReason = (reason) => `- ${reason}`;
@@ -64637,41 +65157,44 @@ Caused by: ${causeStack}`;
   function dispatchRequest(config) {
     throwIfCancellationRequested(config);
     config.headers = AxiosHeaders_default.from(config.headers);
-    config.data = transformData.call(
-      config,
-      config.transformRequest
-    );
+    config.data = transformData.call(config, config.transformRequest);
     if (["post", "put", "patch"].indexOf(config.method) !== -1) {
       config.headers.setContentType("application/x-www-form-urlencoded", false);
     }
     const adapter2 = adapters_default.getAdapter(config.adapter || defaults_default.adapter, config);
-    return adapter2(config).then(function onAdapterResolution(response) {
-      throwIfCancellationRequested(config);
-      response.data = transformData.call(
-        config,
-        config.transformResponse,
-        response
-      );
-      response.headers = AxiosHeaders_default.from(response.headers);
-      return response;
-    }, function onAdapterRejection(reason) {
-      if (!isCancel(reason)) {
+    return adapter2(config).then(
+      function onAdapterResolution(response) {
         throwIfCancellationRequested(config);
-        if (reason && reason.response) {
-          reason.response.data = transformData.call(
-            config,
-            config.transformResponse,
-            reason.response
-          );
-          reason.response.headers = AxiosHeaders_default.from(reason.response.headers);
+        config.response = response;
+        try {
+          response.data = transformData.call(config, config.transformResponse, response);
+        } finally {
+          delete config.response;
         }
+        response.headers = AxiosHeaders_default.from(response.headers);
+        return response;
+      },
+      function onAdapterRejection(reason) {
+        if (!isCancel(reason)) {
+          throwIfCancellationRequested(config);
+          if (reason && reason.response) {
+            config.response = reason.response;
+            try {
+              reason.response.data = transformData.call(
+                config,
+                config.transformResponse,
+                reason.response
+              );
+            } finally {
+              delete config.response;
+            }
+            reason.response.headers = AxiosHeaders_default.from(reason.response.headers);
+          }
+        }
+        return Promise.reject(reason);
       }
-      return Promise.reject(reason);
-    });
+    );
   }
-
-  // ../../node_modules/axios/lib/env/data.js
-  var VERSION = "1.13.4";
 
   // ../../node_modules/axios/lib/helpers/validator.js
   var validators = {};
@@ -64718,12 +65241,15 @@ Caused by: ${causeStack}`;
     let i = keys.length;
     while (i-- > 0) {
       const opt = keys[i];
-      const validator = schema[opt];
+      const validator = Object.prototype.hasOwnProperty.call(schema, opt) ? schema[opt] : void 0;
       if (validator) {
         const value = options[opt];
         const result = value === void 0 || validator(value, opt, options);
         if (result !== true) {
-          throw new AxiosError_default("option " + opt + " must be " + result, AxiosError_default.ERR_BAD_OPTION_VALUE);
+          throw new AxiosError_default(
+            "option " + opt + " must be " + result,
+            AxiosError_default.ERR_BAD_OPTION_VALUE
+          );
         }
         continue;
       }
@@ -64762,12 +65288,23 @@ Caused by: ${causeStack}`;
         if (err instanceof Error) {
           let dummy = {};
           Error.captureStackTrace ? Error.captureStackTrace(dummy) : dummy = new Error();
-          const stack = dummy.stack ? dummy.stack.replace(/^.+\n/, "") : "";
+          const stack = (() => {
+            if (!dummy.stack) {
+              return "";
+            }
+            const firstNewlineIndex = dummy.stack.indexOf("\n");
+            return firstNewlineIndex === -1 ? "" : dummy.stack.slice(firstNewlineIndex + 1);
+          })();
           try {
             if (!err.stack) {
               err.stack = stack;
-            } else if (stack && !String(err.stack).endsWith(stack.replace(/^.+\n.+\n/, ""))) {
-              err.stack += "\n" + stack;
+            } else if (stack) {
+              const firstNewlineIndex = stack.indexOf("\n");
+              const secondNewlineIndex = firstNewlineIndex === -1 ? -1 : stack.indexOf("\n", firstNewlineIndex + 1);
+              const stackWithoutTwoTopLines = secondNewlineIndex === -1 ? "" : stack.slice(secondNewlineIndex + 1);
+              if (!String(err.stack).endsWith(stackWithoutTwoTopLines)) {
+                err.stack += "\n" + stack;
+              }
             }
           } catch (e) {
           }
@@ -64785,11 +65322,16 @@ Caused by: ${causeStack}`;
       config = mergeConfig(this.defaults, config);
       const { transitional: transitional2, paramsSerializer, headers } = config;
       if (transitional2 !== void 0) {
-        validator_default.assertOptions(transitional2, {
-          silentJSONParsing: validators2.transitional(validators2.boolean),
-          forcedJSONParsing: validators2.transitional(validators2.boolean),
-          clarifyTimeoutError: validators2.transitional(validators2.boolean)
-        }, false);
+        validator_default.assertOptions(
+          transitional2,
+          {
+            silentJSONParsing: validators2.transitional(validators2.boolean),
+            forcedJSONParsing: validators2.transitional(validators2.boolean),
+            clarifyTimeoutError: validators2.transitional(validators2.boolean),
+            legacyInterceptorReqResOrdering: validators2.transitional(validators2.boolean)
+          },
+          false
+        );
       }
       if (paramsSerializer != null) {
         if (utils_default.isFunction(paramsSerializer)) {
@@ -64797,10 +65339,14 @@ Caused by: ${causeStack}`;
             serialize: paramsSerializer
           };
         } else {
-          validator_default.assertOptions(paramsSerializer, {
-            encode: validators2.function,
-            serialize: validators2.function
-          }, true);
+          validator_default.assertOptions(
+            paramsSerializer,
+            {
+              encode: validators2.function,
+              serialize: validators2.function
+            },
+            true
+          );
         }
       }
       if (config.allowAbsoluteUrls !== void 0) {
@@ -64809,21 +65355,19 @@ Caused by: ${causeStack}`;
       } else {
         config.allowAbsoluteUrls = true;
       }
-      validator_default.assertOptions(config, {
-        baseUrl: validators2.spelling("baseURL"),
-        withXsrfToken: validators2.spelling("withXSRFToken")
-      }, true);
+      validator_default.assertOptions(
+        config,
+        {
+          baseUrl: validators2.spelling("baseURL"),
+          withXsrfToken: validators2.spelling("withXSRFToken")
+        },
+        true
+      );
       config.method = (config.method || this.defaults.method || "get").toLowerCase();
-      let contextHeaders = headers && utils_default.merge(
-        headers.common,
-        headers[config.method]
-      );
-      headers && utils_default.forEach(
-        ["delete", "get", "head", "post", "put", "patch", "common"],
-        (method) => {
-          delete headers[method];
-        }
-      );
+      let contextHeaders = headers && utils_default.merge(headers.common, headers[config.method]);
+      headers && utils_default.forEach(["delete", "get", "head", "post", "put", "patch", "query", "common"], (method) => {
+        delete headers[method];
+      });
       config.headers = AxiosHeaders_default.concat(contextHeaders, headers);
       const requestInterceptorChain = [];
       let synchronousRequestInterceptors = true;
@@ -64832,7 +65376,13 @@ Caused by: ${causeStack}`;
           return;
         }
         synchronousRequestInterceptors = synchronousRequestInterceptors && interceptor.synchronous;
-        requestInterceptorChain.unshift(interceptor.fulfilled, interceptor.rejected);
+        const transitional3 = config.transitional || transitional_default;
+        const legacyInterceptorReqResOrdering = transitional3 && transitional3.legacyInterceptorReqResOrdering;
+        if (legacyInterceptorReqResOrdering) {
+          requestInterceptorChain.unshift(interceptor.fulfilled, interceptor.rejected);
+        } else {
+          requestInterceptorChain.push(interceptor.fulfilled, interceptor.rejected);
+        }
       });
       const responseInterceptorChain = [];
       this.interceptors.response.forEach(function pushResponseInterceptors(interceptor) {
@@ -64884,28 +65434,34 @@ Caused by: ${causeStack}`;
   };
   utils_default.forEach(["delete", "get", "head", "options"], function forEachMethodNoData(method) {
     Axios.prototype[method] = function(url, config) {
-      return this.request(mergeConfig(config || {}, {
-        method,
-        url,
-        data: (config || {}).data
-      }));
+      return this.request(
+        mergeConfig(config || {}, {
+          method,
+          url,
+          data: (config || {}).data
+        })
+      );
     };
   });
-  utils_default.forEach(["post", "put", "patch"], function forEachMethodWithData(method) {
+  utils_default.forEach(["post", "put", "patch", "query"], function forEachMethodWithData(method) {
     function generateHTTPMethod(isForm) {
       return function httpMethod(url, data, config) {
-        return this.request(mergeConfig(config || {}, {
-          method,
-          headers: isForm ? {
-            "Content-Type": "multipart/form-data"
-          } : {},
-          url,
-          data
-        }));
+        return this.request(
+          mergeConfig(config || {}, {
+            method,
+            headers: isForm ? {
+              "Content-Type": "multipart/form-data"
+            } : {},
+            url,
+            data
+          })
+        );
       };
     }
     Axios.prototype[method] = generateHTTPMethod();
-    Axios.prototype[method + "Form"] = generateHTTPMethod(true);
+    if (method !== "query") {
+      Axios.prototype[method + "Form"] = generateHTTPMethod(true);
+    }
   });
   var Axios_default = Axios;
 
@@ -65102,7 +65658,7 @@ Caused by: ${causeStack}`;
     const instance = bind(Axios_default.prototype.request, context);
     utils_default.extend(instance, Axios_default.prototype, context, { allOwnKeys: true });
     utils_default.extend(instance, context, null, { allOwnKeys: true });
-    instance.create = function create(instanceConfig) {
+    instance.create = function create2(instanceConfig) {
       return createInstance(mergeConfig(defaultConfig, instanceConfig));
     };
     return instance;
@@ -65146,7 +65702,8 @@ Caused by: ${causeStack}`;
     HttpStatusCode: HttpStatusCode2,
     formToJSON,
     getAdapter: getAdapter2,
-    mergeConfig: mergeConfig2
+    mergeConfig: mergeConfig2,
+    create
   } = axios_default;
 
   // src/PagedResults.ts
@@ -65154,6 +65711,101 @@ Caused by: ${causeStack}`;
     validateStatus: () => true,
     withCredentials: true
   });
+  function parseLinkHeader(header) {
+    const out = {};
+    if (!header) return out;
+    const re = /<([^>]+)>\s*;\s*rel\s*=\s*"?([^\s",;]+)"?/g;
+    let match = re.exec(header);
+    while (match !== null) {
+      out[match[2]] = match[1];
+      match = re.exec(header);
+    }
+    return out;
+  }
+  function extractCursorParam(url, preferred) {
+    try {
+      const u = new globalThis.URL(url);
+      if (preferred) {
+        const direct = u.searchParams.get(preferred);
+        if (direct != null) return direct;
+      }
+      return u.searchParams.get("after") ?? u.searchParams.get("before") ?? u.searchParams.get("cursor") ?? void 0;
+    } catch {
+      return void 0;
+    }
+  }
+  function readPath(obj, path) {
+    if (!obj || !path) return void 0;
+    if (typeof obj === "object" && obj[path] !== void 0) {
+      return obj[path];
+    }
+    const segments = path.split(".");
+    let cur = obj;
+    for (const seg of segments) {
+      if (cur == null || typeof cur !== "object") return void 0;
+      cur = cur[seg];
+    }
+    return cur;
+  }
+  function pageFingerprint(items) {
+    if (!items || items.length === 0) return void 0;
+    const idKeys = ["id", "number", "uuid", "_id", "name", "arn"];
+    const head = items.slice(0, 3);
+    const ids = [];
+    let anyStamped = false;
+    for (const item of head) {
+      if (item == null) {
+        ids.push("null");
+        continue;
+      }
+      if (typeof item !== "object") {
+        ids.push(`p:${String(item)}`);
+        anyStamped = true;
+        continue;
+      }
+      const lowerKeyMap = {};
+      for (const k of Object.keys(item)) {
+        lowerKeyMap[k.toLowerCase()] = k;
+      }
+      let stamped = false;
+      for (const target of idKeys) {
+        const realKey = lowerKeyMap[target];
+        if (realKey === void 0) continue;
+        const v = item[realKey];
+        if (v !== void 0 && v !== null) {
+          ids.push(`${target}:${String(v)}`);
+          stamped = true;
+          anyStamped = true;
+          break;
+        }
+      }
+      if (!stamped) {
+        return void 0;
+      }
+    }
+    if (!anyStamped) return void 0;
+    return `${items.length}|${ids.join("|")}`;
+  }
+  function writePath(obj, path, value) {
+    if (!path) return;
+    const segments = path.split(".");
+    let cur = obj;
+    for (let i = 0; i < segments.length - 1; i++) {
+      const seg = segments[i];
+      if (cur[seg] == null) {
+        cur[seg] = {};
+      } else if (typeof cur[seg] !== "object") {
+        throw new InvalidStateError(
+          `writePath: cannot traverse path '${path}' \u2014 segment '${seg}' is a ${typeof cur[seg]}, not an object`
+        );
+      }
+      cur = cur[seg];
+    }
+    const tail = segments.at(-1);
+    if (tail !== void 0) {
+      cur[tail] = value;
+    }
+  }
   var _a;
   _a = Symbol.asyncIterator;
   var _PagedResults = class _PagedResults {
@@ -65231,6 +65883,19 @@ Caused by: ${causeStack}`;
       __publicField(this, "body", {});
       /** An object mapper for the type of objects in this collection */
       __publicField(this, "mapper");
+      /**
+       * Maximum number of remote pages `asyncGenerator()` will fetch before
+       * aborting with `UnexpectedError`. Defends against infinite-loop bugs where
+       * a vendor returns the same page repeatedly (e.g. cursor not advancing).
+       * Defaults to 1000; set to 0 to disable.
+       */
+      __publicField(this, "maxPages", 1e3);
+      /**
+       * When true (default), `asyncGenerator()` aborts with `UnexpectedError` if
+       * two consecutive remote pages return identical first-item shallow-keys,
+       * which indicates a stuck cursor / non-advancing offset.
+       */
+      __publicField(this, "detectDuplicatePages", true);
       __publicField(this, _a, this.asyncGenerator);
     }
     get count() {
@@ -65309,7 +65974,7 @@ Caused by: ${causeStack}`;
     }
     set pageNumber(pageNumber) {
       if (pageNumber < 1) {
-        throw new InvalidInputError2("page number", pageNumber);
+        throw new InvalidInputError("page number", pageNumber);
       }
       this._pageNumber = pageNumber;
     }
@@ -65321,7 +65986,7 @@ Caused by: ${causeStack}`;
     }
     set pageSize(pageSize) {
       if (pageSize <= 0) {
-        throw new InvalidInputError2("page size", pageSize);
+        throw new InvalidInputError("page size", pageSize);
       }
       this._pageSize = pageSize;
       this.calculatePageCount();
@@ -65331,7 +65996,7 @@ Caused by: ${causeStack}`;
     }
     set items(items) {
       if (items && items.length > this._pageSize) {
-        throw new ResultLimitExceededError2(this._pageSize, items.length);
+        throw new ResultLimitExceededError(this._pageSize, items.length);
       }
       this._items = items;
     }
@@ -65385,7 +66050,7 @@ Caused by: ${causeStack}`;
     }
     async fetchColumnOptions() {
       if (!this.baseUrl) {
-        throw new InvalidStateError2("Cannot fetch column options without baseUrl set");
+        throw new InvalidStateError("Cannot fetch column options without baseUrl set");
       }
       const url = `${this.baseUrl.origin}${this.baseUrl.path}/options`;
       const request = {
@@ -65393,7 +66058,6 @@ Caused by: ${causeStack}`;
         headers: this.headers,
         timeout: 60871,
         url,
-        // eslint-disable-next-line unicorn/prefer-structured-clone -- need mutable copy
         params: JSON.parse(JSON.stringify(this.params))
       };
       return new Promise((resolve, reject) => {
@@ -65448,7 +66112,7 @@ Caused by: ${causeStack}`;
     }
     async fetchSearchColumnOptions(columnName, search) {
       if (!this.baseUrl) {
-        throw new InvalidStateError2("Cannot fetch search column options without baseUrl set");
+        throw new InvalidStateError("Cannot fetch search column options without baseUrl set");
       }
       const params = JSON.parse(JSON.stringify(this.params));
       params.columnName = columnName;
@@ -65502,7 +66166,7 @@ Caused by: ${causeStack}`;
       const links = [];
       if (this.pageToken) {
         if (!this.baseUrl) {
-          throw new InvalidStateError2("Cannot compute links without base URL being set");
+          throw new InvalidStateError("Cannot compute links without base URL being set");
         }
         const base = `${this.baseUrl.protocol}://${this.baseUrl.host}${this.baseUrl.path}`;
         const params = this.baseUrl.searchParams;
@@ -65510,7 +66174,7 @@ Caused by: ${causeStack}`;
         links.push(`<${base}?${params.toString()}>; rel="next"`);
       } else if (this.pageCount) {
         if (!this.baseUrl) {
-          throw new InvalidStateError2("Cannot compute links without base URL being set");
+          throw new InvalidStateError("Cannot compute links without base URL being set");
         }
         const base = `${this.baseUrl.protocol}://${this.baseUrl.host}${this.baseUrl.path}`;
         const params = JSON.parse(JSON.stringify(this.baseUrl.searchParams));
@@ -65574,6 +66238,30 @@ Caused by: ${causeStack}`;
       return void 0;
     }
     /**
+     * Extracts the items array from a response body. Supports two shapes:
+     *   - Raw array body (typical for GET-paginated endpoints)
+     *   - Wrapped object with `items`, `results`, or `data` array
+     *     (typical for POST/PUT-paginated endpoints that carry pagination
+     *     metadata alongside the items)
+     * Throws UnexpectedError if neither shape is present so the caller gets
+     * a clear diagnostic instead of `resp.data.map is not a function`.
+     */
+    extractItems(data) {
+      if (Array.isArray(data)) {
+        return data;
+      }
+      if (data && typeof data === "object") {
+        const obj = data;
+        if (Array.isArray(obj.items)) return obj.items;
+        if (Array.isArray(obj.results)) return obj.results;
+        if (Array.isArray(obj.data)) return obj.data;
+      }
+      const preview = typeof data === "string" ? `string(${data.slice(0, 80)}${data.length > 80 ? "..." : ""})` : typeof data;
+      throw new UnexpectedError(
+        `PagedResults: response body is not paginatable \u2014 expected an array or an object with items/results/data array, got ${preview}`
+      );
+    }
+    /**
      * Detects pagination mode from API response headers and updates internal state.
      * @param resp The Axios response to analyze
      */
@@ -65593,6 +66281,147 @@ Caused by: ${causeStack}`;
       }
     }
     /**
+     * Applies pager state to an outgoing vendor request, mutating `options`
+     * in place. Modules wire this into their HTTP client's request-prep hook
+     * to thread cursor/page state without reinventing per-vendor glue.
+     *
+     * Behavior by contract:
+     * - `link-header-next`: in cursor mode injects `options.after` (or
+     *   `before`/`cursor` per `cursorParam`) from `pageToken`; deletes `page`.
+     *   In offset mode falls through to numeric `page`.
+     * - `body-token`: writes `pageToken` to `options.body[tokenPath]` (dotted)
+     *   when set; otherwise leaves body unchanged.
+     * - `body-url`: when `pageToken` is a full URL, sets `options.url` to it
+     *   so the next request goes there directly (Microsoft Graph nextLink).
+     * - `header-token`: sets the configured header from `pageToken`.
+     * - `page-number`: sets `options.page` from `pageNumber` (offset only).
+     *
+     * Page size is written to `options[contract.pageSizeParam ?? 'per_page']`.
+     * Set `pageSizeParam: ''` on the contract to omit page-size entirely.
+     */
+    applyToRequest(options, contract) {
+      const sizeKey = contract.pageSizeParam ?? "per_page";
+      if (sizeKey) {
+        options[sizeKey] = this.pageSize;
+      }
+      switch (contract.kind) {
+        case "link-header-next": {
+          if (this.paginationMode === "cursor") {
+            const param = contract.cursorParam ?? "after";
+            delete options.page;
+            if (this.pageToken) {
+              options[param] = this.pageToken;
+            } else {
+              delete options[param];
+            }
+          } else {
+            options.page = this.pageNumber;
+          }
+          return;
+        }
+        case "body-token": {
+          if (this.pageToken) {
+            options.body = options.body ?? {};
+            writePath(options.body, contract.tokenPath, this.pageToken);
+          }
+          return;
+        }
+        case "body-url": {
+          if (this.pageToken) {
+            options.url = this.pageToken;
+          }
+          return;
+        }
+        case "header-token": {
+          options.headers = options.headers ?? {};
+          if (this.pageToken) {
+            options.headers[contract.headerName] = this.pageToken;
+          } else {
+            delete options.headers[contract.headerName];
+          }
+          return;
+        }
+        case "page-number": {
+          options.page = this.pageNumber;
+          return;
+        }
+        default: {
+          const _exhaustive = contract;
+          throw new InvalidStateError(
+            `Unhandled PaginationContract kind: ${contract.kind}`
+          );
+        }
+      }
+    }
+    /**
+     * Reads a vendor response and updates pager state (pageToken, count) per
+     * the contract. Modules wire this into their HTTP client's response hook.
+     * Always populates `pageToken` to the next-page cursor when available, and
+     * clears it when the response signals no more pages — so the client-side
+     * `asyncGenerator` cursor branch terminates correctly.
+     */
+    consumeResponse(response, contract) {
+      const headers = response.headers ?? {};
+      const data = response.data;
+      switch (contract.kind) {
+        case "link-header-next": {
+          if (this.paginationMode === "cursor") {
+            this.pageToken = void 0;
+            const linkHeader = headers.link;
+            if (linkHeader) {
+              const parsed = parseLinkHeader(linkHeader);
+              const nextUrl = parsed.next;
+              if (nextUrl) {
+                const cursor = extractCursorParam(nextUrl, contract.cursorParam);
+                if (cursor) this.pageToken = cursor;
+              }
+            }
+          } else {
+            const linkHeader = headers.link;
+            if (linkHeader) {
+              const parsed = parseLinkHeader(linkHeader);
+              if (parsed.last) {
+                try {
+                  const u = new globalThis.URL(parsed.last);
+                  const page = u.searchParams.get("page");
+                  const pageNum = page ? Number(page) : Number.NaN;
+                  if (Number.isFinite(pageNum) && pageNum > 0) {
+                    this.count = pageNum * this.pageSize;
+                  }
+                } catch {
+                }
+              }
+            }
+          }
+          return;
+        }
+        case "body-token": {
+          const token = readPath(data, contract.tokenPath);
+          this.pageToken = typeof token === "string" && token ? token : void 0;
+          return;
+        }
+        case "body-url": {
+          const url = readPath(data, contract.urlPath);
+          this.pageToken = typeof url === "string" && url ? url : void 0;
+          return;
+        }
+        case "header-token": {
+          const token = headers[contract.headerName] ?? headers[contract.headerName.toLowerCase()];
+          this.pageToken = typeof token === "string" && token ? token : void 0;
+          return;
+        }
+        case "page-number": {
+          return;
+        }
+        default: {
+          const _exhaustive = contract;
+          throw new InvalidStateError(
+            `Unhandled PaginationContract kind: ${contract.kind}`
+          );
+        }
+      }
+    }
+    /**
      * Ingests the content of the given array into this instance
      * @param arr the array to ingest
      * @param pageNumber the page number to display
@@ -65600,7 +66429,7 @@ Caused by: ${causeStack}`;
      */
     ingest(arr, pageNumber = 1, pageSize = 50, pageToken) {
       if (pageNumber < 1) {
-        throw new InvalidInputError2("page number", pageNumber);
+        throw new InvalidInputError("page number", pageNumber);
       }
       const pageCount = arr.length > 0 ? Math.ceil(arr.length / pageSize) : 1;
       if (pageNumber > pageCount) {
@@ -65623,7 +66452,7 @@ Caused by: ${causeStack}`;
     static fromArray(arr, pageNumber = 1, pageSize = 50, count, pageToken) {
       const results = new _PagedResults();
       if (pageNumber < 1) {
-        throw new InvalidInputError2("page number", pageNumber);
+        throw new InvalidInputError("page number", pageNumber);
       }
       const pageCount = arr.length > 0 ? Math.ceil(arr.length / pageSize) : 1;
       if (pageNumber > pageCount) {
@@ -65653,7 +66482,8 @@ Caused by: ${causeStack}`;
         }
         const nextToken = this.extractPageToken(resp);
         this.pageToken = nextToken || void 0;
-        resolve(resp.data.map((obj) => this.mapper ? this.mapper(obj) : obj));
+        const items = this.extractItems(resp.data);
+        resolve(items.map((obj) => this.mapper ? this.mapper(obj) : obj));
       } catch (e) {
         if (e.response && (e.response.status < 500 && e.response.status !== 408)) {
           reject(e);
@@ -65668,7 +66498,7 @@ Caused by: ${causeStack}`;
     }
     async fetchPage(pageNumber) {
       if (!this.baseUrl) {
-        throw new InvalidStateError2("Cannot fetch a page without baseUrl set");
+        throw new InvalidStateError("Cannot fetch a page without baseUrl set");
       }
       let url = "";
       const body = { ...this.body };
@@ -65692,7 +66522,7 @@ Caused by: ${causeStack}`;
         }
         url = `${this.baseUrl}`;
       } else {
-        throw new InvalidStateError2(`HTTP method ${this.httpMethod} is unsupported`);
+        throw new InvalidStateError(`HTTP method ${this.httpMethod} is unsupported`);
       }
       const request = {
         method: this.httpMethod.toString(),
@@ -65711,12 +66541,32 @@ Caused by: ${causeStack}`;
         for (const item of this.items) {
           yield item;
         }
+        let pagesFetched = 0;
+        let prevFingerprint;
+        const overLimit = () => this.maxPages > 0 && pagesFetched >= this.maxPages;
+        const dupCheck = (page) => {
+          if (!this.detectDuplicatePages || page.length === 0) return;
+          const fp = pageFingerprint(page);
+          if (fp && prevFingerprint && fp === prevFingerprint) {
+            throw new UnexpectedError(
+              "PagedResults: duplicate page detected (consecutive pages match) \u2014 likely pagination bug in source (cursor not advancing or page param ignored)"
+            );
+          }
+          prevFingerprint = fp;
+        };
         if (mode === "cursor") {
           while (this.pageToken) {
+            if (overLimit()) {
+              throw new UnexpectedError(
+                `PagedResults: maxPages (${this.maxPages}) exceeded in cursor mode \u2014 aborting to avoid runaway pagination`
+              );
+            }
             const page = await this.fetchPage(0);
+            pagesFetched += 1;
             if (page.length === 0) {
               break;
             }
+            dupCheck(page);
             for (const item of page) {
               yield item;
             }
@@ -65725,10 +66575,17 @@ Caused by: ${causeStack}`;
           let pageNum = this.pageNumber + 1;
           let hasMore = this.items.length === this.pageSize;
           while (hasMore) {
+            if (overLimit()) {
+              throw new UnexpectedError(
+                `PagedResults: maxPages (${this.maxPages}) exceeded in offset mode \u2014 aborting to avoid runaway pagination`
+              );
+            }
             const page = await this.fetchPage(pageNum);
+            pagesFetched += 1;
             if (page.length === 0) {
               break;
             }
+            dupCheck(page);
             for (const item of page) {
               yield item;
             }
@@ -65744,7 +66601,7 @@ Caused by: ${causeStack}`;
     }
     async forEach(func, executors = 10, limit) {
       if (limit !== void 0 && limit < 1) {
-        throw new InvalidInputError2("limit", limit);
+        throw new InvalidInputError("limit", limit);
       }
       const limiter = pLimit(executors);
       const inflight = /* @__PURE__ */ new Set();
@@ -65856,23 +66713,23 @@ Caused by: ${causeStack}`;
 
   // src/errors/CoreErrorLibrary.ts
   var errorClasses = {
-    ConflictError: ConflictError2,
+    ConflictError,
     IllegalArgumentError,
-    EulaNotAcceptedError: EulaNotAcceptedError2,
-    ForbiddenError: ForbiddenError2,
-    InvalidCredentialsError: InvalidCredentialsError2,
-    InvalidInputError: InvalidInputError2,
-    InvalidStateError: InvalidStateError2,
+    EulaNotAcceptedError,
+    ForbiddenError,
+    InvalidCredentialsError,
+    InvalidInputError,
+    InvalidStateError,
     NoSuchObjectError,
-    NotConnectedError: NotConnectedError2,
-    NotFoundError: NotFoundError2,
-    ParameterRequiredError: ParameterRequiredError2,
-    RateLimitExceededError: RateLimitExceededError2,
-    ResultLimitExceededError: ResultLimitExceededError2,
-    TimeoutError: TimeoutError2,
-    UnauthenticatedError: UnauthenticatedError2,
-    UnauthorizedError: UnauthorizedError2,
-    UnexpectedError: UnexpectedError2
+    NotConnectedError,
+    NotFoundError,
+    ParameterRequiredError,
+    RateLimitExceededError,
+    ResultLimitExceededError,
+    TimeoutError,
+    UnauthenticatedError,
+    UnauthorizedError,
+    UnexpectedError
   };
   var CoreErrorLibrary = class {
     constructor() {
@@ -65901,7 +66758,7 @@ Caused by: ${causeStack}`;
       ];
     }
     toError(data) {
-      const model = ObjectSerializer.deserialize(data, "CoreError");
+      const model = ObjectSerializer.deserialize(data, "CoreErrorModel");
       switch (model.key) {
         case this.lib.ConflictError.MESSAGE_KEY: {
           return new this.lib.ConflictError(model.msg, model.timestamp);
@@ -65964,7 +66821,7 @@ Caused by: ${causeStack}`;
       }
     }
     serialize(model) {
-      return ObjectSerializer.serialize(model, "CoreError");
+      return ObjectSerializer.serialize(model, "CoreErrorModel");
     }
   };
 
@@ -66171,7 +67028,7 @@ Caused by: ${causeStack}`;
       results.push({ name: "PagedResults", status: "fail", error: String(e) });
     }
     try {
-      const error = new InvalidInputError2("test", "bad-value", ["good-value"]);
+      const error = new InvalidInputError("test", "bad-value", ["good-value"]);
       console.log("InvalidInputError:", error.message);
       results.push({ name: "InvalidInputError", status: "pass" });
     } catch (e) {
