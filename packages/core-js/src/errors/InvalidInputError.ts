@@ -1,4 +1,5 @@
 import { CoreError } from './CoreError.js';
+import { DateTime } from '../types/DateTime.js';
 import { InvalidInputError as Model } from '../../generated/model/index.js';
 
 export class InvalidInputError extends CoreError<Model> {
@@ -17,7 +18,7 @@ export class InvalidInputError extends CoreError<Model> {
     type: string,
     value: any,
     examples: Array<string | number> = [],
-    timestamp = new Date(),
+    timestamp: DateTime = new DateTime(new Date()),
     cause?: Error
   ) {
     super({

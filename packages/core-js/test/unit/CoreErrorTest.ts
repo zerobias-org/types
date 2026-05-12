@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { CoreError, NoSuchObjectError, ResultLimitExceededError, UnexpectedError, IllegalArgumentError } from "../../src/index.js";
+import { CoreError, DateTime, NoSuchObjectError, ResultLimitExceededError, UnexpectedError, IllegalArgumentError } from "../../src/index.js";
 
 describe('CoreError', function () {
   it('should create an error from a JSON document', async function () {
@@ -14,7 +14,7 @@ describe('CoreError', function () {
     const ce = CoreError.deserialize(json);
     expect(ce).to.be.instanceof(ResultLimitExceededError);
     const rle = ce as ResultLimitExceededError;
-    expect(rle.timestamp).to.be.deep.eq(json.timestamp);
+    expect(rle.timestamp.toString()).to.be.eq(json.timestamp);
     expect(rle.requested).to.be.eq(42);
     expect(rle.returned).to.be.eq(420);
   });
@@ -52,14 +52,14 @@ describe('CoreError', function () {
   describe('cause support', function () {
     it('should preserve the cause error', async function () {
       const cause = new Error('original error');
-      const err = new NoSuchObjectError('Resource', '123', new Date(), cause);
+      const err = new NoSuchObjectError('Resource', '123', new DateTime(new Date()), cause);
       expect(err.cause).to.be.eq(cause);
       expect(err.cause?.message).to.be.eq('original error');
     });
 
     it('should append cause stack trace to error stack', async function () {
       const cause = new Error('original error');
-      const err = new NoSuchObjectError('Resource', '123', new Date(), cause);
+      const err = new NoSuchObjectError('Resource', '123', new DateTime(new Date()), cause);
       expect(err.stack).to.include('Caused by:');
       expect(err.stack).to.include('original error');
     });
@@ -72,7 +72,7 @@ describe('CoreError', function () {
 
     it('should preserve cause in UnexpectedError', async function () {
       const cause = new Error('database connection failed');
-      const err = new UnexpectedError('Operation failed', 500, new Date(), cause);
+      const err = new UnexpectedError('Operation failed', 500, new DateTime(new Date()), cause);
       expect(err.cause).to.be.eq(cause);
       expect(err.stack).to.include('Caused by:');
       expect(err.stack).to.include('database connection failed');
@@ -80,7 +80,7 @@ describe('CoreError', function () {
 
     it('should preserve cause in IllegalArgumentError', async function () {
       const cause = new TypeError('Invalid type');
-      const err = new IllegalArgumentError('Invalid argument provided', new Date(), cause);
+      const err = new IllegalArgumentError('Invalid argument provided', new DateTime(new Date()), cause);
       expect(err.cause).to.be.eq(cause);
       expect(err.stack).to.include('Caused by:');
       expect(err.stack).to.include('Invalid type');
@@ -88,8 +88,8 @@ describe('CoreError', function () {
 
     it('should chain multiple errors', async function () {
       const rootCause = new Error('root cause');
-      const middleError = new UnexpectedError('middle error', 500, new Date(), rootCause);
-      const topError = new NoSuchObjectError('Resource', '123', new Date(), middleError);
+      const middleError = new UnexpectedError('middle error', 500, new DateTime(new Date()), rootCause);
+      const topError = new NoSuchObjectError('Resource', '123', new DateTime(new Date()), middleError);
 
       expect(topError.cause).to.be.eq(middleError);
       expect(topError.stack).to.include('Caused by:');

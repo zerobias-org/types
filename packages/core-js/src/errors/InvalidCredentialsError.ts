@@ -1,4 +1,5 @@
 import { CoreError } from './CoreError.js';
+import { DateTime } from '../types/DateTime.js';
 import { InvalidCredentialsError as Model } from '../../generated/model/index.js';
 
 export class InvalidCredentialsError extends CoreError<Model> {
@@ -10,7 +11,7 @@ export class InvalidCredentialsError extends CoreError<Model> {
    * @param timestamp - optional timestamp for the error
    * @param cause - optional original error that caused this error
    */
-  constructor(timestamp = new Date(), cause?: Error) {
+  constructor(timestamp: DateTime = new DateTime(new Date()), cause?: Error) {
     super({
       key: InvalidCredentialsError.MESSAGE_KEY,
       template: 'Invalid credentials',

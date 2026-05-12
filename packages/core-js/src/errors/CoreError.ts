@@ -1,8 +1,15 @@
 import stringify from 'safe-stable-stringify';
 
 import { ErrorLibrary } from '../ErrorLibrary.js';
+import type { DateTime } from '../types/DateTime.js';
 import { CoreErrorSpec } from './CoreErrorSpec.js';
 import { ErrorModel } from './ErrorModel.js';
+
+// DateTime is intentionally a type-only import here to avoid a module-init
+// cycle: CoreError ← InvalidInputError ← DateTime ← (runtime) CoreError. Where
+// we'd otherwise build DateTime instances inline, we either let library.toError
+// (which uses ObjectSerializer) coerce or accept a Date at runtime in the
+// rarely-hit GenericCoreError fallback path.
 
 /**
  * Best-effort parse of a serialized timestamp (ISO string, epoch number, or
@@ -14,6 +21,14 @@ function parseSerializedTimestamp(value: unknown): Date | undefined {
   }
   if (typeof value === 'string' || typeof value === 'number') {
     const parsed = new Date(value);
+    return Number.isNaN(parsed.getTime()) ? undefined : parsed;
+  }
+  // A DateTime would round-trip via toDate() too, but we can't reference it at
+  // runtime here without re-introducing the cycle. Treat as parseable through
+  // its toJSON()/toString() string form.
+  if (value && typeof value === 'object' && typeof (value as { toString?: () => string }).toString === 'function') {
+    const s = (value as { toString: () => string }).toString();
+    const parsed = new Date(s);
     return Number.isNaN(parsed.getTime()) ? undefined : parsed;
   }
   return undefined;
@@ -175,7 +190,7 @@ export abstract class CoreError<T extends ErrorModel> extends Error implements C
 
     // Best-effort extraction of message/timestamp/stack from a partial error-shaped object
     let msg: string;
-    let timestamp = new Date();
+    let timestamp: Date = new Date();
     let causeStack: string | undefined;
 
     if (value instanceof Error) {
@@ -189,15 +204,9 @@ export abstract class CoreError<T extends ErrorModel> extends Error implements C
       msg = typeof o.message === 'string'
         ? o.message
         : stringify(value) ?? String(value);
-      if (typeof o.timestamp === 'string' || typeof o.timestamp === 'number' || o.timestamp instanceof Date) {
-        try {
-          const parsed = new Date(o.timestamp);
-          if (!Number.isNaN(parsed.getTime())) {
-            timestamp = parsed;
-          }
-        } catch {
-          // ignore — keep default timestamp
-        }
+      const parsedTs = parseSerializedTimestamp(o.timestamp);
+      if (parsedTs) {
+        timestamp = parsedTs;
       }
       if (typeof o.stack === 'string') {
         causeStack = o.stack;
@@ -254,7 +263,7 @@ export abstract class CoreError<T extends ErrorModel> extends Error implements C
     return this._model.template;
   }
 
-  get timestamp(): Date {
+  get timestamp(): DateTime {
     return this._model.timestamp;
   }
 
