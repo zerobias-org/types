@@ -1,6 +1,7 @@
 import { expect } from 'chai';
 import {
   CoreError,
+  GenericCoreError,
   InvalidInputError,
   InvalidStateError,
   NoSuchObjectError,
@@ -72,26 +73,26 @@ describe('CoreError.from', function () {
   it('extracts .timestamp (Date) from a partial error-shaped object', function () {
     const ts = new Date('2020-01-15T12:00:00Z');
     const result = CoreError.from({ message: 'x', timestamp: ts });
-    expect(result.timestamp.getTime()).to.equal(ts.getTime());
+    expect(result.timestamp.toDate().getTime()).to.equal(ts.getTime());
   });
 
   it('extracts .timestamp (ISO string) from a partial error-shaped object', function () {
     const result = CoreError.from({ message: 'x', timestamp: '2020-01-15T12:00:00Z' });
-    expect(result.timestamp.toISOString()).to.equal('2020-01-15T12:00:00.000Z');
+    expect(result.timestamp.toString()).to.equal('2020-01-15T12:00:00.000Z');
   });
 
   it('extracts .timestamp (epoch number) from a partial error-shaped object', function () {
     const epoch = 1_579_089_600_000; // 2020-01-15T12:00:00Z
     const result = CoreError.from({ message: 'x', timestamp: epoch });
-    expect(result.timestamp.getTime()).to.equal(epoch);
+    expect(result.timestamp.toDate().getTime()).to.equal(epoch);
   });
 
   it('ignores invalid .timestamp string and falls back to now', function () {
     const before = Date.now();
     const result = CoreError.from({ message: 'x', timestamp: 'not-a-date' });
     const after = Date.now();
-    expect(result.timestamp.getTime()).to.be.at.least(before);
-    expect(result.timestamp.getTime()).to.be.at.most(after);
+    expect(result.timestamp.toDate().getTime()).to.be.at.least(before);
+    expect(result.timestamp.toDate().getTime()).to.be.at.most(after);
   });
 
   it('ignores .timestamp of unsupported type (array) without throwing', function () {
@@ -107,7 +108,7 @@ describe('CoreError.from', function () {
     });
     expect(result).to.be.instanceof(UnexpectedError);
     expect((result as UnexpectedError).msg).to.equal('gateway down');
-    expect(result.timestamp.getTime()).to.equal(ts.getTime());
+    expect(result.timestamp.toDate().getTime()).to.equal(ts.getTime());
     expect(result.stack).to.include('at originService');
   });
 
@@ -123,7 +124,7 @@ describe('CoreError.from', function () {
     expect((result as UnexpectedError).msg).to.equal('undefined');
   });
 
-  it('wraps CoreError-shaped object with unknown key in UnexpectedError', function () {
+  it('preserves CoreError-shaped object with unknown key verbatim as GenericCoreError', function () {
     const result = CoreError.from({
       key: 'err.totally.unknown',
       template: '{msg}',
@@ -131,7 +132,9 @@ describe('CoreError.from', function () {
       timestamp: new Date(),
       msg: 'surprise',
     });
-    expect(result).to.be.instanceof(UnexpectedError);
+    expect(result).to.be.instanceof(GenericCoreError);
+    expect(result.key).to.equal('err.totally.unknown');
+    expect(result.statusCode).to.equal(500);
   });
 
   it('end-to-end: Error → from → toJSON preserves all subclass fields', function () {

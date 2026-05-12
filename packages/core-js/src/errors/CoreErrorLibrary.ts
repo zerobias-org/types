@@ -70,8 +70,10 @@ export class CoreErrorLibrary implements ErrorLibrary {
   }
 
   toError(data: any): Error & CoreErrorSpec {
-    // TODO: this won't return the subclass until my PR @openapi-generator gets merged
-    const model = ObjectSerializer.deserialize(data, 'CoreError');
+    // Deserialize via the discriminated union so the timestamp field is
+    // converted to a DateTime (deserialize walks the matched subclass's
+    // attributeTypeMap, which marks timestamp as a DateTime/date-time field).
+    const model = ObjectSerializer.deserialize(data, 'CoreErrorModel');
     switch (model.key) {
       case this.lib.ConflictError.MESSAGE_KEY: {
         return new this.lib.ConflictError(model.msg, model.timestamp);
@@ -138,6 +140,6 @@ export class CoreErrorLibrary implements ErrorLibrary {
 
    
   serialize<ModelType extends ErrorModel>(model: ModelType) {
-    return ObjectSerializer.serialize(model, 'CoreError');
+    return ObjectSerializer.serialize(model, 'CoreErrorModel');
   }
 }

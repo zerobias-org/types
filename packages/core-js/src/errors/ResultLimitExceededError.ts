@@ -1,4 +1,5 @@
 import { CoreError } from './CoreError.js';
+import { DateTime } from '../types/DateTime.js';
 import { ResultLimitExceededError as Model } from '../../generated/model/index.js';
 
 export class ResultLimitExceededError extends CoreError<Model> {
@@ -12,7 +13,7 @@ export class ResultLimitExceededError extends CoreError<Model> {
    * @param timestamp - optional timestamp for the error
    * @param cause - optional original error that caused this error
    */
-  constructor(requested: number, returned: number, timestamp = new Date(), cause?: Error) {
+  constructor(requested: number, returned: number, timestamp: DateTime = new DateTime(new Date()), cause?: Error) {
     super({
       key: ResultLimitExceededError.MESSAGE_KEY,
       template: '{requested} results requested but {returned} results returned',

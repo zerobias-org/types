@@ -1,4 +1,5 @@
 import { CoreError } from './CoreError.js';
+import { DateTime } from '../types/DateTime.js';
 import { NotFoundError as Model } from '../../generated/model/index.js';
 
 export class NotFoundError extends CoreError<Model> {
@@ -11,7 +12,7 @@ export class NotFoundError extends CoreError<Model> {
    * @param timestamp - optional timestamp for the error
    * @param cause - optional original error that caused this error
    */
-  constructor(obj: string, timestamp = new Date(), cause?: Error) {
+  constructor(obj: string, timestamp: DateTime = new DateTime(new Date()), cause?: Error) {
     super({
       key: NotFoundError.MESSAGE_KEY,
       template: 'Not found: {obj}',
