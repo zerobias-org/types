@@ -22,9 +22,12 @@ export class DateFormat extends StringFormat<DateFormat> {
 
   private date: Date;
 
-  constructor(date: string | Date) {
+  constructor(date?: string | Date) {
     super();
-    if (date instanceof Date) {
+    if (date === undefined) {
+      this.date = new Date();
+      this.date.setUTCHours(0, 0, 0, 0);
+    } else if (date instanceof Date) {
       this.date = date;
     } else {
       if (!DateFormat.pattern.test(date)) {

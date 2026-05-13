@@ -22,9 +22,11 @@ export class DateTime extends StringFormat<DateTime> {
 
   private date: Date;
 
-  constructor(date: string | Date) {
+  constructor(date?: string | Date) {
     super();
-    if (date instanceof Date) {
+    if (date === undefined) {
+      this.date = new Date();
+    } else if (date instanceof Date) {
       this.date = date;
     } else {
       if (!DateTime.pattern.test(date)) {
