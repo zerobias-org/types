@@ -14,10 +14,10 @@ describe('CoreType bootstrap', function () {
     // start inside the current mocha process — earlier tests almost certainly
     // populated it. Spawn a fresh node + tsx invocation that touches *only*
     // CoreType.allFormats() before anything else.
-    const fixture = resolve(__dirname, '../fixtures/coldStartAllFormats.ts');
+    const fixture = resolve(__dirname, '../fixtures/coldStartAllFormats.mjs');
     const out = execFileSync(
       process.execPath,
-      ['--import', 'tsx/esm', fixture],
+      [fixture],
       { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'], cwd: resolve(__dirname, '../..') }
     );
     expect(out.trim()).to.equal('OK');
