@@ -73,6 +73,14 @@ describe('CoreType', function () {
     expect(types.sort()).to.have.all.members(expected);
   });
 
+  it('allFormats includes canonical format names', function () {
+    const formats: Array<string> = CoreType.allFormats();
+    expect(formats).to.not.be.empty;
+    expect(formats).to.include('date-time');
+    expect(formats).to.include('date');
+    expect(formats).to.include('uuid');
+  });
+
   it('All types should be defined', async function () {
     const types: Array<string> = CoreType.listTypes();
     types.forEach(type => {

@@ -111,6 +111,7 @@ export class CoreType {
    * Returns all valid values for the `format` field. This is a superset of {@link #listTypes()}
    */
   static allFormats(): Array<string> {
+    CoreType.init();
     return Object.keys(CoreType.types);
   }
 
@@ -118,8 +119,8 @@ export class CoreType {
     if (CoreType.initialized) {
       return;
     }
-    CoreType.loadTypeLibrary(new CoreTypeLibrary());
     CoreType.initialized = true;
+    CoreType.loadTypeLibrary(new CoreTypeLibrary());
   }
 
   /**
