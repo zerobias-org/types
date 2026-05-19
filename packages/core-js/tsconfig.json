@@ -15,6 +15,7 @@
     "dist",
     "node_modules",
     "test/browser/bundle.js",
-    "test/browser/bundle.js.map"
+    "test/browser/bundle.js.map",
+    "test/fixtures"
   ]
 }
