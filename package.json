@@ -60,7 +60,9 @@
     "fast-xml-parser": "^5.3.4",
     "follow-redirects": "^1.16.0",
     "glob": ">=13.0.0",
+    "js-yaml": "^4.3.0",
     "serialize-javascript": "^7.0.5",
+    "shell-quote": "^1.10.0",
     "yaml": "2.8.3"
   },
   "dependencies": {
@@ -68,7 +70,7 @@
     "axios": "^1.16.0",
     "buffer": "^6.0.3",
     "cron-parser": "^5.4.0",
-    "ip-num": "^1.5.1",
+    "ip-num": "1.5.1",
     "iso8601-duration": "^2.1.2",
     "p-limit": "^6.2.0",
     "pluralize-esm": "^9.0.5",
@@ -94,7 +96,7 @@
     "badge-maker": "^5.0.2",
     "chai": "^6.2.1",
     "concat-md": "^0.5.1",
-    "esbuild": "^0.27.2",
+    "esbuild": "^0.28.1",
     "eslint": "^9.39.1",
     "lerna": "^9.0.3",
     "mocha": "^11.7.5",
