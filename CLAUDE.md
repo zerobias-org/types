@@ -208,15 +208,15 @@ This repository was migrated from `@auditmation/*` to `@zerobias-org/*`:
 
 | Old Package | New Package |
 |-------------|-------------|
-| `@auditmation/types-core` | `@zerobias-org/types-core` |
-| `@auditmation/types-core-js` | `@zerobias-org/types-core-js` |
-| `@auditmation/types-amazon` | `@zerobias-org/types-amazon` |
-| `@auditmation/types-amazon-js` | `@zerobias-org/types-amazon-js` |
-| `@auditmation/types-google` | `@zerobias-org/types-google` |
-| `@auditmation/types-google-js` | `@zerobias-org/types-google-js` |
-| `@auditmation/types-microsoft` | `@zerobias-org/types-microsoft` |
-| `@auditmation/types-microsoft-js` | `@zerobias-org/types-microsoft-js` |
-| `@auditmation/types-atlassian` | `@zerobias-org/types-atlassian` |
+| `@org/types-core` | `@zerobias-org/types-core` |
+| `@org/types-core-js` | `@zerobias-org/types-core-js` |
+| `@org/types-amazon` | `@zerobias-org/types-amazon` |
+| `@org/types-amazon-js` | `@zerobias-org/types-amazon-js` |
+| `@org/types-google` | `@zerobias-org/types-google` |
+| `@org/types-google-js` | `@zerobias-org/types-google-js` |
+| `@org/types-microsoft` | `@zerobias-org/types-microsoft` |
+| `@org/types-microsoft-js` | `@zerobias-org/types-microsoft-js` |
+| `@org/types-atlassian` | `@zerobias-org/types-atlassian` |
 
 ## Publishing
 

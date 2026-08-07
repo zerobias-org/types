@@ -230,554 +230,554 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-## [0.2.99](https://github.com/auditmation/types/compare/@auditmation/types-format-spectral-ruleset@0.2.98...@auditmation/types-format-spectral-ruleset@0.2.99) (2025-11-24)
+## [0.2.99](https://github.com/org/types/compare/@org/types-format-spectral-ruleset@0.2.98...@org/types-format-spectral-ruleset@0.2.99) (2025-11-24)
 
-**Note:** Version bump only for package @auditmation/types-format-spectral-ruleset
+**Note:** Version bump only for package @org/types-format-spectral-ruleset
 
 
 
 
 
-## [0.2.98](https://github.com/auditmation/types/compare/@auditmation/types-format-spectral-ruleset@0.2.97...@auditmation/types-format-spectral-ruleset@0.2.98) (2025-09-11)
+## [0.2.98](https://github.com/org/types/compare/@org/types-format-spectral-ruleset@0.2.97...@org/types-format-spectral-ruleset@0.2.98) (2025-09-11)
 
-**Note:** Version bump only for package @auditmation/types-format-spectral-ruleset
+**Note:** Version bump only for package @org/types-format-spectral-ruleset
 
 
 
 
 
-## [0.2.97](https://github.com/auditmation/types/compare/@auditmation/types-format-spectral-ruleset@0.2.96...@auditmation/types-format-spectral-ruleset@0.2.97) (2025-09-02)
+## [0.2.97](https://github.com/org/types/compare/@org/types-format-spectral-ruleset@0.2.96...@org/types-format-spectral-ruleset@0.2.97) (2025-09-02)
 
-**Note:** Version bump only for package @auditmation/types-format-spectral-ruleset
+**Note:** Version bump only for package @org/types-format-spectral-ruleset
 
 
 
 
 
-## [0.2.96](https://github.com/auditmation/types/compare/@auditmation/types-format-spectral-ruleset@0.2.95...@auditmation/types-format-spectral-ruleset@0.2.96) (2025-09-01)
+## [0.2.96](https://github.com/org/types/compare/@org/types-format-spectral-ruleset@0.2.95...@org/types-format-spectral-ruleset@0.2.96) (2025-09-01)
 
-**Note:** Version bump only for package @auditmation/types-format-spectral-ruleset
+**Note:** Version bump only for package @org/types-format-spectral-ruleset
 
 
 
 
 
-## [0.2.95](https://github.com/auditmation/types/compare/@auditmation/types-format-spectral-ruleset@0.2.94...@auditmation/types-format-spectral-ruleset@0.2.95) (2025-08-20)
+## [0.2.95](https://github.com/org/types/compare/@org/types-format-spectral-ruleset@0.2.94...@org/types-format-spectral-ruleset@0.2.95) (2025-08-20)
 
-**Note:** Version bump only for package @auditmation/types-format-spectral-ruleset
+**Note:** Version bump only for package @org/types-format-spectral-ruleset
 
 
 
 
 
-## [0.2.94](https://github.com/auditmation/types/compare/@auditmation/types-format-spectral-ruleset@0.2.93...@auditmation/types-format-spectral-ruleset@0.2.94) (2025-07-30)
+## [0.2.94](https://github.com/org/types/compare/@org/types-format-spectral-ruleset@0.2.93...@org/types-format-spectral-ruleset@0.2.94) (2025-07-30)
 
-**Note:** Version bump only for package @auditmation/types-format-spectral-ruleset
+**Note:** Version bump only for package @org/types-format-spectral-ruleset
 
 
 
 
 
-## [0.2.93](https://github.com/auditmation/types/compare/@auditmation/types-format-spectral-ruleset@0.2.92...@auditmation/types-format-spectral-ruleset@0.2.93) (2025-06-05)
+## [0.2.93](https://github.com/org/types/compare/@org/types-format-spectral-ruleset@0.2.92...@org/types-format-spectral-ruleset@0.2.93) (2025-06-05)
 
-**Note:** Version bump only for package @auditmation/types-format-spectral-ruleset
+**Note:** Version bump only for package @org/types-format-spectral-ruleset
 
 
 
 
 
-## [0.2.92](https://github.com/auditmation/types/compare/@auditmation/types-format-spectral-ruleset@0.2.91...@auditmation/types-format-spectral-ruleset@0.2.92) (2025-06-03)
+## [0.2.92](https://github.com/org/types/compare/@org/types-format-spectral-ruleset@0.2.91...@org/types-format-spectral-ruleset@0.2.92) (2025-06-03)
 
-**Note:** Version bump only for package @auditmation/types-format-spectral-ruleset
+**Note:** Version bump only for package @org/types-format-spectral-ruleset
 
 
 
 
 
-## [0.2.91](https://github.com/auditmation/types/compare/@auditmation/types-format-spectral-ruleset@0.2.90...@auditmation/types-format-spectral-ruleset@0.2.91) (2025-06-03)
+## [0.2.91](https://github.com/org/types/compare/@org/types-format-spectral-ruleset@0.2.90...@org/types-format-spectral-ruleset@0.2.91) (2025-06-03)
 
-**Note:** Version bump only for package @auditmation/types-format-spectral-ruleset
+**Note:** Version bump only for package @org/types-format-spectral-ruleset
 
 
 
 
 
-## [0.2.90](https://github.com/auditmation/types/compare/@auditmation/types-format-spectral-ruleset@0.2.89...@auditmation/types-format-spectral-ruleset@0.2.90) (2025-05-13)
+## [0.2.90](https://github.com/org/types/compare/@org/types-format-spectral-ruleset@0.2.89...@org/types-format-spectral-ruleset@0.2.90) (2025-05-13)
 
-**Note:** Version bump only for package @auditmation/types-format-spectral-ruleset
+**Note:** Version bump only for package @org/types-format-spectral-ruleset
 
 
 
 
 
-## [0.2.89](https://github.com/auditmation/types/compare/@auditmation/types-format-spectral-ruleset@0.2.88...@auditmation/types-format-spectral-ruleset@0.2.89) (2025-05-07)
+## [0.2.89](https://github.com/org/types/compare/@org/types-format-spectral-ruleset@0.2.88...@org/types-format-spectral-ruleset@0.2.89) (2025-05-07)
 
-**Note:** Version bump only for package @auditmation/types-format-spectral-ruleset
+**Note:** Version bump only for package @org/types-format-spectral-ruleset
 
 
 
 
 
-## [0.2.88](https://github.com/auditmation/types/compare/@auditmation/types-format-spectral-ruleset@0.2.87...@auditmation/types-format-spectral-ruleset@0.2.88) (2025-04-30)
+## [0.2.88](https://github.com/org/types/compare/@org/types-format-spectral-ruleset@0.2.87...@org/types-format-spectral-ruleset@0.2.88) (2025-04-30)
 
-**Note:** Version bump only for package @auditmation/types-format-spectral-ruleset
+**Note:** Version bump only for package @org/types-format-spectral-ruleset
 
 
 
 
 
-## [0.2.87](https://github.com/auditmation/types/compare/@auditmation/types-format-spectral-ruleset@0.2.86...@auditmation/types-format-spectral-ruleset@0.2.87) (2025-04-09)
+## [0.2.87](https://github.com/org/types/compare/@org/types-format-spectral-ruleset@0.2.86...@org/types-format-spectral-ruleset@0.2.87) (2025-04-09)
 
-**Note:** Version bump only for package @auditmation/types-format-spectral-ruleset
+**Note:** Version bump only for package @org/types-format-spectral-ruleset
 
 
 
 
 
-## [0.2.86](https://github.com/auditmation/types/compare/@auditmation/types-format-spectral-ruleset@0.2.85...@auditmation/types-format-spectral-ruleset@0.2.86) (2025-04-03)
+## [0.2.86](https://github.com/org/types/compare/@org/types-format-spectral-ruleset@0.2.85...@org/types-format-spectral-ruleset@0.2.86) (2025-04-03)
 
-**Note:** Version bump only for package @auditmation/types-format-spectral-ruleset
+**Note:** Version bump only for package @org/types-format-spectral-ruleset
 
 
 
 
 
-## [0.2.85](https://github.com/auditmation/types/compare/@auditmation/types-format-spectral-ruleset@0.2.84...@auditmation/types-format-spectral-ruleset@0.2.85) (2024-11-06)
+## [0.2.85](https://github.com/org/types/compare/@org/types-format-spectral-ruleset@0.2.84...@org/types-format-spectral-ruleset@0.2.85) (2024-11-06)
 
-**Note:** Version bump only for package @auditmation/types-format-spectral-ruleset
+**Note:** Version bump only for package @org/types-format-spectral-ruleset
 
 
 
 
 
-## [0.2.84](https://github.com/auditmation/types/compare/@auditmation/types-format-spectral-ruleset@0.2.83...@auditmation/types-format-spectral-ruleset@0.2.84) (2024-10-25)
+## [0.2.84](https://github.com/org/types/compare/@org/types-format-spectral-ruleset@0.2.83...@org/types-format-spectral-ruleset@0.2.84) (2024-10-25)
 
-**Note:** Version bump only for package @auditmation/types-format-spectral-ruleset
+**Note:** Version bump only for package @org/types-format-spectral-ruleset
 
 
 
 
 
-## [0.2.83](https://github.com/auditmation/types/compare/@auditmation/types-format-spectral-ruleset@0.2.82...@auditmation/types-format-spectral-ruleset@0.2.83) (2024-10-10)
+## [0.2.83](https://github.com/org/types/compare/@org/types-format-spectral-ruleset@0.2.82...@org/types-format-spectral-ruleset@0.2.83) (2024-10-10)
 
-**Note:** Version bump only for package @auditmation/types-format-spectral-ruleset
+**Note:** Version bump only for package @org/types-format-spectral-ruleset
 
 
 
 
 
-## [0.2.82](https://github.com/auditmation/types/compare/@auditmation/types-format-spectral-ruleset@0.2.81...@auditmation/types-format-spectral-ruleset@0.2.82) (2024-07-12)
+## [0.2.82](https://github.com/org/types/compare/@org/types-format-spectral-ruleset@0.2.81...@org/types-format-spectral-ruleset@0.2.82) (2024-07-12)
 
-**Note:** Version bump only for package @auditmation/types-format-spectral-ruleset
+**Note:** Version bump only for package @org/types-format-spectral-ruleset
 
 
 
 
 
-## [0.2.81](https://github.com/auditmation/types/compare/@auditmation/types-format-spectral-ruleset@0.2.80...@auditmation/types-format-spectral-ruleset@0.2.81) (2024-06-17)
+## [0.2.81](https://github.com/org/types/compare/@org/types-format-spectral-ruleset@0.2.80...@org/types-format-spectral-ruleset@0.2.81) (2024-06-17)
 
-**Note:** Version bump only for package @auditmation/types-format-spectral-ruleset
+**Note:** Version bump only for package @org/types-format-spectral-ruleset
 
 
 
 
 
-## [0.2.80](https://github.com/auditmation/types/compare/@auditmation/types-format-spectral-ruleset@0.2.79...@auditmation/types-format-spectral-ruleset@0.2.80) (2024-06-11)
+## [0.2.80](https://github.com/org/types/compare/@org/types-format-spectral-ruleset@0.2.79...@org/types-format-spectral-ruleset@0.2.80) (2024-06-11)
 
 
 ### Bug Fixes
 
-* add new fetch column options ([#240](https://github.com/auditmation/types/issues/240)) ([0031039](https://github.com/auditmation/types/commit/0031039eaa882b8b66fc88902aa4d5fc282a62b3))
+* add new fetch column options ([#240](https://github.com/org/types/issues/240)) ([0031039](https://github.com/org/types/commit/0031039eaa882b8b66fc88902aa4d5fc282a62b3))
 
 
 
 
 
-## [0.2.79](https://github.com/auditmation/types/compare/@auditmation/types-format-spectral-ruleset@0.2.78...@auditmation/types-format-spectral-ruleset@0.2.79) (2024-06-07)
+## [0.2.79](https://github.com/org/types/compare/@org/types-format-spectral-ruleset@0.2.78...@org/types-format-spectral-ruleset@0.2.79) (2024-06-07)
 
-**Note:** Version bump only for package @auditmation/types-format-spectral-ruleset
+**Note:** Version bump only for package @org/types-format-spectral-ruleset
 
 
 
 
 
-## [0.2.78](https://github.com/auditmation/types/compare/@auditmation/types-format-spectral-ruleset@0.2.77...@auditmation/types-format-spectral-ruleset@0.2.78) (2024-06-05)
+## [0.2.78](https://github.com/org/types/compare/@org/types-format-spectral-ruleset@0.2.77...@org/types-format-spectral-ruleset@0.2.78) (2024-06-05)
 
-**Note:** Version bump only for package @auditmation/types-format-spectral-ruleset
+**Note:** Version bump only for package @org/types-format-spectral-ruleset
 
 
 
 
 
-## [0.2.77](https://github.com/auditmation/types/compare/@auditmation/types-format-spectral-ruleset@0.2.76...@auditmation/types-format-spectral-ruleset@0.2.77) (2024-04-09)
+## [0.2.77](https://github.com/org/types/compare/@org/types-format-spectral-ruleset@0.2.76...@org/types-format-spectral-ruleset@0.2.77) (2024-04-09)
 
-**Note:** Version bump only for package @auditmation/types-format-spectral-ruleset
+**Note:** Version bump only for package @org/types-format-spectral-ruleset
 
 
 
 
 
-## [0.2.76](https://github.com/auditmation/types/compare/@auditmation/types-format-spectral-ruleset@0.2.75...@auditmation/types-format-spectral-ruleset@0.2.76) (2024-03-04)
+## [0.2.76](https://github.com/org/types/compare/@org/types-format-spectral-ruleset@0.2.75...@org/types-format-spectral-ruleset@0.2.76) (2024-03-04)
 
-**Note:** Version bump only for package @auditmation/types-format-spectral-ruleset
+**Note:** Version bump only for package @org/types-format-spectral-ruleset
 
 
 
 
 
-## [0.2.75](https://github.com/auditmation/types/compare/@auditmation/types-format-spectral-ruleset@0.2.74...@auditmation/types-format-spectral-ruleset@0.2.75) (2024-02-08)
+## [0.2.75](https://github.com/org/types/compare/@org/types-format-spectral-ruleset@0.2.74...@org/types-format-spectral-ruleset@0.2.75) (2024-02-08)
 
-**Note:** Version bump only for package @auditmation/types-format-spectral-ruleset
+**Note:** Version bump only for package @org/types-format-spectral-ruleset
 
 
 
 
 
-## [0.2.74](https://github.com/auditmation/types/compare/@auditmation/types-format-spectral-ruleset@0.2.73...@auditmation/types-format-spectral-ruleset@0.2.74) (2024-01-22)
+## [0.2.74](https://github.com/org/types/compare/@org/types-format-spectral-ruleset@0.2.73...@org/types-format-spectral-ruleset@0.2.74) (2024-01-22)
 
-**Note:** Version bump only for package @auditmation/types-format-spectral-ruleset
+**Note:** Version bump only for package @org/types-format-spectral-ruleset
 
 
 
 
 
-## [0.2.73](https://github.com/auditmation/types/compare/@auditmation/types-format-spectral-ruleset@0.2.72...@auditmation/types-format-spectral-ruleset@0.2.73) (2024-01-17)
+## [0.2.73](https://github.com/org/types/compare/@org/types-format-spectral-ruleset@0.2.72...@org/types-format-spectral-ruleset@0.2.73) (2024-01-17)
 
-**Note:** Version bump only for package @auditmation/types-format-spectral-ruleset
+**Note:** Version bump only for package @org/types-format-spectral-ruleset
 
 
 
 
 
-## [0.2.72](https://github.com/auditmation/types/compare/@auditmation/types-format-spectral-ruleset@0.2.71...@auditmation/types-format-spectral-ruleset@0.2.72) (2024-01-15)
+## [0.2.72](https://github.com/org/types/compare/@org/types-format-spectral-ruleset@0.2.71...@org/types-format-spectral-ruleset@0.2.72) (2024-01-15)
 
-**Note:** Version bump only for package @auditmation/types-format-spectral-ruleset
+**Note:** Version bump only for package @org/types-format-spectral-ruleset
 
 
 
 
 
-## [0.2.71](https://github.com/auditmation/types/compare/@auditmation/types-format-spectral-ruleset@0.2.70...@auditmation/types-format-spectral-ruleset@0.2.71) (2024-01-05)
+## [0.2.71](https://github.com/org/types/compare/@org/types-format-spectral-ruleset@0.2.70...@org/types-format-spectral-ruleset@0.2.71) (2024-01-05)
 
-**Note:** Version bump only for package @auditmation/types-format-spectral-ruleset
+**Note:** Version bump only for package @org/types-format-spectral-ruleset
 
 
 
 
 
-## [0.2.70](https://github.com/auditmation/types/compare/@auditmation/types-format-spectral-ruleset@0.2.69...@auditmation/types-format-spectral-ruleset@0.2.70) (2023-12-19)
+## [0.2.70](https://github.com/org/types/compare/@org/types-format-spectral-ruleset@0.2.69...@org/types-format-spectral-ruleset@0.2.70) (2023-12-19)
 
-**Note:** Version bump only for package @auditmation/types-format-spectral-ruleset
+**Note:** Version bump only for package @org/types-format-spectral-ruleset
 
 
 
 
 
-## [0.2.69](https://github.com/auditmation/types/compare/@auditmation/types-format-spectral-ruleset@0.2.68...@auditmation/types-format-spectral-ruleset@0.2.69) (2023-12-18)
+## [0.2.69](https://github.com/org/types/compare/@org/types-format-spectral-ruleset@0.2.68...@org/types-format-spectral-ruleset@0.2.69) (2023-12-18)
 
-**Note:** Version bump only for package @auditmation/types-format-spectral-ruleset
+**Note:** Version bump only for package @org/types-format-spectral-ruleset
 
 
 
 
 
-## [0.2.68](https://github.com/auditmation/types/compare/@auditmation/types-format-spectral-ruleset@0.2.67...@auditmation/types-format-spectral-ruleset@0.2.68) (2023-12-14)
+## [0.2.68](https://github.com/org/types/compare/@org/types-format-spectral-ruleset@0.2.67...@org/types-format-spectral-ruleset@0.2.68) (2023-12-14)
 
-**Note:** Version bump only for package @auditmation/types-format-spectral-ruleset
+**Note:** Version bump only for package @org/types-format-spectral-ruleset
 
 
 
 
 
-## [0.2.67](https://github.com/auditmation/types/compare/@auditmation/types-format-spectral-ruleset@0.2.66...@auditmation/types-format-spectral-ruleset@0.2.67) (2023-12-13)
+## [0.2.67](https://github.com/org/types/compare/@org/types-format-spectral-ruleset@0.2.66...@org/types-format-spectral-ruleset@0.2.67) (2023-12-13)
 
-**Note:** Version bump only for package @auditmation/types-format-spectral-ruleset
+**Note:** Version bump only for package @org/types-format-spectral-ruleset
 
 
 
 
 
-## [0.2.66](https://github.com/auditmation/types/compare/@auditmation/types-format-spectral-ruleset@0.2.65...@auditmation/types-format-spectral-ruleset@0.2.66) (2023-12-11)
+## [0.2.66](https://github.com/org/types/compare/@org/types-format-spectral-ruleset@0.2.65...@org/types-format-spectral-ruleset@0.2.66) (2023-12-11)
 
-**Note:** Version bump only for package @auditmation/types-format-spectral-ruleset
+**Note:** Version bump only for package @org/types-format-spectral-ruleset
 
 
 
 
 
-## [0.2.65](https://github.com/auditmation/types/compare/@auditmation/types-format-spectral-ruleset@0.2.64...@auditmation/types-format-spectral-ruleset@0.2.65) (2023-12-06)
+## [0.2.65](https://github.com/org/types/compare/@org/types-format-spectral-ruleset@0.2.64...@org/types-format-spectral-ruleset@0.2.65) (2023-12-06)
 
-**Note:** Version bump only for package @auditmation/types-format-spectral-ruleset
+**Note:** Version bump only for package @org/types-format-spectral-ruleset
 
 
 
 
 
-## [0.2.64](https://github.com/auditmation/types/compare/@auditmation/types-format-spectral-ruleset@0.2.63...@auditmation/types-format-spectral-ruleset@0.2.64) (2023-12-04)
+## [0.2.64](https://github.com/org/types/compare/@org/types-format-spectral-ruleset@0.2.63...@org/types-format-spectral-ruleset@0.2.64) (2023-12-04)
 
-**Note:** Version bump only for package @auditmation/types-format-spectral-ruleset
+**Note:** Version bump only for package @org/types-format-spectral-ruleset
 
 
 
 
 
-## [0.2.63](https://github.com/auditmation/types/compare/@auditmation/types-format-spectral-ruleset@0.2.62...@auditmation/types-format-spectral-ruleset@0.2.63) (2023-11-28)
+## [0.2.63](https://github.com/org/types/compare/@org/types-format-spectral-ruleset@0.2.62...@org/types-format-spectral-ruleset@0.2.63) (2023-11-28)
 
-**Note:** Version bump only for package @auditmation/types-format-spectral-ruleset
+**Note:** Version bump only for package @org/types-format-spectral-ruleset
 
 
 
 
 
-## [0.2.62](https://github.com/auditmation/types/compare/@auditmation/types-format-spectral-ruleset@0.2.61...@auditmation/types-format-spectral-ruleset@0.2.62) (2023-10-25)
+## [0.2.62](https://github.com/org/types/compare/@org/types-format-spectral-ruleset@0.2.61...@org/types-format-spectral-ruleset@0.2.62) (2023-10-25)
 
-**Note:** Version bump only for package @auditmation/types-format-spectral-ruleset
+**Note:** Version bump only for package @org/types-format-spectral-ruleset
 
 
 
 
 
-## [0.2.61](https://github.com/auditmation/types/compare/@auditmation/types-format-spectral-ruleset@0.2.60...@auditmation/types-format-spectral-ruleset@0.2.61) (2023-10-11)
+## [0.2.61](https://github.com/org/types/compare/@org/types-format-spectral-ruleset@0.2.60...@org/types-format-spectral-ruleset@0.2.61) (2023-10-11)
 
-**Note:** Version bump only for package @auditmation/types-format-spectral-ruleset
+**Note:** Version bump only for package @org/types-format-spectral-ruleset
 
 
 
 
 
-## [0.2.60](https://github.com/auditmation/types/compare/@auditmation/types-format-spectral-ruleset@0.2.59...@auditmation/types-format-spectral-ruleset@0.2.60) (2023-10-04)
+## [0.2.60](https://github.com/org/types/compare/@org/types-format-spectral-ruleset@0.2.59...@org/types-format-spectral-ruleset@0.2.60) (2023-10-04)
 
-**Note:** Version bump only for package @auditmation/types-format-spectral-ruleset
+**Note:** Version bump only for package @org/types-format-spectral-ruleset
 
 
 
 
 
-## [0.2.59](https://github.com/auditmation/types/compare/@auditmation/types-format-spectral-ruleset@0.2.58...@auditmation/types-format-spectral-ruleset@0.2.59) (2023-10-03)
+## [0.2.59](https://github.com/org/types/compare/@org/types-format-spectral-ruleset@0.2.58...@org/types-format-spectral-ruleset@0.2.59) (2023-10-03)
 
-**Note:** Version bump only for package @auditmation/types-format-spectral-ruleset
+**Note:** Version bump only for package @org/types-format-spectral-ruleset
 
 
 
 
 
-## [0.2.58](https://github.com/auditmation/types/compare/@auditmation/types-format-spectral-ruleset@0.2.57...@auditmation/types-format-spectral-ruleset@0.2.58) (2023-09-28)
+## [0.2.58](https://github.com/org/types/compare/@org/types-format-spectral-ruleset@0.2.57...@org/types-format-spectral-ruleset@0.2.58) (2023-09-28)
 
-**Note:** Version bump only for package @auditmation/types-format-spectral-ruleset
+**Note:** Version bump only for package @org/types-format-spectral-ruleset
 
 
 
 
 
-## [0.2.57](https://github.com/auditmation/types/compare/@auditmation/types-format-spectral-ruleset@0.2.56...@auditmation/types-format-spectral-ruleset@0.2.57) (2023-09-25)
+## [0.2.57](https://github.com/org/types/compare/@org/types-format-spectral-ruleset@0.2.56...@org/types-format-spectral-ruleset@0.2.57) (2023-09-25)
 
-**Note:** Version bump only for package @auditmation/types-format-spectral-ruleset
+**Note:** Version bump only for package @org/types-format-spectral-ruleset
 
 
 
 
 
-## [0.2.56](https://github.com/auditmation/types/compare/@auditmation/types-format-spectral-ruleset@0.2.55...@auditmation/types-format-spectral-ruleset@0.2.56) (2023-08-31)
+## [0.2.56](https://github.com/org/types/compare/@org/types-format-spectral-ruleset@0.2.55...@org/types-format-spectral-ruleset@0.2.56) (2023-08-31)
 
-**Note:** Version bump only for package @auditmation/types-format-spectral-ruleset
+**Note:** Version bump only for package @org/types-format-spectral-ruleset
 
 
 
 
 
-## [0.2.55](https://github.com/auditmation/types/compare/@auditmation/types-format-spectral-ruleset@0.2.54...@auditmation/types-format-spectral-ruleset@0.2.55) (2023-08-15)
+## [0.2.55](https://github.com/org/types/compare/@org/types-format-spectral-ruleset@0.2.54...@org/types-format-spectral-ruleset@0.2.55) (2023-08-15)
 
-**Note:** Version bump only for package @auditmation/types-format-spectral-ruleset
+**Note:** Version bump only for package @org/types-format-spectral-ruleset
 
 
 
 
 
-## [0.2.54](https://github.com/auditmation/types/compare/@auditmation/types-format-spectral-ruleset@0.2.53...@auditmation/types-format-spectral-ruleset@0.2.54) (2023-08-01)
+## [0.2.54](https://github.com/org/types/compare/@org/types-format-spectral-ruleset@0.2.53...@org/types-format-spectral-ruleset@0.2.54) (2023-08-01)
 
-**Note:** Version bump only for package @auditmation/types-format-spectral-ruleset
+**Note:** Version bump only for package @org/types-format-spectral-ruleset
 
 
 
 
 
-## [0.2.53](https://github.com/auditmation/types/compare/@auditmation/types-format-spectral-ruleset@0.2.52...@auditmation/types-format-spectral-ruleset@0.2.53) (2023-06-28)
+## [0.2.53](https://github.com/org/types/compare/@org/types-format-spectral-ruleset@0.2.52...@org/types-format-spectral-ruleset@0.2.53) (2023-06-28)
 
-**Note:** Version bump only for package @auditmation/types-format-spectral-ruleset
+**Note:** Version bump only for package @org/types-format-spectral-ruleset
 
 
 
 
 
-## [0.2.52](https://github.com/auditmation/types/compare/@auditmation/types-format-spectral-ruleset@0.2.51...@auditmation/types-format-spectral-ruleset@0.2.52) (2023-05-03)
+## [0.2.52](https://github.com/org/types/compare/@org/types-format-spectral-ruleset@0.2.51...@org/types-format-spectral-ruleset@0.2.52) (2023-05-03)
 
-**Note:** Version bump only for package @auditmation/types-format-spectral-ruleset
+**Note:** Version bump only for package @org/types-format-spectral-ruleset
 
 
 
 
 
-## [0.2.51](https://github.com/auditmation/types/compare/@auditmation/types-format-spectral-ruleset@0.2.50...@auditmation/types-format-spectral-ruleset@0.2.51) (2023-05-02)
+## [0.2.51](https://github.com/org/types/compare/@org/types-format-spectral-ruleset@0.2.50...@org/types-format-spectral-ruleset@0.2.51) (2023-05-02)
 
-**Note:** Version bump only for package @auditmation/types-format-spectral-ruleset
+**Note:** Version bump only for package @org/types-format-spectral-ruleset
 
 
 
 
 
-## [0.2.50](https://github.com/auditmation/types/compare/@auditmation/types-format-spectral-ruleset@0.2.49...@auditmation/types-format-spectral-ruleset@0.2.50) (2023-05-02)
+## [0.2.50](https://github.com/org/types/compare/@org/types-format-spectral-ruleset@0.2.49...@org/types-format-spectral-ruleset@0.2.50) (2023-05-02)
 
-**Note:** Version bump only for package @auditmation/types-format-spectral-ruleset
+**Note:** Version bump only for package @org/types-format-spectral-ruleset
 
 
 
 
 
-## [0.2.49](https://github.com/auditmation/types/compare/@auditmation/types-format-spectral-ruleset@0.2.48...@auditmation/types-format-spectral-ruleset@0.2.49) (2023-04-18)
+## [0.2.49](https://github.com/org/types/compare/@org/types-format-spectral-ruleset@0.2.48...@org/types-format-spectral-ruleset@0.2.49) (2023-04-18)
 
-**Note:** Version bump only for package @auditmation/types-format-spectral-ruleset
+**Note:** Version bump only for package @org/types-format-spectral-ruleset
 
 
 
 
 
-## [0.2.48](https://github.com/auditmation/types/compare/@auditmation/types-format-spectral-ruleset@0.2.47...@auditmation/types-format-spectral-ruleset@0.2.48) (2023-04-18)
+## [0.2.48](https://github.com/org/types/compare/@org/types-format-spectral-ruleset@0.2.47...@org/types-format-spectral-ruleset@0.2.48) (2023-04-18)
 
-**Note:** Version bump only for package @auditmation/types-format-spectral-ruleset
+**Note:** Version bump only for package @org/types-format-spectral-ruleset
 
 
 
 
 
-## [0.2.47](https://github.com/auditmation/types/compare/@auditmation/types-format-spectral-ruleset@0.2.46...@auditmation/types-format-spectral-ruleset@0.2.47) (2023-04-12)
+## [0.2.47](https://github.com/org/types/compare/@org/types-format-spectral-ruleset@0.2.46...@org/types-format-spectral-ruleset@0.2.47) (2023-04-12)
 
-**Note:** Version bump only for package @auditmation/types-format-spectral-ruleset
+**Note:** Version bump only for package @org/types-format-spectral-ruleset
 
 
 
 
 
-## [0.2.46](https://github.com/auditmation/types/compare/@auditmation/types-format-spectral-ruleset@0.2.45...@auditmation/types-format-spectral-ruleset@0.2.46) (2023-04-12)
+## [0.2.46](https://github.com/org/types/compare/@org/types-format-spectral-ruleset@0.2.45...@org/types-format-spectral-ruleset@0.2.46) (2023-04-12)
 
-**Note:** Version bump only for package @auditmation/types-format-spectral-ruleset
+**Note:** Version bump only for package @org/types-format-spectral-ruleset
 
 
 
 
 
-## [0.2.45](https://github.com/auditmation/types/compare/@auditmation/types-format-spectral-ruleset@0.2.44...@auditmation/types-format-spectral-ruleset@0.2.45) (2023-04-07)
+## [0.2.45](https://github.com/org/types/compare/@org/types-format-spectral-ruleset@0.2.44...@org/types-format-spectral-ruleset@0.2.45) (2023-04-07)
 
-**Note:** Version bump only for package @auditmation/types-format-spectral-ruleset
+**Note:** Version bump only for package @org/types-format-spectral-ruleset
 
 
 
 
 
-## [0.2.44](https://github.com/auditmation/types/compare/@auditmation/types-format-spectral-ruleset@0.2.43...@auditmation/types-format-spectral-ruleset@0.2.44) (2023-04-06)
+## [0.2.44](https://github.com/org/types/compare/@org/types-format-spectral-ruleset@0.2.43...@org/types-format-spectral-ruleset@0.2.44) (2023-04-06)
 
-**Note:** Version bump only for package @auditmation/types-format-spectral-ruleset
+**Note:** Version bump only for package @org/types-format-spectral-ruleset
 
 
 
 
 
-## [0.2.43](https://github.com/auditmation/types/compare/@auditmation/types-format-spectral-ruleset@0.2.42...@auditmation/types-format-spectral-ruleset@0.2.43) (2023-03-29)
+## [0.2.43](https://github.com/org/types/compare/@org/types-format-spectral-ruleset@0.2.42...@org/types-format-spectral-ruleset@0.2.43) (2023-03-29)
 
-**Note:** Version bump only for package @auditmation/types-format-spectral-ruleset
+**Note:** Version bump only for package @org/types-format-spectral-ruleset
 
 
 
 
 
-## [0.2.42](https://github.com/auditmation/types/compare/@auditmation/types-format-spectral-ruleset@0.2.41...@auditmation/types-format-spectral-ruleset@0.2.42) (2023-03-24)
+## [0.2.42](https://github.com/org/types/compare/@org/types-format-spectral-ruleset@0.2.41...@org/types-format-spectral-ruleset@0.2.42) (2023-03-24)
 
-**Note:** Version bump only for package @auditmation/types-format-spectral-ruleset
+**Note:** Version bump only for package @org/types-format-spectral-ruleset
 
 
 
 
 
-## [0.2.41](https://github.com/auditmation/types/compare/@auditmation/types-format-spectral-ruleset@0.2.40...@auditmation/types-format-spectral-ruleset@0.2.41) (2023-03-01)
+## [0.2.41](https://github.com/org/types/compare/@org/types-format-spectral-ruleset@0.2.40...@org/types-format-spectral-ruleset@0.2.41) (2023-03-01)
 
-**Note:** Version bump only for package @auditmation/types-format-spectral-ruleset
+**Note:** Version bump only for package @org/types-format-spectral-ruleset
 
 
 
 
 
-## [0.2.40](https://github.com/auditmation/types/compare/@auditmation/types-format-spectral-ruleset@0.2.39...@auditmation/types-format-spectral-ruleset@0.2.40) (2023-02-14)
+## [0.2.40](https://github.com/org/types/compare/@org/types-format-spectral-ruleset@0.2.39...@org/types-format-spectral-ruleset@0.2.40) (2023-02-14)
 
-**Note:** Version bump only for package @auditmation/types-format-spectral-ruleset
+**Note:** Version bump only for package @org/types-format-spectral-ruleset
 
 
 
 
 
-## [0.2.39](https://github.com/auditmation/types/compare/@auditmation/types-format-spectral-ruleset@0.2.38...@auditmation/types-format-spectral-ruleset@0.2.39) (2023-02-06)
+## [0.2.39](https://github.com/org/types/compare/@org/types-format-spectral-ruleset@0.2.38...@org/types-format-spectral-ruleset@0.2.39) (2023-02-06)
 
-**Note:** Version bump only for package @auditmation/types-format-spectral-ruleset
+**Note:** Version bump only for package @org/types-format-spectral-ruleset
 
 
 
 
 
-## [0.2.38](https://github.com/auditmation/types/compare/@auditmation/types-format-spectral-ruleset@0.2.37...@auditmation/types-format-spectral-ruleset@0.2.38) (2023-01-25)
+## [0.2.38](https://github.com/org/types/compare/@org/types-format-spectral-ruleset@0.2.37...@org/types-format-spectral-ruleset@0.2.38) (2023-01-25)
 
-**Note:** Version bump only for package @auditmation/types-format-spectral-ruleset
+**Note:** Version bump only for package @org/types-format-spectral-ruleset
 
 
 
 
 
-## [0.2.37](https://github.com/auditmation/types/compare/@auditmation/types-format-spectral-ruleset@0.2.36...@auditmation/types-format-spectral-ruleset@0.2.37) (2022-11-10)
+## [0.2.37](https://github.com/org/types/compare/@org/types-format-spectral-ruleset@0.2.36...@org/types-format-spectral-ruleset@0.2.37) (2022-11-10)
 
-**Note:** Version bump only for package @auditmation/types-format-spectral-ruleset
+**Note:** Version bump only for package @org/types-format-spectral-ruleset
 
 
 
 
 
-## [0.2.36](https://github.com/auditmation/types/compare/@auditmation/types-format-spectral-ruleset@0.2.35...@auditmation/types-format-spectral-ruleset@0.2.36) (2022-11-04)
+## [0.2.36](https://github.com/org/types/compare/@org/types-format-spectral-ruleset@0.2.35...@org/types-format-spectral-ruleset@0.2.36) (2022-11-04)
 
-**Note:** Version bump only for package @auditmation/types-format-spectral-ruleset
+**Note:** Version bump only for package @org/types-format-spectral-ruleset
 
 
 
 
 
-## [0.2.35](https://github.com/auditmation/types/compare/@auditmation/types-format-spectral-ruleset@0.2.34...@auditmation/types-format-spectral-ruleset@0.2.35) (2022-11-03)
+## [0.2.35](https://github.com/org/types/compare/@org/types-format-spectral-ruleset@0.2.34...@org/types-format-spectral-ruleset@0.2.35) (2022-11-03)
 
 
 ### Bug Fixes
 
-* properly validate core types on newInstance ([7366dff](https://github.com/auditmation/types/commit/7366dff92322a9b5bf38e4edadf90a41e0ac8ecd))
+* properly validate core types on newInstance ([7366dff](https://github.com/org/types/commit/7366dff92322a9b5bf38e4edadf90a41e0ac8ecd))
 
 
 
 
 
-## [0.2.34](https://github.com/auditmation/types/compare/@auditmation/types-format-spectral-ruleset@0.2.33...@auditmation/types-format-spectral-ruleset@0.2.34) (2022-11-03)
+## [0.2.34](https://github.com/org/types/compare/@org/types-format-spectral-ruleset@0.2.33...@org/types-format-spectral-ruleset@0.2.34) (2022-11-03)
 
 
 ### Bug Fixes
 
-* this should depend on `-js` not the typedefs ([09f7547](https://github.com/auditmation/types/commit/09f7547be39ef66db6c0e5fd283d595c56482efb))
+* this should depend on `-js` not the typedefs ([09f7547](https://github.com/org/types/commit/09f7547be39ef66db6c0e5fd283d595c56482efb))
 
 
 
 
 
-## [0.2.33](https://github.com/auditmation/types/compare/@auditmation/types-format-spectral-ruleset@0.2.32...@auditmation/types-format-spectral-ruleset@0.2.33) (2022-10-28)
+## [0.2.33](https://github.com/org/types/compare/@org/types-format-spectral-ruleset@0.2.32...@org/types-format-spectral-ruleset@0.2.33) (2022-10-28)
 
-**Note:** Version bump only for package @auditmation/types-format-spectral-ruleset
-
-
+**Note:** Version bump only for package @org/types-format-spectral-ruleset
 
 
 
-## [0.2.32](https://github.com/auditmation/types/compare/@auditmation/types-format-spectral-ruleset@0.2.31...@auditmation/types-format-spectral-ruleset@0.2.32) (2022-10-28)
 
-**Note:** Version bump only for package @auditmation/types-format-spectral-ruleset
+
+## [0.2.32](https://github.com/org/types/compare/@org/types-format-spectral-ruleset@0.2.31...@org/types-format-spectral-ruleset@0.2.32) (2022-10-28)
+
+**Note:** Version bump only for package @org/types-format-spectral-ruleset
 
 
 
@@ -785,7 +785,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## 0.2.31 (2022-10-07)
 
-**Note:** Version bump only for package @auditmation/types-format-spectral-ruleset
+**Note:** Version bump only for package @org/types-format-spectral-ruleset
 
 
 
