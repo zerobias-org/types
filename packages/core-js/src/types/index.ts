@@ -23,5 +23,5 @@ export { PhoneNumber } from './PhoneNumber.js';
 export { Semver } from './Semver.js';
 export { StringFormat } from './StringFormat.js';
 export { URL } from './URL.js';
-export { UUID, getNilUUID } from './UUID.js';
+export { UUID, getNilUUID, getMaxUUID } from './UUID.js';
 export { VersionRange } from './VersionRange.js';

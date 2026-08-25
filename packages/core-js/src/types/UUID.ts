@@ -1,4 +1,4 @@
-import { v1, v3, v4, v5, validate as isUUID, version as uuidVersion } from 'uuid';
+import { v1, v3, v4, v5, validate as isUUID, version as uuidVersion, MAX } from 'uuid';
 import { StringFormat } from './StringFormat.js';
 import { InvalidInputError } from '../errors/index.js';
 import { CoreType } from '../CoreType.js';
@@ -98,4 +98,20 @@ let _nil: UUID | null = null;
 export function getNilUUID(): UUID {
   if (!_nil) _nil = new UUID('00000000-0000-0000-0000-000000000000');
   return _nil;
+}
+
+/**
+ * The Max UUID (`ffffffff-ffff-ffff-ffff-ffffffffffff`), defined by RFC 9562 section 5.10 as the
+ * counterpart to the Nil UUID.
+ *
+ * Used as the owner of privately published content that is shared rather than public: the row says
+ * "this is private shared content" while access rules say whose it is and who may read it.
+ *
+ * Takes the value from the `uuid` package's `MAX` constant rather than writing the literal, and is
+ * lazy for the same reason as the nil instance above.
+ */
+let _max: UUID | null = null;
+export function getMaxUUID(): UUID {
+  if (!_max) _max = new UUID(MAX);
+  return _max;
 }

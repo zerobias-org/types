@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import {CoreType} from '../../src/index.js';
-import { UUID } from '../../src/types/index.js';
+import { UUID, getNilUUID, getMaxUUID } from '../../src/types/index.js';
 
 const validV1 = 'b7168568-af49-11ea-8b0b-47ecc4197a7f';
 const validV3 = '9125a8dc-52ee-365b-a5aa-81b0b3681cf6';
@@ -103,6 +103,23 @@ describe('UUID', function () {
     expect(inst).to.be.ok;
     expect(inst instanceof UUID).to.be.true;
     expect((inst as UUID).toString()).to.be.eq(validV1);
+  });
+
+  it('should return the nil uuid', function () {
+    expect(getNilUUID().toString()).to.be.eq('00000000-0000-0000-0000-000000000000');
+  });
+
+  it('should return the max uuid', function () {
+    expect(getMaxUUID().toString()).to.be.eq('ffffffff-ffff-ffff-ffff-ffffffffffff');
+  });
+
+  it('should return the same instance on repeated calls', function () {
+    expect(getNilUUID()).to.be.eq(getNilUUID());
+    expect(getMaxUUID()).to.be.eq(getMaxUUID());
+  });
+
+  it('should keep nil and max distinct', function () {
+    expect(getMaxUUID().equals(getNilUUID())).to.be.false;
   });
 
 });
