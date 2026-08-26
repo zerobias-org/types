@@ -99,4 +99,45 @@ describe('CoreError', function () {
     });
   });
 
+  describe('statusCode validation', function () {
+    it('should reject an Error passed in the statusCode slot', async function () {
+      const cause = new Error('not connected');
+      expect(() => new UnexpectedError('Operation failed', cause as any))
+        .to.throw(TypeError, /statusCode must be a finite number/);
+      expect(() => new UnexpectedError('Operation failed', cause as any))
+        .to.throw(TypeError, /pass it as the 4th `cause` argument/);
+      // the original message and discarded cause survive into the TypeError
+      expect(() => new UnexpectedError('Operation failed', cause as any))
+        .to.throw(TypeError, /message=Operation failed.*discarded cause: not connected/);
+    });
+
+    it('should attach the displaced error as the TypeError cause', async function () {
+      const cause = new Error('not connected');
+      try {
+        new UnexpectedError('Operation failed', cause as any);
+        expect.fail('expected the guard to throw');
+      } catch (e) {
+        expect(e).to.be.instanceOf(TypeError);
+        expect((e as Error).cause).to.be.eq(cause);
+      }
+    });
+
+    it('should reject a non-numeric statusCode', async function () {
+      expect(() => new UnexpectedError('Operation failed', '500' as any))
+        .to.throw(TypeError, /statusCode must be a finite number, received string/);
+      expect(() => new UnexpectedError('Operation failed', NaN))
+        .to.throw(TypeError, /statusCode must be a finite number/);
+    });
+
+    it('should still accept a valid explicit statusCode', async function () {
+      const err = new UnexpectedError('Not found', 404);
+      expect(err.statusCode).to.be.eq(404);
+    });
+
+    it('should default statusCode when omitted', async function () {
+      const err = new UnexpectedError('Operation failed');
+      expect(err.statusCode).to.be.eq(500);
+    });
+  });
+
 });
