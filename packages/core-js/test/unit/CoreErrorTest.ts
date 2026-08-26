@@ -111,6 +111,17 @@ describe('CoreError', function () {
         .to.throw(TypeError, /message=Operation failed.*discarded cause: not connected/);
     });
 
+    it('should attach the displaced error as the TypeError cause', async function () {
+      const cause = new Error('not connected');
+      try {
+        new UnexpectedError('Operation failed', cause as any);
+        expect.fail('expected the guard to throw');
+      } catch (e) {
+        expect(e).to.be.instanceOf(TypeError);
+        expect((e as Error).cause).to.be.eq(cause);
+      }
+    });
+
     it('should reject a non-numeric statusCode', async function () {
       expect(() => new UnexpectedError('Operation failed', '500' as any))
         .to.throw(TypeError, /statusCode must be a finite number, received string/);

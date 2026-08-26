@@ -17586,8 +17586,18 @@ ${originalIndentation}`;
     /**
      * Constructs a new Error Object
      *
+     * `statusCode` is validated rather than coerced: it is serialized verbatim and drives
+     * downstream decisions (the pipeline retry classifier, the status a service returns). Under
+     * `strict` a caught error is `unknown` and will not type-check in that slot, but without it
+     * — or with an explicit `catch (e: any)` — `new UnexpectedError(msg, e)` compiles, and used
+     * to serialize as `statusCode: {}`. That crossed the wire intact and only failed in the
+     * *consumer's* `deserialize`, as `Invalid int32: NaN`, with nothing pointing back at the
+     * construction site. Throwing here names it instead, and the displaced error is attached as
+     * the TypeError's `cause` so its stack survives into the logs.
+     *
      * @param model - the error model containing message key, template, etc.
      * @param cause - optional original error that caused this error (for stack trace preservation)
+     * @throws TypeError when `model.statusCode` is not a finite number
      */
     constructor(model, cause) {
       super(model.template);
@@ -17596,7 +17606,8 @@ ${originalIndentation}`;
       if (typeof model?.statusCode !== "number" || !Number.isFinite(model.statusCode)) {
         const got = model?.statusCode;
         throw new TypeError(
-          `${new.target?.name ?? "CoreError"}: statusCode must be a finite number, received ${got instanceof Error ? "an Error \u2014 pass it as the 4th `cause` argument" : typeof got}. key=${String(model?.key)}, message=${String(model?.msg ?? model?.template)}${got instanceof Error ? `, discarded cause: ${got.message}` : ""}`
+          `${new.target?.name ?? "CoreError"}: statusCode must be a finite number, received ${got instanceof Error ? "an Error \u2014 pass it as the 4th `cause` argument" : typeof got}. key=${String(model?.key)}, message=${String(model?.msg ?? model?.template)}${got instanceof Error ? `, discarded cause: ${got.message}` : ""}`,
+          got instanceof Error ? { cause: got } : void 0
         );
       }
       this._model = model;

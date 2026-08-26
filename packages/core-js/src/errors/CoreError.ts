@@ -73,23 +73,30 @@ export abstract class CoreError<T extends ErrorModel> extends Error implements C
   /**
    * Constructs a new Error Object
    *
+   * `statusCode` is validated rather than coerced: it is serialized verbatim and drives
+   * downstream decisions (the pipeline retry classifier, the status a service returns). Under
+   * `strict` a caught error is `unknown` and will not type-check in that slot, but without it
+   * — or with an explicit `catch (e: any)` — `new UnexpectedError(msg, e)` compiles, and used
+   * to serialize as `statusCode: {}`. That crossed the wire intact and only failed in the
+   * *consumer's* `deserialize`, as `Invalid int32: NaN`, with nothing pointing back at the
+   * construction site. Throwing here names it instead, and the displaced error is attached as
+   * the TypeError's `cause` so its stack survives into the logs.
+   *
    * @param model - the error model containing message key, template, etc.
    * @param cause - optional original error that caused this error (for stack trace preservation)
+   * @throws TypeError when `model.statusCode` is not a finite number
    */
   constructor(model: T, cause?: Error) {
     super(model.template);
-    // statusCode is serialized verbatim and drives downstream decisions (e.g. the pipeline
-    // retry classifier), so a non-numeric value is rejected rather than coerced. `catch (e)`
-    // binds `any`, so `new UnexpectedError(msg, e)` type-checks while corrupting this field.
     if (typeof model?.statusCode !== 'number' || !Number.isFinite(model.statusCode)) {
-      const got = model?.statusCode;
-      // Carry the original message and cause through: this throws on an error path, so
-      // without them the failure being reported would be lost entirely.
+      // `unknown`, not the declared `number`: `instanceof` rejects a primitive-typed operand
+      const got: unknown = model?.statusCode;
       throw new TypeError(
         `${new.target?.name ?? 'CoreError'}: statusCode must be a finite number, received `
         + `${got instanceof Error ? 'an Error — pass it as the 4th `cause` argument' : typeof got}`
         + `. key=${String(model?.key)}, message=${String((model as { msg?: unknown })?.msg ?? model?.template)}`
         + `${got instanceof Error ? `, discarded cause: ${got.message}` : ''}`,
+        got instanceof Error ? { cause: got } : undefined,
       );
     }
     this._model = model;
