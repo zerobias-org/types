@@ -11,7 +11,11 @@
   };
   var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
   var __commonJS = (cb, mod) => function __require() {
-    return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
+    try {
+      return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
+    } catch (e) {
+      throw mod = 0, e;
+    }
   };
   var __export = (target, all3) => {
     for (var name in all3)
@@ -644,44 +648,39 @@ ${originalIndentation}`;
     }
   });
 
-  // ../../node_modules/ip-num/dist/src/BinaryUtils.js
+  // ../../node_modules/ip-num/BinaryUtils.js
   var require_BinaryUtils = __commonJS({
-    "../../node_modules/ip-num/dist/src/BinaryUtils.js"(exports) {
+    "../../node_modules/ip-num/BinaryUtils.js"(exports) {
       "use strict";
       Object.defineProperty(exports, "__esModule", { value: true });
       exports.matchingBitCount = exports.intLog2 = exports.cidrPrefixToMaskBinaryString = exports.leftPadWithZeroBit = exports.dottedDecimalNotationToBinaryString = exports.parseBinaryStringToBigInt = exports.decimalNumberToOctetString = exports.numberToBinaryString = void 0;
-      var numberToBinaryString = (num) => {
+      exports.numberToBinaryString = (num) => {
         return num.toString(2);
       };
-      exports.numberToBinaryString = numberToBinaryString;
-      var decimalNumberToOctetString = (num) => {
-        let binaryString = (0, exports.numberToBinaryString)(num);
+      exports.decimalNumberToOctetString = (num) => {
+        let binaryString = exports.numberToBinaryString(num);
         let length = binaryString.length;
         if (length > 8) {
           throw new Error("Given decimal in binary contains digits greater than an octet");
         }
-        return (0, exports.leftPadWithZeroBit)(binaryString, 8);
+        return exports.leftPadWithZeroBit(binaryString, 8);
       };
-      exports.decimalNumberToOctetString = decimalNumberToOctetString;
-      var parseBinaryStringToBigInt = (num) => {
+      exports.parseBinaryStringToBigInt = (num) => {
         return BigInt(`0b${num}`);
       };
-      exports.parseBinaryStringToBigInt = parseBinaryStringToBigInt;
-      var dottedDecimalNotationToBinaryString = (dottedDecimal) => {
+      exports.dottedDecimalNotationToBinaryString = (dottedDecimal) => {
         let stringOctets = dottedDecimal.split(".");
         return stringOctets.reduce((binaryAsString, octet) => {
-          return binaryAsString.concat((0, exports.decimalNumberToOctetString)(parseInt(octet)));
+          return binaryAsString.concat(exports.decimalNumberToOctetString(parseInt(octet)));
         }, "");
       };
-      exports.dottedDecimalNotationToBinaryString = dottedDecimalNotationToBinaryString;
-      var leftPadWithZeroBit = (binaryString, finalStringLength) => {
+      exports.leftPadWithZeroBit = (binaryString, finalStringLength) => {
         if (binaryString.length > finalStringLength) {
           throw new Error(`Given string is already longer than given final length after padding: ${finalStringLength}`);
         }
         return "0".repeat(finalStringLength - binaryString.length).concat(binaryString);
       };
-      exports.leftPadWithZeroBit = leftPadWithZeroBit;
-      var cidrPrefixToMaskBinaryString = (cidrPrefix, ipType) => {
+      exports.cidrPrefixToMaskBinaryString = (cidrPrefix, ipType) => {
         let cidrUpperValue;
         if (ipType == "IPv4") {
           cidrUpperValue = 32;
@@ -694,8 +693,7 @@ ${originalIndentation}`;
         let offBits = "0".repeat(cidrUpperValue - cidrPrefix);
         return `${onBits}${offBits}`;
       };
-      exports.cidrPrefixToMaskBinaryString = cidrPrefixToMaskBinaryString;
-      var intLog2 = (givenNumber) => {
+      exports.intLog2 = (givenNumber) => {
         let result = 0;
         while (givenNumber % 2n === 0n) {
           if (givenNumber === 2n) {
@@ -714,8 +712,7 @@ ${originalIndentation}`;
         }
         return result;
       };
-      exports.intLog2 = intLog2;
-      var matchingBitCount = (firstBinaryString, secondBinaryString) => {
+      exports.matchingBitCount = (firstBinaryString, secondBinaryString) => {
         let longerString;
         let otherString;
         if (firstBinaryString.length >= secondBinaryString.length) {
@@ -734,13 +731,12 @@ ${originalIndentation}`;
         }
         return count;
       };
-      exports.matchingBitCount = matchingBitCount;
     }
   });
 
-  // ../../node_modules/ip-num/dist/src/IPv6Utils.js
+  // ../../node_modules/ip-num/IPv6Utils.js
   var require_IPv6Utils = __commonJS({
-    "../../node_modules/ip-num/dist/src/IPv6Utils.js"(exports) {
+    "../../node_modules/ip-num/IPv6Utils.js"(exports) {
       "use strict";
       Object.defineProperty(exports, "__esModule", { value: true });
       exports.collapseIPv6Number = exports.expandIPv6Number = void 0;
@@ -749,10 +745,10 @@ ${originalIndentation}`;
       var extractPrefix = (ipv6String) => {
         return ipv6String.includes("/") ? `/${ipv6String.split("/")[1]}` : "";
       };
-      var expandIPv6Number = (ipv6String) => {
+      exports.expandIPv6Number = (ipv6String) => {
         let expandWithZero = (hexadecimalArray) => {
           let paddedArray = hexadecimalArray.map((hexadecimal) => {
-            return (0, BinaryUtils_1.leftPadWithZeroBit)(hexadecimal, 4);
+            return BinaryUtils_1.leftPadWithZeroBit(hexadecimal, 4);
           });
           return paddedArray.join(":");
         };
@@ -797,136 +793,81 @@ ${originalIndentation}`;
           return `${expandWithZero(ipv6String.split(":"))}${prefix}`;
         }
       };
-      exports.expandIPv6Number = expandIPv6Number;
-      var shortenHexadecatet = (hex) => {
-        const withoutLeadingZero = hex.replace(/^0+/, "");
-        return withoutLeadingZero === "" ? "0" : withoutLeadingZero;
-      };
-      var collapseIPv6Number = (ipv6String) => {
-        const originalPrefix = extractPrefix(ipv6String);
-        const processedIPv6String = ipv6String.includes("/") ? ipv6String.split("/")[0] : ipv6String;
-        let expandedIPv6 = "";
-        try {
-          let tempExpanded = (0, exports.expandIPv6Number)(processedIPv6String);
-          if (tempExpanded.includes("/")) {
-            expandedIPv6 = tempExpanded.split("/")[0];
+      exports.collapseIPv6Number = (ipv6String) => {
+        const prefix = extractPrefix(ipv6String);
+        if (ipv6String.includes("/")) {
+          ipv6String = ipv6String.split("/")[0];
+        }
+        let isValid = Validator_1.Validator.IPV6_PATTERN.test(ipv6String);
+        if (!isValid) {
+          throw Error(Validator_1.Validator.invalidIPv6PatternMessage);
+        }
+        let hexadecimals = ipv6String.split(":");
+        let hexadecimalsWithoutLeadingZeros = hexadecimals.map((hexidecimal) => {
+          let withoutLeadingZero = hexidecimal.replace(/^0+/, "");
+          if (withoutLeadingZero !== "") {
+            return withoutLeadingZero;
           } else {
-            expandedIPv6 = tempExpanded;
+            return "0";
           }
-        } catch (e) {
-          throw e;
-        }
-        let hexadecatets = expandedIPv6.split(":");
-        if (hexadecatets.length !== 8) {
-          throw new Error(`Invalid IPv6 structure after expansion: ${expandedIPv6}. Expected 8 segments.`);
-        }
-        let zeroSequences = [];
-        let currentSequenceStart = -1;
-        let currentSequenceLength = 0;
-        for (let i = 0; i < 8; i++) {
-          if (hexadecatets[i] === "0000") {
-            if (currentSequenceStart === -1) {
-              currentSequenceStart = i;
-            }
-            currentSequenceLength++;
-          } else {
-            if (currentSequenceLength > 0) {
-              zeroSequences.push({ start: currentSequenceStart, length: currentSequenceLength });
-            }
-            currentSequenceStart = -1;
-            currentSequenceLength = 0;
-          }
-        }
-        if (currentSequenceLength > 0) {
-          zeroSequences.push({ start: currentSequenceStart, length: currentSequenceLength });
-        }
-        if (zeroSequences.length === 0) {
-          return hexadecatets.map(shortenHexadecatet).join(":") + originalPrefix;
-        }
-        zeroSequences.sort((a, b) => {
-          if (b.length !== a.length) {
-            return b.length - a.length;
-          }
-          return a.start - b.start;
         });
-        const bestSequence = zeroSequences[0];
-        if (bestSequence.length === 8) {
-          return "::" + originalPrefix;
+        let contracted = hexadecimalsWithoutLeadingZeros.join(":").replace(/((^0)?(:0){2,}|(^0)(:0){1,})/, ":");
+        if (contracted.slice(-1) === ":") {
+          return `${contracted}:${prefix}`;
         }
-        if (bestSequence.length < 2) {
-          return hexadecatets.map(shortenHexadecatet).join(":") + originalPrefix;
-        }
-        let leftPartSegments = hexadecatets.slice(0, bestSequence.start);
-        let rightPartSegments = hexadecatets.slice(bestSequence.start + bestSequence.length);
-        let leftString = leftPartSegments.map(shortenHexadecatet).join(":");
-        let rightString = rightPartSegments.map(shortenHexadecatet).join(":");
-        let finalStr = "";
-        if (bestSequence.start === 0) {
-          finalStr = "::" + rightString;
-        } else if (bestSequence.start + bestSequence.length === 8) {
-          finalStr = leftString + "::";
-        } else {
-          finalStr = leftString + "::" + rightString;
-        }
-        return finalStr + originalPrefix;
+        contracted = contracted.replace(":0:", "::");
+        return `${contracted}${prefix}`;
       };
-      exports.collapseIPv6Number = collapseIPv6Number;
     }
   });
 
-  // ../../node_modules/ip-num/dist/src/HexadecimalUtils.js
+  // ../../node_modules/ip-num/HexadecimalUtils.js
   var require_HexadecimalUtils = __commonJS({
-    "../../node_modules/ip-num/dist/src/HexadecimalUtils.js"(exports) {
+    "../../node_modules/ip-num/HexadecimalUtils.js"(exports) {
       "use strict";
       Object.defineProperty(exports, "__esModule", { value: true });
       exports.hexadectetNotationToBinaryString = exports.binaryStringToHexadecimalString = exports.colonHexadecimalNotationToBinaryString = exports.hexadecimalStringToHexadecatetString = exports.hexadecimalStringToBinaryString = exports.bigIntToHexadecimalString = void 0;
       var IPv6Utils_1 = require_IPv6Utils();
       var BinaryUtils_1 = require_BinaryUtils();
-      var bigIntToHexadecimalString = (num) => {
+      exports.bigIntToHexadecimalString = (num) => {
         return num.toString(16);
       };
-      exports.bigIntToHexadecimalString = bigIntToHexadecimalString;
-      var hexadecimalStringToBinaryString = (hexadecimalString) => {
+      exports.hexadecimalStringToBinaryString = (hexadecimalString) => {
         let inDecimal = BigInt(`0x${hexadecimalString}`);
         return inDecimal.toString(2);
       };
-      exports.hexadecimalStringToBinaryString = hexadecimalStringToBinaryString;
-      var hexadecimalStringToHexadecatetString = (hexadecimalString) => {
-        let binaryString = (0, exports.hexadecimalStringToBinaryString)(hexadecimalString);
+      exports.hexadecimalStringToHexadecatetString = (hexadecimalString) => {
+        let binaryString = exports.hexadecimalStringToBinaryString(hexadecimalString);
         let length = binaryString.length;
         if (length > 16) {
           throw new Error("Given decimal in binary contains digits greater than an Hexadecatet");
         }
-        return (0, BinaryUtils_1.leftPadWithZeroBit)(binaryString, 16);
+        return BinaryUtils_1.leftPadWithZeroBit(binaryString, 16);
       };
-      exports.hexadecimalStringToHexadecatetString = hexadecimalStringToHexadecatetString;
-      var colonHexadecimalNotationToBinaryString = (hexadecimalString) => {
-        let expandedIPv6 = (0, IPv6Utils_1.expandIPv6Number)(hexadecimalString);
+      exports.colonHexadecimalNotationToBinaryString = (hexadecimalString) => {
+        let expandedIPv6 = IPv6Utils_1.expandIPv6Number(hexadecimalString);
         let stringHexadecimal = expandedIPv6.split(":");
         return stringHexadecimal.reduce((binaryAsString, hexidecimal) => {
-          return binaryAsString.concat((0, exports.hexadecimalStringToHexadecatetString)(hexidecimal));
+          return binaryAsString.concat(exports.hexadecimalStringToHexadecatetString(hexidecimal));
         }, "");
       };
-      exports.colonHexadecimalNotationToBinaryString = colonHexadecimalNotationToBinaryString;
-      var binaryStringToHexadecimalString = (num) => {
+      exports.binaryStringToHexadecimalString = (num) => {
         let inDecimal = BigInt(`0b${num}`);
         return inDecimal.toString(16);
       };
-      exports.binaryStringToHexadecimalString = binaryStringToHexadecimalString;
-      var hexadectetNotationToBinaryString = (hexadectetString) => {
-        let expand = (0, IPv6Utils_1.expandIPv6Number)(hexadectetString);
+      exports.hexadectetNotationToBinaryString = (hexadectetString) => {
+        let expand = IPv6Utils_1.expandIPv6Number(hexadectetString);
         let hexadecimals = expand.split(":");
         return hexadecimals.reduce((hexadecimalAsString, hexavalue) => {
-          return hexadecimalAsString.concat((0, BinaryUtils_1.leftPadWithZeroBit)((0, exports.hexadecimalStringToBinaryString)(hexavalue), 16));
+          return hexadecimalAsString.concat(BinaryUtils_1.leftPadWithZeroBit(exports.hexadecimalStringToBinaryString(hexavalue), 16));
         }, "");
       };
-      exports.hexadectetNotationToBinaryString = hexadectetNotationToBinaryString;
     }
   });
 
-  // ../../node_modules/ip-num/dist/src/Validator.js
+  // ../../node_modules/ip-num/Validator.js
   var require_Validator = __commonJS({
-    "../../node_modules/ip-num/dist/src/Validator.js"(exports) {
+    "../../node_modules/ip-num/Validator.js"(exports) {
       "use strict";
       Object.defineProperty(exports, "__esModule", { value: true });
       exports.Validator = void 0;
@@ -1043,7 +984,7 @@ ${originalIndentation}`;
          */
         static isValidIPv6String(ipv6String) {
           try {
-            let hexadecimals = (0, IPv6Utils_1.expandIPv6Number)(ipv6String).split(":");
+            let hexadecimals = IPv6Utils_1.expandIPv6Number(ipv6String).split(":");
             if (hexadecimals.length != 8) {
               return [false, [_Validator.invalidHexadecatetCountMessage]];
             }
@@ -1056,7 +997,7 @@ ${originalIndentation}`;
             isValid = _Validator.IPV6_PATTERN.test(ipv6String);
             return [isValid, isValid ? [] : [_Validator.invalidIPv6PatternMessage]];
           } catch (error) {
-            return [false, [String(error)]];
+            return [false, [error]];
           }
         }
         /**
@@ -1085,7 +1026,7 @@ ${originalIndentation}`;
          * contains "valid" or an error message when value is invalid
          */
         static isValidIPv4Mask(ipv4MaskString) {
-          let ipv4InBinary = (0, BinaryUtils_1.dottedDecimalNotationToBinaryString)(ipv4MaskString);
+          let ipv4InBinary = BinaryUtils_1.dottedDecimalNotationToBinaryString(ipv4MaskString);
           let isValid = _Validator.IPV4_CONTIGUOUS_MASK_BIT_PATTERN.test(ipv4InBinary);
           return isValid ? [isValid, []] : [isValid, [_Validator.invalidMaskMessage]];
         }
@@ -1097,7 +1038,7 @@ ${originalIndentation}`;
          * contains "valid" or an error message when value is invalid
          */
         static isValidIPv6Mask(ipv6MaskString) {
-          let ipv6InBinary = (0, HexadecimalUtils_2.hexadectetNotationToBinaryString)(ipv6MaskString);
+          let ipv6InBinary = HexadecimalUtils_2.hexadectetNotationToBinaryString(ipv6MaskString);
           let isValid = _Validator.IPV6_CONTIGUOUS_MASK_BIT_PATTERN.test(ipv6InBinary);
           return isValid ? [isValid, []] : [isValid, [_Validator.invalidMaskMessage]];
         }
@@ -1116,9 +1057,6 @@ ${originalIndentation}`;
           }
           let ip = cidrComponents[0];
           let range = cidrComponents[1];
-          if (!/^\d+$/.test(range)) {
-            return [false, [_Validator.invalidIPv4CidrNotationMessage]];
-          }
           if (isNaN(Number(range))) {
             return [false, [_Validator.invalidIPv4CidrNotationMessage]];
           }
@@ -1126,7 +1064,7 @@ ${originalIndentation}`;
           let [validPrefix, invalidPrefixMessage] = _Validator.isValidPrefixValue(
             BigInt(range),
             "IPv4"
-            /* IPNumType.IPv4 */
+            /* IPv4 */
           );
           let isValid = validIpv4 && validPrefix;
           let invalidMessage = invalidIpv4Message.concat(invalidPrefixMessage);
@@ -1142,10 +1080,10 @@ ${originalIndentation}`;
          * value contains [] or an array of error message when invalid
          */
         static isValidIPv4CidrRange(ipv4CidrNotation) {
-          return _Validator.isValidCidrRange(ipv4CidrNotation, _Validator.isValidIPv4CidrNotation, BinaryUtils_1.dottedDecimalNotationToBinaryString, (value) => (0, BinaryUtils_2.cidrPrefixToMaskBinaryString)(
+          return _Validator.isValidCidrRange(ipv4CidrNotation, _Validator.isValidIPv4CidrNotation, BinaryUtils_1.dottedDecimalNotationToBinaryString, (value) => BinaryUtils_2.cidrPrefixToMaskBinaryString(
             value,
             "IPv4"
-            /* IPNumType.IPv4 */
+            /* IPv4 */
           ));
         }
         /**
@@ -1158,10 +1096,10 @@ ${originalIndentation}`;
          * value contains [] or an array of error message when invalid
          */
         static isValidIPv6CidrRange(ipv6CidrNotation) {
-          return _Validator.isValidCidrRange(ipv6CidrNotation, _Validator.isValidIPv6CidrNotation, HexadecimalUtils_1.colonHexadecimalNotationToBinaryString, (value) => (0, BinaryUtils_2.cidrPrefixToMaskBinaryString)(
+          return _Validator.isValidCidrRange(ipv6CidrNotation, _Validator.isValidIPv6CidrNotation, HexadecimalUtils_1.colonHexadecimalNotationToBinaryString, (value) => BinaryUtils_2.cidrPrefixToMaskBinaryString(
             value,
             "IPv6"
-            /* IPNumType.IPv6 */
+            /* IPv6 */
           ));
         }
         static isValidCidrRange(rangeString, cidrNotationValidator, toBinaryStringConverter, prefixFactory) {
@@ -1178,11 +1116,11 @@ ${originalIndentation}`;
           return isValid ? [isValid, []] : [isValid, [_Validator.InvalidIPCidrRangeMessage]];
         }
         static isValidIPv4RangeString(ipv4RangeString) {
-          let firstLastValidator = (firstIP, lastIP) => BigInt(`0b${(0, BinaryUtils_1.dottedDecimalNotationToBinaryString)(firstIP)}`) >= BigInt(`0b${(0, BinaryUtils_1.dottedDecimalNotationToBinaryString)(lastIP)}`);
+          let firstLastValidator = (firstIP, lastIP) => BigInt(`0b${BinaryUtils_1.dottedDecimalNotationToBinaryString(firstIP)}`) >= BigInt(`0b${BinaryUtils_1.dottedDecimalNotationToBinaryString(lastIP)}`);
           return this.isValidRange(ipv4RangeString, _Validator.isValidIPv4String, firstLastValidator);
         }
         static isValidIPv6RangeString(ipv6RangeString) {
-          let firstLastValidator = (firstIP, lastIP) => BigInt(`0b${(0, HexadecimalUtils_2.hexadectetNotationToBinaryString)(firstIP)}`) >= BigInt(`0b${(0, HexadecimalUtils_2.hexadectetNotationToBinaryString)(lastIP)}`);
+          let firstLastValidator = (firstIP, lastIP) => BigInt(`0b${HexadecimalUtils_2.hexadectetNotationToBinaryString(firstIP)}`) >= BigInt(`0b${HexadecimalUtils_2.hexadectetNotationToBinaryString(lastIP)}`);
           return this.isValidRange(ipv6RangeString, _Validator.isValidIPv6String, firstLastValidator);
         }
         static isValidRange(rangeString, validator, firstLastValidator) {
@@ -1274,34 +1212,14 @@ ${originalIndentation}`;
     }
   });
 
-  // ../../node_modules/ip-num/dist/src/Hexadecatet.js
+  // ../../node_modules/ip-num/Hexadecatet.js
   var require_Hexadecatet = __commonJS({
-    "../../node_modules/ip-num/dist/src/Hexadecatet.js"(exports) {
+    "../../node_modules/ip-num/Hexadecatet.js"(exports) {
       "use strict";
       Object.defineProperty(exports, "__esModule", { value: true });
       exports.Hexadecatet = void 0;
       var Validator_1 = require_Validator();
       var Hexadecatet = class _Hexadecatet {
-        /**
-         * A convenience method for constructing an instance of {@link Hexadecatet} from a four (base 16) number
-         * representation of a 16bit value.
-         *
-         * @param {string} rawValue the four (base 16) number
-         * @returns {Hexadecatet} an instance of {@link Hexadecatet}
-         */
-        static fromString(rawValue) {
-          return new _Hexadecatet(rawValue);
-        }
-        /**
-         * A convenience method for constructing an instance of {@link Hexadecatet} from a decimal number representation
-         * of a 16 bit value
-         *
-         * @param {number} rawValue decimal number representation of a 16 bit value
-         * @returns {Hexadecatet} an instance of {@link Hexadecatet}
-         */
-        static fromNumber(rawValue) {
-          return new _Hexadecatet(rawValue);
-        }
         /**
          * Constructor for creating an instance of {@link Hexadecatet}
          *
@@ -1325,6 +1243,26 @@ ${originalIndentation}`;
           this.value = hexadecatetValue;
         }
         /**
+         * A convenience method for constructing an instance of {@link Hexadecatet} from a four (base 16) number
+         * representation of a 16bit value.
+         *
+         * @param {string} rawValue the four (base 16) number
+         * @returns {Hexadecatet} an instance of {@link Hexadecatet}
+         */
+        static fromString(rawValue) {
+          return new _Hexadecatet(rawValue);
+        }
+        /**
+         * A convenience method for constructing an instance of {@link Hexadecatet} from a decimal number representation
+         * of a 16 bit value
+         *
+         * @param {number} rawValue decimal number representation of a 16 bit value
+         * @returns {Hexadecatet} an instance of {@link Hexadecatet}
+         */
+        static fromNumber(rawValue) {
+          return new _Hexadecatet(rawValue);
+        }
+        /**
          * Returns the numeric value in base 10 (ie decimal)
          *
          * @returns {number} the numeric value in base 10 (ie decimal)
@@ -1345,32 +1283,14 @@ ${originalIndentation}`;
     }
   });
 
-  // ../../node_modules/ip-num/dist/src/Octet.js
+  // ../../node_modules/ip-num/Octet.js
   var require_Octet = __commonJS({
-    "../../node_modules/ip-num/dist/src/Octet.js"(exports) {
+    "../../node_modules/ip-num/Octet.js"(exports) {
       "use strict";
       Object.defineProperty(exports, "__esModule", { value: true });
       exports.Octet = void 0;
       var Validator_1 = require_Validator();
       var Octet = class _Octet {
-        /**
-         * Convenience method for creating an Octet out of a string value representing the value of the octet
-         *
-         * @param {string} rawValue the octet value in string
-         * @returns {Octet} the Octet instance
-         */
-        static fromString(rawValue) {
-          return new _Octet(rawValue);
-        }
-        /**
-         * Convenience method for creating an Octet out of a numeric value representing the value of the octet
-         *
-         * @param {number} rawValue the octet value in number
-         * @returns {Octet} the Octet instance
-         */
-        static fromNumber(rawValue) {
-          return new _Octet(rawValue);
-        }
         /**
          * Constructor for creating an instance of an Octet.
          *
@@ -1397,6 +1317,24 @@ ${originalIndentation}`;
           this.value = octetValue;
         }
         /**
+         * Convenience method for creating an Octet out of a string value representing the value of the octet
+         *
+         * @param {string} rawValue the octet value in string
+         * @returns {Octet} the Octet instance
+         */
+        static fromString(rawValue) {
+          return new _Octet(rawValue);
+        }
+        /**
+         * Convenience method for creating an Octet out of a numeric value representing the value of the octet
+         *
+         * @param {number} rawValue the octet value in number
+         * @returns {Octet} the Octet instance
+         */
+        static fromNumber(rawValue) {
+          return new _Octet(rawValue);
+        }
+        /**
          * Method to get the numeric value of the octet
          *
          * @returns {number} the numeric value of the octet
@@ -1417,13 +1355,12 @@ ${originalIndentation}`;
     }
   });
 
-  // ../../node_modules/ip-num/dist/src/IPNumber.js
+  // ../../node_modules/ip-num/IPNumber.js
   var require_IPNumber = __commonJS({
-    "../../node_modules/ip-num/dist/src/IPNumber.js"(exports) {
+    "../../node_modules/ip-num/IPNumber.js"(exports) {
       "use strict";
       Object.defineProperty(exports, "__esModule", { value: true });
-      exports.IPv6Mask = exports.IPv4Mask = exports.IPv6 = exports.Asn = exports.IPv4 = exports.AbstractIPNum = void 0;
-      exports.isIPv4 = isIPv4;
+      exports.isIPv4 = exports.IPv6Mask = exports.IPv4Mask = exports.IPv6 = exports.Asn = exports.IPv4 = exports.AbstractIPNum = void 0;
       var Octet_1 = require_Octet();
       var Validator_1 = require_Validator();
       var BinaryUtils_1 = require_BinaryUtils();
@@ -1449,7 +1386,7 @@ ${originalIndentation}`;
          * @returns {string} the string binary representation.
          */
         toBinaryString() {
-          return (0, BinaryUtils_3.leftPadWithZeroBit)(this.value.toString(2), this.bitSize);
+          return BinaryUtils_3.leftPadWithZeroBit(this.value.toString(2), this.bitSize);
         }
         /**
          * Checks if an IP number has a value greater than the present value
@@ -1515,6 +1452,29 @@ ${originalIndentation}`;
       exports.AbstractIPNum = AbstractIPNum;
       var IPv42 = class _IPv4 extends AbstractIPNum {
         /**
+         * Constructor for an IPv4 number.
+         *
+         * @param {string | bigint} ipValue value to construct an IPv4 from. The given value can either be
+         * numeric or string. If a string is given then it needs to be in dot-decimal notation
+         */
+        constructor(ipValue) {
+          super();
+          this.bitSize = 32;
+          this.maximumBitSize = Validator_1.Validator.THIRTY_TWO_BIT_SIZE;
+          this.type = "IPv4";
+          this.octets = [];
+          this.separator = ".";
+          if (typeof ipValue === "string") {
+            let [value, octets] = this.constructFromDecimalDottedString(ipValue);
+            this.value = value;
+            this.octets = octets;
+          } else {
+            let [value, octets] = this.constructFromBigIntValue(ipValue);
+            this.value = value;
+            this.octets = octets;
+          }
+        }
+        /**
          * A convenience method for creating an {@link IPv4} by providing the decimal value of the IP number in BigInt
          *
          * @param {bigint} bigIntValue the decimal value of the IP number in BigInt
@@ -1553,32 +1513,9 @@ ${originalIndentation}`;
         static fromBinaryString(ipBinaryString) {
           let validationResult = Validator_1.Validator.isValidBinaryString(ipBinaryString);
           if (validationResult[0]) {
-            return new _IPv4((0, BinaryUtils_2.parseBinaryStringToBigInt)(ipBinaryString));
+            return new _IPv4(BinaryUtils_2.parseBinaryStringToBigInt(ipBinaryString));
           } else {
             throw Error(validationResult[1].join(","));
-          }
-        }
-        /**
-         * Constructor for an IPv4 number.
-         *
-         * @param {string | bigint} ipValue value to construct an IPv4 from. The given value can either be
-         * numeric or string. If a string is given then it needs to be in dot-decimal notation
-         */
-        constructor(ipValue) {
-          super();
-          this.bitSize = 32;
-          this.maximumBitSize = Validator_1.Validator.THIRTY_TWO_BIT_SIZE;
-          this.type = "IPv4";
-          this.octets = [];
-          this.separator = ".";
-          if (typeof ipValue === "string") {
-            let [value, octets] = this.constructFromDecimalDottedString(ipValue);
-            this.value = value;
-            this.octets = octets;
-          } else {
-            let [value, octets] = this.constructFromBigIntValue(ipValue);
-            this.value = value;
-            this.octets = octets;
           }
         }
         /**
@@ -1641,7 +1578,7 @@ ${originalIndentation}`;
           octets = stringOctets.map((rawOctet) => {
             return Octet_1.Octet.fromString(rawOctet);
           });
-          value = BigInt(`0b${(0, BinaryUtils_1.dottedDecimalNotationToBinaryString)(ipString)}`);
+          value = BigInt(`0b${BinaryUtils_1.dottedDecimalNotationToBinaryString(ipString)}`);
           return [value, octets];
         }
         constructFromBigIntValue(ipv4Number) {
@@ -1651,22 +1588,52 @@ ${originalIndentation}`;
               return msg !== "";
             }).toString());
           }
-          let binaryString = (0, BinaryUtils_4.numberToBinaryString)(ipv4Number);
+          let binaryString = BinaryUtils_4.numberToBinaryString(ipv4Number);
           ipv4Number = typeof ipv4Number === "bigint" ? ipv4Number : BigInt(ipv4Number);
           return [ipv4Number, this.binaryStringToDecimalOctets(binaryString)];
         }
         binaryStringToDecimalOctets(ipv4BinaryString) {
           if (ipv4BinaryString.length < 32) {
-            ipv4BinaryString = (0, BinaryUtils_3.leftPadWithZeroBit)(ipv4BinaryString, 32);
+            ipv4BinaryString = BinaryUtils_3.leftPadWithZeroBit(ipv4BinaryString, 32);
           }
           let octets = ipv4BinaryString.match(/.{1,8}/g);
           return octets.map((octet) => {
-            return Octet_1.Octet.fromString((0, BinaryUtils_2.parseBinaryStringToBigInt)(octet).toString());
+            return Octet_1.Octet.fromString(BinaryUtils_2.parseBinaryStringToBigInt(octet).toString());
           });
         }
       };
       exports.IPv4 = IPv42;
       var Asn = class _Asn extends AbstractIPNum {
+        /**
+         * Constructor for an instance of {@link ASN}
+         *
+         * @param {string | number} rawValue value to construct an ASN from. The given value can either be numeric or
+         * string. If in string then it can be in asplain, asdot or asdot+ string representation format
+         */
+        constructor(rawValue) {
+          super();
+          this.bitSize = 32;
+          this.maximumBitSize = Validator_1.Validator.THIRTY_TWO_BIT_SIZE;
+          this.type = "ASN";
+          if (typeof rawValue === "string") {
+            if (_Asn.startWithASPrefix(rawValue)) {
+              this.value = BigInt(parseInt(rawValue.substring(2)));
+            } else if (rawValue.indexOf(".") != -1) {
+              this.value = BigInt(this.parseFromDotNotation(rawValue));
+            } else {
+              this.value = BigInt(parseInt(rawValue));
+            }
+          } else {
+            let valueAsBigInt = BigInt(rawValue);
+            let [isValid, message] = Validator_1.Validator.isValidAsnNumber(valueAsBigInt);
+            if (!isValid) {
+              throw Error(message.filter((msg) => {
+                return msg !== "";
+              }).toString());
+            }
+            this.value = valueAsBigInt;
+          }
+        }
         /**
          * A convenience method for creating an instance of {@link Asn} from a string
          *
@@ -1701,36 +1668,6 @@ ${originalIndentation}`;
             return new _Asn(parseInt(binaryString, 2));
           } else {
             throw Error(validationResult[1].join(","));
-          }
-        }
-        /**
-         * Constructor for an instance of {@link ASN}
-         *
-         * @param {string | number} rawValue value to construct an ASN from. The given value can either be numeric or
-         * string. If in string then it can be in asplain, asdot or asdot+ string representation format
-         */
-        constructor(rawValue) {
-          super();
-          this.bitSize = 32;
-          this.maximumBitSize = Validator_1.Validator.THIRTY_TWO_BIT_SIZE;
-          this.type = "ASN";
-          if (typeof rawValue === "string") {
-            if (_Asn.startWithASPrefix(rawValue)) {
-              this.value = BigInt(parseInt(rawValue.substring(2)));
-            } else if (rawValue.indexOf(".") != -1) {
-              this.value = BigInt(this.parseFromDotNotation(rawValue));
-            } else {
-              this.value = BigInt(parseInt(rawValue));
-            }
-          } else {
-            let valueAsBigInt = BigInt(rawValue);
-            let [isValid, message] = Validator_1.Validator.isValidAsnNumber(valueAsBigInt);
-            if (!isValid) {
-              throw Error(message.filter((msg) => {
-                return msg !== "";
-              }).toString());
-            }
-            this.value = valueAsBigInt;
           }
         }
         /**
@@ -1783,7 +1720,7 @@ ${originalIndentation}`;
          * @returns {string} a binary string representation of the value of the ASN number
          */
         toBinaryString() {
-          return (0, BinaryUtils_4.numberToBinaryString)(this.value);
+          return BinaryUtils_4.numberToBinaryString(this.value);
         }
         /**
          * Checks if the ASN value is 16bit
@@ -1832,6 +1769,30 @@ ${originalIndentation}`;
       Asn.AS_PREFIX = "AS";
       var IPv62 = class _IPv6 extends AbstractIPNum {
         /**
+         * Constructor for an IPv6 number.
+         *
+         * @param {string | bigint} ipValue value to construct an IPv6 from. The given value can either be
+         * numeric or string. If a string is given then it needs to be in hexadecatet string notation
+         */
+        constructor(ipValue) {
+          super();
+          this.bitSize = 128;
+          this.maximumBitSize = Validator_1.Validator.ONE_HUNDRED_AND_TWENTY_EIGHT_BIT_SIZE;
+          this.type = "IPv6";
+          this.hexadecatet = [];
+          this.separator = ":";
+          if (typeof ipValue === "string") {
+            let expandedIPv6 = IPv6Utils_1.expandIPv6Number(ipValue);
+            let [value, hexadecatet] = this.constructFromHexadecimalDottedString(expandedIPv6);
+            this.value = value;
+            this.hexadecatet = hexadecatet;
+          } else {
+            let [value, hexadecatet] = this.constructFromBigIntValue(ipValue);
+            this.value = value;
+            this.hexadecatet = hexadecatet;
+          }
+        }
+        /**
          * A convenience method for creating an {@link IPv6} by providing the decimal value of the IP number in BigInt
          *
          * @param {bigint} bigIntValue the decimal value of the IP number in BigInt
@@ -1870,8 +1831,8 @@ ${originalIndentation}`;
         static fromBinaryString(ipBinaryString) {
           let validationResult = Validator_1.Validator.isValidBinaryString(ipBinaryString);
           if (validationResult[0]) {
-            let paddedBinaryString = (0, BinaryUtils_3.leftPadWithZeroBit)(ipBinaryString, 128);
-            return new _IPv6((0, BinaryUtils_2.parseBinaryStringToBigInt)(paddedBinaryString));
+            let paddedBinaryString = BinaryUtils_3.leftPadWithZeroBit(ipBinaryString, 128);
+            return new _IPv6(BinaryUtils_2.parseBinaryStringToBigInt(paddedBinaryString));
           } else {
             throw Error(validationResult[1].join(","));
           }
@@ -1894,30 +1855,6 @@ ${originalIndentation}`;
          */
         static fromIPv4DotDecimalString(ip4DotDecimalString) {
           return new IPv42(ip4DotDecimalString).toIPv4MappedIPv6();
-        }
-        /**
-         * Constructor for an IPv6 number.
-         *
-         * @param {string | bigint} ipValue value to construct an IPv6 from. The given value can either be
-         * numeric or string. If a string is given then it needs to be in hexadecatet string notation
-         */
-        constructor(ipValue) {
-          super();
-          this.bitSize = 128;
-          this.maximumBitSize = Validator_1.Validator.ONE_HUNDRED_AND_TWENTY_EIGHT_BIT_SIZE;
-          this.type = "IPv6";
-          this.hexadecatet = [];
-          this.separator = ":";
-          if (typeof ipValue === "string") {
-            let expandedIPv6 = (0, IPv6Utils_1.expandIPv6Number)(ipValue);
-            let [value, hexadecatet] = this.constructFromHexadecimalDottedString(expandedIPv6);
-            this.value = value;
-            this.hexadecatet = hexadecatet;
-          } else {
-            let [value, hexadecatet] = this.constructFromBigIntValue(ipValue);
-            this.value = value;
-            this.hexadecatet = hexadecatet;
-          }
         }
         /**
          * A string representation of the IPv6 number.
@@ -1966,7 +1903,7 @@ ${originalIndentation}`;
               return msg !== "";
             }).toString());
           }
-          let binaryString = (0, BinaryUtils_4.numberToBinaryString)(ipv6Number);
+          let binaryString = BinaryUtils_4.numberToBinaryString(ipv6Number);
           return [ipv6Number, this.binaryStringToHexadecatets(binaryString)];
         }
         constructFromHexadecimalDottedString(expandedIPv6) {
@@ -1980,11 +1917,11 @@ ${originalIndentation}`;
           let hexadecatet = stringHexadecimals.map((stringHexadecatet) => {
             return Hexadecatet_1.Hexadecatet.fromString(stringHexadecatet);
           });
-          let value = BigInt(`0b${(0, HexadecimalUtils_2.hexadectetNotationToBinaryString)(expandedIPv6)}`);
+          let value = BigInt(`0b${HexadecimalUtils_2.hexadectetNotationToBinaryString(expandedIPv6)}`);
           return [value, hexadecatet];
         }
         binaryStringToHexadecatets(binaryString) {
-          let hexadecimalString = (0, HexadecimalUtils_1.binaryStringToHexadecimalString)(binaryString);
+          let hexadecimalString = HexadecimalUtils_1.binaryStringToHexadecimalString(binaryString);
           while (hexadecimalString.length % 4 != 0) {
             hexadecimalString = "0" + hexadecimalString;
           }
@@ -1996,16 +1933,6 @@ ${originalIndentation}`;
       };
       exports.IPv6 = IPv62;
       var IPv4Mask = class _IPv4Mask extends IPv42 {
-        /**
-         * A convenience method for creating an instance of IPv4Mask. The passed strings need to be a valid IPv4
-         * number in dot-decimal notation.
-         *
-         * @param {string} rawValue The passed string in dot-decimal notation
-         * @returns {IPv4Mask} the instance of IPv4Mask
-         */
-        static fromDecimalDottedString(rawValue) {
-          return new _IPv4Mask(rawValue);
-        }
         /**
          * Constructor for creating an instance of IPv4Mask.
          * The passed strings need to be a valid IPv4 mask number in dot-decimal notation.
@@ -2027,23 +1954,23 @@ ${originalIndentation}`;
           this.octets = stringOctets.map((rawOctet) => {
             return Octet_1.Octet.fromString(rawOctet);
           });
-          let binaryString = (0, BinaryUtils_1.dottedDecimalNotationToBinaryString)(ipString);
+          let binaryString = BinaryUtils_1.dottedDecimalNotationToBinaryString(ipString);
           this.prefix = (binaryString.match(/1/g) || []).length;
           this.value = BigInt(`0b${binaryString}`);
+        }
+        /**
+         * A convenience method for creating an instance of IPv4Mask. The passed strings need to be a valid IPv4
+         * number in dot-decimal notation.
+         *
+         * @param {string} rawValue The passed string in dot-decimal notation
+         * @returns {IPv4Mask} the instance of IPv4Mask
+         */
+        static fromDecimalDottedString(rawValue) {
+          return new _IPv4Mask(rawValue);
         }
       };
       exports.IPv4Mask = IPv4Mask;
       var IPv6Mask = class _IPv6Mask extends IPv62 {
-        /**
-         * A convenience method for creating an instance of IPv6Mask.
-         * The passed strings need to be a valid IPv4 mask number in dot-decimal notation.
-         *
-         * @param {string} rawValue The passed string in textual notation
-         * @returns {IPv6Mask} the instance of IPv6Mask
-         */
-        static fromHexadecatet(rawValue) {
-          return new _IPv6Mask(rawValue);
-        }
         /**
          * Constructor for creating an instance of IPv6Mask.
          * The passed strings need to be a valid IPv6 mask number in dot-decimal notation
@@ -2055,7 +1982,7 @@ ${originalIndentation}`;
           this.hexadecatet = [];
           let isValid;
           let message;
-          let expandedIPv6 = (0, IPv6Utils_1.expandIPv6Number)(ipString);
+          let expandedIPv6 = IPv6Utils_1.expandIPv6Number(ipString);
           [isValid, message] = Validator_1.Validator.isValidIPv6Mask(expandedIPv6);
           if (!isValid) {
             throw new Error(message.filter((msg) => {
@@ -2066,53 +1993,50 @@ ${originalIndentation}`;
           this.hexadecatet = stringHexadecimals.map((stringHexadecatet) => {
             return Hexadecatet_1.Hexadecatet.fromString(stringHexadecatet);
           });
-          let binaryString = (0, HexadecimalUtils_2.hexadectetNotationToBinaryString)(expandedIPv6);
+          let binaryString = HexadecimalUtils_2.hexadectetNotationToBinaryString(expandedIPv6);
           this.prefix = (binaryString.match(/1/g) || []).length;
           this.value = BigInt(`0b${binaryString}`);
-          this.value = BigInt(`0b${(0, HexadecimalUtils_2.hexadectetNotationToBinaryString)(expandedIPv6)}`);
+          this.value = BigInt(`0b${HexadecimalUtils_2.hexadectetNotationToBinaryString(expandedIPv6)}`);
+        }
+        /**
+         * A convenience method for creating an instance of IPv6Mask.
+         * The passed strings need to be a valid IPv4 mask number in dot-decimal notation.
+         *
+         * @param {string} rawValue The passed string in textual notation
+         * @returns {IPv6Mask} the instance of IPv6Mask
+         */
+        static fromHexadecatet(rawValue) {
+          return new _IPv6Mask(rawValue);
         }
       };
       exports.IPv6Mask = IPv6Mask;
       function isIPv4(ip) {
         return ip.bitSize === 32;
       }
+      exports.isIPv4 = isIPv4;
     }
   });
 
-  // ../../node_modules/ip-num/dist/src/IPNumType.js
+  // ../../node_modules/ip-num/IPNumType.js
   var require_IPNumType = __commonJS({
-    "../../node_modules/ip-num/dist/src/IPNumType.js"(exports) {
+    "../../node_modules/ip-num/IPNumType.js"(exports) {
       "use strict";
       Object.defineProperty(exports, "__esModule", { value: true });
     }
   });
 
-  // ../../node_modules/ip-num/dist/src/Prefix.js
+  // ../../node_modules/ip-num/Prefix.js
   var require_Prefix = __commonJS({
-    "../../node_modules/ip-num/dist/src/Prefix.js"(exports) {
+    "../../node_modules/ip-num/Prefix.js"(exports) {
       "use strict";
       Object.defineProperty(exports, "__esModule", { value: true });
-      exports.IPv6Prefix = exports.IPv4Prefix = void 0;
-      exports.isIPv4Prefix = isIPv4Prefix;
+      exports.isIPv4Prefix = exports.IPv6Prefix = exports.IPv4Prefix = void 0;
       var Validator_1 = require_Validator();
       var IPNumber_1 = require_IPNumber();
       var BinaryUtils_1 = require_BinaryUtils();
       var HexadecimalUtils_1 = require_HexadecimalUtils();
       var Hexadecatet_1 = require_Hexadecatet();
       var IPv4Prefix = class _IPv4Prefix {
-        /**
-         * Convenience method for constructing an instance of IPv4 prefix from a decimal number
-         *
-         * @param {number} rawValue the decimal value to construct the IPv4 prefix from.
-         * @returns {IPv4Prefix} the instance of an IPv4 prefix
-         */
-        static fromNumber(rawValue) {
-          return new _IPv4Prefix(rawValue);
-        }
-        static fromRangeSize(rangeSize) {
-          let prefixNumber = rangeSize === 1n ? 32 : 32 - rangeSizeToPrefix(rangeSize, Validator_1.Validator.IPV4_SIZE);
-          return _IPv4Prefix.fromNumber(BigInt(prefixNumber));
-        }
         /**
          * Constructor for an instance of IPv4 prefix from a decimal number
          *
@@ -2127,7 +2051,7 @@ ${originalIndentation}`;
           [isValid, message] = Validator_1.Validator.isValidPrefixValue(
             rawValue,
             "IPv4"
-            /* IPNumType.IPv4 */
+            /* IPv4 */
           );
           if (!isValid) {
             throw new Error(message.filter((msg) => {
@@ -2135,6 +2059,19 @@ ${originalIndentation}`;
             }).toString());
           }
           this.value = rawValue;
+        }
+        /**
+         * Convenience method for constructing an instance of IPv4 prefix from a decimal number
+         *
+         * @param {number} rawValue the decimal value to construct the IPv4 prefix from.
+         * @returns {IPv4Prefix} the instance of an IPv4 prefix
+         */
+        static fromNumber(rawValue) {
+          return new _IPv4Prefix(rawValue);
+        }
+        static fromRangeSize(rangeSize) {
+          let prefixNumber = rangeSize === 1n ? 32 : 32 - rangeSizeToPrefix(rangeSize, Validator_1.Validator.IPV4_SIZE);
+          return _IPv4Prefix.fromNumber(BigInt(prefixNumber));
         }
         /**
          * Gets the decimal value of the IPv4 prefix
@@ -2186,24 +2123,11 @@ ${originalIndentation}`;
           return new _IPv4Prefix(this.value + 1n);
         }
         toDecimalNotation(bits) {
-          return `${(0, BinaryUtils_1.parseBinaryStringToBigInt)(bits.substr(0, 8))}.${(0, BinaryUtils_1.parseBinaryStringToBigInt)(bits.substr(8, 8))}.${(0, BinaryUtils_1.parseBinaryStringToBigInt)(bits.substr(16, 8))}.${(0, BinaryUtils_1.parseBinaryStringToBigInt)(bits.substr(24, 8))}`;
+          return `${BinaryUtils_1.parseBinaryStringToBigInt(bits.substr(0, 8))}.${BinaryUtils_1.parseBinaryStringToBigInt(bits.substr(8, 8))}.${BinaryUtils_1.parseBinaryStringToBigInt(bits.substr(16, 8))}.${BinaryUtils_1.parseBinaryStringToBigInt(bits.substr(24, 8))}`;
         }
       };
       exports.IPv4Prefix = IPv4Prefix;
       var IPv6Prefix = class _IPv6Prefix {
-        /**
-         * Convenience method for constructing an instance of IPv46 prefix from a decimal number
-         *
-         * @param {number} rawValue the decimal value to construct the IPv6 prefix from.
-         * @returns {IPv4Prefix} the instance of an IPv6 prefix
-         */
-        static fromNumber(rawValue) {
-          return new _IPv6Prefix(rawValue);
-        }
-        static fromRangeSize(rangeSize) {
-          let prefixNumber = rangeSize === 1n ? 128 : 128 - rangeSizeToPrefix(rangeSize, Validator_1.Validator.IPV6_SIZE);
-          return _IPv6Prefix.fromNumber(BigInt(prefixNumber));
-        }
         /**
          * Constructor for an instance of IPv6 prefix from a decimal number
          *
@@ -2218,7 +2142,7 @@ ${originalIndentation}`;
           [isValid, message] = Validator_1.Validator.isValidPrefixValue(
             rawValue,
             "IPv6"
-            /* IPNumType.IPv6 */
+            /* IPv6 */
           );
           if (!isValid) {
             throw new Error(message.filter((msg) => {
@@ -2226,6 +2150,19 @@ ${originalIndentation}`;
             }).toString());
           }
           this.value = rawValue;
+        }
+        /**
+         * Convenience method for constructing an instance of IPv46 prefix from a decimal number
+         *
+         * @param {number} rawValue the decimal value to construct the IPv6 prefix from.
+         * @returns {IPv4Prefix} the instance of an IPv6 prefix
+         */
+        static fromNumber(rawValue) {
+          return new _IPv6Prefix(rawValue);
+        }
+        static fromRangeSize(rangeSize) {
+          let prefixNumber = rangeSize === 1n ? 128 : 128 - rangeSizeToPrefix(rangeSize, Validator_1.Validator.IPV6_SIZE);
+          return _IPv6Prefix.fromNumber(BigInt(prefixNumber));
         }
         /**
          * Gets the decimal value of the IPv6 prefix
@@ -2279,7 +2216,7 @@ ${originalIndentation}`;
         toHexadecatetNotation(bits) {
           let binaryStrings = bits.match(/.{1,16}/g);
           let hexadecimalStrings = binaryStrings.map((binaryString) => {
-            return Hexadecatet_1.Hexadecatet.fromString((0, HexadecimalUtils_1.binaryStringToHexadecimalString)(binaryString));
+            return Hexadecatet_1.Hexadecatet.fromString(HexadecimalUtils_1.binaryStringToHexadecimalString(binaryString));
           });
           return hexadecimalStrings.map((value) => {
             return value.toString();
@@ -2293,7 +2230,7 @@ ${originalIndentation}`;
           throw new Error(Validator_1.Validator.invalidIPRangeSizeMessage.replace("$iptype", ipType));
         }
         try {
-          return (0, BinaryUtils_1.intLog2)(rangeSize);
+          return BinaryUtils_1.intLog2(rangeSize);
         } catch (e) {
           throw new Error(Validator_1.Validator.invalidIPRangeSizeForCidrMessage);
         }
@@ -2301,21 +2238,39 @@ ${originalIndentation}`;
       function isIPv4Prefix(prefix) {
         return prefix.type === "IPv4";
       }
+      exports.isIPv4Prefix = isIPv4Prefix;
     }
   });
 
-  // ../../node_modules/ip-num/dist/src/IPRange.js
+  // ../../node_modules/ip-num/IPRange.js
   var require_IPRange = __commonJS({
-    "../../node_modules/ip-num/dist/src/IPRange.js"(exports) {
+    "../../node_modules/ip-num/IPRange.js"(exports) {
       "use strict";
       Object.defineProperty(exports, "__esModule", { value: true });
-      exports.IPv6CidrRange = exports.IPv4CidrRange = exports.AbstractIPRange = exports.RangedSet = void 0;
-      exports.isIPv4CidrRange = isIPv4CidrRange;
+      exports.isIPv4CidrRange = exports.IPv6CidrRange = exports.IPv4CidrRange = exports.AbstractIPRange = exports.RangedSet = void 0;
       var IPNumber_1 = require_IPNumber();
       var Prefix_1 = require_Prefix();
       var BinaryUtils_1 = require_BinaryUtils();
       var Validator_1 = require_Validator();
       var RangedSet = class _RangedSet {
+        /**
+         * Constructor for an instance of {@link RangedSet} from an
+         * instance of either {@link IPv4CidrRange} or {@link IPv6CidrRange}
+         *
+         * Throws an exception if first IP number is not less than given last IP number
+         *
+         * @param first the first IP number of the range
+         * @param last the last IP number of the range
+         */
+        constructor(first, last2) {
+          this.first = first;
+          this.last = last2;
+          if (first.isGreaterThan(last2)) {
+            throw new Error(`${first.toString()} should be lower than ${last2.toString()}`);
+          }
+          this.currentValue = first;
+          this.bitValue = BigInt(first.bitSize);
+        }
         /**
          * Convenience method for constructing an instance of {@link RangedSet} from a
          * single IP number.
@@ -2357,24 +2312,6 @@ ${originalIndentation}`;
           } else {
             throw new Error("First IP and Last IP should be valid and same type");
           }
-        }
-        /**
-         * Constructor for an instance of {@link RangedSet} from an
-         * instance of either {@link IPv4CidrRange} or {@link IPv6CidrRange}
-         *
-         * Throws an exception if first IP number is not less than given last IP number
-         *
-         * @param first the first IP number of the range
-         * @param last the last IP number of the range
-         */
-        constructor(first, last2) {
-          this.first = first;
-          this.last = last2;
-          if (first.isGreaterThan(last2)) {
-            throw new Error(`${first.toString()} should be lower than ${last2.toString()}`);
-          }
-          this.currentValue = first;
-          this.bitValue = BigInt(first.bitSize);
         }
         /**
          * Returns the first IP number in the range
@@ -2473,7 +2410,7 @@ ${originalIndentation}`;
           let thisLast = this.getLast();
           let otherFirst = otherRange.getFirst();
           let otherLast = otherRange.getLast();
-          return thisLast.isGreaterThan(otherFirst) && thisLast.isLessThanOrEquals(otherLast) && thisFirst.isLessThan(otherFirst) || otherLast.isGreaterThan(thisFirst) && otherLast.isLessThanOrEquals(thisLast) && otherFirst.isLessThan(thisFirst) || this.contains(otherRange) || otherRange.contains(this);
+          return thisLast.isGreaterThan(otherFirst) && thisLast.isLessThanOrEquals(otherLast) && thisFirst.isLessThan(otherFirst) || otherLast.isGreaterThan(thisFirst) && otherLast.isLessThanOrEquals(thisLast) && otherFirst.isLessThan(thisFirst);
         }
         /**
          * Check if this range can be converted to a CIDR range.
@@ -2483,11 +2420,11 @@ ${originalIndentation}`;
             return true;
           }
           try {
-            let prefix = (0, BinaryUtils_1.intLog2)(this.getSize());
-            let netmask = (0, BinaryUtils_1.parseBinaryStringToBigInt)((0, BinaryUtils_1.cidrPrefixToMaskBinaryString)(
+            let prefix = BinaryUtils_1.intLog2(this.getSize());
+            let netmask = BinaryUtils_1.parseBinaryStringToBigInt(BinaryUtils_1.cidrPrefixToMaskBinaryString(
               prefix,
-              (0, IPNumber_1.isIPv4)(this.currentValue) ? "IPv4" : "IPv6"
-              /* IPNumType.IPv6 */
+              IPNumber_1.isIPv4(this.currentValue) ? "IPv4" : "IPv6"
+              /* IPv6 */
             ));
             return this.first.getValue() === (netmask & this.first.getValue());
           } catch (e) {
@@ -2498,7 +2435,7 @@ ${originalIndentation}`;
          * Converts an instance of range to an instance of CIDR range
          */
         toCidrRange() {
-          if ((0, IPNumber_1.isIPv4)(this.currentValue)) {
+          if (IPNumber_1.isIPv4(this.currentValue)) {
             return this.toIPv4CidrRange();
           } else {
             return this.toIPv6CidrRange();
@@ -2528,17 +2465,17 @@ ${originalIndentation}`;
           if (this.isEquals(otherRange)) {
             return new _RangedSet(otherRange.getFirst(), otherRange.getLast());
           }
-          if (this.contains(otherRange)) {
-            return new _RangedSet(this.getFirst(), this.getLast());
-          } else if (otherRange.contains(this)) {
-            return new _RangedSet(otherRange.getFirst(), otherRange.getLast());
-          }
           if (this.isOverlapping(otherRange)) {
             if (this.getFirst().isLessThan(otherRange.getFirst())) {
               return new _RangedSet(this.getFirst(), otherRange.getLast());
             } else {
               return new _RangedSet(otherRange.getFirst(), this.getLast());
             }
+          }
+          if (this.contains(otherRange)) {
+            return new _RangedSet(this.getFirst(), this.getLast());
+          } else if (otherRange.contains(this)) {
+            return new _RangedSet(otherRange.getFirst(), otherRange.getLast());
           }
           throw new Error("Ranges do not overlap nor are equal");
         }
@@ -2591,9 +2528,9 @@ ${originalIndentation}`;
             throw new Error("Sub range cannot be zero");
           }
           let valueOfFirstIp = this.getFirst().value + offset;
-          let firstIp = (0, IPNumber_1.isIPv4)(this.getFirst()) ? IPNumber_1.IPv4.fromNumber(valueOfFirstIp) : IPNumber_1.IPv6.fromBigInt(valueOfFirstIp);
+          let firstIp = IPNumber_1.isIPv4(this.getFirst()) ? IPNumber_1.IPv4.fromNumber(valueOfFirstIp) : IPNumber_1.IPv6.fromBigInt(valueOfFirstIp);
           let valueOfLastIp = firstIp.value + (size - 1n);
-          let lastIp = (0, IPNumber_1.isIPv4)(firstIp) ? IPNumber_1.IPv4.fromNumber(valueOfLastIp) : IPNumber_1.IPv6.fromBigInt(valueOfLastIp);
+          let lastIp = IPNumber_1.isIPv4(firstIp) ? IPNumber_1.IPv4.fromNumber(valueOfLastIp) : IPNumber_1.IPv6.fromBigInt(valueOfLastIp);
           return new _RangedSet(firstIp, lastIp);
         }
         /**
@@ -2666,12 +2603,6 @@ ${originalIndentation}`;
           return this.toRangeSet().inside(otherRange.toRangeSet());
         }
         contains(otherRange) {
-          if (otherRange instanceof IPNumber_1.AbstractIPNum) {
-            const firstValue = this.getFirst().getValue();
-            const lastValue = this.getLast().getValue();
-            const otherValue = otherRange.getValue();
-            return otherValue >= firstValue && otherValue <= lastValue;
-          }
           return this.toRangeSet().contains(otherRange.toRangeSet());
         }
         toRangeString() {
@@ -2684,7 +2615,7 @@ ${originalIndentation}`;
           return this.toRangeSet().isConsecutive(otherRange.toRangeSet());
         }
         isCidrMergeable(otherRange) {
-          const count = BigInt((0, BinaryUtils_1.matchingBitCount)(this.getFirst().toBinaryString(), otherRange.getFirst().toBinaryString()));
+          const count = BigInt(BinaryUtils_1.matchingBitCount(this.getFirst().toBinaryString(), otherRange.getFirst().toBinaryString()));
           if (this.getPrefix().value - count !== 1n) {
             return false;
           }
@@ -2722,6 +2653,23 @@ ${originalIndentation}`;
       exports.AbstractIPRange = AbstractIPRange;
       var IPv4CidrRange2 = class _IPv4CidrRange extends AbstractIPRange {
         /**
+         * Constructor for creating an instance of an IPv4 range.
+         *
+         * The arguments taken by the constructor is inspired by the CIDR notation which basically consists of the IP
+         * number and the prefix.
+         *
+         * @param {IPv4} ipv4 the IP number used to construct the range. By convention this is the first IP number in
+         * the range, but it could also be any IP number within the range
+         * @param {IPv4Prefix} cidrPrefix the prefix which is a representation of the number of bits used to mask the
+         * given IP number in other to create the range
+         */
+        constructor(ipv4, cidrPrefix) {
+          super();
+          this.ipv4 = ipv4;
+          this.cidrPrefix = cidrPrefix;
+          this.bitValue = 32n;
+        }
+        /**
          * Convenience method for constructing an instance of an IPv4CidrRange from an IP range represented in CIDR notation
          *
          * @param {string} rangeIncidrNotation the range of the IPv4 number in CIDR notation
@@ -2739,23 +2687,6 @@ ${originalIndentation}`;
           let ipString = cidrComponents[0];
           let prefix = BigInt(parseInt(cidrComponents[1]));
           return new _IPv4CidrRange(IPNumber_1.IPv4.fromDecimalDottedString(ipString), Prefix_1.IPv4Prefix.fromNumber(prefix));
-        }
-        /**
-         * Constructor for creating an instance of an IPv4 range.
-         *
-         * The arguments taken by the constructor is inspired by the CIDR notation which basically consists of the IP
-         * number and the prefix.
-         *
-         * @param {IPv4} ipv4 the IP number used to construct the range. By convention this is the first IP number in
-         * the range, but it could also be any IP number within the range
-         * @param {IPv4Prefix} cidrPrefix the prefix which is a representation of the number of bits used to mask the
-         * given IP number in other to create the range
-         */
-        constructor(ipv4, cidrPrefix) {
-          super();
-          this.ipv4 = ipv4;
-          this.cidrPrefix = cidrPrefix;
-          this.bitValue = 32n;
         }
         /**
          * Gets the size of IPv4 numbers contained within the IPv4 range
@@ -2948,6 +2879,23 @@ ${originalIndentation}`;
       exports.IPv4CidrRange = IPv4CidrRange2;
       var IPv6CidrRange2 = class _IPv6CidrRange extends AbstractIPRange {
         /**
+         * Constructor for creating an instance of an IPv6 range.
+         *
+         * The arguments taken by the constructor is inspired by the CIDR notation which basically consists of the IP
+         * number and the prefix.
+         *
+         * @param {IPv6} ipv6 the IP number used to construct the range. By convention this is the first IP number in
+         * the range, but it could also be any IP number within the range
+         * @param {IPv6Prefix} cidrPrefix the prefix which is a representation of the number of bits used to mask the
+         * given IPv6 number in other to create the range
+         */
+        constructor(ipv6, cidrPrefix) {
+          super();
+          this.ipv6 = ipv6;
+          this.cidrPrefix = cidrPrefix;
+          this.bitValue = 128n;
+        }
+        /**
          * Convenience method for constructing an instance of an IPV6Range from an IP range represented in CIDR notation
          *
          * @param {string} rangeInCidrNotation the range of the IPv6 number in CIDR notation
@@ -2964,23 +2912,6 @@ ${originalIndentation}`;
           let ipString = cidrComponents[0];
           let prefix = BigInt(parseInt(cidrComponents[1]));
           return new _IPv6CidrRange(IPNumber_1.IPv6.fromHexadecatet(ipString), Prefix_1.IPv6Prefix.fromNumber(prefix));
-        }
-        /**
-         * Constructor for creating an instance of an IPv6 range.
-         *
-         * The arguments taken by the constructor is inspired by the CIDR notation which basically consists of the IP
-         * number and the prefix.
-         *
-         * @param {IPv6} ipv6 the IP number used to construct the range. By convention this is the first IP number in
-         * the range, but it could also be any IP number within the range
-         * @param {IPv6Prefix} cidrPrefix the prefix which is a representation of the number of bits used to mask the
-         * given IPv6 number in other to create the range
-         */
-        constructor(ipv6, cidrPrefix) {
-          super();
-          this.ipv6 = ipv6;
-          this.cidrPrefix = cidrPrefix;
-          this.bitValue = 128n;
         }
         /**
          * Gets the size of IPv6 numbers contained within the IPv6 range
@@ -3174,28 +3105,42 @@ ${originalIndentation}`;
         let bitValue = Number(range.bitValue.valueOf());
         let maskSize = BigInt(`0b${"1".repeat(bitValue)}`);
         let maskAsBigInteger = range.cidrPrefix.toMask().getValue();
-        let invertedMask = (0, BinaryUtils_1.leftPadWithZeroBit)((maskAsBigInteger ^ maskSize).toString(2), bitValue);
+        let invertedMask = BinaryUtils_1.leftPadWithZeroBit((maskAsBigInteger ^ maskSize).toString(2), bitValue);
         if (isIPv4CidrRange(range)) {
-          return IPNumber_1.IPv4.fromNumber(ip.getValue() | (0, BinaryUtils_1.parseBinaryStringToBigInt)(invertedMask));
+          return IPNumber_1.IPv4.fromNumber(ip.getValue() | BinaryUtils_1.parseBinaryStringToBigInt(invertedMask));
         } else {
-          return IPNumber_1.IPv6.fromBigInt(ip.getValue() | (0, BinaryUtils_1.parseBinaryStringToBigInt)(invertedMask));
+          return IPNumber_1.IPv6.fromBigInt(ip.getValue() | BinaryUtils_1.parseBinaryStringToBigInt(invertedMask));
         }
       };
       function isIPv4CidrRange(ip) {
         return ip.bitValue.valueOf() === 32n;
       }
+      exports.isIPv4CidrRange = isIPv4CidrRange;
     }
   });
 
-  // ../../node_modules/ip-num/dist/src/IPPool.js
+  // ../../node_modules/ip-num/IPPool.js
   var require_IPPool = __commonJS({
-    "../../node_modules/ip-num/dist/src/IPPool.js"(exports) {
+    "../../node_modules/ip-num/IPPool.js"(exports) {
       "use strict";
       Object.defineProperty(exports, "__esModule", { value: true });
       exports.Pool = void 0;
       var IPRange_1 = require_IPRange();
       var Prefix_1 = require_Prefix();
       var Pool = class _Pool {
+        /**
+         * Constructor for an IP pool.
+         *
+         * Creates a Pool of IP ranges from supplied {@link RangedSet}'s
+         *
+         * @param ranges the array of IP ranges that would make up the pool.
+         */
+        constructor(ranges) {
+          this.backingSet = new SortedSet();
+          ranges.forEach((range) => {
+            this.backingSet.add(range);
+          });
+        }
         /**
          * Convenient method for creating an instance from arrays of {@link IPv4} or {@link IPv6}
          * @param ipNumbers the arrays of {@link IPv4} or {@link IPv6} that will make up the pool.
@@ -3226,19 +3171,6 @@ ${originalIndentation}`;
             return range.toRangeSet();
           });
           return new _Pool(rangeSet);
-        }
-        /**
-         * Constructor for an IP pool.
-         *
-         * Creates a Pool of IP ranges from supplied {@link RangedSet}'s
-         *
-         * @param ranges the array of IP ranges that would make up the pool.
-         */
-        constructor(ranges) {
-          this.backingSet = new SortedSet();
-          ranges.forEach((range) => {
-            this.backingSet.add(range);
-          });
         }
         /**
          * Returns an array of {@link RangedSet}'s that is contained within the pool
@@ -3309,7 +3241,7 @@ ${originalIndentation}`;
                 if (e instanceof RangeError) {
                   continue loop;
                 }
-                error = e instanceof Error ? e : new Error(String(e));
+                error = e;
               }
           }
           if (selectedCidrRange) {
@@ -3342,7 +3274,7 @@ ${originalIndentation}`;
                 return go(reqprefix2, prefix, accummulated);
               }
             } catch (e) {
-              let lowerPrefix = (0, Prefix_1.isIPv4Prefix)(prefix) ? Prefix_1.IPv4Prefix.fromNumber(prefix.getValue() + 1n) : Prefix_1.IPv6Prefix.fromNumber(prefix.getValue() + 1n);
+              let lowerPrefix = Prefix_1.isIPv4Prefix(prefix) ? Prefix_1.IPv4Prefix.fromNumber(prefix.getValue() + 1n) : Prefix_1.IPv6Prefix.fromNumber(prefix.getValue() + 1n);
               return go(reqprefix2, lowerPrefix, accummulated);
             }
           };
@@ -3406,6 +3338,13 @@ ${originalIndentation}`;
       };
       exports.Pool = Pool;
       var SortedSet = class _SortedSet {
+        constructor(array) {
+          if (array) {
+            this.backingArray = this.sortArray(array);
+          } else {
+            this.backingArray = new Array();
+          }
+        }
         sortArray(array) {
           array.sort((a, b) => {
             if (a.isLessThan(b)) {
@@ -3417,13 +3356,6 @@ ${originalIndentation}`;
             return 0;
           });
           return array;
-        }
-        constructor(array) {
-          if (array) {
-            this.backingArray = this.sortArray(array);
-          } else {
-            this.backingArray = new Array();
-          }
         }
         asArray() {
           return this.backingArray;
@@ -3486,25 +3418,21 @@ ${originalIndentation}`;
     }
   });
 
-  // ../../node_modules/ip-num/dist/src/index.js
-  var require_src = __commonJS({
-    "../../node_modules/ip-num/dist/src/index.js"(exports) {
+  // ../../node_modules/ip-num/index.js
+  var require_ip_num = __commonJS({
+    "../../node_modules/ip-num/index.js"(exports) {
       "use strict";
       var __createBinding = exports && exports.__createBinding || (Object.create ? (function(o, m, k, k2) {
         if (k2 === void 0) k2 = k;
-        var desc = Object.getOwnPropertyDescriptor(m, k);
-        if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-          desc = { enumerable: true, get: function() {
-            return m[k];
-          } };
-        }
-        Object.defineProperty(o, k2, desc);
+        Object.defineProperty(o, k2, { enumerable: true, get: function() {
+          return m[k];
+        } });
       }) : (function(o, m, k, k2) {
         if (k2 === void 0) k2 = k;
         o[k2] = m[k];
       }));
       var __exportStar = exports && exports.__exportStar || function(m, exports2) {
-        for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports2, p)) __createBinding(exports2, m, p);
+        for (var p in m) if (p !== "default" && !exports2.hasOwnProperty(p)) __createBinding(exports2, m, p);
       };
       Object.defineProperty(exports, "__esModule", { value: true });
       __exportStar(require_BinaryUtils(), exports);
@@ -6400,10 +6328,16 @@ ${originalIndentation}`;
         }).length === 0) {
           throw new RangeError("invalid duration: ".concat(durationString));
         }
-        if (slicedMatches.filter(function(v) {
+        var fractionalIdx = slicedMatches.findIndex(function(v) {
           return /\./.test(v || "");
-        }).length > 1) {
-          throw new RangeError("only the smallest unit can be fractional");
+        });
+        if (fractionalIdx !== -1) {
+          var lastPresentIdx = slicedMatches.reduce(function(acc, v, idx) {
+            return v != null ? idx : acc;
+          }, -1);
+          if (fractionalIdx !== lastPresentIdx) {
+            throw new RangeError("only the smallest unit can be fractional");
+          }
         }
         return slicedMatches.reduce(function(prev, next, idx) {
           prev[objMap[idx]] = parseFloat(next || "0") || 0;
@@ -6635,6 +6569,18 @@ ${originalIndentation}`;
       var { safeRe: re, t } = require_re();
       var parseOptions = require_parse_options();
       var { compareIdentifiers } = require_identifiers();
+      var isPrereleaseIdentifier = (prerelease, identifier) => {
+        const identifiers = identifier.split(".");
+        if (identifiers.length > prerelease.length) {
+          return false;
+        }
+        for (let i = 0; i < identifiers.length; i++) {
+          if (compareIdentifiers(prerelease[i], identifiers[i]) !== 0) {
+            return false;
+          }
+        }
+        return true;
+      };
       var SemVer = class _SemVer {
         constructor(version2, options) {
           options = parseOptions(options);
@@ -6881,8 +6827,9 @@ ${originalIndentation}`;
                 if (identifierBase === false) {
                   prerelease = [identifier];
                 }
-                if (compareIdentifiers(this.prerelease[0], identifier) === 0) {
-                  if (isNaN(this.prerelease[1])) {
+                if (isPrereleaseIdentifier(this.prerelease, identifier)) {
+                  const prereleaseBase = this.prerelease[identifier.split(".").length];
+                  if (isNaN(prereleaseBase)) {
                     this.prerelease = prerelease;
                   }
                 } else {
@@ -7433,6 +7380,7 @@ ${originalIndentation}`;
           return this.range;
         }
         parseRange(range) {
+          range = range.replace(BUILDSTRIPRE, "");
           const memoOpts = (this.options.includePrerelease && FLAG_INCLUDE_PRERELEASE) | (this.options.loose && FLAG_LOOSE);
           const memoKey = memoOpts + ":" + range;
           const cached = cache.get(memoKey);
@@ -7515,12 +7463,14 @@ ${originalIndentation}`;
       var SemVer = require_semver();
       var {
         safeRe: re,
+        src,
         t,
         comparatorTrimReplace,
         tildeTrimReplace,
         caretTrimReplace
       } = require_re();
       var { FLAG_INCLUDE_PRERELEASE, FLAG_LOOSE } = require_constants();
+      var BUILDSTRIPRE = new RegExp(src[t.BUILD], "g");
       var isNullSet = (c) => c.value === "<0.0.0-0";
       var isAny = (c) => c.value === "";
       var isSatisfiable = (comparators, options) => {
@@ -7549,20 +7499,22 @@ ${originalIndentation}`;
         return comp;
       };
       var isX = (id) => !id || id.toLowerCase() === "x" || id === "*";
+      var invalidXRangeOrder = (M, m, p) => isX(M) && !isX(m) || isX(m) && p && !isX(p);
       var replaceTildes = (comp, options) => {
         return comp.trim().split(/\s+/).map((c) => replaceTilde(c, options)).join(" ");
       };
       var replaceTilde = (comp, options) => {
         const r = options.loose ? re[t.TILDELOOSE] : re[t.TILDE];
+        const z = options.includePrerelease ? "-0" : "";
         return comp.replace(r, (_, M, m, p, pr) => {
           debug("tilde", comp, _, M, m, p, pr);
           let ret;
           if (isX(M)) {
             ret = "";
           } else if (isX(m)) {
-            ret = `>=${M}.0.0 <${+M + 1}.0.0-0`;
+            ret = `>=${M}.0.0${z} <${+M + 1}.0.0-0`;
           } else if (isX(p)) {
-            ret = `>=${M}.${m}.0 <${M}.${+m + 1}.0-0`;
+            ret = `>=${M}.${m}.0${z} <${M}.${+m + 1}.0-0`;
           } else if (pr) {
             debug("replaceTilde pr", pr);
             ret = `>=${M}.${m}.${p}-${pr} <${M}.${+m + 1}.0-0`;
@@ -7608,9 +7560,9 @@ ${originalIndentation}`;
             debug("no pr");
             if (M === "0") {
               if (m === "0") {
-                ret = `>=${M}.${m}.${p}${z} <${M}.${m}.${+p + 1}-0`;
+                ret = `>=${M}.${m}.${p} <${M}.${m}.${+p + 1}-0`;
               } else {
-                ret = `>=${M}.${m}.${p}${z} <${M}.${+m + 1}.0-0`;
+                ret = `>=${M}.${m}.${p} <${M}.${+m + 1}.0-0`;
               }
             } else {
               ret = `>=${M}.${m}.${p} <${+M + 1}.0.0-0`;
@@ -7629,6 +7581,9 @@ ${originalIndentation}`;
         const r = options.loose ? re[t.XRANGELOOSE] : re[t.XRANGE];
         return comp.replace(r, (ret, gtlt, M, m, p, pr) => {
           debug("xRange", comp, ret, gtlt, M, m, p, pr);
+          if (invalidXRangeOrder(M, m, p)) {
+            return comp;
+          }
           const xM = isX(M);
           const xm = xM || isX(m);
           const xp = xm || isX(p);
@@ -8276,7 +8231,7 @@ ${originalIndentation}`;
               if (higher === c && higher !== gt2) {
                 return false;
               }
-            } else if (gt2.operator === ">=" && !satisfies2(gt2.semver, String(c), options)) {
+            } else if (gt2.operator === ">=" && !c.test(gt2.semver)) {
               return false;
             }
           }
@@ -8291,7 +8246,7 @@ ${originalIndentation}`;
               if (lower === c && lower !== lt2) {
                 return false;
               }
-            } else if (lt2.operator === "<=" && !satisfies2(lt2.semver, String(c), options)) {
+            } else if (lt2.operator === "<=" && !c.test(lt2.semver)) {
               return false;
             }
           }
@@ -8578,7 +8533,7 @@ ${originalIndentation}`;
          * @param currentValue - Current value to compare against
          * @param reverse - When true, search in reverse for previous smaller value
          */
-        static findNearestValueInList(values, currentValue, reverse = false) {
+        static findNearestValueInList(values, currentValue, reverse) {
           if (reverse) {
             for (let i = values.length - 1; i >= 0; i--) {
               if (values[i] < currentValue)
@@ -8598,7 +8553,7 @@ ${originalIndentation}`;
          * @param currentValue - Current value to compare against
          * @param reverse - When true, search in reverse for previous smaller value
          */
-        findNearestValue(currentValue, reverse = false) {
+        findNearestValue(currentValue, reverse) {
           return this.constructor.findNearestValueInList(this.values, currentValue, reverse);
         }
         /**
@@ -15616,7 +15571,7 @@ ${originalIndentation}`;
         DateMathOp2["Subtract"] = "Subtract";
       })(DateMathOp || (exports.DateMathOp = DateMathOp = {}));
       exports.DAYS_IN_MONTH = Object.freeze([31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]);
-      var _date, _dstStart, _dstEnd, _verbMap, _CronDate_static, isLeapYear_fn, _CronDate_instances, getUTC_fn;
+      var _date, _dstStart, _dstEnd, _CronDate_static, isLeapYear_fn, _CronDate_instances, getUTC_fn;
       var _CronDate = class _CronDate {
         /**
          * Constructs a new CronDate instance.
@@ -15628,27 +15583,6 @@ ${originalIndentation}`;
           __privateAdd(this, _date);
           __privateAdd(this, _dstStart, null);
           __privateAdd(this, _dstEnd, null);
-          /**
-           * Maps the verb to the appropriate method
-           */
-          __privateAdd(this, _verbMap, {
-            add: {
-              [TimeUnit.Year]: this.addYear.bind(this),
-              [TimeUnit.Month]: this.addMonth.bind(this),
-              [TimeUnit.Day]: this.addDay.bind(this),
-              [TimeUnit.Hour]: this.addHour.bind(this),
-              [TimeUnit.Minute]: this.addMinute.bind(this),
-              [TimeUnit.Second]: this.addSecond.bind(this)
-            },
-            subtract: {
-              [TimeUnit.Year]: this.subtractYear.bind(this),
-              [TimeUnit.Month]: this.subtractMonth.bind(this),
-              [TimeUnit.Day]: this.subtractDay.bind(this),
-              [TimeUnit.Hour]: this.subtractHour.bind(this),
-              [TimeUnit.Minute]: this.subtractMinute.bind(this),
-              [TimeUnit.Second]: this.subtractSecond.bind(this)
-            }
-          });
           const dateOpts = { zone: tz };
           if (!timestamp) {
             __privateSet(this, _date, luxon_1.DateTime.local());
@@ -15783,14 +15717,40 @@ ${originalIndentation}`;
          * @param {TimeUnit} unit
          */
         addUnit(unit) {
-          __privateGet(this, _verbMap).add[unit]();
+          switch (unit) {
+            case TimeUnit.Year:
+              return this.addYear();
+            case TimeUnit.Month:
+              return this.addMonth();
+            case TimeUnit.Day:
+              return this.addDay();
+            case TimeUnit.Hour:
+              return this.addHour();
+            case TimeUnit.Minute:
+              return this.addMinute();
+            case TimeUnit.Second:
+              return this.addSecond();
+          }
         }
         /**
          * Subtracts a unit of time from the current CronDate.
          * @param {TimeUnit} unit
          */
         subtractUnit(unit) {
-          __privateGet(this, _verbMap).subtract[unit]();
+          switch (unit) {
+            case TimeUnit.Year:
+              return this.subtractYear();
+            case TimeUnit.Month:
+              return this.subtractMonth();
+            case TimeUnit.Day:
+              return this.subtractDay();
+            case TimeUnit.Hour:
+              return this.subtractHour();
+            case TimeUnit.Minute:
+              return this.subtractMinute();
+            case TimeUnit.Second:
+              return this.subtractSecond();
+          }
         }
         /**
          * Handles a math operation.
@@ -16072,7 +16032,7 @@ ${originalIndentation}`;
           const diff = currentHour - previousHour;
           if (diff === 2) {
             if (hoursLength !== 24) {
-              this.dstStart = currentHour;
+              this.dstStart = previousHour + 1;
             }
           } else if (diff === 0 && this.getMinutes() === 0 && this.getSeconds() === 0) {
             if (hoursLength !== 24) {
@@ -16084,7 +16044,6 @@ ${originalIndentation}`;
       _date = new WeakMap();
       _dstStart = new WeakMap();
       _dstEnd = new WeakMap();
-      _verbMap = new WeakMap();
       _CronDate_static = new WeakSet();
       isLeapYear_fn = function(year) {
         return year % 4 === 0 && year % 100 !== 0 || year % 400 === 0;
@@ -16278,7 +16237,7 @@ ${originalIndentation}`;
           if (!dayOfWeek) {
             throw new Error("Validation error, Field dayOfWeek is missing");
           }
-          if (month.values.length === 1 && !dayOfMonth.hasLastChar) {
+          if (month.values.length === 1 && !dayOfMonth.hasLastChar && dayOfWeek.isWildcard) {
             if (!(parseInt(dayOfMonth.values[0], 10) <= fields_1.CronMonth.daysInMonth[month.values[0] - 1])) {
               throw new Error("Invalid explicit day of month definition");
             }
@@ -16719,7 +16678,7 @@ ${originalIndentation}`;
          * @public
          */
         reset(newDate) {
-          __privateSet(this, _currentDate, new CronDate_1.CronDate(newDate || __privateGet(this, _options).currentDate));
+          __privateSet(this, _currentDate, new CronDate_1.CronDate(newDate || __privateGet(this, _options).currentDate, __privateGet(this, _tz)));
         }
         /**
          * Generate a string representation of the cron expression.
@@ -16770,8 +16729,12 @@ ${originalIndentation}`;
         [Symbol.iterator]() {
           return {
             next: () => {
-              const schedule = __privateMethod(this, _CronExpression_instances, findSchedule_fn).call(this);
-              return { value: schedule, done: !this.hasNext() };
+              try {
+                const schedule = __privateMethod(this, _CronExpression_instances, findSchedule_fn).call(this);
+                return { value: schedule, done: false };
+              } catch {
+                return { value: void 0, done: true };
+              }
             }
           };
         }
@@ -16924,14 +16887,11 @@ ${originalIndentation}`;
         const hours = hourValues;
         const currentHour = currentDate.getHours();
         const isMatch = __privateMethod(_a2 = _CronExpression2, _CronExpression_static, matchSchedule_fn).call(_a2, currentHour, hourValues);
-        const isDstStart = currentDate.dstStart === currentHour;
         const isDstEnd = currentDate.dstEnd === currentHour;
-        if (isDstStart) {
-          if (__privateMethod(_b = _CronExpression2, _CronExpression_static, matchSchedule_fn).call(_b, currentHour - 1, hourValues)) {
+        if (currentDate.dstStart !== null && currentDate.dstStart === currentHour - 1) {
+          if (__privateMethod(_b = _CronExpression2, _CronExpression_static, matchSchedule_fn).call(_b, currentDate.dstStart, hourValues)) {
             return true;
           }
-          currentDate.invokeDateOperation(dateMathVerb, CronDate_1.TimeUnit.Hour);
-          return false;
         }
         if (isDstEnd && !reverse) {
           currentDate.dstEnd = null;
@@ -16951,6 +16911,10 @@ ${originalIndentation}`;
           const steps = reverse ? currentHour - nextHour : nextHour - currentHour;
           for (let i = 0; i < steps; i++) {
             currentDate.applyDateOperation(dateMathVerb, CronDate_1.TimeUnit.Hour, hours.length);
+            if (!reverse && currentDate.getHours() >= nextHour)
+              break;
+            if (reverse && currentDate.getHours() <= nextHour)
+              break;
           }
         } else {
           currentDate.setHours(nextHour);
@@ -17289,7 +17253,7 @@ ${originalIndentation}`;
           throw new Error(`Invalid repeat: ${val}`);
         }
         if (atoms.length === 2) {
-          if (!isNaN(parseInt(atoms[0], 10))) {
+          if (!atoms[0].includes("-")) {
             atoms[0] = `${atoms[0]}-${constraints.max}`;
           }
           return __privateMethod(_a2 = _CronExpressionParser, _CronExpressionParser_static, parseRange_fn).call(_a2, field, atoms[0], parseInt(atoms[1], 10), constraints);
@@ -17629,6 +17593,12 @@ ${originalIndentation}`;
       super(model.template);
       __publicField(this, "_model");
       __publicField(this, "_cause");
+      if (typeof model?.statusCode !== "number" || !Number.isFinite(model.statusCode)) {
+        const got = model?.statusCode;
+        throw new TypeError(
+          `${new.target?.name ?? "CoreError"}: statusCode must be a finite number, received ${got instanceof Error ? "an Error \u2014 pass it as the 4th `cause` argument" : typeof got}. key=${String(model?.key)}, message=${String(model?.msg ?? model?.template)}${got instanceof Error ? `, discarded cause: ${got.message}` : ""}`
+        );
+      }
       this._model = model;
       this._cause = cause;
       this.message = this.interpolateTemplate(model);
@@ -18276,7 +18246,9 @@ Caused by: ${causeStack}`;
     constructor(date) {
       super();
       __publicField(this, "date");
-      if (date instanceof Date) {
+      if (date === void 0) {
+        this.date = /* @__PURE__ */ new Date();
+      } else if (date instanceof Date) {
         this.date = date;
       } else {
         if (!_DateTime.pattern.test(date)) {
@@ -35937,6 +35909,19 @@ Caused by: ${causeStack}`;
         } else if (format === "password") {
           return data;
         }
+        if (typeof sanitizedData === "string" && (format === "date-time" || format === "time" || format === "timestamp")) {
+          if (format === "date-time" && /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}/.test(sanitizedData)) {
+            sanitizedData = sanitizedData.replace(" ", "T");
+          }
+          if (!/(Z|[+-]\d{2}:?\d{2})$/.test(sanitizedData)) {
+            sanitizedData = sanitizedData + "Z";
+          } else if (format === "date-time" && !/Z$/.test(sanitizedData)) {
+            const d = new Date(sanitizedData);
+            if (!isNaN(d.getTime())) {
+              sanitizedData = d.toISOString();
+            }
+          }
+        }
         const ct = CoreType.get(format);
         const ctInstance = ct.newInstance(sanitizedData);
         if (ctInstance instanceof NumberFormat) {
@@ -36151,6 +36136,7 @@ Caused by: ${causeStack}`;
     URL: () => URL2,
     UUID: () => UUID,
     VersionRange: () => VersionRange,
+    getMaxUUID: () => getMaxUUID,
     getNilMacAddress: () => getNilMacAddress,
     getNilUUID: () => getNilUUID
   });
@@ -36195,7 +36181,7 @@ Caused by: ${causeStack}`;
   var Byte = _Byte;
 
   // src/types/Cidr.ts
-  var import_ip_num = __toESM(require_src(), 1);
+  var import_ip_num = __toESM(require_ip_num(), 1);
   var CIDR = "cidr";
   var _Cidr = class _Cidr extends StringFormat {
     constructor(cidr) {
@@ -36334,7 +36320,10 @@ Caused by: ${causeStack}`;
     constructor(date) {
       super();
       __publicField(this, "date");
-      if (date instanceof Date) {
+      if (date === void 0) {
+        this.date = /* @__PURE__ */ new Date();
+        this.date.setUTCHours(0, 0, 0, 0);
+      } else if (date instanceof Date) {
         this.date = date;
       } else {
         if (!_DateFormat.pattern.test(date)) {
@@ -36601,7 +36590,7 @@ Caused by: ${causeStack}`;
   var Float = _Float;
 
   // src/types/IpAddress.ts
-  var import_ip_num2 = __toESM(require_src(), 1);
+  var import_ip_num2 = __toESM(require_ip_num(), 1);
   var _IpAddress = class _IpAddress extends StringFormat {
     constructor(ip) {
       super();
@@ -60607,6 +60596,9 @@ Caused by: ${causeStack}`;
   __publicField(_URL, "_coreType", null);
   var URL2 = _URL;
 
+  // ../../node_modules/uuid/dist/max.js
+  var max_default = "ffffffff-ffff-ffff-ffff-ffffffffffff";
+
   // ../../node_modules/uuid/dist/regex.js
   var regex_default = /^(?:[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$/i;
 
@@ -61098,6 +61090,11 @@ Caused by: ${causeStack}`;
   function getNilUUID() {
     if (!_nil2) _nil2 = new UUID("00000000-0000-0000-0000-000000000000");
     return _nil2;
+  }
+  var _max = null;
+  function getMaxUUID() {
+    if (!_max) _max = new UUID(max_default);
+    return _max;
   }
 
   // src/types/VersionRange.ts
@@ -62257,14 +62254,15 @@ Caused by: ${causeStack}`;
      * Returns all valid values for the `format` field. This is a superset of {@link #listTypes()}
      */
     static allFormats() {
+      _CoreType.init();
       return Object.keys(_CoreType.types);
     }
     static init() {
       if (_CoreType.initialized) {
         return;
       }
-      _CoreType.loadTypeLibrary(new CoreTypeLibrary());
       _CoreType.initialized = true;
+      _CoreType.loadTypeLibrary(new CoreTypeLibrary());
     }
     get name() {
       return this.type.name;
@@ -62653,6 +62651,23 @@ Caused by: ${causeStack}`;
   var { toString } = Object.prototype;
   var { getPrototypeOf } = Object;
   var { iterator, toStringTag } = Symbol;
+  var hasOwnProperty = (({ hasOwnProperty: hasOwnProperty2 }) => (obj, prop) => hasOwnProperty2.call(obj, prop))(Object.prototype);
+  var hasOwnInPrototypeChain = (thing, prop) => {
+    let obj = thing;
+    const seen = [];
+    while (obj != null && obj !== Object.prototype) {
+      if (seen.indexOf(obj) !== -1) {
+        return false;
+      }
+      seen.push(obj);
+      if (hasOwnProperty(obj, prop)) {
+        return true;
+      }
+      obj = getPrototypeOf(obj);
+    }
+    return false;
+  };
+  var getSafeProp = (obj, prop) => obj != null && hasOwnInPrototypeChain(obj, prop) ? obj[prop] : void 0;
   var kindOf = /* @__PURE__ */ ((cache) => (thing) => {
     const str = toString.call(thing);
     return cache[str] || (cache[str] = str.slice(8, -1).toLowerCase());
@@ -62683,11 +62698,14 @@ Caused by: ${causeStack}`;
   var isObject = (thing) => thing !== null && typeof thing === "object";
   var isBoolean = (thing) => thing === true || thing === false;
   var isPlainObject = (val) => {
-    if (kindOf(val) !== "object") {
+    if (!isObject(val)) {
       return false;
     }
     const prototype2 = getPrototypeOf(val);
-    return (prototype2 === null || prototype2 === Object.prototype || Object.getPrototypeOf(prototype2) === null) && !(toStringTag in val) && !(iterator in val);
+    return (prototype2 === null || prototype2 === Object.prototype || getPrototypeOf(prototype2) === null) && // Treat any genuine (non-Object.prototype-polluted) Symbol.toStringTag or
+    // Symbol.iterator as evidence the value is a tagged/iterable type rather
+    // than a plain object, while ignoring keys injected onto Object.prototype.
+    !hasOwnInPrototypeChain(val, toStringTag) && !hasOwnInPrototypeChain(val, iterator);
   };
   var isEmptyObject = (val) => {
     if (!isObject(val) || isBuffer(val)) {
@@ -62791,7 +62809,7 @@ Caused by: ${causeStack}`;
       if (key === "__proto__" || key === "constructor" || key === "prototype") {
         return;
       }
-      const targetKey = caseless && findKey(result, key) || key;
+      const targetKey = caseless && typeof key === "string" && findKey(result, key) || key;
       const existing = hasOwnProperty(result, targetKey) ? result[targetKey] : void 0;
       if (isPlainObject(existing) && isPlainObject(val)) {
         result[targetKey] = merge(existing, val);
@@ -62804,7 +62822,21 @@ Caused by: ${causeStack}`;
       }
     };
     for (let i = 0, l = objs.length; i < l; i++) {
-      objs[i] && forEach(objs[i], assignValue);
+      const source = objs[i];
+      if (!source || isBuffer(source)) {
+        continue;
+      }
+      forEach(source, assignValue);
+      if (typeof source !== "object" || isArray(source)) {
+        continue;
+      }
+      const symbols = Object.getOwnPropertySymbols(source);
+      for (let j = 0; j < symbols.length; j++) {
+        const symbol = symbols[j];
+        if (propertyIsEnumerable.call(source, symbol)) {
+          assignValue(source[symbol], symbol);
+        }
+      }
     }
     return result;
   }
@@ -62926,7 +62958,7 @@ Caused by: ${causeStack}`;
       return p1.toUpperCase() + p2;
     });
   };
-  var hasOwnProperty = (({ hasOwnProperty: hasOwnProperty2 }) => (obj, prop) => hasOwnProperty2.call(obj, prop))(Object.prototype);
+  var { propertyIsEnumerable } = Object.prototype;
   var isRegExp = kindOfTest("RegExp");
   var reduceDescriptors = (obj, reducer) => {
     const descriptors = Object.getOwnPropertyDescriptors(obj);
@@ -62977,29 +63009,29 @@ Caused by: ${causeStack}`;
     return !!(thing && isFunction(thing.append) && thing[toStringTag] === "FormData" && thing[iterator]);
   }
   var toJSONObject = (obj) => {
-    const stack = new Array(10);
-    const visit = (source, i) => {
+    const visited = /* @__PURE__ */ new WeakSet();
+    const visit = (source) => {
       if (isObject(source)) {
-        if (stack.indexOf(source) >= 0) {
+        if (visited.has(source)) {
           return;
         }
         if (isBuffer(source)) {
           return source;
         }
         if (!("toJSON" in source)) {
-          stack[i] = source;
+          visited.add(source);
           const target = isArray(source) ? [] : {};
           forEach(source, (value, key) => {
-            const reducedValue = visit(value, i + 1);
+            const reducedValue = visit(value);
             !isUndefined(reducedValue) && (target[key] = reducedValue);
           });
-          stack[i] = void 0;
+          visited.delete(source);
           return target;
         }
       }
       return source;
     };
-    return visit(obj, 0);
+    return visit(obj);
   };
   var isAsyncFn = kindOfTest("AsyncFunction");
   var isThenable = (thing) => thing && (isObject(thing) || isFunction(thing)) && isFunction(thing.then) && isFunction(thing.catch);
@@ -63025,6 +63057,7 @@ Caused by: ${causeStack}`;
   })(typeof setImmediate === "function", isFunction(_global.postMessage));
   var asap = typeof queueMicrotask !== "undefined" ? queueMicrotask.bind(_global) : typeof process !== "undefined" && process.nextTick || _setImmediate;
   var isIterable = (thing) => thing != null && isFunction(thing[iterator]);
+  var isSafeIterable = (thing) => thing != null && hasOwnInPrototypeChain(thing, iterator) && isIterable(thing);
   var utils_default = {
     isArray,
     isArrayBuffer,
@@ -63070,6 +63103,8 @@ Caused by: ${causeStack}`;
     hasOwnProperty,
     hasOwnProp: hasOwnProperty,
     // an alias to avoid ESLint no-prototype-builtins detection
+    hasOwnInPrototypeChain,
+    getSafeProp,
     reduceDescriptors,
     freezeMethods,
     toObjectSet,
@@ -63085,7 +63120,8 @@ Caused by: ${causeStack}`;
     isThenable,
     setImmediate: _setImmediate,
     asap,
-    isIterable
+    isIterable,
+    isSafeIterable
   };
 
   // ../../node_modules/axios/lib/helpers/parseHeaders.js
@@ -63133,9 +63169,7 @@ Caused by: ${causeStack}`;
     return parsed;
   };
 
-  // ../../node_modules/axios/lib/core/AxiosHeaders.js
-  var $internals = /* @__PURE__ */ Symbol("internals");
-  var INVALID_HEADER_VALUE_CHARS_RE = /[^\x09\x20-\x7E\x80-\xFF]/g;
+  // ../../node_modules/axios/lib/helpers/sanitizeHeaderValue.js
   function trimSPorHTAB(str) {
     let start = 0;
     let end = str.length;
@@ -63155,11 +63189,28 @@ Caused by: ${causeStack}`;
     }
     return start === 0 && end === str.length ? str : str.slice(start, end);
   }
+  var INVALID_UNICODE_HEADER_VALUE_CHARS = new RegExp("[\\u0000-\\u0008\\u000a-\\u001f\\u007f]+", "g");
+  var INVALID_BYTE_STRING_HEADER_VALUE_CHARS = new RegExp("[^\\u0009\\u0020-\\u007e\\u0080-\\u00ff]+", "g");
+  function sanitizeValue(value, invalidChars) {
+    if (utils_default.isArray(value)) {
+      return value.map((item) => sanitizeValue(item, invalidChars));
+    }
+    return trimSPorHTAB(String(value).replace(invalidChars, ""));
+  }
+  var sanitizeHeaderValue = (value) => sanitizeValue(value, INVALID_UNICODE_HEADER_VALUE_CHARS);
+  var sanitizeByteStringHeaderValue = (value) => sanitizeValue(value, INVALID_BYTE_STRING_HEADER_VALUE_CHARS);
+  function toByteStringHeaderObject(headers) {
+    const byteStringHeaders = /* @__PURE__ */ Object.create(null);
+    utils_default.forEach(headers.toJSON(), (value, header) => {
+      byteStringHeaders[header] = sanitizeByteStringHeaderValue(value);
+    });
+    return byteStringHeaders;
+  }
+
+  // ../../node_modules/axios/lib/core/AxiosHeaders.js
+  var $internals = /* @__PURE__ */ Symbol("internals");
   function normalizeHeader(header) {
     return header && String(header).trim().toLowerCase();
-  }
-  function sanitizeHeaderValue(str) {
-    return trimSPorHTAB(str.replace(INVALID_HEADER_VALUE_CHARS_RE, ""));
   }
   function normalizeValue(value) {
     if (value === false || value == null) {
@@ -63220,7 +63271,7 @@ Caused by: ${causeStack}`;
       function setHeader(_value, _header, _rewrite) {
         const lHeader = normalizeHeader(_header);
         if (!lHeader) {
-          throw new Error("header name must be a non-empty string");
+          return;
         }
         const key = utils_default.findKey(self2, lHeader);
         if (!key || self2[key] === void 0 || _rewrite === true || _rewrite === void 0 && self2[key] !== false) {
@@ -63232,13 +63283,19 @@ Caused by: ${causeStack}`;
         setHeaders(header, valueOrRewrite);
       } else if (utils_default.isString(header) && (header = header.trim()) && !isValidHeaderName(header)) {
         setHeaders(parseHeaders_default(header), valueOrRewrite);
-      } else if (utils_default.isObject(header) && utils_default.isIterable(header)) {
-        let obj = {}, dest, key;
+      } else if (utils_default.isObject(header) && utils_default.isSafeIterable(header)) {
+        let obj = /* @__PURE__ */ Object.create(null), dest, key;
         for (const entry of header) {
           if (!utils_default.isArray(entry)) {
-            throw TypeError("Object iterator must return a key-value pair");
+            throw new TypeError("Object iterator must return a key-value pair");
           }
-          obj[key = entry[0]] = (dest = obj[key]) ? utils_default.isArray(dest) ? [...dest, entry[1]] : [dest, entry[1]] : entry[1];
+          key = entry[0];
+          if (utils_default.hasOwnProp(obj, key)) {
+            dest = obj[key];
+            obj[key] = utils_default.isArray(dest) ? [...dest, entry[1]] : [dest, entry[1]];
+          } else {
+            obj[key] = entry[1];
+          }
         }
         setHeaders(obj, valueOrRewrite);
       } else {
@@ -63451,7 +63508,13 @@ Caused by: ${causeStack}`;
   var AxiosError = class _AxiosError extends Error {
     static from(error, code, config, request, response, customProps) {
       const axiosError = new _AxiosError(error.message, code || error.code, config, request, response);
-      axiosError.cause = error;
+      Object.defineProperty(axiosError, "cause", {
+        __proto__: null,
+        value: error,
+        writable: true,
+        enumerable: false,
+        configurable: true
+      });
       axiosError.name = error.name;
       if (error.status != null && axiosError.status == null) {
         axiosError.status = error.status;
@@ -63534,6 +63597,7 @@ Caused by: ${causeStack}`;
   var null_default = null;
 
   // ../../node_modules/axios/lib/helpers/toFormData.js
+  var DEFAULT_FORM_DATA_MAX_DEPTH = 100;
   function isVisitable(thing) {
     return utils_default.isPlainObject(thing) || utils_default.isArray(thing);
   }
@@ -63575,8 +63639,9 @@ Caused by: ${causeStack}`;
     const dots = options.dots;
     const indexes = options.indexes;
     const _Blob = options.Blob || typeof Blob !== "undefined" && Blob;
-    const maxDepth = options.maxDepth === void 0 ? 100 : options.maxDepth;
+    const maxDepth = options.maxDepth === void 0 ? DEFAULT_FORM_DATA_MAX_DEPTH : options.maxDepth;
     const useBlob = _Blob && utils_default.isSpecCompliantForm(formData);
+    const stack = [];
     if (!utils_default.isFunction(visitor)) {
       throw new TypeError("visitor must be a function");
     }
@@ -63592,9 +63657,40 @@ Caused by: ${causeStack}`;
         throw new AxiosError_default("Blob is not supported. Use a Buffer instead.");
       }
       if (utils_default.isArrayBuffer(value) || utils_default.isTypedArray(value)) {
-        return useBlob && typeof Blob === "function" ? new Blob([value]) : Buffer.from(value);
+        if (useBlob && typeof _Blob === "function") {
+          return new _Blob([value]);
+        }
+        if (typeof Buffer !== "undefined") {
+          return Buffer.from(value);
+        }
+        throw new AxiosError_default("Blob is not supported. Use a Buffer instead.", AxiosError_default.ERR_NOT_SUPPORT);
       }
       return value;
+    }
+    function throwIfMaxDepthExceeded(depth) {
+      if (depth > maxDepth) {
+        throw new AxiosError_default(
+          "Object is too deeply nested (" + depth + " levels). Max depth: " + maxDepth,
+          AxiosError_default.ERR_FORM_DATA_DEPTH_EXCEEDED
+        );
+      }
+    }
+    function stringifyWithDepthLimit(value, depth) {
+      if (maxDepth === Infinity) {
+        return JSON.stringify(value);
+      }
+      const ancestors = [];
+      return JSON.stringify(value, function limitDepth(_key, currentValue) {
+        if (!utils_default.isObject(currentValue)) {
+          return currentValue;
+        }
+        while (ancestors.length && ancestors[ancestors.length - 1] !== this) {
+          ancestors.pop();
+        }
+        ancestors.push(currentValue);
+        throwIfMaxDepthExceeded(depth + ancestors.length - 1);
+        return currentValue;
+      });
     }
     function defaultVisitor(value, key, path) {
       let arr = value;
@@ -63605,7 +63701,7 @@ Caused by: ${causeStack}`;
       if (value && !path && typeof value === "object") {
         if (utils_default.endsWith(key, "{}")) {
           key = metaTokens ? key : key.slice(0, -2);
-          value = JSON.stringify(value);
+          value = stringifyWithDepthLimit(value, 1);
         } else if (utils_default.isArray(value) && isFlatArray(value) || (utils_default.isFileList(value) || utils_default.endsWith(key, "[]")) && (arr = utils_default.toArray(value))) {
           key = removeBrackets(key);
           arr.forEach(function each(el, index2) {
@@ -63624,7 +63720,6 @@ Caused by: ${causeStack}`;
       formData.append(renderKey(path, key, dots), convertValue(value));
       return false;
     }
-    const stack = [];
     const exposedHelpers = Object.assign(predicates, {
       defaultVisitor,
       convertValue,
@@ -63632,14 +63727,9 @@ Caused by: ${causeStack}`;
     });
     function build(value, path, depth = 0) {
       if (utils_default.isUndefined(value)) return;
-      if (depth > maxDepth) {
-        throw new AxiosError_default(
-          "Object is too deeply nested (" + depth + " levels). Max depth: " + maxDepth,
-          AxiosError_default.ERR_FORM_DATA_DEPTH_EXCEEDED
-        );
-      }
+      throwIfMaxDepthExceeded(depth);
       if (stack.indexOf(value) !== -1) {
-        throw Error("Circular reference detected in " + path.join("."));
+        throw new Error("Circular reference detected in " + path.join("."));
       }
       stack.push(value);
       utils_default.forEach(value, function each(el, key) {
@@ -63681,9 +63771,7 @@ Caused by: ${causeStack}`;
     this._pairs.push([name, value]);
   };
   prototype.toString = function toString2(encoder) {
-    const _encode = encoder ? function(value) {
-      return encoder.call(this, value, encode);
-    } : encode;
+    const _encode = encoder ? (value) => encoder.call(this, value, encode) : encode;
     return this._pairs.map(function each(pair) {
       return _encode(pair[0]) + "=" + _encode(pair[1]);
     }, "").join("&");
@@ -63698,11 +63786,12 @@ Caused by: ${causeStack}`;
     if (!params) {
       return url;
     }
-    const _encode = options && options.encode || encode2;
+    url = url || "";
     const _options = utils_default.isFunction(options) ? {
       serialize: options
     } : options;
-    const serializeFn = _options && _options.serialize;
+    const _encode = utils_default.getSafeProp(_options, "encode") || encode2;
+    const serializeFn = utils_default.getSafeProp(_options, "serialize");
     let serializedParams;
     if (serializeFn) {
       serializedParams = serializeFn(params, _options);
@@ -63789,7 +63878,9 @@ Caused by: ${causeStack}`;
     silentJSONParsing: true,
     forcedJSONParsing: true,
     clarifyTimeoutError: false,
-    legacyInterceptorReqResOrdering: true
+    legacyInterceptorReqResOrdering: true,
+    advertiseZstdAcceptEncoding: false,
+    validateStatusUndefinedResolves: true
   };
 
   // ../../node_modules/axios/lib/platform/browser/classes/URLSearchParams.js
@@ -63851,10 +63942,24 @@ Caused by: ${causeStack}`;
   }
 
   // ../../node_modules/axios/lib/helpers/formDataToJSON.js
+  var MAX_DEPTH = DEFAULT_FORM_DATA_MAX_DEPTH;
+  function throwIfDepthExceeded(index2) {
+    if (index2 > MAX_DEPTH) {
+      throw new AxiosError_default(
+        "FormData field is too deeply nested (" + index2 + " levels). Max depth: " + MAX_DEPTH,
+        AxiosError_default.ERR_FORM_DATA_DEPTH_EXCEEDED
+      );
+    }
+  }
   function parsePropPath(name) {
-    return utils_default.matchAll(/\w+|\[(\w*)]/g, name).map((match) => {
-      return match[0] === "[]" ? "" : match[1] || match[0];
-    });
+    const path = [];
+    const pattern = /\w+|\[(\w*)]/g;
+    let match;
+    while ((match = pattern.exec(name)) !== null) {
+      throwIfDepthExceeded(path.length);
+      path.push(match[0] === "[]" ? "" : match[1] || match[0]);
+    }
+    return path;
   }
   function arrayToObject(arr) {
     const obj = {};
@@ -63870,6 +63975,7 @@ Caused by: ${causeStack}`;
   }
   function formDataToJSON(formData) {
     function buildPath(path, value, target, index2) {
+      throwIfDepthExceeded(index2);
       let name = path[index2++];
       if (name === "__proto__") return true;
       const isNumericKey = Number.isFinite(+name);
@@ -63883,7 +63989,7 @@ Caused by: ${causeStack}`;
         }
         return !isNumericKey;
       }
-      if (!target[name] || !utils_default.isObject(target[name])) {
+      if (!utils_default.hasOwnProp(target, name) || !utils_default.isObject(target[name])) {
         target[name] = [];
       }
       const result = buildPath(path, value, target[name], index2);
@@ -64155,6 +64261,9 @@ Caused by: ${causeStack}`;
     let bytesNotified = 0;
     const _speedometer = speedometer_default(50, 250);
     return throttle_default((e) => {
+      if (!e || typeof e.loaded !== "number") {
+        return;
+      }
       const rawLoaded = e.loaded;
       const total = e.lengthComputable ? e.total : void 0;
       const loaded = total != null ? Math.min(rawLoaded, total) : rawLoaded;
@@ -64228,7 +64337,11 @@ Caused by: ${causeStack}`;
           const cookie = cookies[i].replace(/^\s+/, "");
           const eq = cookie.indexOf("=");
           if (eq !== -1 && cookie.slice(0, eq) === name) {
-            return decodeURIComponent(cookie.slice(eq + 1));
+            try {
+              return decodeURIComponent(cookie.slice(eq + 1));
+            } catch (e) {
+              return cookie.slice(eq + 1);
+            }
           }
         }
         return null;
@@ -64264,9 +64377,32 @@ Caused by: ${causeStack}`;
   }
 
   // ../../node_modules/axios/lib/core/buildFullPath.js
-  function buildFullPath(baseURL, requestedURL, allowAbsoluteUrls) {
+  var malformedHttpProtocol = /^https?:(?!\/\/)/i;
+  var httpProtocolControlCharacters = /[\t\n\r]/g;
+  function stripLeadingC0ControlOrSpace(url) {
+    let i = 0;
+    while (i < url.length && url.charCodeAt(i) <= 32) {
+      i++;
+    }
+    return url.slice(i);
+  }
+  function normalizeURLForProtocolCheck(url) {
+    return stripLeadingC0ControlOrSpace(url).replace(httpProtocolControlCharacters, "");
+  }
+  function assertValidHttpProtocolURL(url, config) {
+    if (typeof url === "string" && malformedHttpProtocol.test(normalizeURLForProtocolCheck(url))) {
+      throw new AxiosError_default(
+        'Invalid URL: missing "//" after protocol',
+        AxiosError_default.ERR_INVALID_URL,
+        config
+      );
+    }
+  }
+  function buildFullPath(baseURL, requestedURL, allowAbsoluteUrls, config) {
+    assertValidHttpProtocolURL(requestedURL, config);
     let isRelativeUrl = !isAbsoluteURL(requestedURL);
     if (baseURL && (isRelativeUrl || allowAbsoluteUrls === false)) {
+      assertValidHttpProtocolURL(baseURL, config);
       return combineURLs(baseURL, requestedURL);
     }
     return requestedURL;
@@ -64275,6 +64411,7 @@ Caused by: ${causeStack}`;
   // ../../node_modules/axios/lib/core/mergeConfig.js
   var headersToObject = (thing) => thing instanceof AxiosHeaders_default ? { ...thing } : thing;
   function mergeConfig(config1, config2) {
+    config1 = config1 || {};
     config2 = config2 || {};
     const config = /* @__PURE__ */ Object.create(null);
     Object.defineProperty(config, "hasOwnProperty", {
@@ -64314,6 +64451,23 @@ Caused by: ${causeStack}`;
       } else if (!utils_default.isUndefined(a)) {
         return getMergedValue(void 0, a);
       }
+    }
+    function getMergedTransitionalOption(prop) {
+      const transitional2 = utils_default.hasOwnProp(config2, "transitional") ? config2.transitional : void 0;
+      if (!utils_default.isUndefined(transitional2)) {
+        if (utils_default.isPlainObject(transitional2)) {
+          if (utils_default.hasOwnProp(transitional2, prop)) {
+            return transitional2[prop];
+          }
+        } else {
+          return void 0;
+        }
+      }
+      const transitional1 = utils_default.hasOwnProp(config1, "transitional") ? config1.transitional : void 0;
+      if (utils_default.isPlainObject(transitional1) && utils_default.hasOwnProp(transitional1, prop)) {
+        return transitional1[prop];
+      }
+      return void 0;
     }
     function mergeDirectKeys(a, b, prop) {
       if (utils_default.hasOwnProp(config2, prop)) {
@@ -64362,6 +64516,13 @@ Caused by: ${causeStack}`;
       const configValue = merge2(a, b, prop);
       utils_default.isUndefined(configValue) && merge2 !== mergeDirectKeys || (config[prop] = configValue);
     });
+    if (utils_default.hasOwnProp(config2, "validateStatus") && utils_default.isUndefined(config2.validateStatus) && getMergedTransitionalOption("validateStatusUndefinedResolves") === false) {
+      if (utils_default.hasOwnProp(config1, "validateStatus")) {
+        config.validateStatus = getMergedValue(void 0, config1.validateStatus);
+      } else {
+        delete config.validateStatus;
+      }
+    }
     return config;
   }
 
@@ -64372,7 +64533,7 @@ Caused by: ${causeStack}`;
       headers.set(formHeaders);
       return;
     }
-    Object.entries(formHeaders).forEach(([key, val]) => {
+    Object.entries(formHeaders || {}).forEach(([key, val]) => {
       if (FORM_DATA_CONTENT_HEADERS.includes(key.toLowerCase())) {
         headers.set(key, val);
       }
@@ -64382,7 +64543,7 @@ Caused by: ${causeStack}`;
     /%([0-9A-F]{2})/gi,
     (_, hex) => String.fromCharCode(parseInt(hex, 16))
   );
-  var resolveConfig_default = (config) => {
+  function resolveConfig(config) {
     const newConfig = mergeConfig({}, config);
     const own2 = (key) => utils_default.hasOwnProp(newConfig, key) ? newConfig[key] : void 0;
     const data = own2("data");
@@ -64396,18 +64557,24 @@ Caused by: ${causeStack}`;
     const url = own2("url");
     newConfig.headers = headers = AxiosHeaders_default.from(headers);
     newConfig.url = buildURL(
-      buildFullPath(baseURL, url, allowAbsoluteUrls),
-      config.params,
-      config.paramsSerializer
+      buildFullPath(baseURL, url, allowAbsoluteUrls, newConfig),
+      own2("params"),
+      own2("paramsSerializer")
     );
     if (auth) {
-      headers.set(
-        "Authorization",
-        "Basic " + btoa((auth.username || "") + ":" + (auth.password ? encodeUTF8(auth.password) : ""))
-      );
+      const username = utils_default.getSafeProp(auth, "username") || "";
+      const password = utils_default.getSafeProp(auth, "password") || "";
+      try {
+        headers.set(
+          "Authorization",
+          "Basic " + btoa(username + ":" + (password ? encodeUTF8(password) : ""))
+        );
+      } catch (e) {
+        throw AxiosError_default.from(e, AxiosError_default.ERR_BAD_OPTION_VALUE, config);
+      }
     }
     if (utils_default.isFormData(data)) {
-      if (platform_default.hasStandardBrowserEnv || platform_default.hasStandardBrowserWebWorkerEnv) {
+      if (platform_default.hasStandardBrowserEnv || platform_default.hasStandardBrowserWebWorkerEnv || utils_default.isReactNative(data)) {
         headers.setContentType(void 0);
       } else if (utils_default.isFunction(data.getHeaders)) {
         setFormDataHeaders(headers, data.getHeaders(), own2("formDataHeaderPolicy"));
@@ -64426,7 +64593,8 @@ Caused by: ${causeStack}`;
       }
     }
     return newConfig;
-  };
+  }
+  var resolveConfig_default = resolveConfig;
 
   // ../../node_modules/axios/lib/adapters/xhr.js
   var isXHRAdapterSupported = typeof XMLHttpRequest !== "undefined";
@@ -64525,7 +64693,7 @@ Caused by: ${causeStack}`;
       };
       requestData === void 0 && requestHeaders.setContentType(null);
       if ("setRequestHeader" in request) {
-        utils_default.forEach(requestHeaders.toJSON(), function setRequestHeader(val, key) {
+        utils_default.forEach(toByteStringHeaderObject(requestHeaders), function setRequestHeader(val, key) {
           request.setRequestHeader(key, val);
         });
       }
@@ -64568,6 +64736,7 @@ Caused by: ${causeStack}`;
             config
           )
         );
+        done();
         return;
       }
       request.send(requestData || null);
@@ -64576,39 +64745,41 @@ Caused by: ${causeStack}`;
 
   // ../../node_modules/axios/lib/helpers/composeSignals.js
   var composeSignals = (signals, timeout) => {
-    const { length } = signals = signals ? signals.filter(Boolean) : [];
-    if (timeout || length) {
-      let controller = new AbortController();
-      let aborted;
-      const onabort = function(reason) {
-        if (!aborted) {
-          aborted = true;
-          unsubscribe();
-          const err = reason instanceof Error ? reason : this.reason;
-          controller.abort(
-            err instanceof AxiosError_default ? err : new CanceledError_default(err instanceof Error ? err.message : err)
-          );
-        }
-      };
-      let timer = timeout && setTimeout(() => {
-        timer = null;
-        onabort(new AxiosError_default(`timeout of ${timeout}ms exceeded`, AxiosError_default.ETIMEDOUT));
-      }, timeout);
-      const unsubscribe = () => {
-        if (signals) {
-          timer && clearTimeout(timer);
-          timer = null;
-          signals.forEach((signal2) => {
-            signal2.unsubscribe ? signal2.unsubscribe(onabort) : signal2.removeEventListener("abort", onabort);
-          });
-          signals = null;
-        }
-      };
-      signals.forEach((signal2) => signal2.addEventListener("abort", onabort));
-      const { signal } = controller;
-      signal.unsubscribe = () => utils_default.asap(unsubscribe);
-      return signal;
+    signals = signals ? signals.filter(Boolean) : [];
+    if (!timeout && !signals.length) {
+      return;
     }
+    const controller = new AbortController();
+    let aborted = false;
+    const onabort = function(reason) {
+      if (!aborted) {
+        aborted = true;
+        unsubscribe();
+        const err = reason instanceof Error ? reason : this.reason;
+        controller.abort(
+          err instanceof AxiosError_default ? err : new CanceledError_default(err instanceof Error ? err.message : err)
+        );
+      }
+    };
+    let timer = timeout && setTimeout(() => {
+      timer = null;
+      onabort(new AxiosError_default(`timeout of ${timeout}ms exceeded`, AxiosError_default.ETIMEDOUT));
+    }, timeout);
+    const unsubscribe = () => {
+      if (!signals) {
+        return;
+      }
+      timer && clearTimeout(timer);
+      timer = null;
+      signals.forEach((signal2) => {
+        signal2.unsubscribe ? signal2.unsubscribe(onabort) : signal2.removeEventListener("abort", onabort);
+      });
+      signals = null;
+    };
+    signals.forEach((signal2) => signal2.addEventListener("abort", onabort, { once: true }));
+    const { signal } = controller;
+    signal.unsubscribe = () => utils_default.asap(unsubscribe);
+    return signal;
   };
   var composeSignals_default = composeSignals;
 
@@ -64693,6 +64864,8 @@ Caused by: ${causeStack}`;
   };
 
   // ../../node_modules/axios/lib/helpers/estimateDataURLDecodedBytes.js
+  var isHexDigit = (charCode) => charCode >= 48 && charCode <= 57 || charCode >= 65 && charCode <= 70 || charCode >= 97 && charCode <= 102;
+  var isPercentEncodedByte = (str, i, len) => i + 2 < len && isHexDigit(str.charCodeAt(i + 1)) && isHexDigit(str.charCodeAt(i + 2));
   function estimateDataURLDecodedBytes(url) {
     if (!url || typeof url !== "string") return 0;
     if (!url.startsWith("data:")) return 0;
@@ -64708,7 +64881,7 @@ Caused by: ${causeStack}`;
         if (body.charCodeAt(i) === 37 && i + 2 < len) {
           const a = body.charCodeAt(i + 1);
           const b = body.charCodeAt(i + 2);
-          const isHex = (a >= 48 && a <= 57 || a >= 65 && a <= 70 || a >= 97 && a <= 102) && (b >= 48 && b <= 57 || b >= 65 && b <= 70 || b >= 97 && b <= 102);
+          const isHex = isHexDigit(a) && isHexDigit(b);
           if (isHex) {
             effectiveLen -= 2;
             i += 2;
@@ -64740,13 +64913,13 @@ Caused by: ${causeStack}`;
       const bytes2 = groups * 3 - (pad || 0);
       return bytes2 > 0 ? bytes2 : 0;
     }
-    if (typeof Buffer !== "undefined" && typeof Buffer.byteLength === "function") {
-      return Buffer.byteLength(body, "utf8");
-    }
     let bytes = 0;
     for (let i = 0, len = body.length; i < len; i++) {
       const c = body.charCodeAt(i);
-      if (c < 128) {
+      if (c === 37 && isPercentEncodedByte(body, i, len)) {
+        bytes += 1;
+        i += 2;
+      } else if (c < 128) {
         bytes += 1;
       } else if (c < 2048) {
         bytes += 2;
@@ -64766,11 +64939,25 @@ Caused by: ${causeStack}`;
   }
 
   // ../../node_modules/axios/lib/env/data.js
-  var VERSION = "1.16.0";
+  var VERSION = "1.18.1";
 
   // ../../node_modules/axios/lib/adapters/fetch.js
   var DEFAULT_CHUNK_SIZE = 64 * 1024;
   var { isFunction: isFunction2 } = utils_default;
+  var encodeUTF82 = (str) => encodeURIComponent(str).replace(
+    /%([0-9A-F]{2})/gi,
+    (_, hex) => String.fromCharCode(parseInt(hex, 16))
+  );
+  var decodeURIComponentSafe = (value) => {
+    if (!utils_default.isString(value)) {
+      return value;
+    }
+    try {
+      return decodeURIComponent(value);
+    } catch (error) {
+      return value;
+    }
+  };
   var test = (fn, ...args) => {
     try {
       return !!fn(...args);
@@ -64778,8 +64965,16 @@ Caused by: ${causeStack}`;
       return false;
     }
   };
+  var maybeWithAuthCredentials = (url) => {
+    const protocolIndex = url.indexOf("://");
+    let urlToCheck = url;
+    if (protocolIndex !== -1) {
+      urlToCheck = urlToCheck.slice(protocolIndex + 3);
+    }
+    return urlToCheck.includes("@") || urlToCheck.includes(":");
+  };
   var factory = (env) => {
-    const globalObject = utils_default.global ?? globalThis;
+    const globalObject = utils_default.global !== void 0 && utils_default.global !== null ? utils_default.global : globalThis;
     const { ReadableStream: ReadableStream2, TextEncoder } = globalObject;
     env = utils_default.merge.call(
       {
@@ -64882,6 +65077,7 @@ Caused by: ${causeStack}`;
       } = resolveConfig_default(config);
       const hasMaxContentLength = utils_default.isNumber(maxContentLength) && maxContentLength > -1;
       const hasMaxBodyLength = utils_default.isNumber(maxBodyLength) && maxBodyLength > -1;
+      const own2 = (key) => utils_default.hasOwnProp(config, key) ? config[key] : void 0;
       let _fetch = envFetch || fetch;
       responseType = responseType ? (responseType + "").toLowerCase() : "text";
       let composedSignal = composeSignals_default(
@@ -64893,7 +65089,47 @@ Caused by: ${causeStack}`;
         composedSignal.unsubscribe();
       });
       let requestContentLength;
+      let pendingBodyError = null;
+      const maxBodyLengthError = () => new AxiosError_default(
+        "Request body larger than maxBodyLength limit",
+        AxiosError_default.ERR_BAD_REQUEST,
+        config,
+        request
+      );
       try {
+        let auth = void 0;
+        const configAuth = own2("auth");
+        if (configAuth) {
+          const username = utils_default.getSafeProp(configAuth, "username") || "";
+          const password = utils_default.getSafeProp(configAuth, "password") || "";
+          auth = {
+            username,
+            password
+          };
+        }
+        if (maybeWithAuthCredentials(url)) {
+          const parsedURL = new URL(url, platform_default.origin);
+          if (!auth && (parsedURL.username || parsedURL.password)) {
+            const urlUsername = decodeURIComponentSafe(parsedURL.username);
+            const urlPassword = decodeURIComponentSafe(parsedURL.password);
+            auth = {
+              username: urlUsername,
+              password: urlPassword
+            };
+          }
+          if (parsedURL.username || parsedURL.password) {
+            parsedURL.username = "";
+            parsedURL.password = "";
+            url = parsedURL.href;
+          }
+        }
+        if (auth) {
+          headers.delete("authorization");
+          headers.set(
+            "Authorization",
+            "Basic " + btoa(encodeUTF82((auth.username || "") + ":" + (auth.password || "")))
+          );
+        }
         if (hasMaxContentLength && typeof url === "string" && url.startsWith("data:")) {
           const estimated = estimateDataURLDecodedBytes(url);
           if (estimated > maxContentLength) {
@@ -64906,33 +65142,55 @@ Caused by: ${causeStack}`;
           }
         }
         if (hasMaxBodyLength && method !== "get" && method !== "head") {
-          const outboundLength = await resolveBodyLength(headers, data);
-          if (typeof outboundLength === "number" && isFinite(outboundLength) && outboundLength > maxBodyLength) {
-            throw new AxiosError_default(
-              "Request body larger than maxBodyLength limit",
-              AxiosError_default.ERR_BAD_REQUEST,
-              config,
-              request
-            );
+          const outboundLength = await getBodyLength(data);
+          if (typeof outboundLength === "number" && isFinite(outboundLength)) {
+            requestContentLength = outboundLength;
+            if (outboundLength > maxBodyLength) {
+              throw maxBodyLengthError();
+            }
           }
         }
-        if (onUploadProgress && supportsRequestStream && method !== "get" && method !== "head" && (requestContentLength = await resolveBodyLength(headers, data)) !== 0) {
-          let _request = new Request(url, {
-            method: "POST",
-            body: data,
-            duplex: "half"
-          });
-          let contentTypeHeader;
-          if (utils_default.isFormData(data) && (contentTypeHeader = _request.headers.get("content-type"))) {
-            headers.setContentType(contentTypeHeader);
+        const mustEnforceStreamBody = hasMaxBodyLength && (utils_default.isReadableStream(data) || utils_default.isStream(data));
+        const trackRequestStream = (stream, onProgress, flush) => trackStream(
+          stream,
+          DEFAULT_CHUNK_SIZE,
+          (loadedBytes) => {
+            if (hasMaxBodyLength && loadedBytes > maxBodyLength) {
+              throw pendingBodyError = maxBodyLengthError();
+            }
+            onProgress && onProgress(loadedBytes);
+          },
+          flush
+        );
+        if (supportsRequestStream && method !== "get" && method !== "head" && (onUploadProgress || mustEnforceStreamBody)) {
+          requestContentLength = requestContentLength == null ? await resolveBodyLength(headers, data) : requestContentLength;
+          if (requestContentLength !== 0 || mustEnforceStreamBody) {
+            let _request = new Request(url, {
+              method: "POST",
+              body: data,
+              duplex: "half"
+            });
+            let contentTypeHeader;
+            if (utils_default.isFormData(data) && (contentTypeHeader = _request.headers.get("content-type"))) {
+              headers.setContentType(contentTypeHeader);
+            }
+            if (_request.body) {
+              const [onProgress, flush] = onUploadProgress && progressEventDecorator(
+                requestContentLength,
+                progressEventReducer(asyncDecorator(onUploadProgress))
+              ) || [];
+              data = trackRequestStream(_request.body, onProgress, flush);
+            }
           }
-          if (_request.body) {
-            const [onProgress, flush] = progressEventDecorator(
-              requestContentLength,
-              progressEventReducer(asyncDecorator(onUploadProgress))
-            );
-            data = trackStream(_request.body, DEFAULT_CHUNK_SIZE, onProgress, flush);
-          }
+        } else if (mustEnforceStreamBody && !isRequestSupported && isReadableStreamSupported && method !== "get" && method !== "head") {
+          data = trackRequestStream(data);
+        } else if (mustEnforceStreamBody && isRequestSupported && !supportsRequestStream && method !== "get" && method !== "head") {
+          throw new AxiosError_default(
+            "Stream request bodies are not supported by the current fetch implementation",
+            AxiosError_default.ERR_NOT_SUPPORT,
+            config,
+            request
+          );
         }
         if (!utils_default.isString(withCredentials)) {
           withCredentials = withCredentials ? "include" : "omit";
@@ -64949,15 +65207,16 @@ Caused by: ${causeStack}`;
           ...fetchOptions,
           signal: composedSignal,
           method: method.toUpperCase(),
-          headers: headers.normalize().toJSON(),
+          headers: toByteStringHeaderObject(headers.normalize()),
           body: data,
           duplex: "half",
           credentials: isCredentialsSupported ? withCredentials : void 0
         };
         request = isRequestSupported && new Request(url, resolvedOptions);
         let response = await (isRequestSupported ? _fetch(request, fetchOptions) : _fetch(url, resolvedOptions));
+        const responseHeaders = AxiosHeaders_default.from(response.headers);
         if (hasMaxContentLength) {
-          const declaredLength = utils_default.toFiniteNumber(response.headers.get("content-length"));
+          const declaredLength = utils_default.toFiniteNumber(responseHeaders.getContentLength());
           if (declaredLength != null && declaredLength > maxContentLength) {
             throw new AxiosError_default(
               "maxContentLength size of " + maxContentLength + " exceeded",
@@ -64973,7 +65232,7 @@ Caused by: ${causeStack}`;
           ["status", "statusText", "headers"].forEach((prop) => {
             options[prop] = response[prop];
           });
-          const responseContentLength = utils_default.toFiniteNumber(response.headers.get("content-length"));
+          const responseContentLength = utils_default.toFiniteNumber(responseHeaders.getContentLength());
           const [onProgress, flush] = onDownloadProgress && progressEventDecorator(
             responseContentLength,
             progressEventReducer(asyncDecorator(onDownloadProgress), true)
@@ -65043,22 +65302,41 @@ Caused by: ${causeStack}`;
           const canceledError = composedSignal.reason;
           canceledError.config = config;
           request && (canceledError.request = request);
-          err !== canceledError && (canceledError.cause = err);
+          if (err !== canceledError) {
+            Object.defineProperty(canceledError, "cause", {
+              __proto__: null,
+              value: err,
+              writable: true,
+              enumerable: false,
+              configurable: true
+            });
+          }
           throw canceledError;
         }
+        if (pendingBodyError) {
+          request && !pendingBodyError.request && (pendingBodyError.request = request);
+          throw pendingBodyError;
+        }
+        if (err instanceof AxiosError_default) {
+          request && !err.request && (err.request = request);
+          throw err;
+        }
         if (err && err.name === "TypeError" && /Load failed|fetch/i.test(err.message)) {
-          throw Object.assign(
-            new AxiosError_default(
-              "Network Error",
-              AxiosError_default.ERR_NETWORK,
-              config,
-              request,
-              err && err.response
-            ),
-            {
-              cause: err.cause || err
-            }
+          const networkError = new AxiosError_default(
+            "Network Error",
+            AxiosError_default.ERR_NETWORK,
+            config,
+            request,
+            err && err.response
           );
+          Object.defineProperty(networkError, "cause", {
+            __proto__: null,
+            value: err.cause || err,
+            writable: true,
+            enumerable: false,
+            configurable: true
+          });
+          throw networkError;
         }
         throw AxiosError_default.from(err, err && err.code, config, request, err && err.response);
       }
@@ -65127,7 +65405,7 @@ Caused by: ${causeStack}`;
       let s = length ? reasons.length > 1 ? "since :\n" + reasons.map(renderReason).join("\n") : " " + renderReason(reasons[0]) : "as no adapter specified";
       throw new AxiosError_default(
         `There is no suitable adapter to dispatch the request ` + s,
-        "ERR_NOT_SUPPORT"
+        AxiosError_default.ERR_NOT_SUPPORT
       );
     }
     return adapter2;
@@ -65234,7 +65512,7 @@ Caused by: ${causeStack}`;
     };
   };
   function assertOptions(options, schema, allowUnknown) {
-    if (typeof options !== "object") {
+    if (typeof options !== "object" || options === null) {
       throw new AxiosError_default("options must be an object", AxiosError_default.ERR_BAD_OPTION_VALUE);
     }
     const keys = Object.keys(options);
@@ -65328,7 +65606,9 @@ Caused by: ${causeStack}`;
             silentJSONParsing: validators2.transitional(validators2.boolean),
             forcedJSONParsing: validators2.transitional(validators2.boolean),
             clarifyTimeoutError: validators2.transitional(validators2.boolean),
-            legacyInterceptorReqResOrdering: validators2.transitional(validators2.boolean)
+            legacyInterceptorReqResOrdering: validators2.transitional(validators2.boolean),
+            advertiseZstdAcceptEncoding: validators2.transitional(validators2.boolean),
+            validateStatusUndefinedResolves: validators2.transitional(validators2.boolean)
           },
           false
         );
@@ -65428,7 +65708,7 @@ Caused by: ${causeStack}`;
     }
     getUri(config) {
       config = mergeConfig(this.defaults, config);
-      const fullPath = buildFullPath(config.baseURL, config.url, config.allowAbsoluteUrls);
+      const fullPath = buildFullPath(config.baseURL, config.url, config.allowAbsoluteUrls, config);
       return buildURL(fullPath, config.params, config.paramsSerializer);
     }
   };
@@ -65438,7 +65718,7 @@ Caused by: ${causeStack}`;
         mergeConfig(config || {}, {
           method,
           url,
-          data: (config || {}).data
+          data: config && utils_default.hasOwnProp(config, "data") ? config.data : void 0
         })
       );
     };

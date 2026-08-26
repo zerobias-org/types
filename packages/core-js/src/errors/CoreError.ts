@@ -78,6 +78,20 @@ export abstract class CoreError<T extends ErrorModel> extends Error implements C
    */
   constructor(model: T, cause?: Error) {
     super(model.template);
+    // statusCode is serialized verbatim and drives downstream decisions (e.g. the pipeline
+    // retry classifier), so a non-numeric value is rejected rather than coerced. `catch (e)`
+    // binds `any`, so `new UnexpectedError(msg, e)` type-checks while corrupting this field.
+    if (typeof model?.statusCode !== 'number' || !Number.isFinite(model.statusCode)) {
+      const got = model?.statusCode;
+      // Carry the original message and cause through: this throws on an error path, so
+      // without them the failure being reported would be lost entirely.
+      throw new TypeError(
+        `${new.target?.name ?? 'CoreError'}: statusCode must be a finite number, received `
+        + `${got instanceof Error ? 'an Error — pass it as the 4th `cause` argument' : typeof got}`
+        + `. key=${String(model?.key)}, message=${String((model as { msg?: unknown })?.msg ?? model?.template)}`
+        + `${got instanceof Error ? `, discarded cause: ${got.message}` : ''}`,
+      );
+    }
     this._model = model;
     this._cause = cause;
     // Interpolate the template with model values
