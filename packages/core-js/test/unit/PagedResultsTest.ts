@@ -1188,3 +1188,69 @@ describe('PagedResults asyncGenerator guardrails', () => {
     expect(seen).to.have.length(7);
   });
 });
+
+describe('PagedResults maxPageSize', () => {
+  it('leaves the built-in default alone when no maximum is declared', () => {
+    const pr = new PagedResults<any>();
+    expect(pr.maxPageSize).to.be.undefined;
+    expect(pr.pageSize).to.equal(50);
+  });
+
+  it('clamps the built-in default down to a declared maximum', () => {
+    const pr = new PagedResults<any>();
+    pr.maxPageSize = 20;
+    expect(pr.pageSize).to.equal(20);
+  });
+
+  it('clamps an explicitly requested page size', () => {
+    const pr = new PagedResults<any>();
+    pr.maxPageSize = 20;
+    pr.pageSize = 100;
+    expect(pr.pageSize).to.equal(20);
+  });
+
+  it('clamps regardless of the order the two are set in', () => {
+    const pr = new PagedResults<any>();
+    pr.pageSize = 100;
+    pr.maxPageSize = 20;
+    expect(pr.pageSize).to.equal(20);
+  });
+
+  it('never raises a request that is below the maximum', () => {
+    const pr = new PagedResults<any>();
+    pr.maxPageSize = 20;
+    pr.pageSize = 5;
+    expect(pr.pageSize).to.equal(5);
+  });
+
+  it('restores the requested size when the maximum is cleared', () => {
+    const pr = new PagedResults<any>();
+    pr.pageSize = 100;
+    pr.maxPageSize = 20;
+    expect(pr.pageSize).to.equal(20);
+    pr.maxPageSize = undefined;
+    expect(pr.pageSize).to.equal(100);
+  });
+
+  it('rejects a non-positive maximum', () => {
+    const pr = new PagedResults<any>();
+    expect(() => { pr.maxPageSize = 0; }).to.throw(InvalidInputError);
+    expect(() => { pr.maxPageSize = -1; }).to.throw(InvalidInputError);
+  });
+
+  it('counts pages by the clamped size', () => {
+    const pr = new PagedResults<any>();
+    pr.maxPageSize = 20;
+    pr.count = 100;
+    expect(pr.pageCount).to.equal(5);
+  });
+
+  it('sends the clamped size on the wire', () => {
+    const pr = new PagedResults<any>();
+    pr.maxPageSize = 20;
+    pr.pageSize = 100;
+    const opts: Record<string, any> = {};
+    pr.applyToRequest(opts, { kind: 'page-number' });
+    expect(opts.per_page).to.equal(20);
+  });
+});

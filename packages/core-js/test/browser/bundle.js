@@ -66118,6 +66118,16 @@ Caused by: ${causeStack}`;
        */
       __publicField(this, "_pageSize", 50);
       /**
+       * Upper bound the serving API declares for its page size, when the caller knows it.
+       *
+       * Generated clients set this from the `maximum` on the spec's pageSize parameter so the
+       * built-in default of 50 can never be sent to an API that caps lower — an over-sized
+       * request is rejected by the server as an illegal argument on the very first call, which
+       * reads as an outage rather than as the contract mismatch it is. Left undefined, nothing
+       * is clamped and behaviour is unchanged.
+       */
+      __publicField(this, "_maxPageSize");
+      /**
        * Array of columns to sort by
        */
       __publicField(this, "_sortBy", []);
@@ -66272,14 +66282,30 @@ Caused by: ${causeStack}`;
     get pageNumber() {
       return this._pageNumber;
     }
+    /**
+     * The page size actually in effect, i.e. the requested size clamped to {@link maxPageSize}.
+     *
+     * Clamping on read rather than on write keeps the two independent of the order they are
+     * set in, and covers the built-in default — which never passes through the setter at all.
+     */
     get pageSize() {
-      return this._pageSize;
+      return this._maxPageSize ? Math.min(this._pageSize, this._maxPageSize) : this._pageSize;
     }
     set pageSize(pageSize) {
       if (pageSize <= 0) {
         throw new InvalidInputError("page size", pageSize);
       }
       this._pageSize = pageSize;
+      this.calculatePageCount();
+    }
+    get maxPageSize() {
+      return this._maxPageSize;
+    }
+    set maxPageSize(maxPageSize) {
+      if (maxPageSize !== void 0 && maxPageSize <= 0) {
+        throw new InvalidInputError("max page size", maxPageSize);
+      }
+      this._maxPageSize = maxPageSize;
       this.calculatePageCount();
     }
     get items() {
@@ -66490,10 +66516,12 @@ Caused by: ${causeStack}`;
       return links;
     }
     /**
-     * Calculates and sets {@link _pageCount | the page count} based on the values of {@link _count} and {@link _pageSize}.
+     * Calculates and sets {@link _pageCount | the page count} from {@link _count} and the
+     * effective {@link pageSize} — the clamped value, since that is what the server pages by.
      */
     calculatePageCount() {
-      this._pageCount = this._count && this._count > 0 && this._pageSize > 0 ? Math.ceil(this._count / this._pageSize) : void 0;
+      const pageSize = this.pageSize;
+      this._pageCount = this._count && this._count > 0 && pageSize > 0 ? Math.ceil(this._count / pageSize) : void 0;
     }
     /**
      * Determines the effective pagination mode to use for fetching pages.
